@@ -13,3 +13,10 @@ extensions for things like Command-T and YouCompleteMe ::
 
     make -C ~/.vim
 
+
+Instructions to other people
+----------------------------
+
+Don't put any lines in your .vimrc that you don't understand.
+
+Browse for ideas, copy interesting snippets.  One by one.
