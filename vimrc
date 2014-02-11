@@ -269,7 +269,10 @@ if exists("*vundle#rc")
 
   " Evaluating this now, it needs extra install:
   "   cd ~/.vim/bundle/YouCompleteMe && ./install.sh
-  Bundle "Valloric/YouCompleteMe"
+  if v:version >= 704 || v:version == 703 && has("patch584")
+    " YouCompleteMe needs vim 7.3.584 or newer
+    Bundle "Valloric/YouCompleteMe"
+  endif
 endif
 
 " Filetype plugins                                              {{{2
