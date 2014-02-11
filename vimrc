@@ -330,9 +330,20 @@ if has("eval")
   ""let g:ycm_collect_identifiers_from_tags_files = 1
   " I hate when the preview window stays on screen
   let g:ycm_autoclose_preview_window_after_completion = 1
+  " don't stomp on the <Tab> key dammit
+  let g:ycm_key_list_select_completion = ['<Down>']
+  let g:ycm_key_list_previous_completion = ['<Up>']
 endif
 
-"" Manual pages (:Man foo)                                      {{{2
+" UltiSnips                                                     {{{2
+
+if has("eval")
+  " don't override ^J/^K -- I don't mind ^J, but ^K is digraphs
+  let g:UltiSnipsJumpForwardTrigger="<tab>"
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
+
+" Manual pages (:Man foo)                                       {{{2
 if v:version >= 600
   runtime ftplugin/man.vim
 endif
@@ -590,9 +601,9 @@ command! ShowSyntaxStack call s:ShowSyntaxStack()
 " :NoLCD                                                        {{{2
 command! NoLCD          exe 'cd '.getcwd()
 
-" :ReloadAllSnippets for snipmate                               {{{2
-command! ReloadAllSnippets call ReloadAllSnippets()
-command! EditSnippets   exe ":e ~/.vim/snippets/".&ft."-mg.snippets"
+" :EditSnippets for UltiSnips                                   {{{2
+command! -nargs=? EditSnippets
+  \ exe ":e ~/.vim/UltiSnips/".(<q-args> != "" ? <q-args> : &ft).".snippets"
 
 endif " has("user_commands")
 
@@ -687,10 +698,6 @@ map             ,PE             :e $HOME/.vim/plugin/<C-Z><C-Z>
 map             ,IE             :e $HOME/.vim/indent/<C-Z><C-Z>
 map             ,FE             :e $HOME/.vim/ftplugin/<C-Z><C-Z>
 map             ,XE             :e $HOME/.vim/syntax/<C-Z><C-Z>
-
-" snipmate snippets!
-map             ,SE             :EditSnippets<CR>
-map             ,SS             :ReloadAllSnippets()<CR>
 
 " double comma for limited virtual keyboards                    {{{2
 map             ,,              :update<CR>
@@ -873,10 +880,10 @@ augroup FiletypeOnSave
   au BufWritePost * if &ft == "" | filetype detect | endif
 augroup END
 
-" Reload snippets on save                                       {{{2
+" Reload SnipMate snippets on save                              {{{2
 augroup ReloadSnippetsOnSave
   au!
-  au BufWritePost *.snippets ReloadAllSnippets
+  au BufWritePost ~/.vim/snippets/**/*.snippets call ReloadAllSnippets()
 augroup END
 
 " chmod +x on save                                              {{{2
