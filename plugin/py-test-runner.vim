@@ -1,7 +1,7 @@
 " File: py-test-runner.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.4.1
-" Last Modified: 2013-07-12
+" Version: 0.4.2
+" Last Modified: 2014-02-11
 "
 " Overview
 " --------
@@ -93,7 +93,10 @@ function! GetTestUnderCursor()
     else
         let l:tag = TagInStatusLine()
         if l:tag != ""
-            let l:name = l:tag[1:-2]
+            " Older versions of pythonhelper.vim return [fulltagname]
+            " Newer versions of pythonhelper.vim return [in fulltagname (type)]
+            let l:name = substitute(l:tag[1:-2], '^in ', '', '')
+            let l:name = substitute(l:name, ' ([^)]*)$', '', '')
             if l:name =~ '[.]'
                 let [l:class, l:name] = split(l:name, '[.]')
                 let l:name = substitute(substitute(g:pyTestRunnerTestFilteringClassAndMethodFormat, '{class}', l:class, 'g'), '{method}', l:name, 'g')
