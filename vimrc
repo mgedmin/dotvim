@@ -1039,30 +1039,6 @@ augroup BookServ
   autocmd BufRead,BufNewFile ~/src/bookserv/*.py        call FT_BookServ_Py()
 augroup END
 
-"
-" OpenEnd dev                                                   {{{2
-
-function! FT_OpenEnd_Py()
-  let g:pyTestRunner = 'bin/test'
-  let g:pyTestRunnerTestFiltering = "-k"
-  let g:pyTestRunnerClipboardExtras = ""
-  let g:pyTestRunnerDirectoryFiltering = " "
-  let g:pyTestRunnerPackageFiltering = ""
-  let g:pyTestRunnerModuleFiltering = ""
-  setlocal path^=cpanel/templates,cpanel/public
-  setlocal includeexpr=substitute(v:fname,'^/','','')
-endf
-function! FT_OpenEnd_CPanel_Py()
-  let g:pyTestRunner = 'bin/test-nojs'
-endf
-
-augroup OpenEnd
-  autocmd!
-  autocmd BufRead,BufNewFile ~/src/openend/*.py call FT_OpenEnd_Py()
-  autocmd BufRead,BufNewFile ~/src/openend/cpanel/*.py  call FT_OpenEnd_CPanel_Py()
-augroup END
-
-
 endif " has("autocmd")
 
 "
