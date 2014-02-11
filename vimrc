@@ -1143,3 +1143,5 @@ if !exists("did_install_mg_menus") && has("gui")
   amenu 1.202   ToolBar.ToggleHdr       <C-F6>
   tmenu         ToolBar.ToggleHdr       Switch between source and header (C/C++), or code and test (Python)
 endif
+
+" vim:fdm=marker:
