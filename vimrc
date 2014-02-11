@@ -228,9 +228,10 @@ if exists("*vundle#rc")
   " search for new ones with :BundleSearch keyword
   " bundles are kept in ~/.vim/bundle/
 
-  Bundle "mgedmin/python-imports.vim"
-  Bundle "mgedmin/test-switcher.vim"
   Bundle "mgedmin/chelper.vim"
+  Bundle "mgedmin/python-imports.vim"
+  Bundle "mgedmin/pythonhelper.vim"
+  Bundle "mgedmin/test-switcher.vim"
 
   " pure-python alternative to command-t, slightly different UI, seems quite
   " good
@@ -247,7 +248,6 @@ if exists("*vundle#rc")
   Bundle "Gundo"
   Bundle "Rename"
   Bundle "vcscommand.vim"
-  Bundle "pythonhelper"
 
   " Bundle "fugitive.vim" -- 2-years old version of tpope/vim-fugitive
   Bundle "tpope/vim-fugitive"
@@ -262,13 +262,13 @@ if exists("*vundle#rc")
   " Evaluating this now, so far not convinced I want it:
 ""Bundle "paradigm/paramenu"
 
-  " Evaluating this now, it needs extra install:
-  "   cd ~/.vim/bundle/YouCompleteMe && ./install.sh
-  Bundle "Valloric/YouCompleteMe"
-
   " Evaluating SnipMate replacement -- YouCompleteMe breaks SnipMate, but
   " works with UltiSnips
   Bundle "UltiSnips"
+
+  " Evaluating this now, it needs extra install:
+  "   cd ~/.vim/bundle/YouCompleteMe && ./install.sh
+  Bundle "Valloric/YouCompleteMe"
 endif
 
 " Filetype plugins                                              {{{2
