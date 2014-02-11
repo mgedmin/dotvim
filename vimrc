@@ -518,7 +518,7 @@ set statusline+=%P              " - position in buffer as percentage
 if has("user_commands")
 
 " like :Explore, only never split windows                       {{{2
-command! E :e %:h
+command! E :e %:p:~:.:h
 
 " how many occurrences of the current search pattern?           {{{2
 command! CountMatches                   %s///n
