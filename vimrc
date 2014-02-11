@@ -248,6 +248,7 @@ if exists("*vundle#rc")
   Bundle "Gundo"
   Bundle "Rename"
   Bundle "vcscommand.vim"
+  Bundle 'jlanzarotta/bufexplorer'
 
   " Bundle "fugitive.vim" -- 2-years old version of tpope/vim-fugitive
   Bundle "tpope/vim-fugitive"
