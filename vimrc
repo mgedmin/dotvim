@@ -621,6 +621,8 @@ noremap         <C-L>           :checktime<bar>diffupdate<CR>zx<C-L>
 inoremap        <Esc>.          <C-R>=split(getline(line(".")-1))[-1]<CR>
 
 " Ctrl-_ toggles the presence of _ in 'iskeyword'               {{{2
+" Sometimes this improves tab completion -- when I write a new
+" test and want to name it test_ClassName_methodname()
 
 if has("eval")
   fun! ToggleUnderscoreInKeywords()
@@ -759,12 +761,16 @@ map             <A-9>           9gt
 " Emacs style command line                                      {{{2
 cnoremap        <C-G>           <C-C>
 cnoremap        <C-A>           <Home>
+
+" Alt+b,f move word backwards/forwards
 cnoremap        <Esc>b          <S-Left>
 cnoremap        <Esc>f          <S-Right>
+
+" ^K deletes to end of line
 cnoremap        <C-K>   <C-\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>
 
 " Alt-Backspace deletes word backwards
-cnoremap        <M-BS>          <C-W>
+cnoremap        <A-BS>          <C-W>
 cnoremap        <Esc><BS>       <C-W>
 
 " Do not lose "complete all"
@@ -779,6 +785,7 @@ imap            <S-Insert>      <C-O><S-Insert>
 vmap            <C-Insert>      "+y
 
 " ^Z = undo
+" (works only in gvim, haven't used this in ages)
 imap            <C-Z>           <C-O>u
 
 " Function keys                                                 {{{2
