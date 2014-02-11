@@ -263,7 +263,7 @@ if exists("*vundle#rc")
 ""Bundle "paradigm/paramenu"
 
   " Evaluating SnipMate replacement -- YouCompleteMe breaks SnipMate, but
-  " works with UltiSnips
+  " works with UltiSnips, or so it says
   Bundle "UltiSnips"
 
   " Evaluating this now, it needs extra install:
