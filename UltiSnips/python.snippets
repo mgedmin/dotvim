@@ -1,8 +1,45 @@
-snippet sb "(c) Shoobx"
+snippet sb "(c) Shoobx" !b
 ###############################################################################
 #
 # Copyright `date +%Y` by Shoobx, Inc.
 #
 ###############################################################################
 
+endsnippet
+
+snippet super "Magic super()" !b
+`!p
+# Set a fallback completion first
+# snip.rv = 'super(${1:ClassName}, self).${2:method}(' <-- does not work
+snip.rv = 'super('
+import vim
+# this needs pythonhelper.vim
+tag = vim.eval('TagInStatusLine()')
+if tag:
+    # pythonhelper.vim's TagInStatusLine() returns '[in SomeClass.some_method (method)]'
+    tag = tag.strip('[]')
+    if tag.startswith('in '):
+        tag = tag[3:]
+    tag = tag.partition(' (')[0]
+    if '.' in tag:
+        class_name, dot, method_name = tag.partition('.')
+        snip.rv = 'super(%s, self).%s(' % (class_name, method_name)
+`$1)
+endsnippet
+
+snippet argparse "Argparse-based command-line parsing" !b
+parser = argparse.ArgumentParser(description="${1}")
+parser.add_argument('--version', action='version',
+                    version="%(prog)s version " + __version__)
+parser.add_argument('-v', '--verbose', action='store_true')
+args = parser.parse_args()
+endsnippet
+
+snippet classifiers "PyPI classifiers" !b
+'Programming Language :: Python :: 2.6',
+'Programming Language :: Python :: 2.7',
+'Programming Language :: Python :: 3.2',
+'Programming Language :: Python :: 3.3',
+${1:'Programming Language :: Python :: Implementation :: CPython',
+'Programming Language :: Python :: Implementation :: PyPy',}
 endsnippet
