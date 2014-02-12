@@ -43,3 +43,60 @@ snippet classifiers "PyPI classifiers" !b
 ${1:'Programming Language :: Python :: Implementation :: CPython',
 'Programming Language :: Python :: Implementation :: PyPy',}
 endsnippet
+
+snippet setup "setup.py" !b
+#!/usr/bin/env python
+import os
+from setuptools import setup
+
+here = os.path.dirname(__file__)
+with open(os.path.join(here, 'README.rst')) as f:
+    long_description = f.read()
+
+setup(
+    name='${1:package}',
+    version='${2:0.1}',
+    author='Marius Gedminas',
+    author_email='marius@gedmin.as',
+    url='${3:http://github.com/mgedmin/$1/}',
+    description='${4:description}',
+    long_description=long_description,
+    classifiers=[
+##      'Development Status :: 3 - Alpha',
+##      'Development Status :: 4 - Beta',
+##      'Development Status :: 5 - Production/Stable',
+##      'Environment :: Console',
+##      'Environment :: Console :: Curses',
+##      'Environment :: Web Environment',
+##      'Environment :: X11 Applications :: Gnome',
+##      'Environment :: X11 Applications :: GTK',
+##      'Intended Audience :: Developers',
+##      'License :: OSI Approved :: GNU General Public License (GPL)',
+##      'License :: OSI Approved :: MIT License',
+##      'Operating System :: POSIX',
+##      'Operating System :: OS Independent',
+##      'Programming Language :: Python',
+##      'Programming Language :: Python :: 2.6',
+##      'Programming Language :: Python :: 2.7',
+##      'Programming Language :: Python :: 3.2',
+##      'Programming Language :: Python :: 3.3',
+##      'Programming Language :: Python :: Implementation :: CPython',
+##      'Programming Language :: Python :: Implementation :: PyPy',
+    ],
+    license='${5:licence}',
+
+    py_modules=['${6:mymodule}'],
+##  packages=['$6'],
+##  package_dir={'$6': 'src/$6'},
+##  package_data={'$6': ['*.png']},
+##  include_package_data=True,
+    zip_safe=False,
+    test_suite='${7:test_$6}',
+    install_requires=[],
+    entry_points={
+        'console_scripts': [
+##          'script = module:function',
+        ],
+    },
+)
+endsnippet
