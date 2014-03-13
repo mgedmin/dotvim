@@ -100,3 +100,34 @@ setup(
     },
 )
 endsnippet
+
+snippet testfile "Skeleton for a test file" !b
+import doctest
+
+
+${1}
+
+
+def test_suite():
+    return doctest.DocTestSuite()
+endsnippet
+
+snippet doctest "Skeleton for a doctest" !b
+def doctest_${1:fname}():
+    """Test for ${2:$1}
+
+        >>> ${3:$1}
+
+    """
+endsnippet
+
+snippet ipdb "ipdb.set_trace()" !b
+import ipdb; ipdb.set_trace()
+endsnippet
+
+snippet testcase "TestCase" !b
+class Test${1:ClassName}(unittest.TestCase):
+
+    def test_${2:method}(self):
+        ${3:pass}
+endsnippet
