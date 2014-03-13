@@ -530,10 +530,10 @@ if has("user_commands")
 command! E :e %:p:~:.:h
 
 " how many occurrences of the current search pattern?           {{{2
-command! CountMatches                   %s///n
+command! -range=% CountMatches          <line1>,<line2>s///n
 
 " die, trailing whitespace! die!                                {{{2
-command! NukeTrailingWhitespace         %s/\s\+$//
+command! -range=% NukeTrailingWhitespace <line1>,<line2>s/\s\+$//
 
 " where's that non-ascii character?                             {{{2
 command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
