@@ -349,6 +349,8 @@ if has("eval")
   " don't override ^J/^K -- I don't mind ^J, but ^K is digraphs
   let g:UltiSnipsJumpForwardTrigger="<tab>"
   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+  " <c-tab> doesn't work in gnome-terminal
+  let g:UltiSnipsListSnippets="<leader>ls"
 endif
 
 " Manual pages (:Man foo)                                       {{{2
