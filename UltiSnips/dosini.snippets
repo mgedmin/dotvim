@@ -1,0 +1,21 @@
+snippet tox "tox.ini" !b
+[tox]
+envlist =
+    ${1:py26,py27,py32,py33,pypy}
+
+[testenv]
+deps =
+    ${2:packages}
+commands =
+    ${3:python setup.py test -q}
+endsnippet
+
+snippet coverage "tox -e coverage" !b
+[testenv:coverage]
+deps =
+    {[testenv]deps}
+    coverage
+commands =
+    coverage run --source=${1:mypackage} setup.py test -q
+    coverage report
+endsnippet
