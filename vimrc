@@ -1119,10 +1119,11 @@ highlight Green                 guibg=green ctermbg=green
 highlight SignColumn guibg=#fefefe ctermbg=230
 
 " gutter on the right of the text
-highlight ColorColumn ctermbg=250
+highlight ColorColumn ctermbg=230
 
 " gutter below the text
-highlight NonText ctermbg=250
+highlight NonText ctermbg=230
+set shortmess+=I " suppress intro message because the above makes it look bad
 
 " avoid invisible color combination (red on red)
 highlight DiffText ctermbg=1
