@@ -252,6 +252,7 @@ if exists("*vundle#rc")
   Bundle "Rename"
   Bundle "vcscommand.vim"
   Bundle 'jlanzarotta/bufexplorer'
+  Bundle 'CmdlineComplete'
 
   " Bundle "fugitive.vim" -- 2-years old version of tpope/vim-fugitive
   Bundle "tpope/vim-fugitive"
