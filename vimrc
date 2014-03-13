@@ -33,6 +33,7 @@ if has("extra_search")
 endif
 if v:version >= 703
   set colorcolumn=81            " highlight column 81
+  let &colorcolumn=join(range(81,999),",") " and columns after that
 endif
 
 " I want gvim to look the same as vim in gnome-terminal
@@ -1113,6 +1114,12 @@ highlight Green                 guibg=green ctermbg=green
 
 " for less intrusive signs
 highlight SignColumn guibg=#fefefe ctermbg=230
+
+" gutter on the right of the text
+highlight ColorColumn ctermbg=250
+
+" gutter below the text
+highlight NonText ctermbg=250
 
 " avoid invisible color combination (red on red)
 highlight DiffText ctermbg=1
