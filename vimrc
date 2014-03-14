@@ -231,15 +231,19 @@ if exists("*vundle#rc")
   " search for new ones with :BundleSearch keyword
   " bundles are kept in ~/.vim/bundle/
 
+  " Show [current_function] in the status line for C files
   Bundle "mgedmin/chelper.vim"
-  Bundle "mgedmin/python-imports.vim"
+
+  " Show [CurrentClass.current_method] in the status line for Python files
   Bundle "mgedmin/pythonhelper.vim"
+
+  " Automate 'from X import Y' statements from ctags, bound to <F5>
+  Bundle "mgedmin/python-imports.vim"
+
+  " Automate switching between code and unit test files, bound to <C-F6>
   Bundle "mgedmin/test-switcher.vim"
 
-  " pure-python alternative to command-t, slightly different UI, seems quite
-  " good
-  Bundle "ctrlp.vim"
-
+  " Open files by typing a subsequence of the pathname, bound to \t
   Bundle "git://git.wincent.com/command-t.git"
   " NB: Bundle doesn't install command-t completely automatically; you have
   " to manually do this:
@@ -247,36 +251,60 @@ if exists("*vundle#rc")
   " you might also need some packages installed, like build-essential and
   " ruby1.8-dev
 
+  " pure-python alternative to command-t, slightly different UI, not as nice
+  " to use as command-t but useful for some circumstances.  Bound to <C-P>
+  Bundle "ctrlp.vim"
+
+  " Show syntax errors and style warnings in files I edit.  Updates on save.
   Bundle "scrooloose/syntastic"
+
+  " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
   Bundle "Gundo"
+
+  " Defines the very useful :Rename newfilename.txt
   Bundle "Rename"
+
+  " Git integration -- :Gdiff, :Ggrep etc.
+  Bundle "tpope/vim-fugitive"
+  " Bundle "fugitive.vim" -- 2-years old version of tpope/vim-fugitive
+
+  " Version control integration for SVN and other legacy VCSes -- :VCSVimDiff
   Bundle "vcscommand.vim"
+
+  " List open buffers with various sorting modes on \b
   Bundle 'jlanzarotta/bufexplorer'
+
+  " ^P/^N completion on the command line
   Bundle 'CmdlineComplete'
 
-  " Bundle "fugitive.vim" -- 2-years old version of tpope/vim-fugitive
-  Bundle "tpope/vim-fugitive"
+  " Replace 'ga' to show Unicode names etc.
   Bundle "tpope/vim-characterize"
 
-  " Is too smart for its own good, makes completion worse, not better
-""Bundle "davidhalter/jedi-vim"
-
-  " Likes to take over netrw windows on WinEnter, breaks Ctrl-^
-""Bundle "troydm/easytree.vim"
-
-  " Evaluating this now, so far not convinced I want it:
-""Bundle "paradigm/paramenu"
-
-  " Evaluating SnipMate replacement -- YouCompleteMe breaks SnipMate, but
-  " works with UltiSnips, or so it says
+  " Snippets!  Type some text, press <tab> to expand, with get expansion with
+  " multiple placeholders you can keep or replace and tab over.
+  " Supposedly better than SnipMate which I used earlier.  Integrates with
+  " YouCompleteMe
   Bundle "UltiSnips"
 
-  " Evaluating this now, it needs extra install:
-  "   cd ~/.vim/bundle/YouCompleteMe && ./install.sh
+  " Smart omni-completion for everything.  I've disabled most of it because it
+  " was making my life actually harder instead of easier.
   if v:version >= 704 || v:version == 703 && has("patch584")
     " YouCompleteMe needs vim 7.3.584 or newer
     Bundle "Valloric/YouCompleteMe"
+    " It needs extra install:
+    "   cd ~/.vim/bundle/YouCompleteMe && ./install.sh
   endif
+
+  " Smart omni-completion for Python
+  " Disabled because Is too smart for its own good, and makes completion
+  " worse, not better, for the codebases I work with.
+  " Also, YouCompleteMe subsumes it.
+""Bundle "davidhalter/jedi-vim"
+
+  " Replacement for netrw, some like it
+  " Disabled because it takes over netrw windows on WinEnter,  breaks Ctrl-^
+""Bundle "troydm/easytree.vim"
+
 endif
 
 " Filetype plugins                                              {{{2
