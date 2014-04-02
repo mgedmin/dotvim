@@ -344,6 +344,7 @@ if has("eval")
 " let g:syntastic_python_checkers = ['pyflakes']
   let g:syntastic_python_checkers = ['flake8']
   let $PYFLAKES_DOCTEST = ''
+  let g:syntastic_javascript_checkers = ['jshint']
 endif
 
 " Command-t                                                     {{{2
