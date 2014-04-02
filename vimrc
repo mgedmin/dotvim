@@ -355,6 +355,13 @@ if has("eval")
   let g:CommandTMaxHeight = 20
 endif
 
+" bufexplorer.vim                                               {{{2
+
+if has("eval")
+  let g:bufExplorerShowRelativePath=1
+  let g:bufExplorerSplitOutPathName=0
+endif
+
 " easytree.vim                                                  {{{2
 
 if has("eval")
