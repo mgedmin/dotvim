@@ -343,6 +343,7 @@ if has("eval")
   " For forcing the use of flake8, pyflakes, or pylint set
 " let g:syntastic_python_checkers = ['pyflakes']
   let g:syntastic_python_checkers = ['flake8']
+  let $PYFLAKES_DOCTEST = ''
 endif
 
 " Command-t                                                     {{{2
