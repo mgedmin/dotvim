@@ -273,7 +273,7 @@ if exists("*vundle#rc")
 
   " Load previous svn-commit.tmp automatically when you repeat 'svn ci' after
   " a failed commit.
-  Bundle "svn_commit.vim"
+""  Bundle "svn_commit.vim"  404 not found, I must've misspelled
 
   " Show the svn diff while I'm editing an svn commit message.
   Bundle "svn-diff.vim"
