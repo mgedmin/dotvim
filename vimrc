@@ -400,7 +400,7 @@ if has("eval")
   let g:UltiSnipsJumpForwardTrigger="<tab>"
   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
   " <c-tab> doesn't work in gnome-terminal
-  let g:UltiSnipsListSnippets="<leader>ls"
+  let g:UltiSnipsListSnippets="<C-R><tab>"
 endif
 
 " Manual pages (:Man foo)                                       {{{2
