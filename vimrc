@@ -281,6 +281,9 @@ if exists("*vundle#rc")
   " Show the svn diff while I'm editing an svn commit message.
   Bundle "svn-diff.vim"
 
+  " LESS (the CSS preprocessor) syntax
+  Bundle "groenewege/vim-less"
+
   " List open buffers with various sorting modes on \b
   Bundle 'jlanzarotta/bufexplorer'
 
