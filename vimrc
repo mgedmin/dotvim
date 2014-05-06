@@ -1040,6 +1040,7 @@ endf
 augroup Zope
   autocmd!
   autocmd BufRead,BufNewFile *.zcml                     call FT_XML()
+  autocmd BufRead,BufNewFile *.xpdl                     call FT_XML()
   autocmd BufRead,BufNewFile *.pt                       call FT_XML()
   autocmd BufRead,BufNewFile *.tt                       setlocal et tw=44 wiw=44 fo=t
   autocmd BufRead,BufNewFile *.txt                      call FT_Maybe_ReST()
