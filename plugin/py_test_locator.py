@@ -23,6 +23,8 @@ file_suffixes = ['', '.py']
 patterns = [
     # svn status output
     re.compile(r'^[A-Z?]      (?P<filename>[^ ]+)$'),
+    # grep output
+    re.compile(r'(?P<filename>[^: ]+):'),
     # py.test encloses the filename in square brackets sometimes,
     re.compile(r'\[(?P<filename>[^: ]+):(?P<lineno>\d+)]'),
     # pdb puts the line number in parentheses,
