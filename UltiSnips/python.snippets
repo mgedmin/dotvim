@@ -121,6 +121,10 @@ def doctest_${1:fname}():
     """
 endsnippet
 
+snippet pdb "pdb.set_trace()" !b
+import pdb; pdb.set_trace()
+endsnippet
+
 snippet ipdb "ipdb.set_trace()" !b
 import ipdb; ipdb.set_trace()
 endsnippet
@@ -130,4 +134,9 @@ class Test${1:ClassName}(unittest.TestCase):
 
     def test_${2:method}(self):
         ${3:pass}
+endsnippet
+
+snippet ifmain "if __name__ == '__main__':" !b
+if __name__ == '__main__':
+    main()
 endsnippet
