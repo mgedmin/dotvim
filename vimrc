@@ -1176,6 +1176,10 @@ highlight ColorColumn ctermbg=230
 highlight NonText ctermbg=230
 set shortmess+=I " suppress intro message because the above makes it look bad
 
+" cursor column
+highlight CursorColumn ctermbg=230
+highlight CursorLine ctermbg=230
+
 " avoid invisible color combination (red on red)
 highlight DiffText ctermbg=1
 
