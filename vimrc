@@ -240,6 +240,9 @@ if exists("*vundle#rc")
   " Automate 'from X import Y' statements from ctags, bound to <F5>
   Bundle "mgedmin/python-imports.vim"
 
+  " Better Python autoindentation
+  Bundle "hynek/vim-python-pep8-indent"
+
   " Automate switching between code and unit test files, bound to <C-F6>
   Bundle "mgedmin/test-switcher.vim"
 
