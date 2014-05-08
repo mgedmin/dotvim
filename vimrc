@@ -297,7 +297,10 @@ if exists("*vundle#rc")
   " multiple placeholders you can keep or replace and tab over.
   " Supposedly better than SnipMate which I used earlier.  Integrates with
   " YouCompleteMe
-  Bundle "UltiSnips"
+  Bundle "SirVer/UltiSnips"
+
+  " Default snippet collection
+  Bundle "honza/vim-snippets"
 
   " Smart omni-completion for everything.  I've disabled most of it because it
   " was making my life actually harder instead of easier.
