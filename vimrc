@@ -666,7 +666,7 @@ command! NoLCD          exe 'cd '.getcwd()
 
 " :EditSnippets for UltiSnips                                   {{{2
 command! -nargs=? EditSnippets
-  \ exe ":e ~/.vim/UltiSnips/".(<q-args> != "" ? <q-args> : &ft).".snippets"
+  \ exe ":e ~/.vim/UltiSnips/".(<q-args> != "" ? <q-args> : &ft != "" ? &ft : "all").".snippets"
 
 endif " has("user_commands")
 
