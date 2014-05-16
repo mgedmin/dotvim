@@ -340,7 +340,7 @@ if has("eval")
   let g:syntastic_auto_loc_list = 2             " default is 2
   let g:syntastic_always_populate_loc_list = 1  " default is 0
 " let g:syntastic_quiet_warnings = 1
-" let g:syntastic_disabled_filetypes = ['ruby', 'php']
+  let g:syntastic_disabled_filetypes = ['java']
 
   " statusline format (default: '[Syntax: line:%F (%t)]')
   let g:syntastic_stl_format = '{%t}'
