@@ -58,8 +58,9 @@ setup(
     version='${2:0.1}',
     author='Marius Gedminas',
     author_email='marius@gedmin.as',
-    url='${3:http://github.com/mgedmin/$1/}',
-    description='${4:description}',
+    url='${3:https://github.com/mgedmin/$1/}',
+    bugtrack_url='${4:$3issues}',
+    description='${5:description}',
     long_description=long_description,
     classifiers=[
 ##      'Development Status :: 3 - Alpha',
@@ -83,15 +84,15 @@ setup(
 ##      'Programming Language :: Python :: Implementation :: CPython',
 ##      'Programming Language :: Python :: Implementation :: PyPy',
     ],
-    license='${5:licence}',
+    license='${6:licence}',
 
-    py_modules=['${6:mymodule}'],
-##  packages=['$6'],
-##  package_dir={'$6': 'src/$6'},
-##  package_data={'$6': ['*.png']},
+    py_modules=['${7:mymodule}'],
+##  packages=['$7'],
+##  package_dir={'$7': 'src/$7'},
+##  package_data={'$7': ['*.png']},
 ##  include_package_data=True,
     zip_safe=False,
-    test_suite='${7:test_$6}',
+    test_suite='${8:test_$7}',
     install_requires=[],
     entry_points={
         'console_scripts': [
