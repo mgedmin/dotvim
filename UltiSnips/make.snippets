@@ -1,0 +1,3 @@
+snippet phony ".PHONY: {target-on-next-line}" b
+.PHONY: ${1:`!v matchstr(getline(line('.')+1), '^\S[^:]*\ze:')`}
+endsnippet
