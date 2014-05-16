@@ -1,3 +1,11 @@
 snippet date "YYYY-MM-DD" w
 `date +%Y-%m-%d`
 endsnippet
+
+snippet coveragerc ".coveragerc" b
+[report]
+exclude_lines =
+    pragma: nocover
+    except ImportError:
+    except NameError:
+endsnippet
