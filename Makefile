@@ -7,6 +7,11 @@ install bundle/command-t bundle/YouCompleteMe: bundle/vundle
 update: bundle/vundle
 	vim +BundleInstall!
 
+rebuild:
+	rm -f bundle/command-t/ruby/command-t/*.so
+	rm -f bundle/YouCompleteMe/python/*.so
+	@make -s all
+
 bundle/vundle:
 	git clone https://github.com/gmarik/vundle.git bundle/vundle
 
