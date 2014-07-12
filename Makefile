@@ -1,5 +1,11 @@
 all: bundle/vundle command-t ycm
 
+help:
+	@echo 'make all     - fetch all bundles and compile after a fresh checkout'
+	@echo 'make install - install missing bundles'
+	@echo "make update  - update all bundles (doesn't recompile)"
+	@echo 'make rebuild - recompile bundles'
+
 install bundle/command-t bundle/YouCompleteMe: bundle/vundle
 	vim +BundleInstall
 	@touch -c bundle/command-t bundle/YouCompleteMe
