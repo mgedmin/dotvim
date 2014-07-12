@@ -321,6 +321,9 @@ if exists("*vundle#rc")
   " Disabled because it takes over netrw windows on WinEnter,  breaks Ctrl-^
 ""Bundle "troydm/easytree.vim"
 
+  " Automatically detect pasting in compatible xterms
+  Bundle "ConradIrwin/vim-bracketed-paste"
+
 endif
 
 " Filetype plugins                                              {{{2
