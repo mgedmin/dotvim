@@ -668,11 +668,16 @@ command! ShowHighlightGroup call s:ShowHighlightGroup()
 command! ShowSyntaxStack call s:ShowSyntaxStack()
 
 " :Margin n -- highlight columns beyond n                       {{{2
+" :Margin   -- show the current highlight margin
 
-function! s:Margin(n)
-  let &colorcolumn=join(range(a:n+1,999),",")
+function! s:Margin(...)
+  if a:0
+    let &colorcolumn=join(range(a:1+1,999),",")
+  else
+    echo min(split(&colorcolumn, ',')) - 1
+  endif
 endf
-command! -nargs=1 -bar Margin  call s:Margin(<args>)
+command! -nargs=? -bar Margin  call s:Margin(<args>)
 
 " :NoLCD                                                        {{{2
 command! NoLCD          exe 'cd '.getcwd()
