@@ -292,3 +292,12 @@ map!            <Esc>[1;6D      <C-S-Left>
 map!            <Esc>[1;6C      <C-S-Right>
 
 
+" gnome-terminal keys in Trusty
+map             <Esc>[1;2P      <S-F1>
+map             <Esc>[1;2Q      <S-F2>
+map             <Esc>[1;2R      <S-F3>
+map             <Esc>[1;2S      <S-F4>
+map!            <Esc>[1;2P      <S-F1>
+map!            <Esc>[1;2Q      <S-F2>
+map!            <Esc>[1;2R      <S-F3>
+map!            <Esc>[1;2S      <S-F4>
