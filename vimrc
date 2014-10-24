@@ -1000,6 +1000,18 @@ function! FT_Python_Django()
   call UseDjangoTestRunner()
 endf
 
+function! FT_Python_Yplan()
+  let g:pyTestRunnerClipboardExtras=''
+  let g:pyTestRunnerDirectoryFiltering = ''
+  let g:pyTestRunnerFilenameFiltering = " "
+  let g:pyTestRunnerPackageFiltering = ""
+  let g:pyTestRunnerModuleFiltering = ''
+  let g:pyTestRunnerTestFiltering = ""
+  let g:pyTestRunner = "../runlocaltests.sh"
+  Margin 120
+  setlocal makeprg=arc\ lint\ --output\ summary
+endf
+
 augroup Python_prog
   autocmd!
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'ivija' | call FT_Python_Ivija() | endif
@@ -1007,6 +1019,7 @@ augroup Python_prog
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'cipher' | call FT_Python_Cipherhealth() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'labtarna' | call FT_Python_Django() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'masinis' | call FT_Python_Django() | endif
+  autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'yplan' | call FT_Python_Yplan() | endif
   autocmd BufRead,BufNewFile /var/lib/buildbot/masters/*/*.cfg  setlocal tags=/root/buildbot.tags
   autocmd BufRead,BufNewFile /usr/**/buildbot/**/*.py  setlocal tags=/root/buildbot.tags
 augroup END
