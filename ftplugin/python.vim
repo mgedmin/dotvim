@@ -6,9 +6,6 @@ setlocal shiftwidth=4 softtabstop=4 expandtab tabstop=8
 " to distinguish it from real comments
 setlocal comments+=b:##
 
-" I don't want [I to parse import statements and look for modules
-setlocal include=
-
 " I work with Pylons projects ('/foo.mako' -> templates/foo.mako) more
 " often than I press gf on dotted names (foo.bar -> foo/bar.py)
 setlocal includeexpr=substitute(v:fname,'^/','','')
