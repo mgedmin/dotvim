@@ -210,45 +210,42 @@ if has("user_commands")
   set rtp+=~/.vim/bundle/vundle/
   runtime autoload/vundle.vim " apparently without this the exists() check fails
 endif
-if exists("*vundle#rc")
-  " NB:
-  "   <graywh> you would want to call vundle#rc() *before* filetype on
-  "            so bundles' ftdetect scripts are loaded
+if exists("*vundle#begin")
   filetype off
-  call vundle#rc()
+  call vundle#begin()
 
   " install/upgrade vundle itself (there's the obvious chicken and egg problem
   " here); if vundle is missing, bootstrap it with
   "   git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-  Bundle "gmarik/vundle"
+  Plugin 'gmarik/vundle'
 
   " list all plugins you want to have like this:
-  "   Bundle "foo.vim" for vim.org-hosted stuff
-  "   Bundle "owner/project" for github-hosted stuff
-  "   Bundle "git://git.wincent.com/command-t.git" for arbitrary URLs
-  " install ones that are missing with :BundleInstall
-  " install/upgrade them all with :BundleInstall!
-  " search for new ones with :BundleSearch keyword
+  "   Plugin 'foo.vim' for vim.org-hosted stuff
+  "   Plugin 'owner/project' for github-hosted stuff
+  "   Plugin 'git://git.wincent.com/command-t.git' for arbitrary URLs
+  " install ones that are missing with :PluginInstall
+  " install/upgrade them all with :PluginInstall!
+  " search for new ones with :PluginSearch keyword
   " bundles are kept in ~/.vim/bundle/
 
   " Show [current_function] in the status line for C files
-  Bundle "mgedmin/chelper.vim"
+  Plugin 'mgedmin/chelper.vim'
 
   " Show [CurrentClass.current_method] in the status line for Python files
-  Bundle "mgedmin/pythonhelper.vim"
+  Plugin 'mgedmin/pythonhelper.vim'
 
   " Automate 'from X import Y' statements from ctags, bound to <F5>
-  Bundle "mgedmin/python-imports.vim"
+  Plugin 'mgedmin/python-imports.vim'
 
   " Better Python autoindentation
-  Bundle "hynek/vim-python-pep8-indent"
+  Plugin 'hynek/vim-python-pep8-indent'
 
   " Automate switching between code and unit test files, bound to <C-F6>
-  Bundle "mgedmin/test-switcher.vim"
+  Plugin 'mgedmin/test-switcher.vim'
 
   " Open files by typing a subsequence of the pathname, bound to \t
-  Bundle "git://git.wincent.com/command-t.git"
-  " NB: Bundle doesn't install command-t completely automatically; you have
+  Plugin 'git://git.wincent.com/command-t.git'
+  " NB: Vundle doesn't install command-t completely automatically; you have
   " to manually do this:
   "   cd ~/.vim/bundle/command-t/ruby/command-t/ && ruby extconf.rb && make
   " you might also need some packages installed, like build-essential and
@@ -256,51 +253,51 @@ if exists("*vundle#rc")
 
   " pure-python alternative to command-t, slightly different UI, not as nice
   " to use as command-t but useful for some circumstances.  Bound to <C-P>
-  Bundle "ctrlp.vim"
+  Plugin 'ctrlp.vim'
 
   " Show syntax errors and style warnings in files I edit.  Updates on save.
-  Bundle "scrooloose/syntastic"
+  Plugin 'scrooloose/syntastic'
 
   " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
-  Bundle "Gundo"
+  Plugin 'Gundo'
 
   " Defines the very useful :Rename newfilename.txt
-  Bundle "Rename"
+  Plugin 'Rename'
 
   " Git integration -- :Gdiff, :Ggrep etc.
-  Bundle "tpope/vim-fugitive"
-  " Bundle "fugitive.vim" -- 2-years old version of tpope/vim-fugitive
+  Plugin 'tpope/vim-fugitive'
+  " Plugin 'fugitive.vim' -- 2-years old version of tpope/vim-fugitive
 
   " Version control integration for SVN and other legacy VCSes -- :VCSVimDiff
-  Bundle "vcscommand.vim"
+  Plugin 'vcscommand.vim'
 
   " Load previous svn-commit.tmp automatically when you repeat 'svn ci' after
   " a failed commit.
-""  Bundle "svn_commit.vim"  404 not found, I must've misspelled
+""  Plugin 'svn_commit.vim'  404 not found, I must've misspelled
 
   " Show the svn diff while I'm editing an svn commit message.
-  Bundle "svn-diff.vim"
+  Plugin 'svn-diff.vim'
 
   " LESS (the CSS preprocessor) syntax
-  Bundle "groenewege/vim-less"
+  Plugin 'groenewege/vim-less'
 
   " List open buffers with various sorting modes on \b
-  Bundle 'jlanzarotta/bufexplorer'
+  Plugin 'jlanzarotta/bufexplorer'
 
   " ^P/^N completion on the command line
-  Bundle 'CmdlineComplete'
+  Plugin 'CmdlineComplete'
 
   " Replace 'ga' to show Unicode names etc.
-  Bundle "tpope/vim-characterize"
+  Plugin 'tpope/vim-characterize'
 
   " Snippets!  Type some text, press <tab> to expand, with get expansion with
   " multiple placeholders you can keep or replace and tab over.
   " Supposedly better than SnipMate which I used earlier.  Integrates with
   " YouCompleteMe
-  Bundle "SirVer/UltiSnips"
+  Plugin 'SirVer/UltiSnips'
 
   " Default snippet collection
-  Bundle "honza/vim-snippets"
+  Plugin 'honza/vim-snippets'
 
   " Smart omni-completion for everything.  I've disabled most of it because it
   " was making my life actually harder instead of easier.  And then I disabled
@@ -309,7 +306,7 @@ if exists("*vundle#rc")
   " as root == eek
 ""if v:version >= 704 || v:version == 703 && has("patch584")
 ""  " YouCompleteMe needs vim 7.3.584 or newer
-""  Bundle "Valloric/YouCompleteMe"
+""  Plugin 'Valloric/YouCompleteMe'
 ""  " It needs extra install:
 ""  "   cd ~/.vim/bundle/YouCompleteMe && ./install.sh
 ""endif
@@ -318,15 +315,17 @@ if exists("*vundle#rc")
   " Disabled because Is too smart for its own good, and makes completion
   " worse, not better, for the codebases I work with.
   " Also, YouCompleteMe subsumes it.
-""Bundle "davidhalter/jedi-vim"
+""Plugin 'davidhalter/jedi-vim'
 
   " Replacement for netrw, some like it
   " Disabled because it takes over netrw windows on WinEnter,  breaks Ctrl-^
-""Bundle "troydm/easytree.vim"
+""Plugin 'troydm/easytree.vim'
 
   " Automatically detect pasting in compatible xterms
-  Bundle "ConradIrwin/vim-bracketed-paste"
+  Plugin 'ConradIrwin/vim-bracketed-paste'
 
+  call vundle#end()
+  filetype plugin indent on
 endif
 
 " Filetype plugins                                              {{{2
