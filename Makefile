@@ -1,4 +1,8 @@
-all: bundle/vundle command-t ycm
+EXTENSIONS := 
+EXTENSIONS += command-t
+##EXTENSIONS += ycm		<- I've disabled YouCompleteMe
+
+all: bundle/vundle $(EXTENSIONS)
 
 help:
 	@echo 'make all     - fetch all bundles and compile after a fresh checkout'
