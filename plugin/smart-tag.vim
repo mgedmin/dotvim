@@ -53,8 +53,8 @@ def smart_tag_jump(query):
             # you get a tags file that lists two do_stuff tags with the same
             # search pattern:
             #
-            # clean	foo.py	/^    def do_stuff(self):$/;"	m	class:Foo
-            # clean	foo.py	/^    def do_stuff(self):$/;"	m	class:Bar
+            # do_stuff	foo.py	/^    def do_stuff(self):$/;"	m	class:Foo
+            # do_stuff	foo.py	/^    def do_stuff(self):$/;"	m	class:Bar
             #
             # and when you :2tag clean you end up in the same place as you do
             # when you :tag clean -- on Foo.do_stuff, because it's 1st.
