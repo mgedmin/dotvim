@@ -836,6 +836,34 @@ map             <A-6>           6gt
 map             <A-7>           7gt
 map             <A-8>           8gt
 map             <A-9>           9gt
+imap            <A-1>           <C-O><A-1>
+imap            <A-2>           <C-O><A-2>
+imap            <A-3>           <C-O><A-3>
+imap            <A-4>           <C-O><A-4>
+imap            <A-5>           <C-O><A-5>
+imap            <A-6>           <C-O><A-6>
+imap            <A-7>           <C-O><A-7>
+imap            <A-8>           <C-O><A-8>
+imap            <A-9>           <C-O><A-9>
+" and in terminal vim
+map             <Esc>1          <A-1>
+map             <Esc>2          <A-2>
+map             <Esc>3          <A-3>
+map             <Esc>4          <A-4>
+map             <Esc>5          <A-5>
+map             <Esc>6          <A-6>
+map             <Esc>7          <A-7>
+map             <Esc>8          <A-8>
+map             <Esc>9          <A-9>
+map!            <Esc>1          <A-1>
+map!            <Esc>2          <A-2>
+map!            <Esc>3          <A-3>
+map!            <Esc>4          <A-4>
+map!            <Esc>5          <A-5>
+map!            <Esc>6          <A-6>
+map!            <Esc>7          <A-7>
+map!            <Esc>8          <A-8>
+map!            <Esc>9          <A-9>
 
 " Emacs style command line                                      {{{2
 cnoremap        <C-G>           <C-C>
