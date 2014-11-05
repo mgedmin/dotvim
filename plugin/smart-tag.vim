@@ -21,6 +21,12 @@ import vim
 
 def smart_tag_jump(query):
     verbose = int(vim.eval('&verbose'))
+
+    def command(cmd):
+        if verbose > 0:
+            print(cmd)
+        vim.command(cmd)
+
     class_, dot, name = query.rpartition('.')
     tags = vim.eval('taglist("^%s$")' % name)
     if verbose > 0:
@@ -46,9 +52,7 @@ def smart_tag_jump(query):
         print("Couldn't find %s" % query)
     else:
         tag = tags[index-1]
-        if verbose > 0:
-            print(":%dtag %s" % (index, name))
-        vim.command("%dtag %s" % (index, name))
+        command("%dtag %s" % (index, name))
         if class_ and tag['filename'].endswith('.py'):
             # Problem: when you've got a Python file with multiple classes
             # defining the same method (same name and signature), e.g.
@@ -72,9 +76,8 @@ def smart_tag_jump(query):
             # So here's a workaround: first find the right class, then find
             # the right method in that class.
             if verbose > 0:
-                print("Applying Python class method workaround:")
-                print("/^class %s\>/;%s" % (class_, tag["cmd"]))
-            vim.command("/^class %s\>/;%s" % (class_, tag["cmd"]))
+                print("Applying Python class method workaround")
+            command("0;/^class %s\>/;%s" % (class_, tag["cmd"]))
 
 END
 
