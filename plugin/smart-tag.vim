@@ -38,8 +38,9 @@ def smart_tag_jump(query):
     if not tags or index is None:
         print("Couldn't find %s" % query)
     else:
+        tag = tags[index-1]
         vim.command("%dtag %s" % (index, name))
-        if class_:
+        if class_ and tag['filename'].endswith('.py'):
             # Problem: when you've got a Python file with multiple classes
             # defining the same method (same name and signature), e.g.
             #
@@ -61,7 +62,6 @@ def smart_tag_jump(query):
             #
             # So here's a workaround: first find the right class, then find
             # the right method in that class.
-            tag = tags[index - 1]
             vim.command("0;/^class %s\>/;%s" % (class_, tag["cmd"]))
 
 END
