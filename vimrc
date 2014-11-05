@@ -864,6 +864,43 @@ map!            <Esc>6          <A-6>
 map!            <Esc>7          <A-7>
 map!            <Esc>8          <A-8>
 map!            <Esc>9          <A-9>
+" also make alt-shift-numbers switch tabs
+map             <A-!>           1gt
+map             <A-@>           2gt
+map             <A-#>           3gt
+map             <A-$>           4gt
+map             <A-%>           5gt
+map             <A-^>           6gt
+map             <A-&>           7gt
+map             <A-*>           8gt
+map             <A-(>           9gt
+imap            <A-!>           <C-O><A-!>
+imap            <A-@>           <C-O><A-@>
+imap            <A-#>           <C-O><A-#>
+imap            <A-$>           <C-O><A-$>
+imap            <A-%>           <C-O><A-%>
+imap            <A-^>           <C-O><A-^>
+imap            <A-&>           <C-O><A-&>
+imap            <A-*>           <C-O><A-*>
+imap            <A-(>           <C-O><A-(>
+map             <Esc>!          <A-!>
+map             <Esc>@          <A-@>
+map             <Esc>#          <A-#>
+map             <Esc>$          <A-$>
+map             <Esc>%          <A-%>
+map             <Esc>^          <A-^>
+map             <Esc>&          <A-&>
+map             <Esc>*          <A-*>
+map             <Esc>(          <A-(>
+map!            <Esc>!          <A-!>
+map!            <Esc>@          <A-@>
+map!            <Esc>#          <A-#>
+map!            <Esc>$          <A-$>
+map!            <Esc>%          <A-%>
+map!            <Esc>^          <A-^>
+map!            <Esc>&          <A-&>
+map!            <Esc>*          <A-*>
+map!            <Esc>(          <A-(>
 
 " Emacs style command line                                      {{{2
 cnoremap        <C-G>           <C-C>
