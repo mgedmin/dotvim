@@ -53,10 +53,13 @@ def smart_tag_jump(query):
     else:
         tag = tags[index-1]
         # I'd like to do this because it pushes to the tag stack:
-        #   command("%dtag %s" % (index, name))
-        # but I can't because the order of tags in :[count]tag doesn't match
-        # the order of tags returned by taglist() due to :h tag-priority sorting
-        command("e %s" % tag["filename"])
+        command("%dtag %s" % (index, name))
+        # but I can't rely on itbecause the order of tags in :[count]tag
+        # doesn't match the order of tags returned by taglist() due to
+        # :h tag-priority sorting!
+        # Doing both now because the :tag pushes the name onto the tag stack,
+        # and then my :e will make sure I went to the right location
+        command("keepjumps e %s" % tag["filename"])
         if class_ and tag['filename'].endswith('.py'):
             # Problem: when you've got a Python file with multiple classes
             # defining the same method (same name and signature), e.g.
@@ -81,9 +84,9 @@ def smart_tag_jump(query):
             # the right method in that class.
             if verbose > 0:
                 print("Applying Python class method workaround")
-            command("0;/^class %s\>/;%s" % (class_, tag["cmd"]))
+            command("keepjumps 0;/^class %s\>/;%s" % (class_, tag["cmd"]))
         else:
-            command(tag['cmd'])
+            command("keepjumps 0;%s" % tag['cmd'])
 
 END
 
