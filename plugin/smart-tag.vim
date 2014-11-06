@@ -1,7 +1,7 @@
 "
 " File: smart-tag.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.2
+" Version: 0.3
 " Last Modified: 2014-11-06
 "
 " Smarter :tag
@@ -92,7 +92,8 @@ def smart_tag_jump(query):
     # :h tag-priority sorting!
     # Doing both now because the :tag pushes the name onto the tag stack,
     # and then my :e will make sure I went to the right location
-    command("keepjumps e %s" % tag["filename"])
+    if vim.current.buffer.name != tag['filename']:
+        command("keepjumps e %s" % tag["filename"])
 
     if tag.get('class') and tag['filename'].endswith('.py'):
         # Problem: when you've got a Python file with multiple classes
