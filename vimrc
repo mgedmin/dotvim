@@ -1274,6 +1274,13 @@ highlight ColorColumn ctermbg=230
 highlight NonText ctermbg=230
 set shortmess+=I " suppress intro message because the above makes it look bad
 
+" fold column aka gutter on the left
+highlight FoldColumn ctermbg=230
+
+" number column aka gutter on the left
+highlight LineNr ctermbg=230
+highlight CursorLineNr ctermbg=230 cterm=underline
+
 " cursor column
 highlight CursorColumn ctermbg=230
 highlight CursorLine ctermbg=230
