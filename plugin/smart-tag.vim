@@ -1,8 +1,8 @@
 "
 " File: smart-tag.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.3
-" Last Modified: 2014-11-06
+" Version: 0.4
+" Last Modified: 2014-11-18
 "
 " Smarter :tag
 "
@@ -95,6 +95,12 @@ def smart_tag_jump(query):
     if vim.current.buffer.name != tag['filename']:
         command("keepjumps e %s" % tag["filename"])
 
+
+    tagcmd = tag["cmd"]
+    if tagcmd.startswith('/^') and tagcmd.endswith('$/'):
+        # tags files contain stuff like /^def foo(**kwargs):$/ which needs to be verynomagick'ed
+        tagcmd = r'/^\V%s\$/' % tagcmd[2:-2].replace('\\', '\\\\')
+
     if tag.get('class') and tag['filename'].endswith('.py'):
         # Problem: when you've got a Python file with multiple classes
         # defining the same method (same name and signature), e.g.
@@ -118,9 +124,9 @@ def smart_tag_jump(query):
         # So here's a workaround: first find the right class, then find
         # the right method in that class.
         debug("Applying Python class method workaround")
-        command("keepjumps 0;/^class %s\>/;%s" % (tag['class'], tag["cmd"]))
+        command("keepjumps 0;/^class %s\>/;%s" % (tag['class'], tagcmd))
     else:
-        command("keepjumps 0;%s" % tag['cmd'])
+        command("keepjumps 0;%s" % tagcmd)
 
 END
 
