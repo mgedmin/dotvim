@@ -1,8 +1,8 @@
 "
 " File: smart-tag.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.4
-" Last Modified: 2014-11-18
+" Version: 0.5
+" Last Modified: 2014-11-20
 "
 " Smarter :tag
 "
@@ -12,6 +12,7 @@
 "   :Tag module.class.name      -- jump to the right class method
 "   :Tag module.class           -- jump to the right class
 "   :Tag package.module.class   -- jump to the right class
+"   :Tag package.module         -- jump to the right file
 "
 " What the :Tag command does is search for tags matching the last part of a
 " dotted name, and then filter them according to containing class/filename.
@@ -20,6 +21,8 @@
 "
 " Doesn't need a tags file with --extra=+q (which stopped working for Python
 " anyway in some exuberant ctags version).
+"
+" Does need a tags file with --extra=+f for jumping to modules
 "
 
 python << END
@@ -37,53 +40,79 @@ def smart_tag_jump(query):
         if verbose > 0:
             print(message)
 
+    def get_tags(name, cache={}):
+        """Return all tags for name"""
+        try:
+            return cache[name]
+        except KeyError:
+            cache[name] = tags = vim.eval('taglist("^%s$")' % name)
+            debug("Got %d tags for %s" % (len(tags), name))
+            return tags
+
+    def filter_class(tags, class_):
+        """Return tags that belong to a class."""
+        return [t for t in tags if t.get("class") == class_]
+
+    def filter_toplevel(tags):
+        """Return tags that belong to top-level names."""
+        return [t for t in tags if not t.get("class")]
+
+    def filter_file(tags, filename):
+        """Return tags that are in files/directories with a certain name."""
+        # XXX: this can match a substring of a filename, which would be a bug
+        # what we want to match is directory names and filename-with-no-extension
+        return [t for t in tags if filename in t.get("filename")]
+
+    def find_best_tag(query):
+        bits = query.split('.')
+        name = bits.pop()
+        possibilities = [
+            # [[package.]module.]name
+            (bits, None, name),
+        ]
+        if bits:
+            # [[package.]module.]class.name
+            possibilities.append((bits[:-1], bits[-1], name))
+        possibilities += [
+            # [package.]module
+            (bits, None, name + '.py'),
+        ]
+
+        for filename_bits, class_, name in possibilities:
+            tags = original = get_tags(name)
+            if not tags:
+                continue
+            if class_:
+                tags = filter_class(tags, class_)
+                debug("%d tags matched class %s" % (len(tags), class_))
+            else:
+                tags = filter_toplevel(tags)
+                debug("%d tags are top-level" % (len(tags)))
+                if not tags and not filename_bits:
+                    # just :Tag name ought to also try class methods
+                    tags = get_tags(name)
+                    debug("Discarding empty filtered list")
+            if not tags:
+                continue
+            if filename_bits:
+                filename = '/'.join(filename_bits)
+                tags = filter_file(tags, filename)
+                debug("%d tags matched filename substring %s" % (len(tags), filename))
+            if tags:
+                tag = tags[0]
+                index = original.index(tag)
+                return (tag, name, index)
+        return None, None, None
+
     if not query:
         # XXX: it'd be nice to take the topmost name from the tag stack
         return
 
-    bits = query.split('.')
-    assert len(bits) > 0
-    name = bits[-1]
-    # Try [[package.]module.]class.name
-    class_ = bits[-2] if len(bits) > 1 else None
+    tag, name, index = find_best_tag(query)
 
-    tags = vim.eval('taglist("^%s$")' % name)
-    debug("Got %d tags for %s" % (len(tags), name))
-
-    if class_:
-        filtered = [t for t in tags if t.get("class") == class_]
-        debug("%d tags matched class %s" % (len(filtered), class_))
-    else:
-        # look for top-level names
-        filtered = [t for t in tags if not t.get("class")]
-        debug("%d tags are top-level" % (len(filtered)))
-
-    if not filtered:
-        filtered = tags
-        class_ = None
-        debug("Discarding empty filtered list")
-
-    if class_:
-        filename_bits = '/'.join(bits[0:-2])
-    else:
-        filename_bits = '/'.join(bits[0:-1])
-
-    if filename_bits:
-        # XXX: this can match a substring of a filename, which would be a bug
-        # what we want to match is directory names and filename-with-no-extension
-        doubly_filtered = [t for t in filtered if filename_bits in t.get("filename")]
-        debug("%d tags matched filename substring %s" % (len(doubly_filtered), filename_bits))
-        if doubly_filtered:
-            filtered = doubly_filtered
-        else:
-            debug("Discarding empty filtered list")
-
-    if not filtered:
+    if not tag:
         print("Couldn't find %s" % query)
         return
-
-    tag = filtered[0]
-    index = tags.index(tag)
 
     # I'd like to do this because it pushes to the tag stack:
     command("%dtag %s" % (index + 1, name))
@@ -94,7 +123,6 @@ def smart_tag_jump(query):
     # and then my :e will make sure I went to the right location
     if vim.current.buffer.name != tag['filename']:
         command("keepjumps e %s" % tag["filename"])
-
 
     tagcmd = tag["cmd"]
     if tagcmd.startswith('/^') and tagcmd.endswith('$/'):
