@@ -324,6 +324,10 @@ if exists("*vundle#begin")
   " Automatically detect pasting in compatible xterms
   Plugin 'ConradIrwin/vim-bracketed-paste'
 
+  " Create/browse/edit gists
+  Plugin 'mattn/webapi-vim'
+  Plugin 'mattn/gist-vim'
+
   call vundle#end()
   filetype plugin indent on
 endif
