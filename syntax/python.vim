@@ -27,6 +27,8 @@ function! PythonFoldLevel(lineno)
     return '>2'
   elseif line =~ '^[^ #]' " # so that comments in the middle of functions don't break folds
     return 0
+  elseif line =~ '^# \|^#$' " except when they're proper comments and not commentd-out code (for which I use ##
+    return 0
   elseif line =~ '^    [^ ]' " XXX used to be [^ #], why? what did I break by removing #?
     return 1
   else
