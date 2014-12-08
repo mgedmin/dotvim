@@ -45,8 +45,10 @@
 " Requirements
 " ------------
 "
-" :Grepall uses a script ~/bin/grepall, if it finds one, or falls back to the
+" :Grepall uses a script ~/bin/grepall [*], if it finds one, or falls back to the
 " standard Unix 'find' and 'grep'.
+"
+" [*] Mine is at https://github.com/mgedmin/scripts/blob/master/grepall
 "
 " :Grep uses the standard Unix 'grep'.
 "
