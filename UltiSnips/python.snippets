@@ -45,6 +45,11 @@ ${1:'Programming Language :: Python :: Implementation :: CPython',
 'Programming Language :: Python :: Implementation :: PyPy',}
 endsnippet
 
+snippet pypy-classifiers "PyPI classifiers for PyPy/CPython" !b
+'Programming Language :: Python :: Implementation :: CPython',
+'Programming Language :: Python :: Implementation :: PyPy',
+endsnippet
+
 snippet setup "setup.py" !b
 #!/usr/bin/env python
 import os
@@ -121,6 +126,14 @@ def doctest_${1:fname}():
         >>> ${3:$1}
 
     """
+endsnippet
+
+snippet test_suite "A test_suite() function" !b
+def test_suite():
+    return unittest.TestSuite([
+        doctest.DocTestSuite(),
+        unittest.defaultTestLoader.loadTestsFromName(__name__),
+    ])
 endsnippet
 
 snippet pdb "pdb.set_trace()" !b
