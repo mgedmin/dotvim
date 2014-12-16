@@ -5,6 +5,7 @@ if v:version < 700
 endif
 
 inoremap <silent> ( (<C-R>=ShowFunctionSignature()<CR>
+inoremap <silent> <C-L> <C-R>=ShowFunctionSignature()<CR>
 
 function! FindBestTagsForName(name, method, class)
   silent! let tags = taglist('^' . a:name . '$')
