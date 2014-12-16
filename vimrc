@@ -328,6 +328,9 @@ if exists("*vundle#begin")
   Plugin 'mattn/webapi-vim'
   Plugin 'mattn/gist-vim'
 
+  " Improved ReStructuredText syntax
+  Plugin 'mrsipan/vim-rst'
+
   call vundle#end()
   filetype plugin indent on
 endif
