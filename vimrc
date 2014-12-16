@@ -1087,6 +1087,7 @@ endf
 
 augroup Python_prog
   autocmd!
+  autocmd BufRead,BufNewFile ~/src/ivija/**/*.txt  set ft=rst
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'ivija' | call FT_Python_Ivija() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'schooltool' | call FT_Python_Schooltool() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'cipher' | call FT_Python_Cipherhealth() | endif
