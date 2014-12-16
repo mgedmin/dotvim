@@ -899,15 +899,17 @@ map             <Esc>^          <A-^>
 map             <Esc>&          <A-&>
 map             <Esc>*          <A-*>
 map             <Esc>(          <A-(>
-map!            <Esc>!          <A-!>
-map!            <Esc>@          <A-@>
-map!            <Esc>#          <A-#>
-map!            <Esc>$          <A-$>
-map!            <Esc>%          <A-%>
-map!            <Esc>^          <A-^>
-map!            <Esc>&          <A-&>
-map!            <Esc>*          <A-*>
-map!            <Esc>(          <A-(>
+" but not in a terminal while in insert mode, because <esc>$ or <esc>^ are
+" useful normal commands
+""map!            <Esc>!          <A-!>
+""map!            <Esc>@          <A-@>
+""map!            <Esc>#          <A-#>
+""map!            <Esc>$          <A-$>
+""map!            <Esc>%          <A-%>
+""map!            <Esc>^          <A-^>
+""map!            <Esc>&          <A-&>
+""map!            <Esc>*          <A-*>
+""map!            <Esc>(          <A-(>
 
 " Emacs style command line                                      {{{2
 cnoremap        <C-G>           <C-C>
