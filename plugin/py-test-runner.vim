@@ -98,7 +98,7 @@ function! GetTestUnderCursor()
             let l:name = substitute(l:tag[1:-2], '^in ', '', '')
             let l:name = substitute(l:name, ' ([^)]*)$', '', '')
             if l:name =~ '[.]'
-                let [l:class, l:name] = split(l:name, '[.]')
+                let [l:class, l:name] = split(l:name, '[.]')[:1]
                 let l:name = substitute(substitute(g:pyTestRunnerTestFilteringClassAndMethodFormat, '{class}', l:class, 'g'), '{method}', l:name, 'g')
             endif
             if g:pyTestRunnerTestFiltering != ""
