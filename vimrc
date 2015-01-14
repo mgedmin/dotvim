@@ -331,6 +331,9 @@ if exists("*vundle#begin")
   " Improved ReStructuredText syntax
   Plugin 'mrsipan/vim-rst'
 
+  " Enable vim filename:lineno and :e filename:lineno
+  Plugin 'kopischke/vim-fetch'
+
   call vundle#end()
   filetype plugin indent on
 endif
