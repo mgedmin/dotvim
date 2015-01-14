@@ -1,10 +1,12 @@
 snippet travis-setup "travis.yml based on setup.py test" !b
 language: python
+sudo: false
 python:
     - 2.6
     - 2.7
     - 3.2
     - 3.3
+    - 3.4
     - pypy
 install:
     - travis_retry pip install .
@@ -16,12 +18,9 @@ endsnippet
 
 snippet travis-tox "travis.yml based on tox" !b
 language: python
+sudo: false
 env:
-    - TOXENV=py26
-    - TOXENV=py27
-    - TOXENV=py32
-    - TOXENV=py33
-    - TOXENV=pypy
+`tox -l|sed -e 's/^/    - TOXENV=/'`
 install:
     - travis_retry pip install tox
 script:
@@ -32,11 +31,13 @@ endsnippet
 
 snippet travis-buildout "travis.yml based on buildout" !b
 language: python
+sudo: false
 python:
     - 2.6
     - 2.7
     - 3.2
     - 3.3
+    - 3.4
     - pypy
 install:
     - python bootstrap.py
