@@ -21,6 +21,8 @@ file_prefixes = ['', 'src', 'packages',
 file_suffixes = ['', '.py']
 
 patterns = [
+    # unittest error format
+    re.compile(r'^(?:ERROR|FAIL): (?P<tag>[a-zA-Z_0-9]+) [(](?P<module_class>[a-zA-Z0-9_.]*[.][a-zA-Z_0-9]+)[)]'),
     # svn status output
     re.compile(r'^[A-Z?]      (?P<filename>[^ ]+)$'),
     # grep output
@@ -98,6 +100,22 @@ def locate_command(line, verbose=False):
     for match in iter_matches(line):
         filename = match.get('filename')
         lineno = match.get('lineno')
+        tag = match.get('tag')
+        module_class = match.get('module_class')
+        if tag and module_class:
+            # Integration with smart-tag.vim
+            try:
+                import __main__
+                finder = __main__.SmartTagFinder()
+                full_tag = '%s.%s' % (module_class, tag)
+                if verbose:
+                    print 'looking for tag %s' % full_tag
+                t, n, i = finder.find_best_tag(full_tag)
+                if t:
+                    return 'Tag %s' % full_tag
+            except NameError:
+                # smart-tag.vim not found
+                pass
         if filename:
             filename = locate_file(filename, verbose=verbose)
         if not filename:
@@ -109,7 +127,6 @@ def locate_command(line, verbose=False):
                 return 'e +%s %s' % (lineno, quote(filename))
             else:
                 return 'e %s' % quote(filename)
-        tag = match.get('tag')
         if tag:
             if '.' in tag and not tag_exists(tag, verbose=verbose):
                 tag = tag.rsplit('.', 1)[-1]
