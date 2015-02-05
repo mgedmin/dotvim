@@ -1100,7 +1100,6 @@ augroup Python_prog
   autocmd BufRead,BufNewFile ~/src/ivija/**/*.txt  set ft=rst
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'ivija' | call FT_Python_Ivija() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'schooltool' | call FT_Python_Schooltool() | endif
-  autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'cipher' | call FT_Python_Cipherhealth() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'labtarna' | call FT_Python_Django() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'masinis' | call FT_Python_Django() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'yplan' | call FT_Python_Yplan() | endif
