@@ -355,7 +355,11 @@ if has("eval")
   let g:syntastic_auto_loc_list = 2             " default is 2
   let g:syntastic_always_populate_loc_list = 1  " default is 0
 " let g:syntastic_quiet_warnings = 1
-  let g:syntastic_disabled_filetypes = ['java']
+
+  " I don't know what syntastic uses to check Java, but it's unusably slow
+  let g:syntastic_mode_map = { "mode": "active",
+              \ "active_filetypes": [],
+              \ "passive_filetypes": ["java"] }
 
   " statusline format (default: '[Syntax: line:%F (%t)]')
   let g:syntastic_stl_format = '{%t}'
@@ -368,6 +372,7 @@ if has("eval")
 " let g:syntastic_python_checkers = ['pyflakes']
   let g:syntastic_python_checkers = ['flake8']
   let $PYFLAKES_DOCTEST = ''
+
   let g:syntastic_javascript_checkers = ['jshint']
 endif
 
