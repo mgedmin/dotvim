@@ -579,10 +579,12 @@ set statusline+=%1*%{TagInStatusLine()}%*       " [current class/function]
 set statusline+=%1*%{CTagInStatusLine()}%*      " same but for C code
 set statusline+=\               " - a space
 set statusline+=%=              " - right-align the rest
-set statusline+=%-10.(%l,%c%V%) " - line,column[-virtual column]
+set statusline+=%-10.(%l:%c%V%) " - line,column[-virtual column]
 set statusline+=\               " - a space
-set statusline+=%4L             " - total number of lines in buffer
-set statusline+=\               " - a space
+" it doesn't fit on my 1388x768 screen when I use vertical splits
+" and have [LongClassName.long_method_name] tags :/
+""set statusline+=%4L           " - total number of lines in buffer
+""set statusline+=\             " - a space
 set statusline+=%P              " - position in buffer as percentage
 
 " Other notes:
