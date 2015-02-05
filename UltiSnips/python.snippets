@@ -23,12 +23,14 @@ import vim
 tag = vim.eval('TagInStatusLine()')
 if tag:
     # pythonhelper.vim's TagInStatusLine() returns '[in SomeClass.some_method (method)]'
+    # my fork of it returns '[SomeClass.some_method]'
+    # handle both
     tag = tag.strip('[]')
     if tag.startswith('in '):
         tag = tag[3:]
     tag = tag.partition(' (')[0]
     if '.' in tag:
-        class_name, dot, method_name = tag.partition('.')
+        class_name, method_name = tag.split('.')[-2:]
         snip.rv = 'super(%s, self).%s(' % (class_name, method_name)
 `$1)
 endsnippet
