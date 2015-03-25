@@ -334,6 +334,10 @@ if exists("*vundle#begin")
   " Enable vim filename:lineno and :e filename:lineno
   Plugin 'kopischke/vim-fetch'
 
+  " xchat log syntax highlighting (set ft=xchatlog)
+  Plugin 'xchat-log-syntax'
+  " there's also 'XChat-IRC-Log' (set ft=irclog), but I haven't evaluated it
+
   call vundle#end()
   filetype plugin indent on
 endif
