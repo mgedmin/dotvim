@@ -706,6 +706,11 @@ command! NoLCD          exe 'cd '.getcwd()
 command! -nargs=? EditSnippets
   \ exe ":e ~/.vim/UltiSnips/".(<q-args> != "" ? <q-args> : &ft != "" ? &ft : "all").".snippets"
 
+" :Python3 and :Python2 to toggle Syntastic/flake8 mode         {{{2
+
+command! -bar Python2 let g:syntastic_python_flake8_exe = 'python2 -m flake8' | SyntasticCheck
+command! -bar Python3 let g:syntastic_python_flake8_exe = 'python3 -m flake8' | SyntasticCheck
+
 endif " has("user_commands")
 
 "
