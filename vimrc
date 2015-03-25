@@ -1293,25 +1293,25 @@ highlight Red                   guibg=red ctermbg=red
 highlight Green                 guibg=green ctermbg=green
 
 " for less intrusive signs
-highlight SignColumn guibg=#fefefe ctermbg=230
+highlight SignColumn guibg=#fefefe ctermbg=230 guibg=#ffffd7
 
 " gutter on the right of the text
-highlight ColorColumn ctermbg=230
+highlight ColorColumn ctermbg=230 guibg=#ffffd7
 
 " gutter below the text
-highlight NonText ctermbg=230
+highlight NonText ctermbg=230 guibg=#ffffd7
 set shortmess+=I " suppress intro message because the above makes it look bad
 
 " fold column aka gutter on the left
-highlight FoldColumn ctermbg=230
+highlight FoldColumn ctermbg=230 guibg=#ffffd7
 
 " number column aka gutter on the left
-highlight LineNr ctermbg=230
-highlight CursorLineNr ctermbg=230 cterm=underline
+highlight LineNr ctermbg=230 guibg=#ffffd7
+highlight CursorLineNr ctermbg=230 guibg=#ffffd7 cterm=underline
 
 " cursor column
-highlight CursorColumn ctermbg=230
-highlight CursorLine ctermbg=230
+highlight CursorColumn ctermbg=230 guibg=#ffffd7
+highlight CursorLine ctermbg=230 guibg=#ffffd7
 
 " avoid invisible color combination (red on red)
 highlight DiffText ctermbg=1
