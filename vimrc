@@ -1098,8 +1098,9 @@ function! FT_Python_Yplan()
   let g:pyTestRunnerFilenameFiltering = " "
   let g:pyTestRunnerPackageFiltering = ""
   let g:pyTestRunnerModuleFiltering = ''
-  let g:pyTestRunnerTestFiltering = ""
+  let g:pyTestRunnerTestFiltering = "<NOSPACE>:<NOSPACE>"
   let g:pyTestRunner = "../runlocaltests.sh"
+  let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}.{method}"
   Margin 120
   setlocal makeprg=arc\ lint\ --output\ summary
 endf

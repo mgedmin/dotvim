@@ -142,7 +142,7 @@ function! GetTestUnderCursor()
             endif
         endif
     endif
-    let l:test = substitute(l:test, '<NOSPACE> *', '', 'g')
+    let l:test = substitute(l:test, ' *<NOSPACE> *', '', 'g')
     let l:test = substitute(l:test, '   *', ' ', 'g')
     let l:test = substitute(l:test, '^  *', '', 'g')
     let l:test = substitute(l:test, '  *$', '', 'g')
