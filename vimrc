@@ -338,6 +338,9 @@ if exists("*vundle#begin")
   Plugin 'xchat-log-syntax'
   " there's also 'XChat-IRC-Log' (set ft=irclog), but I haven't evaluated it
 
+  " Emacs-like Alt-t transpose words
+  Plugin 'transpose-words'
+
   call vundle#end()
   filetype plugin indent on
 endif
