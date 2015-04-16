@@ -336,7 +336,8 @@ if exists("*vundle#begin")
 
   " xchat log syntax highlighting (set ft=xchatlog)
   Plugin 'xchat-log-syntax'
-  " there's also 'XChat-IRC-Log' (set ft=irclog), but I haven't evaluated it
+  " there's also 'XChat-IRC-Log' (set ft=irclog), but it fails to highlight
+  " anything?
 
   " Emacs-like Alt-t transpose words
   Plugin 'transpose-words'
