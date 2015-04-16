@@ -190,8 +190,11 @@ else:
     else:
         modulename = filename2module(filename)
         filename = find_coverage_report(modulename)
-        print "Using", filename
-        parse_cover_file(filename)
+        if os.path.exists(filename):
+            print "Using", filename
+            parse_cover_file(filename)
+        else:
+            print >> sys.stderr, "Neither .coverage nor %s found" % filename
 
 END
 endf
