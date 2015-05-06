@@ -47,6 +47,14 @@ parser.add_argument('-v', '--verbose', action='store_true')
 args = parser.parse_args()
 endsnippet
 
+# in case you're stuck on Python 2.6
+snippet optparse "Optparse-based command-line parsing" !b
+parser = optparse.OptionParser('usage: %prog ${1:[options]}',
+                               description="${2}")
+parser.add_option('-v', '--verbose', action='store_true')
+opts, args = parser.parse_args()
+endsnippet
+
 snippet classifiers "PyPI classifiers" !b
 'Programming Language :: Python :: 2.6',
 'Programming Language :: Python :: 2.7',
