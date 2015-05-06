@@ -26,13 +26,13 @@ def github_owner_repo(path='', default=''):
 endglobal
 
 snippet travis "Travis CI badge" b
-.. image:: https://travis-ci.org/${1:owner/repo}?branch=master
+.. image:: https://travis-ci.org/${1:owner/repo}.svg?branch=master
     :target: https://travis-ci.org/$1
 
 endsnippet
 
 snippet travis "Travis CI badge" "github_owner_repo(buffer.name)" be
-.. image:: https://travis-ci.org/`!p snip.rv = rv = github_owner_repo(path)`?branch=master
+.. image:: https://travis-ci.org/`!p snip.rv = rv = github_owner_repo(path)`.svg?branch=master
     :target: https://travis-ci.org/`!p snip.rv = rv`
 
 endsnippet
