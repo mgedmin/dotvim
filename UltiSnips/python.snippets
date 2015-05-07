@@ -23,7 +23,7 @@ snippet super "Magic super()" !w
 # snip.rv = 'super(${1:ClassName}, self).${2:method}(' <-- does not work
 snip.rv = 'super('
 import vim
-# this needs pythonhelper.vim
+# this needs pythonhelper.vim, e.g. https://github.com/mgedmin/pythonhelper.vim
 tag = vim.eval('TagInStatusLine()')
 if tag:
     # pythonhelper.vim's TagInStatusLine() returns '[in SomeClass.some_method (method)]'
