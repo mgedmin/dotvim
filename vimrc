@@ -240,6 +240,10 @@ if exists("*vundle#begin")
   " Better Python autoindentation
   Plugin 'hynek/vim-python-pep8-indent'
 
+  " Python folding, to replace my hacky syntax/python.vim
+  " (commented out until I remove my hack)
+""Plugin 'tmhedberg/SimpylFold'
+
   " Automate switching between code and unit test files, bound to <C-F6>
   Plugin 'mgedmin/test-switcher.vim'
 
@@ -330,6 +334,9 @@ if exists("*vundle#begin")
 
   " Improved ReStructuredText syntax
   Plugin 'mrsipan/vim-rst'
+
+  " Improved YAML syntax for Ansible
+  Plugin 'chase/vim-ansible-yaml'
 
   " Enable vim filename:lineno and :e filename:lineno
   Plugin 'kopischke/vim-fetch'
