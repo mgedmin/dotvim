@@ -1066,6 +1066,12 @@ augroup LastPositionJump
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") && &ft != 'gitcommit' | exe "normal g'\"" | endif
 augroup END
 
+" Create missing directory on save                              {{{2
+augroup MkDirOnSave
+  au!
+  au BufWritePre * if !isdirectory(expand("%:p:h")) | echomsg "Creating parent directory " . expand("%:h") | call mkdir(expand("%:p:h"), "p") | endif
+augroup END
+
 " Autodetect filetype on first save                             {{{2
 augroup FiletypeOnSave
   au!
