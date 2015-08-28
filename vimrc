@@ -397,6 +397,7 @@ if has("eval")
   let g:CommandTCursorEndMap = ['<C-e>', '<End>']
   let g:CommandTCursorStartMap = ['<C-a>', '<Home>']
   let g:CommandTMaxHeight = 20
+  let g:CommandTTraverseSCM = "pwd"
 endif
 
 " bufexplorer.vim                                               {{{2
