@@ -1,5 +1,5 @@
 " Use Enter and Backspace to navigate xrefs in Vim help windows
-" From http://www.vim.org/tip_view.php?tip_id=397
+" From http://vim.wikia.com/wiki/Mapping_to_quickly_browse_help
 
 if exists("b:did_ftplugin")
   finish
