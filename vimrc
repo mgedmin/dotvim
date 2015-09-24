@@ -286,6 +286,9 @@ if exists("*vundle#begin")
   " LESS (the CSS preprocessor) syntax
   Plugin 'groenewege/vim-less'
 
+  " Vala syntax
+  Plugin 'tkztmk/vim-vala'
+
   " List open buffers with various sorting modes on \b
   Plugin 'jlanzarotta/bufexplorer'
 
