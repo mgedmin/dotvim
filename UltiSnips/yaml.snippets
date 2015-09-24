@@ -60,3 +60,11 @@ script:
 notifications:
     email: false
 endsnippet
+
+snippet ansible "ansible playbook" !b
+---
+- hosts: ${1:localhost}
+  gather_facts: no
+  tasks:
+    - $0
+endsnippet
