@@ -9,7 +9,7 @@ python:
     - 3.4
     - pypy
 install:
-    - travis_retry pip install .
+    - pip install .
 script:
     - python setup.py test -q
 notifications:
@@ -22,7 +22,7 @@ sudo: false
 env:
 `tox -l|sed -e 's/^/    - TOXENV=/'`
 install:
-    - travis_retry pip install tox
+    - pip install tox
 script:
     - tox
 notifications:
