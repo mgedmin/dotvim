@@ -110,6 +110,7 @@ set nostartofline               " don't jump to start of line
 " Folding                                                       {{{2
 if v:version >= 600
 " set foldmethod=marker         " use folding by markers by default
+  set foldmethod=syntax         " use syntax folding by default
   set foldlevelstart=9999       " initially open all folds
 endif
 
