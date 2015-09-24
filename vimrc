@@ -961,7 +961,7 @@ cnoremap        <C-K>   <C-\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>
 cnoremap        <A-BS>          <C-W>
 cnoremap        <Esc><BS>       <C-W>
 
-" Do not lose "complete all"
+" Do not lose "complete all" (gvim-only)
 cnoremap        <C-S-A>         <C-A>
 
 " Windows style editing                                         {{{2
