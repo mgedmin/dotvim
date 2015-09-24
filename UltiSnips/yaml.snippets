@@ -16,7 +16,20 @@ notifications:
     email: false
 endsnippet
 
-snippet travis-tox "travis.yml based on tox" !b
+snippet tox-travis "travis.yml based on tox-travis" !b
+language: python
+sudo: false
+env:
+`tox -l|sed -e 's/py\([0-9]\)\([0-9]\+\)/\1.\2/' -e 's/^/    - /'`
+install:
+    - pip install tox-travis
+script:
+    - tox
+notifications:
+    email: false
+endsnippet
+
+snippet travis-toxenv "travis.yml based on tox and TOXENV" !b
 language: python
 sudo: false
 env:
