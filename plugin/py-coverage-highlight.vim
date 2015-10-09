@@ -169,11 +169,13 @@ def program_in_path(program):
 
 
 def find_coverage_script():
-    if os.path.exists('bin/coverage'):
-        return 'bin/coverage'
     if program_in_path('coverage'):
         # assume it was easy_installed
         return 'coverage'
+    # Vagrant means I can't rely on bin/coverage working even if it exists, so
+    # prefer a globally-installed one if possible.
+    if os.path.exists('bin/coverage'):
+        return 'bin/coverage'
 
 
 filename = vim.eval('a:filename')
