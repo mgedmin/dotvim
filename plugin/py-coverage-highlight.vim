@@ -185,8 +185,8 @@ else:
     filename = vim.eval('bufname("%")')
     coverage_script = find_coverage_script()
     if os.path.exists('.coverage') and coverage_script:
-        print "Running %s -rm %s" % (coverage_script, filename)
-        output = subprocess.Popen([coverage_script, '-rm', filename],
+        print "Running %s report -m %s" % (coverage_script, filename)
+        output = subprocess.Popen([coverage_script, 'report', '-m', filename],
                                   stdout=subprocess.PIPE).communicate()[0]
         parse_coverage_output(output, filename)
     else:
