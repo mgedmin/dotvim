@@ -634,6 +634,9 @@ command! -range=% NukeTrailingWhitespace <line1>,<line2>s/\s\+$//
 command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 command! FindControlChars               normal /[\x00-\x08\x0a-\x1f\x7f]<cr>
 
+" convert \uXXXX to actual characters
+command! -range=% ExpandUnicode         <line1>,<line2>s/\\u\([0-9a-fA-F]\{4}\)/\=nr2char(str2nr(submatch(1), 16))/gc
+
 " diffoff sets wrap; don't wanna                                {{{2
 command! Diffoff                        diffoff | setlocal nowrap
 
