@@ -17,6 +17,9 @@
 " $PATH, or in $PWD/bin/coverage).  Open a source file.  Use :HiglightCoverage
 " to load coverage info, and :HiglightCoverageOff to turn it off.
 "
+" You can also provide the missing lines directly on the command line,
+" eg. :HighlightCoverage NN-NN,NN-NN,NN-NN
+"
 " Usage with Python's trace.py
 " ----------------------------
 " Produce a coverage report with Python's trace.py.  Open a source file.
@@ -43,7 +46,7 @@ if &t_Co > 8
 endif
 sign define NoCoverage text=>> texthl=NoCoverage linehl=NoCoverage
 
-function! HiglightCoverage(filename)
+function! HiglightCoverage(arg)
     sign unplace *
     python <<END
 
@@ -128,9 +131,13 @@ def parse_coverage_output(output, filename):
     filename = os.path.relpath(filename)
     filename_no_ext = os.path.splitext(filename)[0]
     signs = Signs()
-    if last_line.startswith('./' + filename_no_ext + ' '):
-        filename_no_ext = './' + filename_no_ext
-    if last_line.startswith(filename_no_ext + ' '):
+    expect_one_of = (
+        filename + ' ',
+        './' + filename + ' ',
+        filename_no_ext + ' ',
+        './' + filename_no_ext + ' ',
+    )
+    if last_line.startswith(expect_one_of):
         # The margin (15) was determined empirically as the smallest value
         # that avoids a 'Press enter to continue...' message
         truncate_to = int(vim.eval('&columns')) - 15
@@ -139,7 +146,7 @@ def parse_coverage_output(output, filename):
         else:
             print last_line[:truncate_to] + '...'
         last_line = last_line[len(filename_no_ext) + 1:].lstrip()
-        _, _, missing = last_line.partition('%')
+        missing = last_line.rpartition('%')[-1]
         if missing and missing.strip():
             parse_lines(missing, signs)
     else:
@@ -178,9 +185,16 @@ def find_coverage_script():
         return 'bin/coverage'
 
 
-filename = vim.eval('a:filename')
-if filename:
-    parse_cover_file(filename)
+arg = vim.eval('a:arg')
+if arg.endswith('.report'):
+    parse_cover_file(arg)
+elif arg:
+    filename = vim.eval('bufname("%")')
+    if '%' not in arg:
+        fake_output = filename + ' % ' + arg
+    else:
+        fake_output = arg
+    parse_coverage_output(fake_output, filename)
 else:
     filename = vim.eval('bufname("%")')
     coverage_script = find_coverage_script()
@@ -201,5 +215,5 @@ else:
 END
 endf
 
-command! -nargs=? -complete=file -bar HiglightCoverage	call HiglightCoverage(<q-args>)
+command! -nargs=* -complete=file -bar HiglightCoverage	call HiglightCoverage(<q-args>)
 command!                         -bar HiglightCoverageOff	sign unplace *
