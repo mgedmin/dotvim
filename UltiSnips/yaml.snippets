@@ -19,7 +19,7 @@ endsnippet
 snippet tox-travis "travis.yml based on tox-travis" !b
 language: python
 sudo: false
-env:
+python:
 `tox -l|sed -e 's/py\([0-9]\)\([0-9]\+\)/\1.\2/' -e 's/^/    - /'`
 install:
     - pip install tox-travis
