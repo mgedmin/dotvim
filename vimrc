@@ -390,6 +390,10 @@ if has("eval")
   let $PYFLAKES_DOCTEST = ''
 
   let g:syntastic_javascript_checkers = ['jshint']
+
+  " don't check json files; I rarely edit these and sometimes they're huge
+  " which makes jshint slow
+  let g:syntastic_ignore_files = ['\.json$']
 endif
 
 " Command-t                                                     {{{2
@@ -1249,6 +1253,14 @@ endf
 augroup BookServ
   autocmd!
   autocmd BufRead,BufNewFile ~/src/bookserv/*.py        call FT_BookServ_Py()
+augroup END
+
+" JavaScript                                                    {{{2
+
+augroup JavaScript
+  autocmd!
+  " fdm=syntax is Very Slow for multi-thousand-line-long JSON files
+  autocmd BufReadPre,BufNewFile *.json                  set fdm=indent
 augroup END
 
 endif " has("autocmd")
