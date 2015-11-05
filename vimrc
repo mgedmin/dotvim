@@ -991,7 +991,7 @@ imap            <C-Z>           <C-O>u
 ""imap            <F1>            <Nop>
 
 " <F2> = save
-map             <F2>            :update<CR>
+map             <F2>            :wall<CR>
 imap            <F2>            <C-O><F2>
 
 " <F3> = turn off search highlighting
