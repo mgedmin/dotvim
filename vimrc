@@ -46,10 +46,7 @@ set t_vb=                       " don't beep! (but also see below)
 
 " Interpreting file contents                                    {{{2
 set modelines=5                 " debian disables this by default
-set fileencodings=ucs-bom,utf-8,windows-1252,iso-8859-13,latin1 " autodetect
-        " Vim cannot distinguish between 8-bit encodings, so the last two
-        " won't ever be considered.  I keep them here for convenience:
-        " :set fencs=<tab>, then delete the ones you don't want
+set fileencodings=ucs-bom,utf-8,windows-1257 " autodetect
 
 " Backup files                                                  {{{2
 set backup                      " make backups
