@@ -1269,14 +1269,6 @@ endif " has("autocmd")
 " Colors                                                        {{{1
 "
 
-if $COLORTERM == "gnome-terminal"
-  set t_Co=256                  " gnome-terminal supports 256 colors
-  " note: doesn't work inside screen, which translates 256 colors into the
-  " basic 16.
-  " a better fix would be something like http://gist.github.com/636883
-  " added to .bashrc
-endif
-
 if has("gui_running")
   gui                           " see :help 'background' why I need this before
   set t_vb=                     " this must be set after :gui
