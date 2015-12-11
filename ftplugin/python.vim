@@ -37,4 +37,4 @@ map  <buffer> <F9>    :SyntasticCheck<CR>
 
 
 " I keep mistyping this
-abbr improt import
+abbr <buffer> improt import
