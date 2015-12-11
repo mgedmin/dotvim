@@ -241,6 +241,9 @@ if exists("*vundle#begin")
   " Better Python autoindentation
   Plugin 'hynek/vim-python-pep8-indent'
 
+  " \oo to jump to stdlib source
+  Plugin 'python_open_module'
+
   " Python folding, to replace my hacky syntax/python.vim
   " (commented out until I remove my hack)
 ""Plugin 'tmhedberg/SimpylFold'
