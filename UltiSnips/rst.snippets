@@ -36,3 +36,27 @@ snippet travis "Travis CI badge" "github_owner_repo(snip.buffer.name)" be
     :target: https://travis-ci.org/`!p snip.rv = rv`
 
 endsnippet
+
+snippet appveyor "Appveyor badge" b
+.. image:: https://ci.appveyor.com/api/projects/status/github/${1:owner/repo}?branch=master&svg=true
+    :target: https://ci.appveyor.com/project/$1
+
+endsnippet
+
+snippet appveyor "Appveyor badge" "github_owner_repo(snip.buffer.name)" be
+.. image:: https://ci.appveyor.com/api/projects/status/github/`!p snip.rv = rv = github_owner_repo(path)`?branch=master&svg=true
+    :target: https://ci.appveyor.com/project/`!p snip.rv = rv`/branch/master
+
+endsnippet
+
+snippet coveralls "coveralls.io badge" b
+.. image:: https://coveralls.io/repos/${1:owner/repo}/badge.svg?branch=master
+    :target: https://coveralls.io/r/$1
+
+endsnippet
+
+snippet coveralls "coveralls.io badge" "github_owner_repo(snip.buffer.name)" be
+.. image:: https://coveralls.io/repos/`!p snip.rv = rv = github_owner_repo(path)`/badge.svg?branch=master
+    :target: https://coveralls.io/r/`!p snip.rv = rv`
+
+endsnippet
