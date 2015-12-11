@@ -5,9 +5,9 @@ envlist =
 
 [testenv]
 deps =
-    ${2:packages}
+    ${2:zope.testrunner}
 commands =
-    ${3:python setup.py test -q}
+    ${3:zope-testrunner --test-path=src {posargs:-pvc}}
 endsnippet
 
 snippet coverage "tox -e coverage" !b
@@ -16,6 +16,6 @@ deps =
     {[testenv]deps}
     coverage
 commands =
-    coverage run --source=${1:mypackage} setup.py test -q
-    coverage report
+    coverage run -m zope.testrunner --test-path=src {posargs:-pvc}
+    coverage report -m
 endsnippet
