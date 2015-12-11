@@ -1,5 +1,9 @@
 " Python files
 
+if getline(1) =~ 'python3'
+  let b:syntastic_python_flake8_exe = 'python3 -m flake8'
+endif
+
 setlocal shiftwidth=4 softtabstop=4 expandtab tabstop=8
 
 " I sometimes use ## as a comment marker for commented-out code,
