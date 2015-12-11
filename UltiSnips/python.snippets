@@ -74,6 +74,10 @@ snippet pypy-classifiers "PyPI classifiers for PyPy/CPython" !b
 'Programming Language :: Python :: Implementation :: PyPy',
 endsnippet
 
+snippet extras "Extras for setup.py"
+extras_require={$0},
+endsnippet
+
 snippet setup "setup.py" !b
 #!/usr/bin/env python
 import os
@@ -124,6 +128,7 @@ setup(
     zip_safe=False,
     test_suite='${8:test_$7}',
     install_requires=[],
+    extras_require={},
     entry_points={
         'console_scripts': [
 ##          'script = module:function',
