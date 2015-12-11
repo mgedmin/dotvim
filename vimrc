@@ -79,14 +79,17 @@ set autoread                    " automatically reload files changed on disk
 set history=1000                " remember more lines of cmdline history
 set switchbuf=useopen           " quickfix reuses open windows
 set iskeyword-=/                " Ctrl-W in command-line stops at /
+set splitright                  " self-explanatory
 
 if has('mouse_xterm')
   set mouse=a                   " use mouse in xterms
 endif
 
-if v:version >= 600
-  set clipboard=unnamed         " interoperate with the X clipboard
-  set splitright                " self-explanatory
+set clipboard&
+if $WAYLAND_DISPLAY != ""
+  set clipboard^=unnamedplus    " Wayland has no PRIMARY selection
+else
+  set clipboard^=unnamed        " interoperate with the X clipboard
 endif
 
 if v:version >= 700
