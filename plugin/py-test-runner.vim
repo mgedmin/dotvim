@@ -75,13 +75,15 @@ if !exists("*TagInStatusLine")
 endif
 
 function! UseDjangoTestRunner()
-    " Assumes you have django-nose and nose-selecttests
+    " Assumes you have django-nose, generates command lines of the form
+    "   bin/django test <filename>:{class}.{method}
     let g:pyTestRunner = "bin/django test"
-    let g:pyTestRunnerTestFiltering = "-t<NOSPACE>"
+    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}.{method}"
+    let g:pyTestRunnerTestFiltering = "<NOSPACE>:<NOSPACE>"
     let g:pyTestRunnerPackageFiltering = ""
     let g:pyTestRunnerModuleFiltering = ""
-    let g:pyTestRunnerFilenameFiltering = ""
-    let g:pyTestRunnerDirectoryFiltering = " "
+    let g:pyTestRunnerFilenameFiltering = " "
+    let g:pyTestRunnerDirectoryFiltering = ""
     let g:pyTestRunnerClipboardExtras = "" " "-v2"
     let g:pyTestRunnerClipboardExtrasSuffix = ""
 endfunction
