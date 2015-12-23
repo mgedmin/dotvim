@@ -159,6 +159,9 @@ def parse_coverage_output(output, filename):
 @lazyredraw
 def parse_lines(formatted_list, signs):
     for item in formatted_list.split(', '):
+        if '->' in item:
+            # skip missed branches
+            continue
         if '-' in item:
             lo, hi = item.split('-')
         else:
