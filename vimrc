@@ -101,6 +101,7 @@ endif
 
 set timeoutlen=1000 ttimeoutlen=20 " timeout keys after 20ms, mappings after 1s
                                 " doesn't seem to work for <esc>Ok
+set updatetime=250              " faster CursorHold events for vim-gitgutter
 
 " Movement                                                      {{{2
 set incsearch                   " incremental searching
@@ -355,6 +356,9 @@ if exists("*vundle#begin")
 
   " Emacs-like Alt-t transpose words
   Plugin 'transpose-words'
+
+  " Show git change status for each line in the gutter
+  Plugin 'airblade/vim-gitgutter'
 
   call vundle#end()
   filetype plugin indent on
