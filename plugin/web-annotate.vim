@@ -1,7 +1,7 @@
 " File: web-annotate.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.1
-" Last Modified: 2013-02-26
+" Version: 0.2
+" Last Modified: 2016-01-06
 "
 " Defines a :WebAnnotate command that opens the annotated version of the
 " source file you're editing in a web browser.  If you've specified the
@@ -18,7 +18,7 @@ import os, vim, subprocess
 
 class WebAnnotator(object):
 
-    browser = 'chromium-browser'
+    browser = 'xdg-open'
 
     def __init__(self):
         self.read_config()
@@ -96,6 +96,7 @@ class WebAnnotator(object):
         return url.format(svnbranch=self.get_svn_branch(),
                           gitbranch=self.get_git_branch(),
                           lineno=self.get_line_no(),
+                          toplineno=self.get_top_line_no(),
                           **matchdict)
 
     def get_svn_branch(self):
@@ -104,8 +105,11 @@ class WebAnnotator(object):
     def get_git_branch(self):
         return 'master' # XXX: parse .git/refs/HEAD or something
 
-    def get_line_no(self):
+    def get_top_line_no(self):
         return vim.eval('line("w0")') # topmost visible line
+
+    def get_line_no(self):
+        return vim.eval('line(".")') # cursor line
 
     def launch(self, cmd):
         with open('/dev/null', 'w') as devnull:
