@@ -17,7 +17,9 @@ import re
 #   prefix2/filename
 # for this reason the first prefix should really be ''.
 file_prefixes = ['', 'src', 'packages',
-                 'cpanel', 'cpanel/tests/js']
+                 # Hack: this should be configurable
+                 'cpanel', 'cpanel/tests/js',
+                 'src/labtarna/templates']
 file_suffixes = ['', '.py']
 
 patterns = [
