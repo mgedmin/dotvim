@@ -48,7 +48,7 @@ patterns = [
     # anything that looks like a filename
     re.compile(r'(?P<filename>[-_a-zA-Z0-9/.]{3,})'),
     # anything that looks like a package/module
-    re.compile(r'(?P<module>[a-zA-Z0-9_.]{3,})'),
+    re.compile(r'(^|[^/])(?P<module>[a-zA-Z0-9_.]{3,})($|[^/])'),
     # anything that looks like a unit test name (ivija test runner style)
     re.compile(r'in test (?P<tag>[a-zA-Z_0-9]+)'),
     re.compile(r'(?P<tag>[a-zA-Z0-9_.]*[.]Test[a-zA-Z_0-9]+[.][a-zA-Z_0-9]+)'),
