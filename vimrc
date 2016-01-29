@@ -1132,6 +1132,7 @@ endf
 
 function! FT_Python_Django()
   call UseDjangoTestRunner()
+  setlocal wildignore+=var/www/static/**
 endf
 
 function! FT_Python_Yplan()
