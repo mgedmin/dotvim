@@ -1277,6 +1277,14 @@ augroup JavaScript
   autocmd BufReadPre,BufNewFile *.json                  set fdm=indent
 augroup END
 
+" Ansible roles                                                 {{{2
+
+augroup Ansible
+  autocmd!
+  autocmd BufReadPre,BufNewFile */roles/*/*.yml
+              \ let &l:path = expand("%:p:h:h")."/**,".&g:path
+augroup END
+
 endif " has("autocmd")
 
 "
