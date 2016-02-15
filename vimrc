@@ -87,6 +87,7 @@ if has('mouse_xterm')
 endif
 
 set clipboard&
+set clipboard-=autoselect       " unnamed + autoselect == I can't use Vp to replace
 if $WAYLAND_DISPLAY != ""
   set clipboard^=unnamedplus    " Wayland has no PRIMARY selection
 else
