@@ -255,7 +255,7 @@ if exists("*vundle#begin")
   Plugin 'mgedmin/test-switcher.vim'
 
   " Open files by typing a subsequence of the pathname, bound to \t
-  Plugin 'git://git.wincent.com/command-t.git'
+  Plugin 'wincent/command-t'
   " NB: Vundle doesn't install command-t completely automatically; you have
   " to manually do this:
   "   cd ~/.vim/bundle/command-t/ruby/command-t/ && ruby extconf.rb && make
