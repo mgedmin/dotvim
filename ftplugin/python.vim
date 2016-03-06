@@ -38,3 +38,4 @@ map  <buffer> <F9>    :SyntasticCheck<CR>
 
 " I keep mistyping this
 abbr <buffer> improt import
+abbr <buffer> impot import
