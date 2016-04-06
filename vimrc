@@ -420,6 +420,20 @@ if has("eval")
   let g:CommandTTraverseSCM = "pwd"
 endif
 
+" ctrlp.vim                                                     {{{2
+
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_reuse_window = 'netrw'
+let g:ctrlp_custom_ignore = {
+            \ 'dir': '\v[\/]build$',
+            \ }
+" make ctrl-f refresh the file cache like command-t
+" nb: changes the default meaning of ctrl-f which is "switch to next mode",
+" but I don't use modes
+let g:ctrlp_prompt_mappings = {
+            \ 'PrtClearCache()':      ['<F5>', '<c-f>'],
+            \ }
+
 " bufexplorer.vim                                               {{{2
 
 if has("eval")
