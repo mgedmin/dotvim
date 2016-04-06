@@ -1171,6 +1171,11 @@ function! FT_Python_Yplan()
   setlocal makeprg=arc\ lint\ --output\ summary
 endf
 
+function! FT_Python_MAN()
+  Margin 120
+  setlocal makeprg=flake8
+endf
+
 augroup Python_prog
   autocmd!
   autocmd BufRead,BufNewFile ~/src/ivija/**/*.txt  set ft=rst
@@ -1179,6 +1184,8 @@ augroup Python_prog
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'labtarna' | call FT_Python_Django() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'masinis' | call FT_Python_Django() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'yplan' | call FT_Python_Yplan() | endif
+  autocmd BufRead,BufNewFile **/equities.*/**/*.py call FT_Python_MAN()
+  autocmd BufRead,BufNewFile **/equities.*/.git/COMMIT_EDITMSG call FT_Python_MAN()
   autocmd BufRead,BufNewFile /var/lib/buildbot/masters/*/*.cfg  setlocal tags=/root/buildbot.tags
   autocmd BufRead,BufNewFile /usr/**/buildbot/**/*.py  setlocal tags=/root/buildbot.tags
 augroup END
