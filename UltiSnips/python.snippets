@@ -188,3 +188,11 @@ snippet ifmain "if __name__ == '__main__':" !b
 if __name__ == '__main__':
     main()
 endsnippet
+
+snippet factory "SQLAlchemyModel Factory subclass" !b
+class ${1:Something}Factory(SQLAlchemyModelFactory):
+    class Meta:
+        model = ${2:$1}
+        sqlalchemy_session = session
+
+endsnippet
