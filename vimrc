@@ -423,7 +423,7 @@ endif
 " ctrlp.vim                                                     {{{2
 
 let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_reuse_window = 'netrw'
+let g:ctrlp_reuse_window = 'netrw\|BufExplorer'
 let g:ctrlp_custom_ignore = {
             \ 'dir': '\v[\/]build$',
             \ }
