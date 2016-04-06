@@ -335,6 +335,9 @@ if exists("*vundle#begin")
   " Disabled because it takes over netrw windows on WinEnter,  breaks Ctrl-^
 ""Plugin 'troydm/easytree.vim'
 
+  " Another popular file navigator
+  Plugin 'scrooloose/nerdtree'
+
   " Automatically detect pasting in compatible xterms
   Plugin 'ConradIrwin/vim-bracketed-paste'
 
@@ -533,9 +536,13 @@ vmap <Leader>S <Plug>VSurround
 
 " NERD_tree.vim                                                 {{{2
 if v:version >= 700 && has("eval")
-  let g:NERDTreeIgnore = ['\.pyc$', '\~$']
+  let g:NERDTreeIgnore = ['\.pyc$', '\~$', '^tags$']
   let g:NERDTreeHijackNetrw = 0
 endif
+
+map <Leader>N :NERDTree<CR>
+map <Leader>n :NERDTreeFocus<CR>
+map <Leader>f :NERDTreeFind<CR>
 
 " jedi.vim                                                      {{{2
 if has("eval")
