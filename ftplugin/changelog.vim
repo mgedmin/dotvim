@@ -1,4 +1,4 @@
 " for /root/Changelog
 
 " ,q - quote program output
-map ,q :s/^/    \| /<bar>noh<cr>
+map ,q mq:s/^.*$/\=substitute('    \| '.submatch(0), '\s\+$', '', '')/<bar>noh<cr>`q
