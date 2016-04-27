@@ -338,8 +338,11 @@ if exists("*vundle#begin")
   " Another popular file navigator
   Plugin 'scrooloose/nerdtree'
 
-  " Automatically detect pasting in compatible xterms
-  Plugin 'ConradIrwin/vim-bracketed-paste'
+  " Automatically detect pasting in compatible xterms.  Very unreliable;
+  " changes my &pastetoggle unexpectedly, sometimes results in pastes being
+  " wrapped in <F28>...<F29>
+  " hitting shift-<middle-click>
+""Plugin 'ConradIrwin/vim-bracketed-paste'
 
   " Create/browse/edit gists
   Plugin 'mattn/webapi-vim'
