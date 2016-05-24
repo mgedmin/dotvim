@@ -1177,6 +1177,14 @@ endf
 function! FT_Python_MAN()
   Margin 120
   setlocal makeprg=flake8
+  let g:pyTestRunner = "py.test"
+  let g:pyTestRunnerClipboardExtras=''
+  let g:pyTestRunnerDirectoryFiltering = ''
+  let g:pyTestRunnerFilenameFiltering = " "
+  let g:pyTestRunnerPackageFiltering = ""
+  let g:pyTestRunnerModuleFiltering = ''
+  let g:pyTestRunnerTestFiltering = "-k"
+  let g:syntastic_html_tidy_exec = '/usr/bin/tidy' " because tidy in the activated virtualenv nukes the *.egg-info etc.
 endf
 
 augroup Python_prog
@@ -1188,6 +1196,7 @@ augroup Python_prog
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'masinis' | call FT_Python_Django() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'yplan' | call FT_Python_Yplan() | endif
   autocmd BufRead,BufNewFile **/equities.*/**/*.py call FT_Python_MAN()
+  autocmd BufRead,BufNewFile **/equities.*/**/*.html call FT_Python_MAN()
   autocmd BufRead,BufNewFile **/equities.*/.git/COMMIT_EDITMSG call FT_Python_MAN()
   autocmd BufRead,BufNewFile /var/lib/buildbot/masters/*/*.cfg  setlocal tags=/root/buildbot.tags
   autocmd BufRead,BufNewFile /usr/**/buildbot/**/*.py  setlocal tags=/root/buildbot.tags
