@@ -364,6 +364,7 @@ if exists("*vundle#begin")
 
   " Emacs-like Alt-t transpose words
   Plugin 'transpose-words'
+  exec "set <M-t>=\<Esc>t"
 
   " Show git change status for each line in the gutter
   Plugin 'airblade/vim-gitgutter'
