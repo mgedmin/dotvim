@@ -161,6 +161,7 @@ set wildignore+=.tox/**         " tox
 set wildignore+=_build/**       " sphinx
 set wildignore+=python/**       " virtualenv called 'python'
 set wildignore+=__pycache__/**  " compiled python files
+set wildignore+=**/node_modules/** " thousands of files, omg
 
 if v:version >= 700
   set complete-=i               " don't autocomplete from included files (too slow)
@@ -368,6 +369,9 @@ if exists("*vundle#begin")
 
   " Show git change status for each line in the gutter
   Plugin 'airblade/vim-gitgutter'
+
+  " Syntax for Robot Framework tests
+  Plugin 'mfukar/robotframework-vim'
 
   call vundle#end()
   filetype plugin indent on
@@ -770,6 +774,11 @@ command! -nargs=? EditSnippets
 
 command! -bar Python2 let g:syntastic_python_flake8_exe = 'python2 -m flake8' | SyntasticCheck
 command! -bar Python3 let g:syntastic_python_flake8_exe = 'python3 -m flake8' | SyntasticCheck
+
+" :ESLint/:JSHint to tell Syntastic what to use for js          {{{2
+
+command! -bar ESLint  let g:syntastic_javascript_checkers = ['eslint'] | SyntasticCheck
+command! -bar JSHint  let g:syntastic_javascript_checkers = ['jshint'] | SyntasticCheck
 
 endif " has("user_commands")
 
@@ -1175,6 +1184,12 @@ function! FT_Python_Yplan()
   setlocal makeprg=arc\ lint\ --output\ summary
 endf
 
+function! FT_Bolagsfakta_Syntastic()
+  let g:syntastic_javascript_eslint_exec = 'client/eslint'
+  let g:syntastic_javascript_checkers = ['eslint']
+  Margin 120
+endf
+
 function! FT_Python_MAN()
   Margin 120
   setlocal makeprg=flake8
@@ -1199,6 +1214,7 @@ augroup Python_prog
   autocmd BufRead,BufNewFile **/equities.*/**/*.py call FT_Python_MAN()
   autocmd BufRead,BufNewFile **/equities.*/**/*.html call FT_Python_MAN()
   autocmd BufRead,BufNewFile **/equities.*/.git/COMMIT_EDITMSG call FT_Python_MAN()
+  autocmd BufReadPre,BufNewFile **/bolagsfakta/**/* call FT_Bolagsfakta_Syntastic()
   autocmd BufRead,BufNewFile /var/lib/buildbot/masters/*/*.cfg  setlocal tags=/root/buildbot.tags
   autocmd BufRead,BufNewFile /usr/**/buildbot/**/*.py  setlocal tags=/root/buildbot.tags
 augroup END
