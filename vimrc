@@ -242,6 +242,9 @@ if exists("*vundle#begin")
   " Automate 'from X import Y' statements from ctags, bound to <F5>
   Plugin 'mgedmin/python-imports.vim'
 
+  " A smarter :Tag command
+  Plugin 'mgedmin/pytag.vim'
+
   " Better Python autoindentation
   Plugin 'hynek/vim-python-pep8-indent'
 
