@@ -355,6 +355,12 @@ if exists("*vundle#begin")
   " Improved YAML syntax for Ansible
   Plugin 'chase/vim-ansible-yaml'
 
+  " Jinja syntax
+  Plugin 'mitsuhiko/vim-jinja'
+
+  " Nginx syntax
+  Plugin 'nginx.vim'
+
   " Enable vim filename:lineno and :e filename:lineno
   Plugin 'kopischke/vim-fetch'
 
