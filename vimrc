@@ -156,6 +156,7 @@ set wildignore+=coverage/**     " zope.testrunner --coverage
 set wildignore+=parts/omelette/** " collective.recipe.omelette
 set wildignore+=parts/**        " all buildout-generated junk even
 set wildignore+=.venv/**        " virtualenv
+set wildignore+=env/**          " virtualenv
 set wildignore+=eggs/**         " virtualenv
 set wildignore+=.tox/**         " tox
 set wildignore+=_build/**       " sphinx
