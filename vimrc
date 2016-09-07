@@ -208,59 +208,47 @@ endif
 " Plugins                                                       {{{1
 "
 
-" Vundle                                                        {{{2
-"
-" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-" read documentation at https://github.com/gmarik/vundle#readme
-if has("user_commands")
-  set rtp+=~/.vim/bundle/vundle/
-  runtime autoload/vundle.vim " apparently without this the exists() check fails
-endif
-if exists("*vundle#begin")
-  filetype off
-  call vundle#begin()
+" vim-plug                                                      {{{2
 
-  " install/upgrade vundle itself (there's the obvious chicken and egg problem
-  " here); if vundle is missing, bootstrap it with
-  "   git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-  Plugin 'gmarik/vundle'
+if has("eval")
+  call plug#begin('~/.vim/bundle')
 
   " list all plugins you want to have like this:
-  "   Plugin 'foo.vim' for vim.org-hosted stuff
-  "   Plugin 'owner/project' for github-hosted stuff
-  "   Plugin 'git://git.wincent.com/command-t.git' for arbitrary URLs
+  "   Plug 'foo.vim' for vim.org-hosted stuff
+  "   Plug 'owner/project' for github-hosted stuff
+  "   Plug 'git://git.wincent.com/command-t.git' for arbitrary URLs
   " install ones that are missing with :PluginInstall
   " install/upgrade them all with :PluginInstall!
   " search for new ones with :PluginSearch keyword
   " bundles are kept in ~/.vim/bundle/
 
   " Show [current_function] in the status line for C files
-  Plugin 'mgedmin/chelper.vim'
+  Plug 'mgedmin/chelper.vim'
 
   " Show [CurrentClass.current_method] in the status line for Python files
-  Plugin 'mgedmin/pythonhelper.vim'
+  Plug 'mgedmin/pythonhelper.vim'
 
   " Automate 'from X import Y' statements from ctags, bound to <F5>
-  Plugin 'mgedmin/python-imports.vim'
+  Plug 'mgedmin/python-imports.vim'
 
   " A smarter :Tag command
-  Plugin 'mgedmin/pytag.vim'
+  Plug 'mgedmin/pytag.vim'
 
   " Better Python autoindentation
-  Plugin 'hynek/vim-python-pep8-indent'
+  Plug 'hynek/vim-python-pep8-indent'
 
   " \oo to jump to stdlib source
-  Plugin 'python_open_module'
+  Plug 'python_open_module'
 
   " Python folding, to replace my hacky syntax/python.vim
   " (commented out until I remove my hack)
-""Plugin 'tmhedberg/SimpylFold'
+""Plug 'tmhedberg/SimpylFold'
 
   " Automate switching between code and unit test files, bound to <C-F6>
-  Plugin 'mgedmin/test-switcher.vim'
+  Plug 'mgedmin/test-switcher.vim'
 
   " Open files by typing a subsequence of the pathname, bound to \t
-  Plugin 'wincent/command-t'
+  Plug 'wincent/command-t'
   " NB: Vundle doesn't install command-t completely automatically; you have
   " to manually do this:
   "   cd ~/.vim/bundle/command-t/ruby/command-t/ && ruby extconf.rb && make
@@ -269,54 +257,54 @@ if exists("*vundle#begin")
 
   " pure-python alternative to command-t, slightly different UI, not as nice
   " to use as command-t but useful for some circumstances.  Bound to <C-P>
-  Plugin 'ctrlp.vim'
+  Plug 'ctrlp.vim'
 
   " Show syntax errors and style warnings in files I edit.  Updates on save.
-  Plugin 'scrooloose/syntastic'
+  Plug 'scrooloose/syntastic'
 
   " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
-  Plugin 'Gundo'
+  Plug 'Gundo'
 
   " Defines the very useful :Rename newfilename.txt
-  Plugin 'Rename'
+  Plug 'Rename'
 
   " Git integration -- :Gdiff, :Ggrep etc.
-  Plugin 'tpope/vim-fugitive'
-  " Plugin 'fugitive.vim' -- 2-years old version of tpope/vim-fugitive
+  Plug 'tpope/vim-fugitive'
+  " Plug 'fugitive.vim' -- 2-years old version of tpope/vim-fugitive
 
   " Version control integration for SVN and other legacy VCSes -- :VCSVimDiff
-  Plugin 'vcscommand.vim'
+  Plug 'vcscommand.vim'
 
   " Load previous svn-commit.tmp automatically when you repeat 'svn ci' after
   " a failed commit.
-""  Plugin 'svn_commit.vim'  404 not found, I must've misspelled
+""  Plug 'svn_commit.vim'  404 not found, I must've misspelled
 
   " Show the svn diff while I'm editing an svn commit message.
-  Plugin 'svn-diff.vim'
+  Plug 'svn-diff.vim'
 
   " LESS (the CSS preprocessor) syntax
-  Plugin 'groenewege/vim-less'
+  Plug 'groenewege/vim-less'
 
   " Vala syntax
-  Plugin 'tkztmk/vim-vala'
+  Plug 'tkztmk/vim-vala'
 
   " List open buffers with various sorting modes on \b
-  Plugin 'jlanzarotta/bufexplorer'
+  Plug 'jlanzarotta/bufexplorer'
 
   " ^P/^N completion on the command line
-  Plugin 'CmdlineComplete'
+  Plug 'CmdlineComplete'
 
   " Replace 'ga' to show Unicode names etc.
-  Plugin 'tpope/vim-characterize'
+  Plug 'tpope/vim-characterize'
 
   " Snippets!  Type some text, press <tab> to expand, with get expansion with
   " multiple placeholders you can keep or replace and tab over.
   " Supposedly better than SnipMate which I used earlier.  Integrates with
   " YouCompleteMe
-  Plugin 'SirVer/UltiSnips'
+  Plug 'SirVer/UltiSnips'
 
   " Default snippet collection
-  Plugin 'honza/vim-snippets'
+  Plug 'honza/vim-snippets'
 
   " Smart omni-completion for everything.  I've disabled most of it because it
   " was making my life actually harder instead of easier.  And then I disabled
@@ -325,7 +313,7 @@ if exists("*vundle#begin")
   " as root == eek
 ""if v:version >= 704 || v:version == 703 && has("patch584")
 ""  " YouCompleteMe needs vim 7.3.584 or newer
-""  Plugin 'Valloric/YouCompleteMe'
+""  Plug 'Valloric/YouCompleteMe'
 ""  " It needs extra install:
 ""  "   cd ~/.vim/bundle/YouCompleteMe && ./install.sh
 ""endif
@@ -334,57 +322,56 @@ if exists("*vundle#begin")
   " Disabled because Is too smart for its own good, and makes completion
   " worse, not better, for the codebases I work with.
   " Also, YouCompleteMe subsumes it.
-""Plugin 'davidhalter/jedi-vim'
+""Plug 'davidhalter/jedi-vim'
 
   " Replacement for netrw, some like it
   " Disabled because it takes over netrw windows on WinEnter,  breaks Ctrl-^
-""Plugin 'troydm/easytree.vim'
+""Plug 'troydm/easytree.vim'
 
   " Another popular file navigator
-  Plugin 'scrooloose/nerdtree'
+  Plug 'scrooloose/nerdtree'
 
   " Automatically detect pasting in compatible xterms.  Very unreliable;
   " changes my &pastetoggle unexpectedly, sometimes results in pastes being
   " wrapped in <F28>...<F29>
   " hitting shift-<middle-click>
-""Plugin 'ConradIrwin/vim-bracketed-paste'
+""Plug 'ConradIrwin/vim-bracketed-paste'
 
   " Create/browse/edit gists
-  Plugin 'mattn/webapi-vim'
-  Plugin 'mattn/gist-vim'
+  Plug 'mattn/webapi-vim'
+  Plug 'mattn/gist-vim'
 
   " Improved ReStructuredText syntax
-  Plugin 'mrsipan/vim-rst'
+  Plug 'mrsipan/vim-rst'
 
   " Improved YAML syntax for Ansible
-  Plugin 'chase/vim-ansible-yaml'
+  Plug 'chase/vim-ansible-yaml'
 
   " Jinja syntax
-  Plugin 'mitsuhiko/vim-jinja'
+  Plug 'mitsuhiko/vim-jinja'
 
   " Nginx syntax
-  Plugin 'nginx.vim'
+  Plug 'nginx.vim'
 
   " Enable vim filename:lineno and :e filename:lineno
-  Plugin 'kopischke/vim-fetch'
+  Plug 'kopischke/vim-fetch'
 
   " xchat log syntax highlighting (set ft=xchatlog)
-  Plugin 'xchat-log-syntax'
+  Plug 'xchat-log-syntax'
   " there's also 'XChat-IRC-Log' (set ft=irclog), but it fails to highlight
   " anything?
 
   " Emacs-like Alt-t transpose words
-  Plugin 'transpose-words'
+  Plug 'transpose-words'
   exec "set <M-t>=\<Esc>t"
 
   " Show git change status for each line in the gutter
-  Plugin 'airblade/vim-gitgutter'
+  Plug 'airblade/vim-gitgutter'
 
   " Syntax for Robot Framework tests
-  Plugin 'mfukar/robotframework-vim'
+  Plug 'mfukar/robotframework-vim'
 
-  call vundle#end()
-  filetype plugin indent on
+  call plug#end()
 endif
 
 " Filetype plugins                                              {{{2
