@@ -238,7 +238,7 @@ if has("eval")
   Plug 'hynek/vim-python-pep8-indent'
 
   " \oo to jump to stdlib source
-  Plug 'python_open_module'
+  Plug 'mgedmin/python_open_module.vim'
 
   " Python folding, to replace my hacky syntax/python.vim
   " (commented out until I remove my hack)
