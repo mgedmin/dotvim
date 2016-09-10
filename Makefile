@@ -13,7 +13,7 @@ help:
 	@echo 'make rebuild - recompile bundles'
 
 .PHONY: install
-install: vim-plug
+install bundle/command-t: vim-plug
 	vim +PlugInstall
 
 .PHONY: update
