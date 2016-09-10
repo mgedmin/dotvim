@@ -29,11 +29,12 @@
 "             [1, 5, 6, 9]
 "
 
-if !has("python")
+if !has("python") && !has("python3")
     finish
 endif
 
-python <<END
+let s:python = has('python3') ? 'python3' : 'python'
+exec s:python "<<END"
 
 def SortPythonList():
     import vim, ast
@@ -42,11 +43,11 @@ def SortPythonList():
     try:
         values = ast.literal_eval(line.strip())
     except SyntaxError:
-        print "Current line does not contain a valid Python list literal"
+        print("Current line does not contain a valid Python list literal")
         return
     new_line = indent + repr(sorted(values))
     vim.current.line = new_line
 
 END
 
-command! SortPythonList :py SortPythonList()
+command! SortPythonList :exec s:python "SortPythonList()"

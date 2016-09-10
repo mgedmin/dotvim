@@ -65,7 +65,7 @@ def iter_matches(line):
 
 def locate_file(filename, verbose=False):
     if verbose:
-        print 'looking for file %s' % filename
+        print('looking for file %s' % filename)
     while filename:
         for prefix in file_prefixes:
             for suffix in file_suffixes:
@@ -76,12 +76,12 @@ def locate_file(filename, verbose=False):
             break
         filename = filename.split('/', 1)[1]
         if verbose:
-            print '  trying %s' % filename
+            print('  trying %s' % filename)
     return None
 
 def locate_module(module, verbose=False):
     if verbose:
-        print 'looking for module %s' % module
+        print('looking for module %s' % module)
     filename = locate_file(module.replace('.', '/') + '.py')
     if not filename:
         filename = locate_file(module.replace('.', '/') + '/__init__.py')
@@ -89,7 +89,7 @@ def locate_module(module, verbose=False):
 
 def tag_exists(tag_name, verbose=False):
     if verbose:
-        print 'looking for tag %s' % tag_name
+        print('looking for tag %s' % tag_name)
     try:
         return bool(vim.eval("taglist('^%s$')" % tag_name))
     except vim.error:
@@ -111,7 +111,7 @@ def locate_command(line, verbose=False):
                 finder = __main__.SmartTagFinder()
                 full_tag = '%s.%s' % (module_class, tag)
                 if verbose:
-                    print 'looking for tag %s' % full_tag
+                    print('looking for tag %s' % full_tag)
                 t, n, i = finder.find_best_tag(full_tag)
                 if t:
                     return 'Tag %s' % full_tag
@@ -141,18 +141,12 @@ def locate_test(line, verbose=False):
     try:
         cmd = locate_command(line, verbose=verbose)
         if cmd:
-            print cmd
+            print(cmd)
             try:
                 vim.command(cmd)
             except vim.error:
                 pass
         else:
-            print "Don't know how to find %s" % line
+            print("Don't know how to find %s" % line)
     except KeyboardInterrupt:
         pass
-
-
-def reload():
-    import __builtin__, sys
-    __builtin__.reload(sys.modules[__name__])
-

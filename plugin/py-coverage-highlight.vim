@@ -36,7 +36,7 @@
 " the reports in ./coverage or ./parts/test/working-directory/coverage and
 " is able to compute the right filename.
 
-if !has("python")
+if !has("python") && !has("python3")
     finish
 endif
 
@@ -48,7 +48,8 @@ sign define NoCoverage text=>> texthl=NoCoverage linehl=NoCoverage
 
 function! HiglightCoverage(arg)
     sign unplace *
-    python <<END
+    let python = has('python3') ? 'python3' : 'python'
+    exec python "<<END"
 
 import vim, os, subprocess
 
@@ -142,18 +143,18 @@ def parse_coverage_output(output, filename):
         # that avoids a 'Press enter to continue...' message
         truncate_to = int(vim.eval('&columns')) - 15
         if len(last_line) <= truncate_to or int(vim.eval('&verbose')) > 0:
-            print last_line
+            print(last_line)
         else:
-            print last_line[:truncate_to] + '...'
+            print(last_line[:truncate_to] + '...')
         last_line = last_line[len(filename_no_ext) + 1:].lstrip()
         missing = last_line.rpartition('%')[-1]
         if missing and missing.strip():
             parse_lines(missing, signs)
     else:
-        print "Got confused by %s" % repr(last_line)
-        print "Expected it to start with %s" % repr(filename_no_ext + ' ')
-        print "Full output:"
-        print output
+        print("Got confused by %s" % repr(last_line))
+        print("Expected it to start with %s" % repr(filename_no_ext + ' '))
+        print("Full output:")
+        print(output)
 
 
 @lazyredraw
@@ -202,18 +203,21 @@ else:
     filename = vim.eval('bufname("%")')
     coverage_script = find_coverage_script()
     if os.path.exists('.coverage') and coverage_script:
-        print "Running %s report -m %s" % (coverage_script, filename)
+        print("Running %s report -m %s" % (coverage_script, filename))
         output = subprocess.Popen([coverage_script, 'report', '-m', filename],
                                   stdout=subprocess.PIPE).communicate()[0]
+        if not isinstance(output, str):
+            output = output.decode('UTF-8', 'replace')
         parse_coverage_output(output, filename)
     else:
         modulename = filename2module(filename)
         filename = find_coverage_report(modulename)
         if os.path.exists(filename):
-            print "Using", filename
+            print("Using %s" % filename)
             parse_cover_file(filename)
         else:
-            print >> sys.stderr, "Neither .coverage nor %s found" % filename
+            sys.stderr.write("Neither .coverage nor %s found\n" % filename)
+            sys.stderr.flush()
 
 END
 endf

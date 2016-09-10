@@ -9,12 +9,13 @@
 "
 " See ~/.vim/web-annotate.cfg for a sample config.
 "
-if !has("python")
+if !has("python") && !has("python3")
   finish
 en
 
-python << END
-import os, vim, subprocess
+let s:python = has('python3') ? 'python3' : 'python'
+exec s:python "<< END"
+import os, re, vim, subprocess
 
 class WebAnnotator(object):
 
@@ -117,4 +118,4 @@ class WebAnnotator(object):
 
 END
 
-command! WebAnnotate :python WebAnnotator().open()
+command! WebAnnotate :exec s:python "WebAnnotator().open()"

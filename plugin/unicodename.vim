@@ -23,15 +23,19 @@
 " Map the command to a key for extra convenience, e.g.
 "   map <F12> :UnicodeName<CR>
 
-if has("python")
+if has("python") || has("python3")
 
-python << EOS
+let s:python = has('python3') ? 'python3' : 'python'
+exec s:python "<< EOS"
 import vim
 import unicodedata
 
 def char_under_cursor():
     col = vim.current.window.cursor[1]
-    return vim.current.line[col:].decode('UTF-8')[0]
+    text = vim.current.line[col:]
+    if isinstance(text, bytes):
+        text = text.decode('UTF-8')
+    return text[0]
 
 def format_char_name(c):
     return 'U+%04X %s' % (ord(c), unicodedata.name(c, ''))
@@ -44,6 +48,6 @@ def name_char_under_cursor():
         return 'EOL'
 EOS
 
-command! UnicodeName  python print name_char_under_cursor()
+command! UnicodeName  exec s:python "print(name_char_under_cursor())"
 
-endif " has("python")
+endif " has("python") || has("python3")

@@ -26,8 +26,9 @@ if !exists('g:run_in_process')
 endif
 
 let g:has_nose = -1 " autodetect
-if has("python")
-    python << END
+if has("python") || has("python3")
+    let s:python = has('python3') ? 'python3' : 'python'
+    exec s:python "<< END"
 
 def autodetect_nose():
     import vim
@@ -56,10 +57,10 @@ fun! RunTests()
     hi StatusLine ctermfg=NONE guifg=NONE
     redraw!
     if g:run_in_process && g:has_nose == -1
-        py autodetect_nose()
+        exec g:python "autodetect_nose()"
     endif
     if g:run_in_process && g:has_nose
-        py vim.command('let g:pytestresult = %d' % (not run_tests()))
+        exec g:python "vim.command('let g:pytestresult = %d' % (not run_tests()))"
     else
         let g:pytestoutput = system(g:test_command)
         let g:pytestresult = v:shell_error

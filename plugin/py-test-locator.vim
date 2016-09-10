@@ -22,9 +22,10 @@
 " :ClipboardTest
 "
 
-if has('python')
+if has('python') || has('python3')
 
-    python <<EOF
+    let s:python = has('python3') ? 'python3' : 'python'
+    exec s:python "<<EOF"
 
 import sys, os
 location = os.path.expanduser('~/.vim/plugin') # XXX
@@ -34,16 +35,16 @@ if location not in sys.path:
 # import or reload py_test_locator.py, because I want :source % to
 # notice any changes I made to it
 try:
-    py_test_locator
-except NameError:
-    import py_test_locator
-else:
-    reload(py_test_locator)
+    del sys.modules['py_test_locator']
+except KeyError:
+    pass
+
+import py_test_locator
 
 EOF
 
     function! LocateTest(line)
-        python py_test_locator.locate_test(vim.eval('a:line'), verbose=int(vim.eval('&verbose')))
+        exec s:python "py_test_locator.locate_test(vim.eval('a:line'), verbose=int(vim.eval('&verbose')))"
     endfunction
 
 else " no Python, fall back
