@@ -3,7 +3,22 @@
 setlocal sw=2 et
 
 " ,q - quote program output
-map <buffer> ,q mq:s/^.*$/\=substitute('    \| '.submatch(0), '\s\+$', '', '')/<bar>noh<cr>`q
+map <buffer> ,q :Quote<cr>
+
+com! -range Quote <line1>,<line2> call s:quote()
+
+fun! s:quote()
+    let saved = getcurpos()
+    let previous = getline(line('.') - 1)
+    let indent = matchstr(previous, '^\s*')
+    if previous !~ '^\s*[#|]'
+        let indent .= "  "
+    endif
+    let line = getline('.')
+    let new_line = indent . '| ' . line
+    call setline('.', substitute(new_line, '\s\+$', '', ''))
+    call setpos('.', saved)
+endfun
 
 fun! s:new_changelog_entry()
     let l:user=$SUDO_USER
