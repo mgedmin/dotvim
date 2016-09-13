@@ -9,7 +9,7 @@ com! -range Quote <line1>,<line2> call s:quote()
 
 fun! s:quote()
     let saved = getcurpos()
-    let previous = getline(line('.') - 1)
+    let previous = getline(prevnonblank(line('.') - 1))
     let indent = matchstr(previous, '^\s*')
     if previous !~ '^\s*[#|]'
         let indent .= "  "
