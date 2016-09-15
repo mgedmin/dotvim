@@ -27,8 +27,6 @@ patterns = [
     re.compile(r'^(?:ERROR|FAIL): (?P<tag>[a-zA-Z_0-9]+) [(](?P<module_class>[a-zA-Z0-9_.]*[.][a-zA-Z_0-9]+)[)]'),
     # svn status output
     re.compile(r'^[A-Z?]      (?P<filename>[^ ]+)$'),
-    # grep output
-    re.compile(r'(?P<filename>[^: ]+):'),
     # py.test encloses the filename in square brackets sometimes,
     re.compile(r'\[(?P<filename>[^: ]+):(?P<lineno>\d+)]'),
     # pdb puts the line number in parentheses,
@@ -38,6 +36,8 @@ patterns = [
     re.compile(r'http://[a-z0-9.]*:([0-9]+?)/(?P<filename>[^: ]+):(?P<lineno>\d+)]'),
     # standard compiler error message format
     re.compile(r'(?P<filename>[^: ]+):(?P<lineno>\d+)'),
+    # grep output
+    re.compile(r'(?P<filename>[^: ]+):'),
     # tracebacks
     re.compile(r'"(?P<filename>[^: ]+)", line (?P<lineno>\d+)'),
     re.compile(r'File (?P<filename>[^: ]+), line (?P<lineno>\d+)'),
