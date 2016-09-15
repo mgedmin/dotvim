@@ -11,7 +11,7 @@ fun! s:quote()
     let saved = getcurpos()
     let previous = getline(prevnonblank(line('.') - 1))
     let indent = matchstr(previous, '^\s*')
-    if previous !~ '^\s*[#|]'
+    if previous !~ '^\s*\([#|]\|\.\{3}\)'
         let indent .= "  "
     endif
     let line = getline('.')
