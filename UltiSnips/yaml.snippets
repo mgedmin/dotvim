@@ -2,11 +2,11 @@ snippet travis-setup "travis.yml based on setup.py test" !b
 language: python
 sudo: false
 python:
-    - 2.6
     - 2.7
     - 3.2
     - 3.3
     - 3.4
+    - 3.5
     - pypy
 install:
     - pip install .
@@ -46,11 +46,11 @@ snippet travis-buildout "travis.yml based on buildout" !b
 language: python
 sudo: false
 python:
-    - 2.6
     - 2.7
     - 3.2
     - 3.3
     - 3.4
+    - 3.5
     - pypy
 install:
     - python bootstrap.py
@@ -77,7 +77,6 @@ environment:
   matrix:
     # http://www.appveyor.com/docs/installed-software#python lists available
     # versions
-    - PYTHON: "C:\\\\Python26"
     - PYTHON: "C:\\\\Python27"
     - PYTHON: "C:\\\\Python33"
     - PYTHON: "C:\\\\Python34"
