@@ -17,6 +17,8 @@ def github_owner_repo(path='', default=''):
                                 stderr=devnull,
                                 cwd=os.path.dirname(os.path.abspath(path)))
     remote = pipe.communicate()[0].strip()
+    if not isinstance(remote, str):
+        remote = remote.decode('UTF-8', 'replace')
     if 'github.com' not in remote:
         return default
     path = remote.split('github.com', 1)[-1].lstrip('/:')
