@@ -1148,7 +1148,7 @@ augroup MakeExecutableOnSave
   " http://unix.stackexchange.com/questions/39982/vim-create-file-with-x-bit
   " See also http://vim.wikia.com/wiki/Setting_file_attributes_without_reloading_a_buffer
   au!
-  au BufWritePost * if getline(1) =~ "^#!" && expand("%:t") !~ "test.*py" | silent exec '!chmod +x <afile>' | endif
+  au BufWritePost * if getline(1) =~ "^#!" && expand("%:t") !~ "test.*py" && expand("%") !~ "://" | silent exec '!chmod +x <afile>' | endif
 augroup END
 
 " Programming in Python                                         {{{2
