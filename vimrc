@@ -272,6 +272,9 @@ if has("eval")
   Plug 'tpope/vim-fugitive'
   " Plug 'fugitive.vim' -- 2-years old version of tpope/vim-fugitive
 
+  " :%S/foo/bar/gc --> case-preserving :%s
+  Plug 'tpope/vim-abolish'
+
   " Version control integration for SVN and other legacy VCSes -- :VCSVimDiff
   Plug 'vcscommand.vim'
 
