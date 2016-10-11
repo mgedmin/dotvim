@@ -186,7 +186,17 @@ def find_coverage_script():
     # Vagrant means I can't rely on bin/coverage working even if it exists, so
     # prefer a globally-installed one if possible.
     if os.path.exists('bin/coverage'):
-        return 'bin/coverage'
+        return os.path.abspath('bin/coverage')
+
+
+def find_coverage_file_for(filename):
+    where = os.path.dirname(filename)
+    while True:
+        if os.path.exists(os.path.join(where, '.coverage')):
+            return where
+        if os.path.dirname(where) == where:
+            return None
+        where = os.path.dirname(where)
 
 
 arg = vim.eval('a:arg')
@@ -202,13 +212,15 @@ elif arg:
 else:
     filename = vim.eval('bufname("%")')
     coverage_script = find_coverage_script()
-    if os.path.exists('.coverage') and coverage_script:
-        print("Running %s report -m %s" % (coverage_script, filename))
-        output = subprocess.Popen([coverage_script, 'report', '-m', filename],
-                                  stdout=subprocess.PIPE).communicate()[0]
+    coverage_dir = find_coverage_file_for(filename)
+    if coverage_script and coverage_dir:
+        relfilename = os.path.relpath(filename, coverage_dir)
+        print("Running %s report -m %s" % (os.path.relpath(coverage_script), relfilename))
+        output = subprocess.Popen([coverage_script, 'report', '-m', relfilename],
+                                  stdout=subprocess.PIPE, cwd=coverage_dir).communicate()[0]
         if not isinstance(output, str):
             output = output.decode('UTF-8', 'replace')
-        parse_coverage_output(output, filename)
+        parse_coverage_output(output, relfilename)
     else:
         modulename = filename2module(filename)
         filename = find_coverage_report(modulename)
