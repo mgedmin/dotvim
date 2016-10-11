@@ -213,15 +213,6 @@ endif
 if has("eval")
   call plug#begin('~/.vim/bundle')
 
-  " list all plugins you want to have like this:
-  "   Plug 'foo.vim' for vim.org-hosted stuff
-  "   Plug 'owner/project' for github-hosted stuff
-  "   Plug 'git://git.wincent.com/command-t.git' for arbitrary URLs
-  " install ones that are missing with :PluginInstall
-  " install/upgrade them all with :PluginInstall!
-  " search for new ones with :PluginSearch keyword
-  " bundles are kept in ~/.vim/bundle/
-
   " Show [current_function] in the status line for C files
   Plug 'mgedmin/chelper.vim'
 
@@ -248,12 +239,8 @@ if has("eval")
   Plug 'mgedmin/test-switcher.vim'
 
   " Open files by typing a subsequence of the pathname, bound to \t
-  Plug 'wincent/command-t'
-  " NB: Vundle doesn't install command-t completely automatically; you have
-  " to manually do this:
-  "   cd ~/.vim/bundle/command-t/ruby/command-t/ && ruby extconf.rb && make
-  " you might also need some packages installed, like build-essential and
-  " ruby1.8-dev
+  Plug 'wincent/command-t', {
+              \ 'do': 'cd ruby/command-t && ruby extconf.rb && make'}
 
   " pure-python alternative to command-t, slightly different UI, not as nice
   " to use as command-t but useful for some circumstances.  Bound to <C-P>
