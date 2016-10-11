@@ -1177,7 +1177,7 @@ function! FT_Bolagsfakta_Syntastic()
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_python_flake8_exe = 'python3 -m flake8'
-  Margin 120
+  Margin 100
 endf
 
 function! FT_Python_MAN()
