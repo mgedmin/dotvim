@@ -403,7 +403,8 @@ if has("eval")
 
   " don't check json files; I rarely edit these and sometimes they're huge
   " which makes jshint slow
-  let g:syntastic_ignore_files = ['\.json$']
+  " the same applies to configure scripts
+  let g:syntastic_ignore_files = ['\.json$', '^configure$']
 endif
 
 " Command-t                                                     {{{2
