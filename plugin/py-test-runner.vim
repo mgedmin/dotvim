@@ -88,6 +88,20 @@ function! UseDjangoTestRunner()
     let g:pyTestRunnerClipboardExtrasSuffix = ""
 endfunction
 
+function! UsePyTestTestRunner()
+    " Assumes you have py.test, generates command lines of the form
+    "   py.test <filename>::{class}.{method}
+    let g:pyTestRunner = "py.test"
+    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}.{method}"
+    let g:pyTestRunnerTestFiltering = "<NOSPACE>::<NOSPACE>"
+    let g:pyTestRunnerPackageFiltering = ""
+    let g:pyTestRunnerModuleFiltering = ""
+    let g:pyTestRunnerFilenameFiltering = " "
+    let g:pyTestRunnerDirectoryFiltering = ""
+    let g:pyTestRunnerClipboardExtras = ""
+    let g:pyTestRunnerClipboardExtrasSuffix = ""
+endfunction
+
 function! GetTestUnderCursor()
     let l:test = ""
     if expand("%:e") == "txt" || expand("%:e") == "test"
