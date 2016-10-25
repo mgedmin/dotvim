@@ -20,6 +20,12 @@
 " You can also provide the missing lines directly on the command line,
 " eg. :HighlightCoverage NN-NN,NN-NN,NN-NN
 "
+" You can override the coverage script name with
+"
+"   let g:coverage_script = 'python3 -m coverage'
+"
+" or similar.
+"
 " Usage with Python's trace.py
 " ----------------------------
 " Produce a coverage report with Python's trace.py.  Open a source file.
@@ -40,6 +46,10 @@ if !has("python") && !has("python3")
     finish
 endif
 
+if !exists("g:coverage_script")
+    let g:coverage_script = ""
+endif
+
 hi NoCoverage ctermbg=gray guibg=#ffcccc
 if &t_Co > 8
     hi NoCoverage ctermbg=224
@@ -51,7 +61,7 @@ function! HiglightCoverage(arg)
     let python = has('python3') ? 'python3' : 'python'
     exec python "<<END"
 
-import vim, os, subprocess
+import vim, os, subprocess, shlex
 
 def filename2module(filename):
     pkg = os.path.splitext(os.path.abspath(filename))[0]
@@ -180,6 +190,9 @@ def program_in_path(program):
 
 
 def find_coverage_script():
+    override = vim.eval('g:coverage_script')
+    if override:
+        return override
     if program_in_path('coverage'):
         # assume it was easy_installed
         return 'coverage'
@@ -216,7 +229,11 @@ else:
     if coverage_script and coverage_dir:
         relfilename = os.path.relpath(filename, coverage_dir)
         print("Running %s report -m %s" % (os.path.relpath(coverage_script), relfilename))
-        output = subprocess.Popen([coverage_script, 'report', '-m', relfilename],
+        if os.path.exists(coverage_script):
+            command = [coverage_script]
+        else:
+            command = shlex.split(coverage_script)
+        output = subprocess.Popen(command + ['report', '-m', relfilename],
                                   stdout=subprocess.PIPE, cwd=coverage_dir).communicate()[0]
         if not isinstance(output, str):
             output = output.decode('UTF-8', 'replace')
