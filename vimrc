@@ -1178,6 +1178,9 @@ function! FT_Bolagsfakta_Syntastic()
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_python_flake8_exe = 'python3 -m flake8'
+  let g:coverage_script = 'python3 -m coverage'
+  call UsePyTestTestRunner()
+  let g:pyTestRunner = "server/env/bin/py.test"
   Margin 100
 endf
 
