@@ -29,8 +29,11 @@ imap <buffer> <C-F5>  <C-O><C-F5>
 " (plugin/py-test-switcher.vim)
 map  <buffer> <C-F6>  :SwitchCodeAndTest<CR>
 
-" <F9> = force syntax re-check
-map  <buffer> <F9>    :SyntasticCheck<CR>
+" <F9> = force syntax re-check (nah, <F2> does that)
+"map  <buffer> <F9>    :SyntasticCheck<CR>
+
+" <C-F9> = run test under cursor
+map  <buffer> <C-F9>   :RunTestUnderCursor<CR>
 
 " <F10> = run pyflakes on this file (obsoleted by syntastic)
 "map  <buffer> <F10>   :setlocal makeprg=pyflakes\ %\|make<CR>

@@ -361,6 +361,13 @@ if has("eval")
   " Syntax for Robot Framework tests
   Plug 'mfukar/robotframework-vim'
 
+  " Async shell commands
+  ""Plug 'joonty/vim-do' <- unmaintained?  doesn't support +python3
+  ""Plug 'WolfgangMehner/vim-do' -- buggy also, e.g. can't use visual mode
+
+  " Async shell commands
+  Plug 'skywind3000/asyncrun.vim'
+
   call plug#end()
 endif
 
@@ -565,6 +572,32 @@ if has("eval")
   " because jedi autocompletes the only zope subpackage it finds in
   " site-packages, unmindful about my virtualenvs/buildouts.
   let g:jedi#popup_select_first = 0
+endif
+
+" asyncrun.vim + fugitive.vim = <3                              {{{2
+if has("user_commands")
+  " https://github.com/skywind3000/asyncrun.vim/wiki/Cooperate-with-vim-fugitive
+  " now :Gpush and :Gfetch are async!
+  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+
+  " change status line color when starting an async command
+  command! -bang -nargs=+ -complete=file AsyncRun
+    \ hi! link StatusLine StatusLineRunning |
+    \ call asyncrun#run('<bang>', '', <q-args>)
+endif
+if has("eval")
+  fun! OnAsyncRunExit()
+    if g:asyncrun_status == 'success'
+      hi! link StatusLine StatusLineSuccess
+    elseif g:asyncrun_status == 'failure'
+      hi! link StatusLine StatusLineFailure
+      botright cw
+    endif
+    let &statusline = &statusline  " force a redraw
+    " perhaps echo 'async job finished:' g:asyncrun_code
+    " but I tried that and didn't like it
+  endf
+  let g:asyncrun_exit = "call OnAsyncRunExit()"
 endif
 
 "
@@ -1034,7 +1067,7 @@ map             <F2>            :wall<CR>
 imap            <F2>            <C-O><F2>
 
 " <F3> = turn off search highlighting
-map             <F3>            :nohlsearch<CR>
+map             <F3>            :nohlsearch<bar>hi! link StatusLine StatusLineNeutral<CR>
 imap            <F3>            <C-O><F3>
 
 " <S-F3> = turn off location list
@@ -1077,9 +1110,12 @@ imap            <F7>            <C-O><F7>
 map             <F8>            :let @/='\<'.expand('<cword>').'\>'<bar>set hls<CR>
 imap            <F8>            <C-O><F8>
 
-" <F9> = make
-map             <F9>    :make<CR>
+" <F9> = make (often overwritten by filetype plugins)
+map             <F9>    :Make<CR>
 imap            <F9>    <C-O><F9>
+" <S-F9> = toggle quickfix window
+map             <S-F9>  :call asyncrun#quickfix_toggle(8)<CR>
+imap            <S-F9>  <C-O><C-F9>
 
 " <F10> = quit
 " (some file-type dependent autocommands redefine it)
@@ -1140,6 +1176,20 @@ augroup MakeExecutableOnSave
   " See also http://vim.wikia.com/wiki/Setting_file_attributes_without_reloading_a_buffer
   au!
   au BufWritePost * if getline(1) =~ "^#!" && expand("%:t") !~ "test.*py" && expand("%") !~ "://" | silent exec '!chmod +x <afile>' | endif
+augroup END
+
+" show test results in the status line                          {{{2
+augroup QuickfixStatus
+  au!
+"" does not work, but the g:asyncrun_exit script defined earlier does
+""au BufWinEnter quickfix
+""     \ if g:asyncrun_status == 'success' |
+""     \   hi! link StatusLine StatusLineSuccess |
+""     \ elseif g:asyncrun_status == 'failure' |
+""     \   hi! link StatusLine StatusLineFailure |
+""     \ elseif g:asyncrun_status == 'running' |
+""     \   hi! link StatusLine StatusLineRunning |
+""     \ endif
 augroup END
 
 " Programming in Python                                         {{{2
@@ -1423,6 +1473,16 @@ highlight DiffText ctermbg=1
 
 " easier on the eyes
 highlight Folded ctermbg=229
+
+" indicate test status
+hi StatusLineNeutral
+            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+hi StatusLineRunning ctermfg=53 guifg=#5f005f
+            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+hi StatusLineSuccess ctermfg=22 guifg=#005f00
+            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+hi StatusLineFailure ctermfg=52 guifg=#5f0000
+            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
 
 "
 " Toolbar buttons                                               {{{1

@@ -29,6 +29,13 @@
 " I've also used it with nose and py.test, after changing the settings as
 " appropriate.
 
+if !exists("g:pyVimRunCommand")
+    if exists(":Make")
+        let g:pyVimRunCommand = "Make"
+    else
+        let g:pyVimRunCommand = "make"
+    endif
+endif
 if !exists("g:pyTestRunner")
     let g:pyTestRunner = "bin/test"
 endif
@@ -168,9 +175,14 @@ endfunction
 function! RunTestUnderCursor()
     let l:test = GetTestUnderCursor()
     if l:test != ""
+        wall
+        if hlexists("StatusLineRunning")
+            hi! link StatusLine StatusLineRunning
+        endif
         let l:oldmakeprg = &makeprg
         let &makeprg = g:pyTestRunner
-        exec "wall|make " . l:test
+        echo g:pyTestRunner l:test
+        exec g:pyVimRunCommand l:test
         let &makeprg = l:oldmakeprg
     endif
 endfunction

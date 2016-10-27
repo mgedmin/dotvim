@@ -66,9 +66,9 @@ fun! RunTests()
         let g:pytestresult = v:shell_error
     endif
     if g:pytestresult == 0
-        hi StatusLine ctermfg=green guifg=green
+        hi link StatusLine StatusLineSuccess
     else
-        hi StatusLine ctermfg=red guifg=red
+        hi link StatusLine StatusLineFailure
     endif
 endf
 
@@ -83,9 +83,18 @@ fun! DisableTestOnSave()
     augroup TestOnSave
         au!
     augroup END
-    hi StatusLine ctermfg=NONE guifg=NONE
+    hi link StatusLine StatusLineNeutral
 endf
 
 com! EnableTestOnSave call EnableTestOnSave()
 com! DisaleTestOnSave call DisableTestOnSave()
 com! RunTests call RunTests()
+
+hi default StatusLineNeutral
+            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+hi default StatusLineRunning ctermfg=yellow guifg=yellow
+            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+hi default StatusLineSuccess ctermfg=green guifg=green
+            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+hi default StatusLineFailure ctermfg=red guifg=red
+            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
