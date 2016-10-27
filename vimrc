@@ -589,11 +589,12 @@ if has("eval")
   fun! OnAsyncRunExit()
     if g:asyncrun_status == 'success'
       hi! link StatusLine StatusLineSuccess
+      cclose
     elseif g:asyncrun_status == 'failure'
       hi! link StatusLine StatusLineFailure
       botright cw
     endif
-    let &statusline = &statusline  " force a redraw
+    let &l:statusline = &l:statusline  " force a redraw
     " perhaps echo 'async job finished:' g:asyncrun_code
     " but I tried that and didn't like it
   endf
