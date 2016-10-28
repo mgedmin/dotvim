@@ -555,7 +555,7 @@ vmap <Leader>S <Plug>VSurround
 
 " NERD_tree.vim                                                 {{{2
 if v:version >= 700 && has("eval")
-  let g:NERDTreeIgnore = ['\.pyc$', '\~$', '^tags$']
+  let g:NERDTreeIgnore = ['\.pyc$', '\~$', '^tags$', '^__pycache__$']
   let g:NERDTreeHijackNetrw = 0
 endif
 
