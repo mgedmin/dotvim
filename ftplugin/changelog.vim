@@ -15,9 +15,15 @@ fun! s:quote()
         let indent .= "  "
     endif
     let line = getline('.')
-    let new_line = indent . '| ' . line
+    let new_line = indent . '| ' . s:expandtabs(line)
     call setline('.', substitute(new_line, '\s\+$', '', ''))
     call setpos('.', saved)
+endfun
+
+fun! s:expandtabs(s)
+    let o = [a:s]
+    exec (has('python3') ? 'py3' : 'py') "vim.bindeval('o')[0] = vim.eval('a:s').expandtabs()"
+    return o[0]
 endfun
 
 fun! s:new_changelog_entry()
