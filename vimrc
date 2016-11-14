@@ -823,8 +823,22 @@ command! -nargs=? EditSnippets
 
 " :Python3 and :Python2 to toggle Syntastic/flake8 mode         {{{2
 
-command! -bar Python2 let g:syntastic_python_flake8_exe = 'python2 -m flake8' | SyntasticCheck
-command! -bar Python3 let g:syntastic_python_flake8_exe = 'python3 -m flake8' | SyntasticCheck
+function! Flake8(exe, args, recheck_now)
+  let g:ale_python_flake8_executable = a:exe
+  let g:ale_python_flake8_args = a:args
+  let g:syntastic_python_flake8_exe = a:exe . ' ' . a:args
+  if a:recheck_now && exists('*SyntasticCheck')
+    SyntasticCheck
+  endif
+endf
+function! Python2(recheck_now)
+  call Flake8('python2', '-m flake8', a:recheck_now)
+endf
+function! Python3(recheck_now)
+  call Flake8('python3', '-m flake8', a:recheck_now)
+endf
+command! -bar Python2 call Python2(1)
+command! -bar Python3 call Python3(1)
 
 " :ESLint/:JSHint to tell Syntastic what to use for js          {{{2
 
@@ -1259,12 +1273,10 @@ function! FT_Python_Yplan()
 endf
 
 function! FT_Bolagsfakta_Syntastic()
+  call Python3(0)
   let g:ale_javascript_eslint_executable = 'client/eslint'
-  let g:ale_python_flake8_executable = 'python3'
-  let g:ale_python_flake8_args = '-m flake8'
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
-  let g:syntastic_python_flake8_exe = 'python3 -m flake8'
   let g:coverage_script = 'python3 -m coverage'
   call UsePyTestTestRunner()
   let g:pyTestRunner = "server/env/bin/py.test"
@@ -1534,4 +1546,4 @@ if !exists("did_install_mg_menus") && has("gui")
   tmenu         ToolBar.ToggleHdr       Switch between source and header (C/C++), or code and test (Python)
 endif
 
-" vim:fdm=marker:
+" vim:fdm=marker:sw=2:
