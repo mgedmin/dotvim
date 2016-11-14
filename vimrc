@@ -323,7 +323,8 @@ if has("eval")
 ""Plug 'troydm/easytree.vim'
 
   " Another popular file navigator
-  Plug 'scrooloose/nerdtree'
+  Plug 'scrooloose/nerdtree', {
+    \ 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 
   " Automatically detect pasting in compatible xterms.  Very unreliable;
   " changes my &pastetoggle unexpectedly, sometimes results in pastes being
@@ -577,7 +578,7 @@ if v:version >= 700 && has("eval")
   let g:NERDTreeHijackNetrw = 0
 endif
 
-map <Leader>N :NERDTree<CR>
+map <Leader>N :NERDTreeToggle<CR>
 map <Leader>n :NERDTreeFocus<CR>
 map <Leader>f :NERDTreeFind<CR>
 
