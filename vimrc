@@ -247,7 +247,11 @@ if has("eval")
   Plug 'ctrlp.vim'
 
   " Show syntax errors and style warnings in files I edit.  Updates on save.
-  Plug 'scrooloose/syntastic'
+""Plug 'scrooloose/syntastic'
+
+  " Show syntax errors and style warning in files I edit.  Updates
+  " asynchonously (requires Vim 8).
+  Plug 'w0rp/ale'
 
   " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
   Plug 'Gundo'
@@ -412,6 +416,20 @@ if has("eval")
   " which makes jshint slow
   " the same applies to configure scripts
   let g:syntastic_ignore_files = ['\.json$', '^configure$']
+endif
+
+" A.L.E.
+
+if has("eval")
+  let g:ale_sign_error = '⚡ '
+  let g:ale_sign_warning = '⚠ '
+  let g:ale_statusline_format = ['{%d}', '{%d}', '']
+
+  " if I become annoyed about ALE showing errors for half-typed text, perhaps
+  " I'll want to uncomment these:
+  ""let g:ale_lint_on_save = 1
+  ""let g:ale_lint_delay = 1000
+  ""let g:ale_lint_on_text_changed = 0
 endif
 
 " Command-t                                                     {{{2
@@ -638,6 +656,13 @@ if !exists("*SyntasticStatuslineFlag")
   endfunction
 endif
 
+runtime plugin/ale.vim
+if !exists("*ALEGetStatusLine")
+  function! ALEGetStatusLine()
+    return ''
+  endfunction
+endif
+
 if !exists("*haslocaldir")
   function! HasLocalDir()
     return ''
@@ -660,6 +685,7 @@ set statusline+=%m              " - [+] if modified, [-] if not modifiable
 set statusline+=%r              " - [RO] if readonly
 set statusline+=%2*%{HasLocalDir()}%*           " [lcd] if :lcd has been used
 set statusline+=%#error#%{SyntasticStatuslineFlag()}%*
+set statusline+=%#error#%{ALEGetStatusLine()}%*
 set statusline+=\               " - a space
 set statusline+=%1*%{TagInStatusLine()}%*       " [current class/function]
 set statusline+=%1*%{CTagInStatusLine()}%*      " same but for C code
@@ -931,11 +957,13 @@ map             <S-Down>        }
 imap            <S-Up>          <C-O><S-Up>
 imap            <S-Down>        <C-O><S-Down>
 
-" Navigating around windows
+" Navigating around windows without releasing Ctrl              {{{2
 map             <C-W><C-Up>     <C-W><Up>
 map             <C-W><C-Down>   <C-W><Down>
 map             <C-W><C-Left>   <C-W><Left>
 map             <C-W><C-Right>  <C-W><Right>
+
+" Navigating around windows with Ctrl+Shift+arrows              {{{2
 map             <C-S-Up>        <C-W><Up>
 map             <C-S-Down>      <C-W><Down>
 map             <C-S-Left>      <C-W><Left>
@@ -944,6 +972,10 @@ map!            <C-S-Up>        <C-O><C-W><Up>
 map!            <C-S-Down>      <C-O><C-W><Down>
 map!            <C-S-Left>      <C-O><C-W><Left>
 map!            <C-S-Right>     <C-O><C-W><Right>
+
+" Jumping to lint errors with Ctrl-J/K                          {{{2
+nmap <silent>   <C-K>           <Plug>(ale_previous_wrap)
+nmap <silent>   <C-J>           <Plug>(ale_next_wrap)
 
 " Switching tabs with Alt-1,2,3 in gvim                         {{{2
 map             <A-1>           1gt
@@ -1226,6 +1258,9 @@ function! FT_Python_Yplan()
 endf
 
 function! FT_Bolagsfakta_Syntastic()
+  let g:ale_javascript_eslint_executable = 'client/eslint'
+  let g:ale_python_flake8_executable = 'python3'
+  let g:ale_python_flake8_args = '-m flake8'
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_python_flake8_exe = 'python3 -m flake8'
