@@ -251,7 +251,9 @@ if has("eval")
 
   " Show syntax errors and style warning in files I edit.  Updates
   " asynchonously (requires Vim 8).
-  Plug 'w0rp/ale'
+  if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
+    Plug 'w0rp/ale'
+  endif
 
   " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
   Plug 'Gundo'
