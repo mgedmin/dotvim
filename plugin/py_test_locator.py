@@ -16,6 +16,8 @@ patterns = [
     re.compile(r'^[A-Z?]      (?P<filename>[^ ]+)$'),
     # py.test encloses the filename in square brackets sometimes,
     re.compile(r'\[(?P<filename>[^: ]+):(?P<lineno>\d+)]'),
+    # py.test names tests like this
+    re.compile(r'(?P<filename>[^: ]+)::(?P<tag>test[a-zA-Z_0-9]+)'),
     # pdb puts the line number in parentheses,
     re.compile(r'(?P<filename>[^: ]+)[(](?P<lineno>\d+)[)][a-zA-Z_][a-zA-Z_0-9]+[(][)]'),
     # oesjskit tracebacks from firefox
@@ -101,16 +103,26 @@ def locate_module(module, verbose=False):
         filename = locate_file(module.replace('.', '/') + '/__init__.py')
     return filename
 
-def tag_exists(tag_name, verbose=False):
+
+def tag_exists(tag_name, verbose=False, filename=None):
     if verbose:
         print('looking for tag %s' % tag_name)
     try:
-        return bool(vim.eval("taglist('^%s$')" % tag_name))
+        tags = vim.eval("taglist('^%s$')" % tag_name)
+        if tags and filename:
+            found_in = tags[0]['filename']
+            if not os.path.samefile(found_in, filename):
+                if verbose:
+                    print('found tag in %s but wanted %s, ignoring' % (found_in, filename))
+                return False
+        return bool(tags)
     except vim.error:
         return False
 
+
 def quote(s):
     return s.replace('\\', '\\\\').replace(' ', '\\ ')
+
 
 def locate_command(line, verbose=False):
     for match in iter_matches(line):
@@ -118,6 +130,9 @@ def locate_command(line, verbose=False):
         lineno = match.get('lineno')
         tag = match.get('tag')
         module_class = match.get('module_class')
+        if verbose > 1:
+            print('MATCH: {}'.format(
+                ' '.join('{}={}'.format(k, v) for k, v in sorted(match.items()))))
         if tag and module_class:
             # Integration with smart-tag.vim
             try:
@@ -138,17 +153,19 @@ def locate_command(line, verbose=False):
             module = match.get('module')
             if module:
                 filename = locate_module(module, verbose=verbose)
-        if filename:
-            if lineno:
-                return 'e +%s %s' % (lineno, quote(filename))
-            else:
-                return 'e %s' % quote(filename)
+        if filename and lineno:
+            return 'e +%s %s' % (lineno, quote(filename))
         if tag:
-            if '.' in tag and not tag_exists(tag, verbose=verbose):
+            found = tag_exists(tag, verbose=verbose, filename=filename)
+            if not found and '.' in tag:
                 tag = tag.rsplit('.', 1)[-1]
-            if tag_exists(tag, verbose=verbose):
+                found = tag_exists(tag, verbose=verbose, filename=filename)
+            if found:
                 return 'tjump %s' % quote(tag)
+        if filename:
+            return 'e %s' % quote(filename)
     return None
+
 
 def locate_test(line, verbose=False):
     line = line.strip().replace('\\', '/')
