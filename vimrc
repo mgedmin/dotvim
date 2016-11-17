@@ -615,7 +615,7 @@ if has("eval")
       hi! link StatusLine StatusLineFailure
       botright cw
     endif
-    let &l:statusline = &l:statusline  " force a redraw
+    redrawstatus
     " perhaps echo 'async job finished:' g:asyncrun_code
     " but I tried that and didn't like it
   endf
