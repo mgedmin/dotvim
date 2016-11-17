@@ -600,11 +600,6 @@ if has("user_commands")
   " https://github.com/skywind3000/asyncrun.vim/wiki/Cooperate-with-vim-fugitive
   " now :Gpush and :Gfetch are async!
   command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-
-  " change status line color when starting an async command
-  command! -bang -nargs=+ -complete=file AsyncRun
-    \ hi! link StatusLine StatusLineRunning |
-    \ call asyncrun#run('<bang>', '', <q-args>)
 endif
 if has("eval")
   fun! OnAsyncRunExit()
@@ -620,6 +615,12 @@ if has("eval")
     " but I tried that and didn't like it
   endf
   let g:asyncrun_exit = "call OnAsyncRunExit()"
+endif
+if has("autocmd")
+  augroup AsyncRun
+    au!
+    au User AsyncRunStart hi! link StatusLine StatusLineRunning | redrawstatus
+  augroup END
 endif
 
 "
