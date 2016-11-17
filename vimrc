@@ -580,8 +580,8 @@ if v:version >= 700 && has("eval")
   let g:NERDTreeHijackNetrw = 0
 endif
 
-map <Leader>N :NERDTreeToggle<CR>
-map <Leader>n :NERDTreeFocus<CR>
+map <Leader>n :NERDTreeToggle<CR>
+map <Leader>N :NERDTreeFocus<CR>
 map <Leader>f :NERDTreeFind<CR>
 
 " jedi.vim                                                      {{{2
