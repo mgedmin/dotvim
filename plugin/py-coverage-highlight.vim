@@ -245,8 +245,9 @@ else:
             print("Using %s" % filename)
             parse_cover_file(filename)
         else:
-            sys.stderr.write("Neither .coverage nor %s found\n" % filename)
-            sys.stderr.flush()
+            vim.command("echohl ErrorMsg")
+            vim.command("echomsg 'Neither .coverage nor %s found.'" % filename)
+            vim.command("echohl None")
 
 END
 endf
