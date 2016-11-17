@@ -1282,6 +1282,7 @@ function! FT_Bolagsfakta_Syntastic()
   let g:coverage_script = 'python3 -m coverage'
   call UsePyTestTestRunner()
   let g:pyTestRunner = "server/env/bin/py.test"
+  let g:py_test_locator_prefixes = ["server/"]
   Margin 100
 endf
 

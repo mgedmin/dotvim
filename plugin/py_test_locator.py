@@ -1,6 +1,6 @@
 """
 " HACK to make this file source'able by vim as well as importable by Python:
-python reload(py_test_locator)
+exe has('python3') ? 'py3' : 'py' 'import sys; sys.modules.pop("py_test_locator"); import py_test_locator'
 finish
 """
 # the second half of py-test-locator.vim
@@ -8,19 +8,6 @@ import vim
 import os
 import re
 
-# Filename search logic will take /path/to/filename and try
-#   prefix1/path/to/filename
-#   prefix2/path/to/filename
-#   prefix1/to/filename
-#   prefix2/to/filename
-#   prefix1/filename
-#   prefix2/filename
-# for this reason the first prefix should really be ''.
-file_prefixes = ['', 'src', 'packages',
-                 # Hack: this should be configurable
-                 'cpanel', 'cpanel/tests/js',
-                 'src/labtarna/templates']
-file_suffixes = ['', '.py']
 
 patterns = [
     # unittest error format
@@ -58,14 +45,40 @@ patterns = [
     re.compile(r'(?P<tag>[a-zA-Z0-9_.]+)'),
 ]
 
+
 def iter_matches(line):
     for pattern in patterns:
         for match in pattern.finditer(line):
             yield match.groupdict()
 
+
+def get_file_prefixes():
+    # Filename search logic will take /path/to/filename and try
+    #   prefix1/path/to/filename
+    #   prefix2/path/to/filename
+    #   prefix1/to/filename
+    #   prefix2/to/filename
+    #   prefix1/filename
+    #   prefix2/filename
+    # for this reason the first prefix should really be ''.
+    prefixes = vim.eval('g:py_test_locator_prefixes')
+    if not isinstance(prefixes, list):
+        prefixes = prefixes.split(',')
+    return [''] + prefixes
+
+
+def get_file_suffixes():
+    suffixes = vim.eval('g:py_test_locator_suffixes')
+    if not isinstance(suffixes, list):
+        suffixes = suffixes.split(',')
+    return [''] + suffixes
+
+
 def locate_file(filename, verbose=False):
     if verbose:
         print('looking for file %s' % filename)
+    file_prefixes = get_file_prefixes()
+    file_suffixes = get_file_suffixes()
     while filename:
         for prefix in file_prefixes:
             for suffix in file_suffixes:
@@ -78,6 +91,7 @@ def locate_file(filename, verbose=False):
         if verbose:
             print('  trying %s' % filename)
     return None
+
 
 def locate_module(module, verbose=False):
     if verbose:

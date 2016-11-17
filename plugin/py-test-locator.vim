@@ -22,6 +22,14 @@
 " :ClipboardTest
 "
 
+if !exists('g:py_test_locator_prefixes')
+    let g:py_test_locator_prefixes = ['src']
+endif
+
+if !exists('g:py_test_locator_suffixes')
+    let g:py_test_locator_suffixes = ['.py']
+endif
+
 if has('python') || has('python3')
 
     let s:python = has('python3') ? 'python3' : 'python'
