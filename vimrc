@@ -1500,6 +1500,10 @@ highlight Green                 guibg=green ctermbg=green
 
 " for less intrusive signs
 highlight SignColumn guibg=#fefefe ctermbg=230 guibg=#ffffd7
+if exists("*gitgutter#highlight#define_highlights")
+  " let vim-gitgutter know we changed the SignColumn colors!
+  call gitgutter#highlight#define_highlights()
+endif
 
 " gutter on the right of the text
 highlight ColorColumn ctermbg=230 guibg=#ffffd7
