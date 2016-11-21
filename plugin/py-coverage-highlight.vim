@@ -1,7 +1,7 @@
 " File: py-coverage-highlight.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.5
-" Last Modified: 2012-09-25
+" Version: 0.6
+" Last Modified: 2016-11-21
 "
 " Overview
 " --------
@@ -62,6 +62,16 @@ function! HiglightCoverage(arg)
     exec python "<<END"
 
 import vim, os, subprocess, shlex
+
+
+def get_verbosity():
+    return int(vim.eval('&verbose'))
+
+
+def debug(msg):
+    if get_verbosity() >= 2:
+        print(msg)
+
 
 def filename2module(filename):
     pkg = os.path.splitext(os.path.abspath(filename))[0]
@@ -152,7 +162,7 @@ def parse_coverage_output(output, filename):
         # The margin (15) was determined empirically as the smallest value
         # that avoids a 'Press enter to continue...' message
         truncate_to = int(vim.eval('&columns')) - 15
-        if len(last_line) <= truncate_to or int(vim.eval('&verbose')) > 0:
+        if len(last_line) <= truncate_to or get_verbosity() >= 1:
             print(last_line)
         else:
             print(last_line[:truncate_to] + '...')
@@ -206,8 +216,10 @@ def find_coverage_file_for(filename):
     where = os.path.dirname(filename)
     while True:
         if os.path.exists(os.path.join(where, '.coverage')):
-            return where
+            debug("Found %s" % os.path.join(where, '.coverage'))
+            return where or os.curdir
         if os.path.dirname(where) == where:
+            debug("Did not find .coverage in any parent directory")
             return None
         where = os.path.dirname(where)
 
