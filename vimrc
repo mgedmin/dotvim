@@ -256,7 +256,8 @@ if has("eval")
   endif
 
   " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
-  Plug 'Gundo'
+  Plug 'sjl/gundo.vim'
+  let g:gundo_prefer_python3 = has('python3')
 
   " Defines the very useful :Rename newfilename.txt
   Plug 'Rename'
