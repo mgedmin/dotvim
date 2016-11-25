@@ -300,8 +300,8 @@ if has("eval")
   " YouCompleteMe
   Plug 'SirVer/UltiSnips'
 
-  " Default snippet collection
-  Plug 'honza/vim-snippets'
+  " Default snippet collection -- I don't use them!
+  ""Plug 'honza/vim-snippets'
 
   " Smart omni-completion for everything.  I've disabled most of it because it
   " was making my life actually harder instead of easier.  And then I disabled
@@ -822,6 +822,7 @@ command! -nargs=? -bar Margin  call s:Margin(<args>)
 command! NoLCD          exe 'cd '.getcwd()
 
 " :EditSnippets for UltiSnips                                   {{{2
+" NB there's already :UltiSnipsEdit
 command! -nargs=? EditSnippets
   \ exe ":e ~/.vim/UltiSnips/".(<q-args> != "" ? <q-args> : &ft != "" ? &ft : "all").".snippets"
 
@@ -1214,12 +1215,6 @@ augroup END
 augroup FiletypeOnSave
   au!
   au BufWritePost * if &ft == "" | filetype detect | endif
-augroup END
-
-" Reload SnipMate snippets on save                              {{{2
-augroup ReloadSnippetsOnSave
-  au!
-  au BufWritePost ~/.vim/snippets/**/*.snippets call ReloadAllSnippets()
 augroup END
 
 " chmod +x on save                                              {{{2
