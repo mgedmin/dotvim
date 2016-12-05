@@ -734,7 +734,7 @@ command! FindControlChars               normal /[\x00-\x08\x0a-\x1f\x7f]<cr>
 " where's the next untranslated message in a .po file?          {{{2
 command! FindUntranslated               /msgstr ""\ze\n\n
 
-" convert \uXXXX to actual characters
+" convert \uXXXX to actual characters                           {{{2
 command! -range=% ExpandUnicode         <line1>,<line2>s/\\u\([0-9a-fA-F]\{4}\)/\=nr2char(str2nr(submatch(1), 16))/gc
 
 " diffoff sets wrap; don't wanna                                {{{2
