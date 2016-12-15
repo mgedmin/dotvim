@@ -120,7 +120,10 @@ function! GetTestUnderCursor()
             " Newer versions of pythonhelper.vim return [in fulltagname (type)]
             let l:name = substitute(l:tag[1:-2], '^in ', '', '')
             let l:name = substitute(l:name, ' ([^)]*)$', '', '')
-            if l:name =~ '[.]'
+            if l:name =~ '[a-z].*[.]'
+                " Most likely a test that has inner functions/classes
+                let l:name = split(l:name, '[.]')[0]
+            elseif l:name =~ '[.]'
                 let [l:class, l:name] = split(l:name, '[.]')[:1]
                 let l:name = substitute(substitute(g:pyTestRunnerTestFilteringClassAndMethodFormat, '{class}', l:class, 'g'), '{method}', l:name, 'g')
             endif
