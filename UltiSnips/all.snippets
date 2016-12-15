@@ -1,4 +1,26 @@
 # NB: this file intentionally has trailing whitespace!
+global !p
+def handle_replace_mode(trigger_length):
+    if vim.eval('v:insertmode') == 'i':
+        return
+    start_line, start_col = snip.snippet_start
+    end_line, end_col = snip.snippet_end
+    if start_line != end_line:
+        return
+    replacement_length = end_col - start_col
+    if replacement_length == trigger_length:
+        return
+    if replacement_length > trigger_length:
+        delete = replacement_length - trigger_length
+        line = snip.buffer[end_line]
+        snip.buffer[end_line] = line[:end_col] + line[end_col + delete:]
+        snip.cursor.set(end_line, start_col + replacement_length) # XXX does not work
+    elif replacement_length < trigger_length:
+        # not implemented yet (and I'm not sure if it's possible to implement)
+        return
+endglobal
+
+post_expand "handle_replace_mode(4)"
 snippet date "YYYY-MM-DD" w
 `!v strftime('%Y-%m-%d')`
 endsnippet
