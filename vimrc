@@ -1185,7 +1185,9 @@ imap            <S-F9>  <C-O><C-F9>
 set pastetoggle=<F11>
 
 " <F12> = show the Unicode name of the character under cursor
-map             <F12>           :UnicodeName<CR>
+" I used to have my own :UnicodeName for this, but tpope/vim-characterize is
+" better
+map             <F12>           <Plug>(characterize)
 " <S-F12> = show highlight group under cursor
 map             <S-F12>         :ShowHighlightGroup<CR>
 " <C-F12> = show syntax stack under cursor
