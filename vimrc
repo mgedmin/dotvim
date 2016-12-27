@@ -238,6 +238,9 @@ if has("eval")
   " Automate switching between code and unit test files, bound to <C-F6>
   Plug 'mgedmin/test-switcher.vim'
 
+  " Locate the source code from clipboard contents, bound to <F7>
+  Plug 'mgedmin/source-locator.vim'
+
   " Open files by typing a subsequence of the pathname, bound to \t
   Plug 'wincent/command-t', {
               \ 'do': 'cd ruby/command-t && ruby extconf.rb && make'}
