@@ -304,7 +304,9 @@ if has("eval")
   " multiple placeholders you can keep or replace and tab over.
   " Supposedly better than SnipMate which I used earlier.  Integrates with
   " YouCompleteMe
-  Plug 'SirVer/UltiSnips'
+  if has('python') || has('python3')
+    Plug 'SirVer/UltiSnips'
+  endif
 
   " Default snippet collection -- I don't use them!
   ""Plug 'honza/vim-snippets'
