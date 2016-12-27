@@ -170,14 +170,14 @@ if v:version >= 700
 endif
 
 " Python tracebacks (unittest + doctest output)                 {{{2
-set errorformat&
-set errorformat+=
-            \File\ \"%f\"\\,\ line\ %l%.%#,
-            \%C\ %.%#,
-            \%-A\ \ File\ \"unittest%.py\"\\,\ line\ %.%#,
-            \%-A\ \ File\ \"%f\"\\,\ line\ 0%.%#,
-            \%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,
-            \%Z%[%^\ ]%\\@=%m
+""set errorformat&
+""set errorformat+=
+""            \File\ \"%f\"\\,\ line\ %l%.%#,
+""            \%C\ %.%#,
+""            \%-A\ \ File\ \"unittest%.py\"\\,\ line\ %.%#,
+""            \%-A\ \ File\ \"%f\"\\,\ line\ 0%.%#,
+""            \%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,
+""            \%Z%[%^\ ]%\\@=%m
 
 " Shell scripts                                                 {{{2
 if has("eval")
