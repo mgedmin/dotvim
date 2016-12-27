@@ -241,6 +241,9 @@ if has("eval")
   " Locate the source code from clipboard contents, bound to <F7>
   Plug 'mgedmin/source-locator.vim'
 
+  " :EnableTestOnSave and have fun doing code katas
+  Plug 'mgedmin/test-on-save.vim'
+
   " Open files by typing a subsequence of the pathname, bound to \t
   Plug 'wincent/command-t', {
               \ 'do': 'cd ruby/command-t && ruby extconf.rb && make'}
