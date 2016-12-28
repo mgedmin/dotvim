@@ -244,6 +244,9 @@ if has("eval")
   " :EnableTestOnSave and have fun doing code katas
   Plug 'mgedmin/test-on-save.vim'
 
+  " :HighlightCoverage for Python
+  Plug 'mgedmin/coverage-highlight.vim'
+
   " Open files by typing a subsequence of the pathname, bound to \t
   Plug 'wincent/command-t', {
               \ 'do': 'cd ruby/command-t && ruby extconf.rb && make'}
