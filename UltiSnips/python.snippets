@@ -75,7 +75,11 @@ snippet pypy-classifiers "PyPI classifiers for PyPy/CPython" !b
 endsnippet
 
 snippet extras "Extras for setup.py"
-extras_require={$0},
+extras_require={
+    '${1::python_version=="2.7"}': [
+        ${0}
+    ],
+},
 endsnippet
 
 snippet setup "setup.py" !b
