@@ -1,7 +1,9 @@
 " Python files
 
-if getline(1) =~ 'python3'
-  let b:syntastic_python_flake8_exe = 'python3 -m flake8'
+if getline(1) =~ 'python3' && exists("*Python3")
+  call Python3(0)
+elseif getline(1) =~ 'python$' && exists("*Python2")
+  call Python2(0)
 endif
 
 setlocal shiftwidth=4 softtabstop=4 expandtab tabstop=8
