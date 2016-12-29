@@ -246,6 +246,8 @@ if has("eval")
 
   " :HighlightCoverage for Python
   Plug 'mgedmin/coverage-highlight.vim'
+  noremap [C :<C-U>PrevUncovered<CR>
+  noremap ]C :<C-U>NextUncovered<CR>
 
   " Open files by typing a subsequence of the pathname, bound to \t
   Plug 'wincent/command-t', {
