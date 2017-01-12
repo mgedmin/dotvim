@@ -36,6 +36,7 @@ if v:version >= 703
   set colorcolumn=81            " highlight column 81
   let &colorcolumn=join(range(81,999),",") " and columns after that
 endif
+set numberwidth=6               " I want it constant width everywhere
 
 " I want gvim to look the same as vim in gnome-terminal
 set guifont=Ubuntu\ Mono\ 13
