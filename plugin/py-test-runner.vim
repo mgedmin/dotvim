@@ -178,7 +178,7 @@ endfunction
 function! RunTestUnderCursor()
     let l:test = GetTestUnderCursor()
     if l:test != ""
-        wall
+        silent! wall
         if hlexists("StatusLineRunning")
             hi! link StatusLine StatusLineRunning
         endif
