@@ -170,8 +170,22 @@ if v:version >= 700
   set completeopt-=preview      " don't show the preview window
 endif
 
+" Pytest syntax errors                                          {{{2
+
+" Reset error format so that sourcing .vimrc again and again doesn't grow it
+" without bounds
+set errorformat&
+
+" Sometimes pytest prepends an 'E' marker at te beginning of a traceback line
+set errorformat+=
+      \E\ %#File\ \"%f\"\\,\ line\ %l%.%#
+
 " Python tracebacks (unittest + doctest output)                 {{{2
-""set errorformat&
+
+" This collapses the entire traceback into just the last file+lineno,
+" which is convenient when you want to jump to the line that failed (and not
+" the top-level entry point), but it makes it impossible to see the full
+" traceback, which sucks.
 ""set errorformat+=
 ""            \File\ \"%f\"\\,\ line\ %l%.%#,
 ""            \%C\ %.%#,
