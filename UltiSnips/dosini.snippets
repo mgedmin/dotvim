@@ -18,3 +18,15 @@ commands =
     coverage run -m zope.testrunner --test-path=src {posargs:-pvc}
     coverage report -m
 endsnippet
+
+snippet "systemd(-unit|-service)?" "systemd service unit" br
+[Unit]
+Description=${1:description}
+After=${2:network.target local-fs.target}
+
+[Service]
+ExecStart=${3:program --args}
+
+[Install]
+WantedBy=multi-user.target
+endsnippet
