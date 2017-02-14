@@ -98,7 +98,7 @@ endfunction
 function! UsePyTestTestRunner()
     " Assumes you have py.test, generates command lines of the form
     "   py.test <filename>::{class}.{method}
-    let g:pyTestRunner = "py.test"
+    let g:pyTestRunner = "py.test -ra"
     let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}::{method}"
     let g:pyTestRunnerTestFiltering = "<NOSPACE>::<NOSPACE>"
     let g:pyTestRunnerPackageFiltering = ""
