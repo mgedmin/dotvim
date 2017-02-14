@@ -406,6 +406,11 @@ if has("eval")
   " Async shell commands
   Plug 'skywind3000/asyncrun.vim'
 
+  " Update tags file automagically
+  Plug 'ludovicchabant/vim-gutentags'
+  let g:gutentags_generate_on_new = 0
+  let g:gutentags_generate_on_missing = 0
+
   call plug#end()
 endif
 
