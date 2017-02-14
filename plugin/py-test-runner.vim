@@ -1,7 +1,7 @@
 " File: py-test-runner.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.4.2
-" Last Modified: 2014-02-11
+" Version: 0.5
+" Last Modified: 2017-02-14
 "
 " Overview
 " --------
@@ -74,6 +74,9 @@ endif
 if !exists("g:pyTestRunnerClipboardExtrasSuffix")
     ""let g:pyTestRunnerClipboardExtrasSuffix = "|&less -R"
     let g:pyTestRunnerClipboardExtrasSuffix = ""
+endif
+if !exists("g:pyTestLastTest")
+    let g:pyTestLastTest = ""
 endif
 
 runtime plugin/pythonhelper.vim
@@ -175,22 +178,31 @@ function! GetTestUnderCursor()
     return l:test
 endfunction
 
-function! RunTestUnderCursor()
-    let l:test = GetTestUnderCursor()
-    if l:test != ""
+function! RunTest(test)
+    if a:test != ""
         silent! wall
         if hlexists("StatusLineRunning")
             hi! link StatusLine StatusLineRunning
         endif
+        let g:pyTestLastTest = a:test
         let l:oldmakeprg = &makeprg
         let &makeprg = g:pyTestRunner
-        echo g:pyTestRunner l:test
-        exec g:pyVimRunCommand l:test
+        echo g:pyTestRunner a:test
+        exec g:pyVimRunCommand a:test
         let &makeprg = l:oldmakeprg
     endif
 endfunction
 
+function! RunTestUnderCursor()
+    call RunTest(GetTestUnderCursor())
+endfunction
+
+function! RunLastTestAgain()
+    call RunTest(g:pyTestLastTest)
+endfunction
+
 command! RunTestUnderCursor	call RunTestUnderCursor()
+command! RunLastTestAgain	call RunLastTestAgain()
 
 function! CopyTestUnderCursor()
     let l:test = GetTestUnderCursor()
