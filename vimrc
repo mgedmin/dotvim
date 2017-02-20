@@ -408,8 +408,10 @@ if has("eval")
 
   " Update tags file automagically
   Plug 'ludovicchabant/vim-gutentags'
-  let g:gutentags_generate_on_new = 0
-  let g:gutentags_generate_on_missing = 0
+  " As suggested in https://github.com/ludovicchabant/vim-gutentags/issues/113,
+  " to only update existing tags files and never create new ones:
+  let g:gutentags_project_root = ['tags']
+  let g:gutentags_add_default_project_roots = 0
 
   call plug#end()
 endif
