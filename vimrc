@@ -1317,7 +1317,7 @@ function! FT_Bolagsfakta_Syntastic()
   let g:syntastic_javascript_checkers = ['eslint']
   let g:coverage_script = 'python3 -m coverage'
   call UsePyTestTestRunner()
-  let g:pyTestRunner = "server/env/bin/py.test"
+  let g:pyTestRunner = "server/env/bin/py.test -ra"
   let g:py_test_locator_prefixes = ["server/"]
   Margin 100
 endf
