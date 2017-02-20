@@ -1205,7 +1205,7 @@ map             <F9>    :Make<CR>
 imap            <F9>    <C-O><F9>
 " <S-F9> = toggle quickfix window
 map             <S-F9>  :call asyncrun#quickfix_toggle(8)<CR>
-imap            <S-F9>  <C-O><C-F9>
+imap            <S-F9>  <C-O><S-F9>
 
 " <F10> = quit
 " (some file-type dependent autocommands redefine it)
