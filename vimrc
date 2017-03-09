@@ -65,8 +65,10 @@ if !isdirectory(&backupdir)
 endif
 
 " Avoiding excessive I/O                                        {{{2
-set swapsync=                   " be more friendly to laptop mode (dangerous)
+if exists('&swapsync')          " (neovim doesn't have this option)
+  set swapsync=                 " be more friendly to laptop mode (dangerous)
                                 " this could result in data loss, so beware!
+endif
 if v:version >= 700
   set nofsync                   " be more friendly to laptop mode (dangerous)
                                 " this could result in data loss, so beware!
@@ -390,7 +392,9 @@ if has("eval")
 
   " Emacs-like Alt-t transpose words
   Plug 'transpose-words'
-  exec "set <M-t>=\<Esc>t"
+  if !has('nvim')
+    exec "set <M-t>=\<Esc>t"
+  endif
 
   " Show git change status for each line in the gutter
   Plug 'airblade/vim-gitgutter'
