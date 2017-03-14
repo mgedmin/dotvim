@@ -654,6 +654,7 @@ if has("eval")
     redrawstatus
     " perhaps echo 'async job finished:' g:asyncrun_code
     " but I tried that and didn't like it
+    call FocusOnTestFailure()
   endf
   let g:asyncrun_exit = "call OnAsyncRunExit()"
 endif
@@ -1273,19 +1274,27 @@ augroup MakeExecutableOnSave
   au BufWritePost * call chmodx#doit()
 augroup END
 
-" show test results in the status line                          {{{2
+" focus the 1st py.test failure in quickfix                     {{{2
 augroup QuickfixStatus
   au!
-"" does not work, but the g:asyncrun_exit script defined earlier does
-""au BufWinEnter quickfix
-""     \ if g:asyncrun_status == 'success' |
-""     \   hi! link StatusLine StatusLineSuccess |
-""     \ elseif g:asyncrun_status == 'failure' |
-""     \   hi! link StatusLine StatusLineFailure |
-""     \ elseif g:asyncrun_status == 'running' |
-""     \   hi! link StatusLine StatusLineRunning |
-""     \ endif
+  au BufWinEnter quickfix call FocusOnTestFailure()
 augroup END
+
+function! FocusOnTestFailure()
+  let idx = 0
+  let found = 0
+  for d in getqflist()
+    let idx += 1
+    if !d.valid && d.text =~ "^E "
+      exec "cc" idx
+      let found = 1
+      break
+    endif
+  endfor
+  if found == 0
+    silent! clast
+  endif
+endf
 
 " Programming in Python                                         {{{2
 
