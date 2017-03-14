@@ -1131,6 +1131,11 @@ cnoremap        <C-K>   <C-\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>
 cnoremap        <A-BS>          <C-W>
 cnoremap        <Esc><BS>       <C-W>
 
+" Ctrl-Backspace deletes word backwards
+cnoremap        <C-BS>          <C-W>
+" (gnome-terminal sends ^H for ctrl-backspace)
+cmap            <C-H>           <C-BS>
+
 " Do not lose "complete all" (gvim-only)
 cnoremap        <C-S-A>         <C-A>
 
