@@ -479,8 +479,12 @@ endif
 " Command-t                                                     {{{2
 
 if has("eval")
-  let g:CommandTCursorEndMap = ['<C-e>', '<End>']
-  let g:CommandTCursorStartMap = ['<C-a>', '<Home>']
+  let g:CommandTCursorEndMap = ['<C-e>', '<End>']       " add End
+  let g:CommandTCursorStartMap = ['<C-a>', '<Home>']    " add Home
+  let g:CommandTCursorLeftMap = ['<Left>']              " remove ^H
+  let g:CommandTCursorRightMap = ['<Right>']            " remove ^L
+  let g:CommandTClearPrevWordMap = ['<C-w>', '<C-h>']   " add ^H aka Ctrl-BS
+  let g:CommandTCancelMap = ['<C-c>', '<Esc>', '<C-g>'] " add ^G
   let g:CommandTMaxHeight = 20
   let g:CommandTTraverseSCM = "pwd"
 endif
