@@ -91,11 +91,7 @@ endif
 
 set clipboard&
 set clipboard-=autoselect       " unnamed + autoselect == I can't use Vp to replace
-if $WAYLAND_DISPLAY != ""
-  set clipboard^=unnamedplus    " Wayland has no PRIMARY selection
-else
-  set clipboard^=unnamed        " interoperate with the X clipboard
-endif
+set clipboard^=unnamed        " interoperate with the X clipboard
 
 if v:version >= 700
   set diffopt+=vertical         " split diffs vertically
