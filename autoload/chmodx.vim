@@ -3,6 +3,9 @@ fun! chmodx#doit()
         if expand("<afile>:t") =~ "test.*py"
             return
         endif
+        if expand("<afile>:t") =~ ".*[.]j2$"
+            return
+        endif
         if expand("<afile>") =~ "://"
             return
         endif
