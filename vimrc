@@ -1006,12 +1006,6 @@ map             <C-Down>        1<C-D>
 imap            <C-Up>          <C-O><C-Up>
 imap            <C-Down>        <C-O><C-Down>
 
-" Scrolling with Ctrl+Shift+Up/Down                             {{{2
-map             <C-S-Up>        1<C-U><Down>
-map             <C-S-Down>      1<C-D><Up>
-imap            <C-S-Up>        <C-O><C-S-Up>
-imap            <C-S-Down>      <C-O><C-S-Down>
-
 " Moving around with Shift+Up/Down                              {{{2
 map             <S-Up>          {
 map             <S-Down>        }
