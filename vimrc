@@ -708,8 +708,7 @@ if !exists("*ALEGetStatusLine")
   endfunction
 else
   function! LinterStatus()
-    let [errors, warnings] = ale#statusline#Count(bufnr('%'))
-    let total = errors + warnings
+    let total = ale#statusline#Count(bufnr('%')).total
     return total == 0 ? '' : printf('{%d}', total)
   endfunction
 endif
