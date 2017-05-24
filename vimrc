@@ -703,8 +703,14 @@ endif
 
 runtime plugin/ale.vim
 if !exists("*ALEGetStatusLine")
-  function! ALEGetStatusLine()
+  function! LinterStatus()
     return ''
+  endfunction
+else
+  function! LinterStatus()
+    let [errors, warnings] = ale#statusline#Count(bufnr('%'))
+    let total = errors + warnings
+    return total == 0 ? '' : printf('{%d}', total)
   endfunction
 endif
 
@@ -730,7 +736,7 @@ set statusline+=%m              " - [+] if modified, [-] if not modifiable
 set statusline+=%r              " - [RO] if readonly
 set statusline+=%2*%{HasLocalDir()}%*           " [lcd] if :lcd has been used
 set statusline+=%#error#%{SyntasticStatuslineFlag()}%*
-set statusline+=%#error#%{ALEGetStatusLine()}%*
+set statusline+=%#error#%{LinterStatus()}%*
 set statusline+=\               " - a space
 set statusline+=%1*%{TagInStatusLine()}%*       " [current class/function]
 set statusline+=%1*%{CTagInStatusLine()}%*      " same but for C code
