@@ -1327,9 +1327,12 @@ function! FT_Bolagsfakta_Syntastic()
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
   let g:coverage_script = 'python3 -m coverage'
-  call UsePyTestTestRunner()
+  if exists('*UsePyTestTestRunner')
+    call UsePyTestTestRunner()
+  endif
   let g:pyTestRunner = "server/env/bin/py.test -ra"
   let g:py_test_locator_prefixes = ["server/"]
+  let g:source_locator_prefixes = ['server/']
   Margin 100
 endf
 
@@ -1360,6 +1363,7 @@ augroup Python_prog
   autocmd BufReadPre,BufNewFile **/bolagsfakta/**/* call FT_Bolagsfakta_Syntastic()
   autocmd BufRead,BufNewFile /var/lib/buildbot/masters/*/*.cfg  setlocal tags=/root/buildbot.tags
   autocmd BufRead,BufNewFile /usr/**/buildbot/**/*.py  setlocal tags=/root/buildbot.tags
+  if getcwd() =~ '.*bolagsfakta.*' | call FT_Bolagsfakta_Syntastic() | endif
 augroup END
 
 augroup JS_prog
