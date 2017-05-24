@@ -1280,18 +1280,13 @@ augroup END
 
 function! FocusOnTestFailure()
   let idx = 0
-  let found = 0
   for d in getqflist()
     let idx += 1
     if !d.valid && d.text =~ "^E "
       exec "cc" idx
-      let found = 1
       break
     endif
   endfor
-  if found == 0
-    silent! clast
-  endif
 endf
 
 " Programming in Python                                         {{{2
