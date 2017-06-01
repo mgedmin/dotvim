@@ -11,11 +11,14 @@ endsnippet
 global !p
 import subprocess
 def github_owner_repo(path='', default=''):
+    wd = os.path.dirname(os.path.abspath(path)
+    if not os.path.isdir(wd):
+        return default
     with open(os.devnull, 'w') as devnull:
         pipe = subprocess.Popen(["git", "ls-remote", "--get-url"],
                                 stdout=subprocess.PIPE,
                                 stderr=devnull,
-                                cwd=os.path.dirname(os.path.abspath(path)))
+                                cwd=wd))
     remote = pipe.communicate()[0].strip()
     if not isinstance(remote, str):
         remote = remote.decode('UTF-8', 'replace')
