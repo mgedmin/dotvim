@@ -918,26 +918,6 @@ noremap         <C-L>           :checktime<bar>diffupdate<CR>zx<C-L>
 
 inoremap        <Esc>.          <C-R>=split(getline(line(".")-1))[-1]<CR>
 
-" Ctrl-_ toggles the presence of _ in 'iskeyword'               {{{2
-" Sometimes this improves tab completion -- when I write a new
-" test and want to name it test_ClassName_methodname()
-
-if has("eval")
-  fun! ToggleUnderscoreInKeywords()
-    if &isk =~ '_'
-       set isk-=_
-       echo "_ is not a keyword character"
-    else
-        set isk+=_
-       echo "_ is a keyword character"
-    endif
-    return ''
-  endf
-endif
-
-noremap         <C-_>           :call ToggleUnderscoreInKeywords()<CR>
-inoremap        <C-_>           <C-R>=ToggleUnderscoreInKeywords()<CR>
-
 " Digraphs                                                      {{{2
 
 if has("digraphs")
