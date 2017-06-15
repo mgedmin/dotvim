@@ -411,6 +411,14 @@ if has("eval")
   let g:gutentags_project_root = ['tags']
   let g:gutentags_add_default_project_roots = 0
 
+  " Higlight git conflict markers in files
+  Plug 'ingo-library'
+  Plug 'ConflictDetection'
+
+  " Use [x/]x to navigate to conflict markers
+  Plug 'CountJump'
+  Plug 'ConflictMotions'
+
   call plug#end()
 endif
 
