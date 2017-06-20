@@ -18,7 +18,7 @@ def github_owner_repo(path='', default=''):
         pipe = subprocess.Popen(["git", "ls-remote", "--get-url"],
                                 stdout=subprocess.PIPE,
                                 stderr=devnull,
-                                cwd=wd))
+                                cwd=wd)
     remote = pipe.communicate()[0].strip()
     if not isinstance(remote, str):
         remote = remote.decode('UTF-8', 'replace')
