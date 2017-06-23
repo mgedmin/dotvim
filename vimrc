@@ -1322,7 +1322,7 @@ function! FT_Bolagsfakta_Syntastic()
   let g:pyTestRunner = "server/env/bin/py.test -ra"
   let g:py_test_locator_prefixes = ["server/"]
   let g:source_locator_prefixes = ['server/']
-  if exists('.ctags-wrapper')
+  if executable('./.ctags-wrapper')
     let g:gutentags_ctags_executable = fnamemodify('./.ctags-wrapper', ':p')
   endif
   Margin 100
