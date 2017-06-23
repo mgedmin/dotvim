@@ -144,7 +144,7 @@ set suffixes+=.pyc,.pyo         " ignore compiled Python files
 set suffixes+=.egg-info         " ignore compiled Python files
 set suffixes+=.~1~,.~2~         " ignore Bazaar droppings
 set wildignore+=*.pyc,*.pyo     " same as 'suffixes', but for tab completion
-set wildignore+=*.o,*.d,*.so    " same as 'suffixes', but for tab completion
+set wildignore+=*.o,*.a,*.d,*.so " same as 'suffixes', but for tab completion
 set wildignore+=*.egg-info/**   " same as 'suffixes', but for tab completion
 set wildignore+=*~              " same as 'suffixes', but for tab completion
 set wildignore+=local/**        " virtualenv
@@ -1310,6 +1310,7 @@ function! FT_Python_Yplan()
 endf
 
 function! FT_Bolagsfakta_Syntastic()
+  setlocal wildignore+=server/var/**
   call Python3(0)
   let g:ale_javascript_eslint_executable = 'client/eslint'
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
