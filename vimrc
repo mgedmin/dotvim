@@ -263,7 +263,7 @@ if has("eval")
 
   " Open files by typing a subsequence of the pathname, bound to \t
   Plug 'wincent/command-t', {
-              \ 'do': 'cd ruby/command-t && ruby extconf.rb && make'}
+              \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'}
 
   " pure-python alternative to command-t, slightly different UI, not as nice
   " to use as command-t but useful for some circumstances.  Bound to <C-P>

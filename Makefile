@@ -13,7 +13,7 @@ help:
 	@echo 'make rebuild - recompile bundles'
 
 .PHONY: install
-install bundle/command-t: vim-plug
+install bundle/command-t: | vim-plug
 	vim +PlugInstall
 
 .PHONY: update
@@ -36,7 +36,9 @@ command-t: bundle/command-t/ruby/command-t/ext.so
 bundle/command-t/ruby/command-t/ext.so:
 	@make -s bundle/command-t
 	# You may need to apt-get install ruby ruby-dev if this fails:
-	cd bundle/command-t/ruby/command-t/ && ruby extconf.rb && make
+	cd bundle/command-t/ruby/command-t/ext/command-t \
+	    && ruby extconf.rb \
+	    && make
 
 .PHONY: ycm
 ycm: bundle/YouCompleteMe/python/ycm_core.so bundle/YouCompleteMe/python/ycm_client_support.so
