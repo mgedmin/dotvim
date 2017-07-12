@@ -145,22 +145,22 @@ set suffixes+=.egg-info         " ignore compiled Python files
 set suffixes+=.~1~,.~2~         " ignore Bazaar droppings
 set wildignore+=*.pyc,*.pyo     " same as 'suffixes', but for tab completion
 set wildignore+=*.o,*.a,*.d,*.so " same as 'suffixes', but for tab completion
-set wildignore+=*.egg-info/**   " same as 'suffixes', but for tab completion
+set wildignore+=*.egg-info/*    " same as 'suffixes', but for tab completion
 set wildignore+=*~              " same as 'suffixes', but for tab completion
-set wildignore+=local/**        " virtualenv
-set wildignore+=build/**        " distutils, I hates them
-set wildignore+=dist/**         " distutils deliverables
-set wildignore+=htmlcov/**      " coverage.py
-set wildignore+=coverage/**     " zope.testrunner --coverage
-set wildignore+=parts/omelette/** " collective.recipe.omelette
-set wildignore+=parts/**        " all buildout-generated junk even
-set wildignore+=.venv/**        " virtualenv
-set wildignore+=eggs/**         " virtualenv
-set wildignore+=.tox/**         " tox
-set wildignore+=_build/**       " sphinx
-set wildignore+=python/**       " virtualenv called 'python'
-set wildignore+=__pycache__/**  " compiled python files
-set wildignore+=**/node_modules/** " thousands of files, omg
+set wildignore+=local/*         " virtualenv
+set wildignore+=build/*         " distutils, I hates them
+set wildignore+=dist/*          " distutils deliverables
+set wildignore+=htmlcov/*       " coverage.py
+set wildignore+=coverage/*      " zope.testrunner --coverage
+set wildignore+=parts/omelette/*  " collective.recipe.omelette
+set wildignore+=parts/*         " all buildout-generated junk even
+set wildignore+=.venv/*         " virtualenv
+set wildignore+=eggs/*          " virtualenv
+set wildignore+=.tox/*          " tox
+set wildignore+=_build/*        " sphinx
+set wildignore+=python/*        " virtualenv called 'python'
+set wildignore+=__pycache__/*   " compiled python files
+set wildignore+=*/node_modules/*  " thousands of files, omg
 
 if v:version >= 700
   set complete-=i               " don't autocomplete from included files (too slow)
@@ -1271,7 +1271,9 @@ function! FocusOnTestFailure()
   for d in getqflist()
     let idx += 1
     if !d.valid && d.text =~ "^E "
-      exec "cc" idx
+      " silent! because sometimes I get E788: Not allowed to edit another buffer now, when
+      " this is invoked from g:asyncrun_exit
+      silent! exec "cc" idx
       break
     endif
   endfor
@@ -1280,8 +1282,8 @@ endf
 " Programming in Python                                         {{{2
 
 function! FT_Python_Ivija()
-  setlocal wildignore+=docs/src/** " make command-t ignore the duplicated subtree
-  setlocal wildignore+=reportgen-output/**
+  setlocal wildignore+=docs/src/*  " make command-t ignore the duplicated subtree
+  setlocal wildignore+=reportgen-output/*
   let g:pyTestRunnerClipboardExtras = '-vc'
 endf
 
@@ -1293,7 +1295,7 @@ endf
 
 function! FT_Python_Django()
   call UseDjangoTestRunner()
-  setlocal wildignore+=var/www/static/**
+  setlocal wildignore+=var/www/static/*
 endf
 
 function! FT_Python_Yplan()
@@ -1310,7 +1312,7 @@ function! FT_Python_Yplan()
 endf
 
 function! FT_Bolagsfakta_Syntastic()
-  setlocal wildignore+=server/var/**
+  setlocal wildignore+=server/var/*
   call Python3(0)
   let g:ale_javascript_eslint_executable = 'client/eslint'
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
