@@ -276,7 +276,6 @@ if has("eval")
   " asynchonously (requires Vim 8).
   if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
     Plug 'w0rp/ale'
-    com! ALECheckNow call ale#Queue(0)
   endif
 
   " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
