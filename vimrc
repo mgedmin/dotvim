@@ -276,6 +276,7 @@ if has("eval")
   " asynchonously (requires Vim 8).
   if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
     Plug 'w0rp/ale'
+    let g:ale_linters = {'python': ['flake8', 'mypy']}
   endif
 
   " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
