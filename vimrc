@@ -290,6 +290,9 @@ if has("eval")
   Plug 'tpope/vim-fugitive'
   " Plug 'fugitive.vim' -- 2-years old version of tpope/vim-fugitive
 
+  " GitHub support for vim-fugitive
+  Plug 'tpope/vim-rhubarb'
+
   " :%S/foo/bar/gc --> case-preserving :%s
   Plug 'tpope/vim-abolish'
 
@@ -372,7 +375,8 @@ if has("eval")
   Plug 'chase/vim-ansible-yaml'
 
   " Jinja syntax
-  Plug 'mitsuhiko/vim-jinja'
+  " (my fork because mitsuhiko is MIA and ignores GH issues)
+  Plug 'mgedmin/vim-jinja'
 
   " Nginx syntax
   Plug 'nginx.vim'
