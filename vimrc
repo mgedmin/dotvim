@@ -159,8 +159,8 @@ set wildignore+=eggs/*          " virtualenv
 set wildignore+=.tox/*          " tox
 set wildignore+=_build/*        " sphinx
 set wildignore+=python/*        " virtualenv called 'python'
-set wildignore+=__pycache__/*   " compiled python files
-set wildignore+=*/node_modules/*  " thousands of files, omg
+set wildignore+=__pycache__     " compiled python files
+set wildignore+=*/node_modules  " thousands of files, omg
 
 if v:version >= 700
   set complete-=i               " don't autocomplete from included files (too slow)
@@ -1312,7 +1312,7 @@ function! FT_Python_Yplan()
 endf
 
 function! FT_Bolagsfakta_Syntastic()
-  setlocal wildignore+=server/var/*
+  set wildignore+=*/server/var,*/build
   call Python3(0)
   let g:ale_javascript_eslint_executable = 'client/eslint'
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
