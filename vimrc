@@ -38,6 +38,8 @@ if v:version >= 703
 endif
 set numberwidth=6               " I want it constant width everywhere
 
+set t_RC=                       " https://bugzilla.gnome.org/show_bug.cgi?id=787007
+
 " I want gvim to look the same as vim in gnome-terminal
 set guifont=Ubuntu\ Mono\ 13
 
