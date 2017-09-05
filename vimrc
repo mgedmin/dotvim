@@ -240,7 +240,9 @@ if has("eval")
   Plug 'mgedmin/pytag.vim'
 
   " Better Python autoindentation
-  Plug 'hynek/vim-python-pep8-indent'
+  Plug 'Vimjas/vim-python-pep8-indent'
+  let g:python_pep8_indent_max_back_search = 1000  " the default is 50 lines, which is not enough
+  " (I have list literals longer than 50 lines in some of my test cases)
 
   " \oo to jump to stdlib source
   Plug 'mgedmin/python_open_module.vim'
@@ -278,7 +280,7 @@ if has("eval")
   " asynchonously (requires Vim 8).
   if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
     Plug 'w0rp/ale'
-    let g:ale_linters = {'python': ['flake8', 'mypy']}
+    let g:ale_linters = {'python': ['flake8']}
   endif
 
   " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
@@ -991,7 +993,7 @@ map             ,,              :update<CR>
 imap            ,,              <ESC>
 
 " open a file in the same dir as the current one                {{{2
-map <expr>      ,E              ":e ".expand("%:h")."/"
+map <expr>      ,E              ":e ".(exists('b:netrw_curdir')?b:netrw_curdir:expand("%:h"))."/"
 
 " open a file with same basename but different extension        {{{2
 map <expr>      ,R              ":e ".expand("%:r")."."
