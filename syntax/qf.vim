@@ -8,10 +8,16 @@ setlocal foldmethod=expr
 setlocal foldexpr=PyTestFoldLevel(v:lnum)
 function! PyTestFoldLevel(lineno)
   let line = getline(a:lineno)
-  if line =~ '^|| ==='
+  if line =~ '^|| =.*=$'
     return '>1'
-  elseif line =~ '^|| ___'
+  elseif line =~ '^|| _.*_$'
     return '>2'
+  elseif line =~ '^|| -.*-$'
+    return '>3'
+  elseif line =~ '^||     '
+    return 4
+  elseif line =~ '^|| [>E]'
+    return 2
   else
     let lvl = foldlevel(a:lineno - 1)
     return lvl >= 0 ? lvl : '='
