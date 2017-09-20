@@ -243,6 +243,7 @@ if has("eval")
   Plug 'Vimjas/vim-python-pep8-indent'
   let g:python_pep8_indent_max_back_search = 1000  " the default is 50 lines, which is not enough
   " (I have list literals longer than 50 lines in some of my test cases)
+  " XXX: doesn't work???
 
   " \oo to jump to stdlib source
   Plug 'mgedmin/python_open_module.vim'
@@ -498,6 +499,10 @@ if has("eval")
   let g:CommandTCancelMap = ['<C-c>', '<Esc>', '<C-g>'] " add ^G
   let g:CommandTMaxHeight = 20
   let g:CommandTTraverseSCM = "pwd"
+
+  nmap <silent> <Leader>T <Plug>(CommandTTag)
+  nmap <silent> <Leader>B <Plug>(CommandTBuffer)
+  nmap <silent> <Leader>H <Plug>(CommandTHelp)
 endif
 
 " ctrlp.vim                                                     {{{2
@@ -665,6 +670,8 @@ if has("eval")
     elseif g:asyncrun_status == 'failure'
       hi! link StatusLine StatusLineFailure
       botright cw
+      " update folds
+      normal zx
     endif
     redrawstatus
     " perhaps echo 'async job finished:' g:asyncrun_code
@@ -892,7 +899,7 @@ command! -nargs=? EditSnippets
 
 function! Flake8(exe, args, recheck_now)
   let g:ale_python_flake8_executable = a:exe
-  let g:ale_python_flake8_args = a:args
+  let g:ale_python_flake8_options = a:args
   let g:syntastic_python_flake8_exe = a:exe . ' ' . a:args
   if a:recheck_now && exists('*SyntasticCheck')
     SyntasticCheck
@@ -999,7 +1006,7 @@ map <expr>      ,E              ":e ".(exists('b:netrw_curdir')?b:netrw_curdir:e
 map <expr>      ,R              ":e ".expand("%:r")."."
 
 " close just the deepest level of folds                         {{{2
-map             ,zm             zMzRzm
+map             ,zm             zRzm
 
 " Scrolling with Ctrl+Up/Down                                   {{{2
 map             <C-Up>          1<C-U>
