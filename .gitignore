@@ -1,4 +1,5 @@
 bundle
 .netrwhist
 *.spl
+*.sug
 autoload/plug.vim.old
