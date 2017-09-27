@@ -243,7 +243,7 @@ if has("eval")
   Plug 'Vimjas/vim-python-pep8-indent'
   let g:python_pep8_indent_max_back_search = 1000  " the default is 50 lines, which is not enough
   " (I have list literals longer than 50 lines in some of my test cases)
-  " XXX: doesn't work???
+  " XXX: doesn't work??? BECAUSE https://github.com/Vimjas/vim-python-pep8-indent/pull/64 not merged yet!
 
   " \oo to jump to stdlib source
   Plug 'mgedmin/python_open_module.vim'
@@ -1000,7 +1000,7 @@ map             ,,              :update<CR>
 imap            ,,              <ESC>
 
 " open a file in the same dir as the current one                {{{2
-map <expr>      ,E              ":e ".(exists('b:netrw_curdir')?b:netrw_curdir:expand("%:h"))."/"
+map <expr>      ,E              ":e ".curdir#get()."/"
 
 " open a file with same basename but different extension        {{{2
 map <expr>      ,R              ":e ".expand("%:r")."."
