@@ -7,7 +7,7 @@
 "
 " Options                                                       {{{1
 "
-set nocompatible                " be sane (default if you have a .vimrc)
+set nocompatible                " be modern (default if you have a .vimrc)
 
 " Presentation                                                  {{{2
 set laststatus=2                " always show a status line
