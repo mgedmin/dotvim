@@ -46,7 +46,10 @@ set guifont=Ubuntu\ Mono\ 13
 " Silence                                                       {{{2
 set noerrorbells                " don't beep!
 set visualbell                  " don't beep!
-set t_vb=                       " don't beep! (but also see below)
+set t_vb=                       " don't beep! (but also see t_vb= below)
+if exists("&belloff")
+  set belloff=all               " don't beep!
+endif
 
 " Interpreting file contents                                    {{{2
 set modelines=5                 " debian disables this by default
