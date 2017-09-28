@@ -1520,7 +1520,7 @@ if !exists('colors_name')
   "colorscheme darklooks
 endif
 
-if has("syntax")
+if has("syntax") && !exists("g:syntax_on")
   syntax enable
 endif
 
