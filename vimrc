@@ -937,8 +937,21 @@ endif " has("user_commands")
 "
 
 " Ctrl-L loads changed files, updates diff, recomputes folds    {{{2
-
-noremap         <C-L>           :checktime<bar>diffupdate<CR>zx<C-L>
+function! s:RedrawCommand()
+    let s = ':checktime'
+    if &diff
+        let s += '<bar>diffupdate'
+    endif
+    if exists(':GitGutter')
+        let s += '<bar>GitGutter'
+    endif
+    let s += '<CR>'
+    if &foldlevel > 0
+        let s += 'zx'
+    endif
+    return s + '<C-L>'
+endf
+noremap <expr>  <C-L>           <SID>RedrawCommand()
 
 " Alt-. inserts last word from previous line                    {{{2
 
