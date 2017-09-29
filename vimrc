@@ -219,8 +219,33 @@ endif
 if has("eval")
   call plug#begin('~/.vim/bundle')
 
+  " Programming                                                 {{{3
+
+  " Show syntax errors and style warning in files I edit.  Updates
+  " asynchonously (requires Vim 8).
+  if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
+    Plug 'w0rp/ale'
+    let g:ale_linters = {'python': ['flake8']}
+  else
+    " Show syntax errors and style warnings in files I edit.  Updates on save.
+    Plug 'scrooloose/syntastic'
+  endif
+
+  " Update tags file automagically
+  Plug 'ludovicchabant/vim-gutentags'
+  " As suggested in https://github.com/ludovicchabant/vim-gutentags/issues/113,
+  " to only update existing tags files and never create new ones:
+  let g:gutentags_project_root = ['tags']
+  let g:gutentags_add_default_project_roots = 0
+
+
+  " Programming: C                                              {{{3
+
   " Show [current_function] in the status line for C files
   Plug 'mgedmin/chelper.vim'
+
+
+  " Programming: Python                                         {{{3
 
   " Show [CurrentClass.current_method] in the status line for Python files
   " (my fork because bugfixes)
@@ -259,31 +284,8 @@ if has("eval")
   " Misbehaves for long literals (over 50 lines), see
   " https://github.com/Vimjas/vim-python-pep8-indent/pull/90
 
-  " Open files by typing a subsequence of the pathname, bound to <Leader>t
-  Plug 'wincent/command-t', {
-              \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'}
 
-  " Pure-python alternative to command-t, slightly different UI, not as nice
-  " to use as command-t but useful for some circumstances (Vim w/o Ruby).
-  " Bound to <C-P>
-  Plug 'ctrlp.vim'
-
-  " Show syntax errors and style warning in files I edit.  Updates
-  " asynchonously (requires Vim 8).
-  if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
-    Plug 'w0rp/ale'
-    let g:ale_linters = {'python': ['flake8']}
-  else
-    " Show syntax errors and style warnings in files I edit.  Updates on save.
-    Plug 'scrooloose/syntastic'
-  endif
-
-  " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
-  Plug 'sjl/gundo.vim'
-  let g:gundo_prefer_python3 = has('python3')  " Unbreak broken default config
-
-  " Defines the very useful :Rename newfilename.txt
-  Plug 'Rename'
+  " Version control integration                                 {{{3
 
   " Git integration -- :Gdiff, :Ggrep etc.
   Plug 'tpope/vim-fugitive'
@@ -291,11 +293,16 @@ if has("eval")
   " GitHub support for vim-fugitive
   Plug 'tpope/vim-rhubarb'
 
-  " :%S/foo/bar/gc --> case-preserving :%s
-  Plug 'tpope/vim-abolish'
+  " Show git change status for each line in the gutter
+  Plug 'airblade/vim-gitgutter'
 
-  " Replace 'ga' to show Unicode names etc.
-  Plug 'tpope/vim-characterize'
+  " Higlight git conflict markers in files
+  Plug 'ingo-library'
+  Plug 'ConflictDetection'
+
+  " Use [x/]x to navigate to conflict markers
+  Plug 'CountJump'
+  Plug 'ConflictMotions'
 
   " Version control integration for SVN and other legacy VCSes -- :VCSVimDiff
   Plug 'vcscommand.vim'
@@ -307,17 +314,49 @@ if has("eval")
   " Show the svn diff while I'm editing an svn commit message.
   Plug 'svn-diff.vim'
 
-  " LESS (the CSS preprocessor) syntax
-  Plug 'groenewege/vim-less'
 
-  " Vala syntax
-  Plug 'tkztmk/vim-vala'
+  " Navigation                                                  {{{3
+
+  " Open files by typing a subsequence of the pathname, bound to <Leader>t
+  Plug 'wincent/command-t', {
+              \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'}
+
+  " Pure-python alternative to command-t, slightly different UI, not as nice
+  " to use as command-t but useful for some circumstances (Vim w/o Ruby).
+  " Bound to <C-P>
+  Plug 'ctrlp.vim'
 
   " List open buffers with various sorting modes on \b
   Plug 'jlanzarotta/bufexplorer'
 
+  " File tree in a sidebar.  Bound to <Leader>N, <Leader>f
+  Plug 'scrooloose/nerdtree', {
+    \ 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
+
+
+  " Extending vim's features                                    {{{3
+
+  " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
+  Plug 'sjl/gundo.vim'
+  let g:gundo_prefer_python3 = has('python3')  " Unbreak broken default config
+
+  " Defines the very useful :Rename newfilename.txt
+  Plug 'Rename'
+
+  " :%S/foo/bar/gc --> case-preserving :%s
+  Plug 'tpope/vim-abolish'
+
+  " Replace 'ga' to show Unicode names etc.
+  Plug 'tpope/vim-characterize'
+
   " ^P/^N completion on the command line
   Plug 'CmdlineComplete'
+
+  " Emacs-like Alt-t transpose words
+  Plug 'transpose-words'
+  if !has('nvim')
+    exec "set <M-t>=\<Esc>t"
+  endif
 
   " Snippets!  Type some text, press <tab> to expand, with get expansion with
   " multiple placeholders you can keep or replace and tab over.
@@ -330,32 +369,20 @@ if has("eval")
   " Default snippet collection -- I don't use them!
   ""Plug 'honza/vim-snippets'
 
-  " Smart omni-completion for everything.  I've disabled most of it because it
-  " was making my life actually harder instead of easier.  And then I disabled
-  " it completely because it was just costing me 100ms of startup time for
-  " practically no benefit.  Plus, sudo vim foo -> a Python web server running
-  " as root == eek
-""if v:version >= 704 || v:version == 703 && has("patch584")
-""  " YouCompleteMe needs vim 7.3.584 or newer
-""  Plug 'Valloric/YouCompleteMe'
-""  " It needs extra install:
-""  "   cd ~/.vim/bundle/YouCompleteMe && ./install.sh
-""endif
+  " Enable vim filename:lineno and :e filename:lineno
+  Plug 'kopischke/vim-fetch'
 
-  " Smart omni-completion for Python
-  " Disabled because Is too smart for its own good, and makes completion
-  " worse, not better, for the codebases I work with.
-  " Also, YouCompleteMe subsumes it.
-""Plug 'davidhalter/jedi-vim'
+  " Async shell commands (see :Make)
+  Plug 'skywind3000/asyncrun.vim'
 
-  " File tree in a sidebar.  Bound to <Leader>N, <Leader>f
-  Plug 'scrooloose/nerdtree', {
-    \ 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 
-  " Create/browse/edit gists
-  " Disabled because I never use these!
-""Plug 'mattn/webapi-vim'
-""Plug 'mattn/gist-vim'
+  " Additional filetypes                                        {{{3
+
+  " LESS (the CSS preprocessor) syntax
+  Plug 'groenewege/vim-less'
+
+  " Vala syntax
+  Plug 'tkztmk/vim-vala'
 
   " Improved ReStructuredText syntax
   Plug 'mrsipan/vim-rst'
@@ -370,43 +397,16 @@ if has("eval")
   " Nginx syntax
   Plug 'nginx.vim'
 
-  " Enable vim filename:lineno and :e filename:lineno
-  Plug 'kopischke/vim-fetch'
-
   " xchat log syntax highlighting (set ft=xchatlog)
   Plug 'xchat-log-syntax'
   " there's also 'XChat-IRC-Log' (set ft=irclog), but it fails to highlight
   " anything?
 
-  " Emacs-like Alt-t transpose words
-  Plug 'transpose-words'
-  if !has('nvim')
-    exec "set <M-t>=\<Esc>t"
-  endif
-
-  " Show git change status for each line in the gutter
-  Plug 'airblade/vim-gitgutter'
-
   " Syntax for Robot Framework tests
   Plug 'mfukar/robotframework-vim'
 
-  " Async shell commands (see :Make)
-  Plug 'skywind3000/asyncrun.vim'
 
-  " Update tags file automagically
-  Plug 'ludovicchabant/vim-gutentags'
-  " As suggested in https://github.com/ludovicchabant/vim-gutentags/issues/113,
-  " to only update existing tags files and never create new ones:
-  let g:gutentags_project_root = ['tags']
-  let g:gutentags_add_default_project_roots = 0
-
-  " Higlight git conflict markers in files
-  Plug 'ingo-library'
-  Plug 'ConflictDetection'
-
-  " Use [x/]x to navigate to conflict markers
-  Plug 'CountJump'
-  Plug 'ConflictMotions'
+  "                                                             }}}3
 
   call plug#end()
 endif
@@ -1289,8 +1289,8 @@ function! FocusOnTestFailure()
   for d in getqflist()
     let idx += 1
     if !d.valid && d.text =~ "^E "
-      " silent! because sometimes I get E788: Not allowed to edit another buffer now, when
-      " this is invoked from g:asyncrun_exit
+      " silent! because sometimes I get E788: Not allowed to edit another
+      " buffer now, when this is invoked from g:asyncrun_exit
       silent! exec "cc" idx
       break
     endif
