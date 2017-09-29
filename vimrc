@@ -919,18 +919,18 @@ endif " has("user_commands")
 function! s:RedrawCommand()
     let s = ':checktime'
     if &diff
-        let s += '<bar>diffupdate'
+        let s .= '|diffupdate'
     endif
     if exists(':GitGutter')
-        let s += '<bar>GitGutter'
+        let s .= '|GitGutter'
     endif
-    let s += '<CR>'
+    let s .= "\<CR>"
     if &foldlevel > 0
-        let s += 'zx'
+        let s .= 'zx'
     endif
-    return s + '<C-L>'
+    return s . "\<C-L>"
 endf
-noremap <expr>  <C-L>           <SID>RedrawCommand()
+noremap <silent> <expr> <C-L>   <SID>RedrawCommand()
 
 " Alt-. inserts last word from previous line                    {{{2
 
