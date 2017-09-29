@@ -19,7 +19,7 @@ Instructions to other people
 
 A common piece of advice given to new Vimmer is
 
-> Don't put any lines in your .vimrc that you don't understand.
+    Don't put any lines in your .vimrc that you don't understand.
 
 I completely agree with it.  Don't use other peoples' vim configs wholesale;
 instead look at them, browse for ideas, then copy the interesting bits one by
