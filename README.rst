@@ -6,14 +6,10 @@ Instructions to self
 
 Clone it ::
 
-    git clone https://github.com/mgedmin/dotvim ~/.vim
-
-If your vim is older than 7.3.1178, you'll also want to run ::
-
-    ~/.vim/install.sh
+    git clone https://gedmin.as/dotvim ~/.vim
 
 Then install all the plugins (this'll be an interactive) and compile C
-extensions for things like Command-T and YouCompleteMe ::
+extensions (e.g. for Command-T) ::
 
     make -C ~/.vim
 
@@ -21,6 +17,10 @@ extensions for things like Command-T and YouCompleteMe ::
 Instructions to other people
 ----------------------------
 
-Don't put any lines in your .vimrc that you don't understand.
+A common piece of advice given to new Vimmer is
 
-Browse for ideas, copy interesting snippets.  One by one.
+> Don't put any lines in your .vimrc that you don't understand.
+
+I completely agree with it.  Don't use other peoples' vim configs wholesale;
+instead look at them, browse for ideas, then copy the interesting bits one by
+one.
