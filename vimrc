@@ -61,13 +61,23 @@ if $USER == "root"
   set backupdir=/root/tmp
 endif
 
-if !isdirectory(&backupdir)
-  " create the backup directory if it doesn't already exist
-  if exists("*mkdir")
-    call mkdir(&backupdir, "p")
-  else
-    exec "silent !mkdir -p " . &backupdir
+" create the backup directory if it doesn't already exist
+function! s:Mkdir(dir)
+  if !isdirectory(a:dir)
+    if exists("*mkdir")
+      call mkdir(a:dir, "p")
+    else
+      exec "silent !mkdir -p " . a:dir
+    endif
   endif
+endf
+call s:Mkdir(&backupdir)
+
+" Persistent undo (vim 7.3+)                                    {{{2
+if has("persistent_undo")
+  set undofile                  " enable persistent undo
+  let &undodir=&backupdir . "/.vimundo" " but don't clutter $PWD
+  call s:Mkdir(&undodir)
 endif
 
 " Behaviour                                                     {{{2
@@ -140,9 +150,9 @@ set suffixes+=.pyc,.pyo         " ignore compiled Python files
 set suffixes+=.egg-info         " ignore compiled Python files
 set suffixes+=.~1~,.~2~         " ignore Bazaar droppings
 set wildignore+=*.pyc,*.pyo     " same as 'suffixes', but for tab completion
-set wildignore+=*.o,*.a,*.d,*.so " same as 'suffixes', but for tab completion
-set wildignore+=*.egg-info/*    " same as 'suffixes', but for tab completion
-set wildignore+=*~              " same as 'suffixes', but for tab completion
+set wildignore+=*.[oad],*.so    " and, more importantly, Command-T
+set wildignore+=*.egg-info/*    " setuptools droppings
+set wildignore+=*~              " backup files
 set wildignore+=local/*         " virtualenv
 set wildignore+=build/*         " distutils, I hates them
 set wildignore+=dist/*          " distutils deliverables
@@ -159,7 +169,7 @@ set wildignore+=__pycache__     " compiled python files
 set wildignore+=*/node_modules  " thousands of files, omg
 
 if v:version >= 700
-  set complete-=i               " don't autocomplete from included files (too slow)
+  set complete-=i               " don't autocomplete from included files (slow)
   set completeopt-=preview      " don't show the preview window
 endif
 
@@ -193,23 +203,11 @@ if has("eval")
   let g:sh_fold_enabled = 7     " fold functions, heredocs, ifs/loops
 endif
 
-" Persistent undo (vim 7.3+)                                    {{{2
-if has("persistent_undo")
-  set undofile                  " enable persistent undo
-  let &undodir=&backupdir . "/.vimundo" " but don't clutter $PWD
-  if !isdirectory(&undodir)
-    " create the undo directory if it doesn't already exist
-    exec "silent !mkdir -p " . &undodir
-  endif
-endif
-
 " Netrw explorer                                                {{{2
 if has("eval")
-  let g:netrw_keepdir = 1                       " does not work!
   let g:netrw_list_hide = '.*\.swp\($\|\t\),.*\.py[co]\($\|\t\)'
   let g:netrw_sort_sequence = '[\/]$,*,\.bak$,\.o$,\.h$,\.info$,\.swp$,\.obj$,\.py[co]$'
   let g:netrw_timefmt = '%Y-%m-%d %H:%M:%S'
-  let g:netrw_use_noswf = 1                     " this is default AFAIU so ?
 endif
 
 "
