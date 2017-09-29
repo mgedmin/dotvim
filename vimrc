@@ -223,31 +223,27 @@ if has("eval")
   Plug 'mgedmin/chelper.vim'
 
   " Show [CurrentClass.current_method] in the status line for Python files
+  " (my fork because bugfixes)
   Plug 'mgedmin/pythonhelper.vim'
 
-  " Automate 'from X import Y' statements from ctags, bound to <F5>
+  " Insert Python import statements computed from tags, bound to <F5>
   Plug 'mgedmin/python-imports.vim'
 
-  " A smarter :Tag command
+  " A smarter :Tag [package.][module.][class.]name command for Python
   Plug 'mgedmin/pytag.vim'
 
-  " Better Python autoindentation
-  Plug 'Vimjas/vim-python-pep8-indent'
-  let g:python_pep8_indent_max_back_search = 1000  " the default is 50 lines, which is not enough
-  " (I have list literals longer than 50 lines in some of my test cases)
-  " XXX: doesn't work??? BECAUSE https://github.com/Vimjas/vim-python-pep8-indent/pull/64 not merged yet!
-
-  " \oo to jump to stdlib source
+  " <Leader>oo to jump to Python standard library source code
+  " (my fork because bugfixes)
   Plug 'mgedmin/python_open_module.vim'
 
-  " Python folding, to replace my hacky syntax/python.vim
-  " (commented out until I remove my hack)
+  " Python folding, to replace my hacky syntax/python.vim perhaps?
+  " (I'm not ready to switch yet)
 ""Plug 'tmhedberg/SimpylFold'
 
   " Automate switching between code and unit test files, bound to <C-F6>
   Plug 'mgedmin/test-switcher.vim'
 
-  " Locate the source code from clipboard contents, bound to <F7>
+  " Locate the source code line from clipboard contents, bound to <F7>
   Plug 'mgedmin/source-locator.vim'
 
   " :EnableTestOnSave and have fun doing code katas
@@ -258,34 +254,39 @@ if has("eval")
   noremap [C :<C-U>PrevUncovered<CR>
   noremap ]C :<C-U>NextUncovered<CR>
 
-  " Open files by typing a subsequence of the pathname, bound to \t
+  " Better Python autoindentation
+  Plug 'Vimjas/vim-python-pep8-indent'
+  " Misbehaves for long literals (over 50 lines), see
+  " https://github.com/Vimjas/vim-python-pep8-indent/pull/90
+
+  " Open files by typing a subsequence of the pathname, bound to <Leader>t
   Plug 'wincent/command-t', {
               \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'}
 
-  " pure-python alternative to command-t, slightly different UI, not as nice
-  " to use as command-t but useful for some circumstances.  Bound to <C-P>
+  " Pure-python alternative to command-t, slightly different UI, not as nice
+  " to use as command-t but useful for some circumstances (Vim w/o Ruby).
+  " Bound to <C-P>
   Plug 'ctrlp.vim'
-
-  " Show syntax errors and style warnings in files I edit.  Updates on save.
-""Plug 'scrooloose/syntastic'
 
   " Show syntax errors and style warning in files I edit.  Updates
   " asynchonously (requires Vim 8).
   if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
     Plug 'w0rp/ale'
     let g:ale_linters = {'python': ['flake8']}
+  else
+    " Show syntax errors and style warnings in files I edit.  Updates on save.
+    Plug 'scrooloose/syntastic'
   endif
 
   " Show ASCII-art representation of Vim's undo tree, with bonus unified diffs
   Plug 'sjl/gundo.vim'
-  let g:gundo_prefer_python3 = has('python3')
+  let g:gundo_prefer_python3 = has('python3')  " Unbreak broken default config
 
   " Defines the very useful :Rename newfilename.txt
   Plug 'Rename'
 
   " Git integration -- :Gdiff, :Ggrep etc.
   Plug 'tpope/vim-fugitive'
-  " Plug 'fugitive.vim' -- 2-years old version of tpope/vim-fugitive
 
   " GitHub support for vim-fugitive
   Plug 'tpope/vim-rhubarb'
@@ -293,12 +294,15 @@ if has("eval")
   " :%S/foo/bar/gc --> case-preserving :%s
   Plug 'tpope/vim-abolish'
 
+  " Replace 'ga' to show Unicode names etc.
+  Plug 'tpope/vim-characterize'
+
   " Version control integration for SVN and other legacy VCSes -- :VCSVimDiff
   Plug 'vcscommand.vim'
 
   " Load previous svn-commit.tmp automatically when you repeat 'svn ci' after
   " a failed commit.
-""  Plug 'svn_commit.vim'  404 not found, I must've misspelled
+  Plug 'svn_commit'
 
   " Show the svn diff while I'm editing an svn commit message.
   Plug 'svn-diff.vim'
@@ -314,9 +318,6 @@ if has("eval")
 
   " ^P/^N completion on the command line
   Plug 'CmdlineComplete'
-
-  " Replace 'ga' to show Unicode names etc.
-  Plug 'tpope/vim-characterize'
 
   " Snippets!  Type some text, press <tab> to expand, with get expansion with
   " multiple placeholders you can keep or replace and tab over.
@@ -347,23 +348,14 @@ if has("eval")
   " Also, YouCompleteMe subsumes it.
 ""Plug 'davidhalter/jedi-vim'
 
-  " Replacement for netrw, some like it
-  " Disabled because it takes over netrw windows on WinEnter,  breaks Ctrl-^
-""Plug 'troydm/easytree.vim'
-
-  " Another popular file navigator
+  " File tree in a sidebar.  Bound to <Leader>N, <Leader>f
   Plug 'scrooloose/nerdtree', {
     \ 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 
-  " Automatically detect pasting in compatible xterms.  Very unreliable;
-  " changes my &pastetoggle unexpectedly, sometimes results in pastes being
-  " wrapped in <F28>...<F29>
-  " hitting shift-<middle-click>
-""Plug 'ConradIrwin/vim-bracketed-paste'
-
   " Create/browse/edit gists
-  Plug 'mattn/webapi-vim'
-  Plug 'mattn/gist-vim'
+  " Disabled because I never use these!
+""Plug 'mattn/webapi-vim'
+""Plug 'mattn/gist-vim'
 
   " Improved ReStructuredText syntax
   Plug 'mrsipan/vim-rst'
@@ -398,11 +390,7 @@ if has("eval")
   " Syntax for Robot Framework tests
   Plug 'mfukar/robotframework-vim'
 
-  " Async shell commands
-  ""Plug 'joonty/vim-do' <- unmaintained?  doesn't support +python3
-  ""Plug 'WolfgangMehner/vim-do' -- buggy also, e.g. can't use visual mode
-
-  " Async shell commands
+  " Async shell commands (see :Make)
   Plug 'skywind3000/asyncrun.vim'
 
   " Update tags file automagically
@@ -518,13 +506,6 @@ endif
 if has("eval")
   let g:bufExplorerShowRelativePath=1
   let g:bufExplorerSplitOutPathName=0
-endif
-
-" easytree.vim                                                  {{{2
-
-if has("eval")
-  let g:easytree_suppress_load_warning = 1
-  let g:easytree_ignore_files = ['*.sw[po]', '*.py[co]']
 endif
 
 " YouCompleteMe                                                 {{{2
