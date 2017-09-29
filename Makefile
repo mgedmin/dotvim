@@ -5,15 +5,20 @@ extensions += command-t
 command_t_ext := bundle/command-t/ruby/command-t/ext/command-t/ext.so
 ycm_ext := bundle/YouCompleteMe/python/ycm_core.so bundle/YouCompleteMe/python/ycm_client_support.so
 
+# user config file symlinks to set up with 'make install'
+install := ~/.vimrc ~/.config/nvim
+
 .PHONY: all
-all: ~/.vimrc vim-plug $(extensions)
+all: $(install) vim-plug $(extensions)
 
 .PHONY: help
 help:
-	@echo 'make all     - fetch all plugins and compile after a fresh checkout'
-	@echo 'make install - install missing plugins'
-	@echo "make update  - update all plugins"
-	@echo 'make rebuild - recompile plugins (e.g. after distro upgrade)'
+	@echo 'make                     # initial setup after fresh checkout'
+	@echo 'make help                # show this help message'
+	@echo 'make install             # install missing plugins'
+	@echo "make update              # update all plugins to latest version"
+	@echo "make update-vim-plug     # update the plugin manager"
+	@echo 'make rebuild             # recompile extensions (e.g. after distro upgrade)'
 
 .PHONY: install
 install bundle/command-t: | vim-plug
@@ -31,6 +36,10 @@ rebuild:
 .PHONY: vim-plug
 vim-plug: autoload/plug.vim
 autoload/plug.vim:
+	@make -s update-vim-plug
+
+.PHONY: update-vim-plug
+update-vim-plug:
 	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 .PHONY: command-t
@@ -49,3 +58,6 @@ $(ycm_ext): | bundle/YouCompleteMe
 
 ~/.vimrc:
 	ln -sr vimrc ~/.vimrc
+
+~/.config/nvim:
+	ln -sr . ~/.config/nvim
