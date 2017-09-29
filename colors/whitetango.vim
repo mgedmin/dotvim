@@ -73,9 +73,3 @@ hi Type            guifg=#4E9A06
 hi Underlined      guifg=#75507B
 hi Error           guifg=#FFFFFF guibg=#CC0000
 hi Todo            guifg=#000000 guibg=#C4A000
-
-" This is something extra for my Python coverage file syntax highlighter
-hi NoCoverage ctermbg=gray guibg=#ffcccc
-if &t_Co > 8
-    hi NoCoverage ctermbg=224
-endif

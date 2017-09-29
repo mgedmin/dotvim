@@ -592,9 +592,9 @@ if has("eval")
   let VCSCommandCommitOnWrite = 0
 endif
 
-" git ftplugin                                                  {{{2
+" vim-scripts/git-commmit configuration                         {{{2
 if has("eval")
-  let git_diff_spawn_mode = 1
+  let git_diff_spawn_mode = 1   " auto-split by default
 endif
 
 " bzr syntax plugin                                             {{{2
@@ -1591,7 +1591,7 @@ highlight CursorLine ctermbg=230 guibg=#ffffd7
 highlight DiffText ctermbg=1
 
 " easier on the eyes
-highlight Folded ctermbg=229
+highlight Folded ctermbg=229 guibg=#ffffaf
 
 " indicate test status
 hi StatusLineNeutral
@@ -1603,14 +1603,21 @@ hi StatusLineSuccess ctermfg=22 guifg=#005f00
 hi StatusLineFailure ctermfg=52 guifg=#5f0000
             \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
 
+" something extra for my Python coverage file syntax highlighter
+hi NoCoverage ctermbg=gray guibg=#ffcccc
+if &t_Co > 8
+    hi NoCoverage ctermbg=224
+endif
+
 "
 " Toolbar buttons                                               {{{1
 "
 
 if !exists("did_install_mg_menus") && has("gui")
   let did_install_mg_menus = 1
+  " NB: these have icons in bitmaps/*.png.
   amenu 1.200   ToolBar.-Sep700-        :
-  amenu 1.201   ToolBar.TrimSpaces      :%s/\s\+$//<CR>
+  amenu 1.201   ToolBar.TrimSpaces      :NukeTrailingWhitespace<CR>
   tmenu         ToolBar.TrimSpaces      Remove trailing whitespace
   amenu 1.202   ToolBar.ToggleHdr       <C-F6>
   tmenu         ToolBar.ToggleHdr       Switch between source and header (C/C++), or code and test (Python)
