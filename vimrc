@@ -32,13 +32,10 @@ if has("extra_search")
   set hlsearch                  " highlight search matches
   nohlsearch                    " but not initially
 endif
-if v:version >= 703
-  set colorcolumn=81            " highlight column 81
-  let &colorcolumn=join(range(81,999),",") " and columns after that
+if exists("&colorcolumn")
+  let &colorcolumn=join(range(81,999),",") " highlight columns over 80
 endif
 set numberwidth=6               " I want it constant width everywhere
-
-set t_RC=                       " https://bugzilla.gnome.org/show_bug.cgi?id=787007
 
 " I want gvim to look the same as vim in gnome-terminal
 set guifont=Ubuntu\ Mono\ 13
@@ -66,17 +63,11 @@ endif
 
 if !isdirectory(&backupdir)
   " create the backup directory if it doesn't already exist
-  exec "silent !mkdir -p " . &backupdir
-endif
-
-" Avoiding excessive I/O                                        {{{2
-if exists('&swapsync')          " (neovim doesn't have this option)
-  set swapsync=                 " be more friendly to laptop mode (dangerous)
-                                " this could result in data loss, so beware!
-endif
-if v:version >= 700
-  set nofsync                   " be more friendly to laptop mode (dangerous)
-                                " this could result in data loss, so beware!
+  if exists("*mkdir")
+    call mkdir(&backupdir, "p")
+  else
+    exec "silent !mkdir -p " . &backupdir
+  endif
 endif
 
 " Behaviour                                                     {{{2
@@ -88,15 +79,15 @@ set autoread                    " automatically reload files changed on disk
 set history=1000                " remember more lines of cmdline history
 set switchbuf=useopen           " quickfix reuses open windows
 set iskeyword-=/                " Ctrl-W in command-line stops at /
-set splitright                  " self-explanatory
+set splitright                  " put new splits on the right please
 
 if has('mouse_xterm')
   set mouse=a                   " use mouse in xterms
 endif
 
 set clipboard&
-set clipboard-=autoselect       " unnamed + autoselect == I can't use Vp to replace
-set clipboard^=unnamed        " interoperate with the X clipboard
+set clipboard-=autoselect       " unnamed + autoselect = can't use Vp to replace
+set clipboard^=unnamed          " interoperate with the X clipboard
 
 if v:version >= 700
   set diffopt+=vertical         " split diffs vertically
@@ -115,19 +106,19 @@ set scrolloff=2                 " always keep cursor 2 lines from screen edge
 set nostartofline               " don't jump to start of line
 
 " Folding                                                       {{{2
-if v:version >= 600
+if v:version >= 600 && &foldmethod == 'manual'
 " set foldmethod=marker         " use folding by markers by default
   set foldmethod=syntax         " use syntax folding by default
   set foldlevelstart=9999       " initially open all folds
 endif
 
 " Editing                                                       {{{2
-set backspace=indent,eol,start  " sane backspacing
+set backspace=indent,eol,start  " sensible backspacing
 set nowrap                      " do not wrap long lines
-set shiftwidth=4                " more-or-less sane indents
+set shiftwidth=4                " more-or-less reasonable indents
 set softtabstop=4               " make the <tab> key more useful
 set tabstop=8                   " anything else is heresy
-set expandtab                   " sane default
+set expandtab                   " tabs are evil
 set noshiftround                " do NOT enforce the indent
 set autoindent                  " automatic indent
 set nosmartindent               " but no smart indent (ain't smart enough)
@@ -921,6 +912,23 @@ command! -bar Python3 call Python3(1)
 
 command! -bar ESLint  let g:syntastic_javascript_checkers = ['eslint'] | SyntasticCheck
 command! -bar JSHint  let g:syntastic_javascript_checkers = ['jshint'] | SyntasticCheck
+
+" :LaptopMode[Off]                                              {{{2
+function! s:LaptopMode(on)
+  " Be more friendly to laptop mode -- avoid spinning up rotational hard disks
+  " too often.  DANGER: this could result in data loss if the system crashes,
+  " so beware!
+  if exists('&fsync')
+    let &fsync = !a:on
+    set fsync?
+  endif
+  if exists('&swapsync')          " (neovim doesn't have this option)
+    let &swapsync = a:on ? '' : 'fsync'
+    set swapsync?
+  endif
+endf
+command! LaptopMode     call s:LaptopMode(1)
+command! LaptopModeOff  call s:LaptopMode(0)
 
 endif " has("user_commands")
 
