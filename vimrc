@@ -417,7 +417,7 @@ if v:version >= 600
   filetype indent on            " load indent plugins
 endif
 
-" Syntastic                                                     {{{2
+" Syntastic (which I no longer use if ALE is available)         {{{2
 
 if has("eval")
   let g:syntastic_check_on_open = 1             " default is 0
@@ -508,7 +508,7 @@ if has("eval")
   let g:bufExplorerSplitOutPathName=0
 endif
 
-" YouCompleteMe                                                 {{{2
+" YouCompleteMe (which I no longer use)                         {{{2
 
 if has("eval")
   " auto-triggering breaks typing-then-<Up>/<Down> navigation in insert mode
@@ -592,7 +592,7 @@ if has("eval")
   let VCSCommandCommitOnWrite = 0
 endif
 
-" vim-scripts/git-commmit configuration                         {{{2
+" vim-scripts/git-commit (which I no longer use)                {{{2
 if has("eval")
   let git_diff_spawn_mode = 1   " auto-split by default
 endif
@@ -603,7 +603,7 @@ if has("eval")
   let bzr_highlight_diff = 1
 endif
 
-" surround.vim                                                  {{{2
+" surround.vim (which I no longer use)                          {{{2
 " make it not clobber 's' in visual mode
 vmap <Leader>s <Plug>Vsurround
 vmap <Leader>S <Plug>VSurround
@@ -618,7 +618,7 @@ map <Leader>n :NERDTreeToggle<CR>
 map <Leader>N :NERDTreeFocus<CR>
 map <Leader>f :NERDTreeFind<CR>
 
-" jedi.vim                                                      {{{2
+" jedi.vim (which I no longer use)                              {{{2
 if has("eval")
   " show_function_definition is a hack that modified your source buffer
   " and interacts badly with syntax highlighting
@@ -779,7 +779,7 @@ command! FindUntranslated               /msgstr ""\ze\n\n
 " convert \uXXXX to actual characters                           {{{2
 command! -range=% ExpandUnicode         <line1>,<line2>s/\\u\([0-9a-fA-F]\{4}\)/\=nr2char(str2nr(submatch(1), 16))/gc
 
-" diffoff sets wrap; don't wanna                                {{{2
+" diffoff used to set wrap as a side effect                     {{{2
 command! Diffoff                        diffoff | setlocal nowrap
 
 " See :help DiffOrig                                            {{{2
@@ -806,6 +806,7 @@ command! -nargs=* SVNVimDiff            VCSVimDiff <args>
 command! -nargs=* BZRVimDiff            VCSVimDiff <args>
 
 " :CW                                                           {{{2
+" (but maybe I should add 'wincmd J' to ftplugin/qf.vim instead?)
 command! CW             botright cw
 
 " :W is something I accidentally type all the time              {{{2
@@ -853,7 +854,7 @@ command! ShowSyntaxStack call s:ShowSyntaxStack()
 
 function! s:Margin(...)
   if a:0
-    let &colorcolumn=join(range(a:1+1,999),",")
+    let &colorcolumn=join(range(a:1+1,a:1+256),",")
   else
     echo min(split(&colorcolumn, ',')) - 1
   endif
@@ -974,7 +975,7 @@ inoremap <MiddleMouse> <C-G>u<MiddleMouse>
 vnoremap * y/\V<C-R>=substitute(escape(@@,"/\\"),"\n","\\\\n","ge")<CR><CR>
 vnoremap # y?\V<C-R>=substitute(escape(@@,"?\\"),"\n","\\\\n","ge")<CR><CR>
 
-" Sane 'all string' text object                                 {{{2
+" An 'all string' text object w/o surrounding whitespace        {{{2
 
 omap            a'              2i'
 omap            a"              2i"
@@ -1175,12 +1176,12 @@ map             <F3>            :nohlsearch<bar>hi! link StatusLine StatusLineNe
 imap            <F3>            <C-O><F3>
 
 " <S-F3> = turn off location list
-map             <S-F3>            :lclose<CR>
-imap            <S-F3>            <C-O><S-F3>
+map             <S-F3>          :lclose<CR>
+imap            <S-F3>          <C-O><S-F3>
 
 " <C-F3> = turn off quickfix
-map             <C-F3>            :cclose<CR>
-imap            <C-F3>            <C-O><C-F3>
+map             <C-F3>          :cclose<CR>
+imap            <C-F3>          <C-O><C-F3>
 
 " <F4> = next error/grep match
 "" depends on plugin/quickloclist.vim
