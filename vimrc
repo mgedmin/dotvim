@@ -636,6 +636,11 @@ if has("user_commands")
   command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 endif
 if has("eval")
+  fun! ResetStatusLineColor()
+    if g:asyncrun_status != 'running'
+      hi! link StatusLine StatusLineNeutral
+    endif
+  endf
   fun! OnAsyncRunExit()
     if g:asyncrun_status == 'success'
       hi! link StatusLine StatusLineSuccess
@@ -1172,7 +1177,7 @@ map             <F2>            :wall<CR>
 imap            <F2>            <C-O><F2>
 
 " <F3> = turn off search highlighting
-map             <F3>            :nohlsearch<bar>hi! link StatusLine StatusLineNeutral<CR>
+map             <F3>            :nohlsearch<bar>call ResetStatusLineColor()<CR>
 imap            <F3>            <C-O><F3>
 
 " <S-F3> = turn off location list
