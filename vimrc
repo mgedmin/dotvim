@@ -1127,6 +1127,26 @@ map             <Esc>(          <A-(>
 ""map!            <Esc>*          <A-*>
 ""map!            <Esc>(          <A-(>
 
+" Switching tabs with <C-W><C-PageUp/Down> in terminal mode     {{{2
+if has("terminal")
+  tnoremap      <C-W><C-PageUp>   <C-W>:tabprev<CR>
+  tnoremap      <C-W><C-PageDown> <C-W>:tabnext<CR>
+endif
+
+" Switching tabs with <C-W><A-number> in terminal mode          {{{2
+if has("terminal")
+  for s:nr in range(1, 9)
+    exec 'tnoremap <C-W><A-'.s:nr.' <C-W>:tabnext '.s:nr.'<CR>'
+    exec 'tnoremap <C-W><Esc>'.s:nr.' <C-W>:tabnext '.s:nr.'<CR>'
+  endfor
+endif
+
+" Switching tabs with <C-W>gt/<C-W>gT in terminal mode          {{{2
+if has("terminal")
+  tnoremap      <C-W>gT         <C-W>:tabprev<CR>
+  tnoremap      <C-W>gt         <C-W>:tabnext<CR>
+endif
+
 " Emacs style command line                                      {{{2
 cnoremap        <C-G>           <C-C>
 cnoremap        <C-A>           <Home>
