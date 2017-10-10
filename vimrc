@@ -90,6 +90,7 @@ set history=1000                " remember more lines of cmdline history
 set switchbuf=useopen           " quickfix reuses open windows
 set iskeyword-=/                " Ctrl-W in command-line stops at /
 set splitright                  " put new splits on the right please
+set nrformats-=octal            " Ctrl-A/X on YYYY-0M-0D
 
 if has('mouse_xterm')
   set mouse=a                   " use mouse in xterms
