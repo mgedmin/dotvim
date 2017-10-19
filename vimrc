@@ -1581,7 +1581,7 @@ highlight link Test Special
 
 " 'statusline' contains %1* and %2*
 highlight User1                 gui=NONE guifg=green guibg=black
-            \                   cterm=NONE ctermfg=green ctermbg=black
+            \                   cterm=bold ctermfg=green ctermbg=black
 highlight User2                 gui=NONE guifg=magenta guibg=black
             \                   cterm=NONE ctermfg=magenta ctermbg=black
 
