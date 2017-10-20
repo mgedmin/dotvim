@@ -1373,6 +1373,10 @@ function! FT_Bolagsfakta_Syntastic()
     let g:gutentags_ctags_executable = fnamemodify('./.ctags-wrapper', ':p')
   endif
   Margin 100
+  fun! RandomQvarnID()
+    pyx import random
+    return pyxeval('"%04x-%032x-%08x" % (random.randrange(16**4), random.randrange(16**32), random.randrange(16**8))')
+  endf
 endf
 
 function! FT_Python_MAN()
