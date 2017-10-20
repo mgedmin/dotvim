@@ -1585,9 +1585,9 @@ highlight link Test Special
 
 " 'statusline' contains %1* and %2*
 highlight User1                 gui=NONE guifg=green guibg=black
-            \                   cterm=bold ctermfg=green ctermbg=black
+            \                   cterm=bold,reverse ctermbg=green ctermfg=NONE
 highlight User2                 gui=NONE guifg=magenta guibg=black
-            \                   cterm=NONE ctermfg=magenta ctermbg=black
+            \                   cterm=bold,reverse ctermbg=magenta ctermfg=NONE
 
 " for custom :match commands
 highlight Red                   guibg=red ctermbg=red
