@@ -670,94 +670,19 @@ endif
 " Status line                                                   {{{1
 "
 
-" I need to do this _after_ setting plugin options, since my statusline
-" relies on functions defined in some plugins, so I want to try to source
-" those plugins early to check if I need to define fallback functions, in
-" case those plugins are unavailable.
-
 " To emulate the standard status line with 'ruler' set, use this:
 "
 "   set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 "
 " I've tweaked it a bit to show the buffer number on the left, and the total
-" number of lines on the right.  Also, show the current Python function in the
-" status line, if the pythonhelper.vim plugin exists and can be loaded.
+" number of lines on the right.  Also, show the current C or Python function
+" in the status line, if the chelper/pythonhelper.vim plugins have been
+" loaded.  Also, show if there are any Syntastic/ALE errors, and whether
+" some evil plugin has once again used :lcd without my consent.
+"
+" And then I went ahead and overengineered everything in autoload/mg.vim
 
-runtime plugin/pythonhelper.vim
-runtime plugin/chelper.vim
-if !exists("*TagInStatusLine")
-  function TagInStatusLine()
-    return ''
-  endfunction
-endif
-if !exists("*CTagInStatusLine")
-  function CTagInStatusLine()
-    return ''
-  endfunction
-endif
-
-runtime plugin/syntastic.vim
-if !exists("*SyntasticStatuslineFlag")
-  function! SyntasticStatuslineFlag()
-    return ''
-  endfunction
-endif
-
-runtime plugin/ale.vim
-if !exists("*ALEGetStatusLine")
-  function! LinterStatus()
-    return ''
-  endfunction
-else
-  function! LinterStatus()
-    let total = ale#statusline#Count(bufnr('%')).total
-    return total == 0 ? '' : printf('{%d}', total)
-  endfunction
-endif
-
-if !exists("*haslocaldir")
-  function! HasLocalDir()
-    return ''
-  endfunction
-else
-  function! HasLocalDir()
-    if haslocaldir()
-      return '[lcd]'
-    endif
-    return ''
-  endfunction
-endif
-
-set statusline=                 " my status line contains:
-set statusline+=%n:             " - buffer number, followed by a colon
-set statusline+=%<%f            " - relative filename, truncated from the left
-set statusline+=\               " - a space
-set statusline+=%h              " - [Help] if this is a help buffer
-set statusline+=%m              " - [+] if modified, [-] if not modifiable
-set statusline+=%r              " - [RO] if readonly
-set statusline+=%2*%{HasLocalDir()}%*           " [lcd] if :lcd has been used
-set statusline+=%#error#%{SyntasticStatuslineFlag()}%*
-set statusline+=%#error#%{LinterStatus()}%*
-set statusline+=\               " - a space
-set statusline+=%1*%{TagInStatusLine()}%*       " [current class/function]
-set statusline+=%1*%{CTagInStatusLine()}%*      " same but for C code
-set statusline+=\               " - a space
-set statusline+=%=              " - right-align the rest
-set statusline+=%-10.(%l:%c%V%) " - line,column[-virtual column]
-set statusline+=\               " - a space
-" it doesn't fit on my 1388x768 screen when I use vertical splits
-" and have [LongClassName.long_method_name] tags :/
-set statusline+=%4L           " - total number of lines in buffer
-set statusline+=\             " - a space
-set statusline+=%P              " - position in buffer as percentage
-
-" Other notes:
-"   %1*         -- switch to highlight group User1
-"   %{}         -- embed the output of a vim function
-"   %*          -- switch to the normal highlighting
-"   %=          -- right-align the rest
-"   %-10.(...%) -- left-align the group inside %(...%)
-
+set statusline=%!mg#statusline()
 
 "
 " Commands                                                      {{{1
