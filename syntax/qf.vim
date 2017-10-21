@@ -5,7 +5,13 @@
 " for other ideas
 
 setlocal foldmethod=expr
-setlocal foldexpr=PyTestFoldLevel(v:lnum)
+
+if get(g:, "pyTestRunner", "") == 'bin/test'
+  setlocal foldexpr=UnitTestFoldLevel(v:lnum)
+else
+  setlocal foldexpr=PyTestFoldLevel(v:lnum)
+endif
+
 function! PyTestFoldLevel(lineno)
   let line = getline(a:lineno)
   if line =~ '^|| =.*=$'
@@ -18,6 +24,18 @@ function! PyTestFoldLevel(lineno)
     return 4
   elseif line =~ '^|| [>E]'
     return 2
+  else
+    let lvl = foldlevel(a:lineno - 1)
+    return lvl >= 0 ? lvl : '='
+  endif
+endf
+
+function! UnitTestFoldLevel(lineno)
+  let line = getline(a:lineno)
+  if line =~ '^|| \(Failure\|Error\) in test'
+    return '>1'
+  elseif line =~ '^|| Tearing down\|^||   Ran \d\+ tests'
+    return '0'
   else
     let lvl = foldlevel(a:lineno - 1)
     return lvl >= 0 ? lvl : '='
