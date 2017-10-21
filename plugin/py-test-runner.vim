@@ -1,7 +1,7 @@
 " File: py-test-runner.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.5
-" Last Modified: 2017-02-14
+" Version: 0.6
+" Last Modified: 2017-10-21
 "
 " Overview
 " --------
@@ -46,11 +46,10 @@ if !exists("g:pyTestRunnerTestFilteringClassAndMethodFormat")
     " would be nice, but unittest formats test IDs by putting the class name
     " in parens
     " let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}.{method}"
-    " and I don't know how many backslashes I need for correct escaping of
-    " same
-    " let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{method}\\\\ \\\\({class}\\\\)"
-    " so let's just filter by method name
-    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{method}"
+    " and backslashes are annoying, so let's avoid them
+    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "'{method} [(].*{class}[)]'"
+    " or we could just filter by method name, but eh
+    " let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{method}"
 endif
 if !exists("g:pyTestRunnerTestFilteringBlacklist")
     let g:pyTestRunnerTestFilteringBlacklist = ["__init__", "setUp", "tearDown", "test_suite"]
@@ -83,6 +82,21 @@ runtime plugin/pythonhelper.vim
 if !exists("*TagInStatusLine")
     finish
 endif
+
+function! UseZopeTestRunner()
+    " Assumes you have bin/test, generates command lines of the form
+    "   bin/test -s <package> -m <module> -t '{method} [(].*{class}[)]'
+    "
+    let g:pyTestRunner = "bin/test"
+    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "'{method} [(].*{class}[)]'"
+    let g:pyTestRunnerTestFiltering = "-t"
+    let g:pyTestRunnerPackageFiltering = "-s"
+    let g:pyTestRunnerModuleFiltering = "-m"
+    let g:pyTestRunnerFilenameFiltering = ""
+    let g:pyTestRunnerDirectoryFiltering = ""
+    let g:pyTestRunnerClipboardExtras = "-pvc"
+    let g:pyTestRunnerClipboardExtrasSuffix = ""
+endfunction
 
 function! UseDjangoTestRunner()
     " Assumes you have django-nose, generates command lines of the form
