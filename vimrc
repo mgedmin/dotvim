@@ -842,6 +842,14 @@ endf
 command! LaptopMode     call s:LaptopMode(1)
 command! LaptopModeOff  call s:LaptopMode(0)
 
+" :TermRestart -- re-exec the terminal command that exited      {{{2
+command! TermRestart
+    \       if &buftype == 'terminal'
+    \ <bar>   exec 'term ++curwin' expand("%")[1:]
+    \ <bar> else
+    \ <bar>   echoerr 'Not a terminal buffer'
+    \ <bar> endif
+
 endif " has("user_commands")
 
 "
