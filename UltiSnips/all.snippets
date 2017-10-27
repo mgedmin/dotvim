@@ -29,6 +29,10 @@ snippet "[[]time]?" "[HH:MM] " r
 [`!v strftime('%H:%M')`] 
 endsnippet
 
+snippet datetime "YYYY-MM-DDTHH:MM:SS.ssssss" w
+`!v strftime('%Y-%m-%dT%H:%M:%S.000000')`
+endsnippet
+
 snippet coveragerc ".coveragerc" b
 [run]
 # source = ...
