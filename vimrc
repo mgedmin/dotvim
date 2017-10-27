@@ -36,6 +36,7 @@ if exists("&colorcolumn")
   let &colorcolumn=join(range(81,999),",") " highlight columns over 80
 endif
 set numberwidth=6               " I want it constant width everywhere
+set title                       " Set xterm title even in Wayland (where autodetect fails)
 
 " I want gvim to look the same as vim in gnome-terminal
 set guifont=Ubuntu\ Mono\ 13
