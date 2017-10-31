@@ -140,14 +140,17 @@ function! GetTestUnderCursor()
             if l:name =~ '^[a-z].*[.]'
                 " Most likely a test that has inner functions/classes
                 let l:name = split(l:name, '[.]')[0]
+                let l:arg = l:name
             elseif l:name =~ '[.]'
                 let [l:class, l:name] = split(l:name, '[.]')[:1]
-                let l:name = substitute(substitute(g:pyTestRunnerTestFilteringClassAndMethodFormat, '{class}', l:class, 'g'), '{method}', l:name, 'g')
+                let l:arg = substitute(substitute(g:pyTestRunnerTestFilteringClassAndMethodFormat, '{class}', l:class, 'g'), '{method}', l:name, 'g')
+            else
+                let l:arg = l:name
             endif
             if g:pyTestRunnerTestFiltering != ""
                   \ && index(g:pyTestRunnerTestFilteringBlacklist, l:name) == -1
                 " we assume here that l:test is ""
-                let l:test = g:pyTestRunnerTestFiltering . " " . l:name
+                let l:test = g:pyTestRunnerTestFiltering . " " . l:arg
             endif
         endif
         if g:pyTestRunnerModuleFiltering != ""
