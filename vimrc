@@ -1291,7 +1291,7 @@ function! FT_Python_Yplan()
 endf
 
 function! FT_Bolagsfakta_Syntastic()
-  set wildignore+=*/server/var,*/build
+  set wildignore+=*/server/var,*/build,*/pkgbuild
   call Python3(0)
   let g:ale_javascript_eslint_executable = 'client/eslint'
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
