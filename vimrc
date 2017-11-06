@@ -1239,6 +1239,11 @@ augroup MakeExecutableOnSave
   au BufWritePost * call chmodx#doit()
 augroup END
 
+" Make fugitive's fake buffers visually distinguishable         {{{2
+augroup MakeFugitiveVisible
+  au BufNew,BufReadPost fugitive://* Margin 0
+augroup END
+
 " focus the 1st py.test failure in quickfix                     {{{2
 augroup QuickfixStatus
   au!
