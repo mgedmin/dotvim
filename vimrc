@@ -684,6 +684,13 @@ endif
 " And then I went ahead and overengineered everything in autoload/mg.vim
 
 set statusline=%!mg#statusline()
+augroup StatusLine
+  au!
+  au BufWinEnter *
+        \ if &buftype == 'terminal' |
+        \   setlocal statusline=%!mg#statusline('terminal') |
+        \ endif
+augroup END
 
 "
 " Commands                                                      {{{1

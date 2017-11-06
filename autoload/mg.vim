@@ -8,6 +8,7 @@ let s:statusline = {
       \ 'flags': '{help}{modified}{ro}{lcd}{errors}',
       \ 'help': '%h',
       \ 'modified': '%m',
+      \ 'modified[terminal]': '',
       \ 'ro': '%r',
       \ 'position': '%-10.({line}:{col}{maybe_virtual}%)',
       \ 'line': '%l',
@@ -22,15 +23,16 @@ let s:statusline_highlight = {
       \ 'errors': 'error',
       \ }
 
-fun! s:expand(s)
-  return substitute(a:s, '{\([a-z_]\+\)}',
-        \ '\=s:eval(submatch(1))', 'g')
+fun! s:expand(s, variant)
+  return substitute(a:s, '{\([a-z_]\+\)}', {m -> s:eval(m[1], a:variant)}, 'g')
 endf
 
-fun! s:eval(s)
+fun! s:eval(s, variant)
   let highlight = get(s:statusline_highlight, a:s, "")
-  if has_key(s:statusline, a:s)
-    let result = s:expand(s:statusline[a:s])
+  if has_key(s:statusline, a:s . "[" . a:variant . "]")
+    let result = s:expand(s:statusline[a:s . "[" . a:variant . "]"], a:variant)
+  elseif has_key(s:statusline, a:s)
+    let result = s:expand(s:statusline[a:s], a:variant)
   elseif exists('*mg#statusline_' . a:s)
     let result = '%{mg#statusline_' . a:s . '()}'
   else
@@ -85,6 +87,7 @@ fun! mg#statusline_errors()
   return flag
 endf
 
-fun! mg#statusline()
-  return s:eval('statusline')
+fun! mg#statusline(...)
+  let variant = a:0 >= 1 ? a:1 : ""
+  return s:eval('statusline', variant)
 endf
