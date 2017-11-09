@@ -1580,11 +1580,6 @@ hi StatusLineSuccess ctermfg=22 guifg=#005f00
 hi StatusLineFailure ctermfg=52 guifg=#5f0000
             \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
 
-" something extra for my Python coverage file syntax highlighter
-hi NoCoverage ctermbg=gray guibg=#ffcccc
-if &t_Co > 8
-    hi NoCoverage ctermbg=224
-endif
 
 "
 " Toolbar buttons                                               {{{1
