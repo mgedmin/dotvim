@@ -688,8 +688,8 @@ set statusline=%!mg#statusline()
 augroup StatusLine
   au!
   au BufWinEnter *
-        \ if &buftype == 'terminal' |
-        \   setlocal statusline=%!mg#statusline('terminal') |
+        \ if &buftype =~ 'terminal\|quickfix\|help' |
+        \   let &l:statusline='%!mg#statusline('.string(&buftype).')' |
         \ endif
 augroup END
 
