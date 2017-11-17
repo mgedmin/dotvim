@@ -382,6 +382,9 @@ if has("eval")
   " Async shell commands (see :Make)
   Plug 'skywind3000/asyncrun.vim'
 
+  " :EasyAlign
+  Plug 'junegunn/vim-easy-align'
+
 
   " Additional filetypes                                        {{{3
 
