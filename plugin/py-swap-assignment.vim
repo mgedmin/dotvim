@@ -1,6 +1,8 @@
 " This is growing to become a refactoring plugin
-command! SwapAssignment :s/\(^[ \t>.]*\)\(.*\)\( = \)\(.*\)$/\1\4\3\2/ | noh
-command! SwapTupleMembers :s/\((\)\([^,)]*\)\(,\s*\)\(.*\)\()\)/\1\4\3\2\5/ | noh
+command! -range -bar SwapAssignment
+      \ <line1>,<line2>s/\(^[ \t>.]*\)\(.*\)\( = \)\(.*\)$/\1\4\3\2/ | noh
+command! -range -bar SwapTupleMembers
+      \ <line1>,<line2>s/\((\)\([^,)]*\)\(,\s*\)\(.*\)\()\)/\1\4\3\2\5/ | noh
 
 fun! s:InlineValue()
   let name = expand('<cword>')
