@@ -42,7 +42,7 @@ let s:statusline_highlight = {
       \ }
 
 
-" colors based on lightline.vim's jellybeans theme
+" colors based on lightline.vim's powerline theme
 let s:l1_fg = [ '#ffffff', 231 ]
 let s:l1_bg = [ '#585858', 240 ]
 let s:r1_fg = [ '#606060', 241 ]
