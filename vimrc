@@ -1574,6 +1574,9 @@ highlight DiffText ctermbg=1
 " easier on the eyes
 highlight Folded ctermbg=229 guibg=#ffffaf
 
+set fillchars=vert:│,fold:-
+highlight VertSplit cterm=reverse ctermbg=7
+
 " indicate test status
 hi StatusLineNeutral
             \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
