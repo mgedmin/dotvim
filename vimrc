@@ -938,6 +938,9 @@ vmap            \dp             :diffput<CR>
 " S-Insert pastes                                               {{{2
 map!            <S-Insert>      <MiddleMouse>
 
+" gV selects the just-pasted text                               {{{2
+nnoremap <expr> gV              "`[" . getregtype() . "`]"
+
 " .vimrc editing                                                {{{2
 set wildcharm=<C-Z>
 map             ,e              :e $HOME/.vim/vimrc<CR>
