@@ -286,6 +286,11 @@ if has("eval")
   " Misbehaves for long literals (over 50 lines), see
   " https://github.com/Vimjas/vim-python-pep8-indent/pull/90
 
+  " More up-to-date Python syntax that supports f-strings and everything
+  Plug 'vim-python/python-syntax'
+  let python_highlight_all = 1
+  let python_slow_sync = 1
+
 
   " Version control integration                                 {{{3
 
@@ -557,13 +562,6 @@ imap            <C-F6>          <C-O><C-F6>
 " Maybe these mappings should be moved into FT_C() ?
 map             ,l              :call ListAllFunctions(1)<CR>
 map             ,j              :<C-U>call JumpToFunction(0)<CR>
-
-" Python syntax highligting                                     {{{2
-" from http://hlabs.spb.ru/vim/python.vim
-if has("eval")
-  let python_highlight_all = 1
-  let python_slow_sync = 1
-endif
 
 " py-test-runner.vim                                            {{{2
 
