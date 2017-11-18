@@ -8,10 +8,12 @@ let s:statusline = {
       \ 'statusline': '{left} %={right}',
       \ 'left[quickfix]': '{quickfix_tail}{quickfix_title}',
       \ 'left[help]': '{help_prefix} %<{filename}',
-      \ 'left': '%<{filename}%( {flags}%)%( {tag}%)',
-      \ 'right': '{pos}{position}',
+      \ 'left': '%<{filename}%( {flags}%)',
+      \ 'right': '{tag}{pos}{position}',
       \ 'left[full]': '{bufnr}:%<{filename}%( {flags}%)%( {tag}%)',
       \ 'right[full]': '{position} {total_lines} {pos}',
+      \ 'tag': '%{mg#statusline_tag(" %s ")}',
+      \ 'tag[full]': '%{mg#statusline_tag()}',
       \ 'bufnr': '%n',
       \ 'filename': '%f',
       \ 'help_prefix': ' Help ',
@@ -32,7 +34,7 @@ let s:statusline = {
       \ 'pos[full]': '%P',
       \ }
 let s:statusline_highlight = {
-      \ 'tag': 1,
+      \ 'tag': 'mg_statusline_tag',
       \ 'lcd': 2,
       \ 'errors': 'error',
       \ 'help_prefix': 'mg_statusline_l1',
@@ -49,6 +51,8 @@ let s:r1_fg = [ '#606060', 241 ]
 let s:r1_bg = [ '#d0d0d0', 252 ]
 let s:r2_fg = [ '#bcbcbc', 250 ]
 let s:r2_bg = [ '#585858', 240 ]
+let s:tag_fg = [ '#d0d0d0', 252 ]
+let s:tag_bg = [ '#008700', 28 ]
 
 fun! mg#statusline_highlight_part(part, fg, bg)
   exec 'hi mg_statusline_'.a:part.' ctermfg='.a:fg[1].' ctermbg='.a:bg[1].' guifg='.a:fg[0].' guibg='.a:bg[0]
@@ -58,6 +62,7 @@ fun! mg#statusline_highlight()
   call mg#statusline_highlight_part('l1', s:l1_fg, s:l1_bg)
   call mg#statusline_highlight_part('r1', s:r1_fg, s:r1_bg)
   call mg#statusline_highlight_part('r2', s:r2_fg, s:r2_bg)
+  call mg#statusline_highlight_part('tag', s:tag_fg, s:tag_bg)
 endf
 
 fun! s:expand(s, variant)
@@ -101,13 +106,17 @@ fun! mg#statusline_lcd()
   return haslocaldir() ? '[lcd]' : ''
 endf
 
-fun! mg#statusline_tag()
+fun! mg#statusline_tag(...)
+  let format = a:0 >= 1 ? a:1 : '[%s]'
   let tag = ""
   if tag == "" && exists("*TagInStatusLine")
     let tag = TagInStatusLine()
   endif
   if tag == "" && exists("*CTagInStatusLine")
     let tag = CTagInStatusLine()
+  endif
+  if tag != ""
+    let tag = printf(format, tag[1:-2])
   endif
   return tag
 endf
