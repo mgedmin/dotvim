@@ -24,6 +24,8 @@ let s:statusline = {
       \ 'modified': '%m',
       \ 'modified[terminal]': '',
       \ 'ro': '%r',
+      \ 'errors': '%{mg#statusline_errors(" %d ")}',
+      \ 'errors[full]': '%{mg#statusline_errors()}',
       \ 'position': ' %3l:%-2v ',
       \ 'position[full]': '%-10.({line}:{col}{maybe_virtual}%)',
       \ 'line': '%l',
@@ -121,14 +123,15 @@ fun! mg#statusline_tag(...)
   return tag
 endf
 
-fun! mg#statusline_errors()
+fun! mg#statusline_errors(...)
+  let format = a:0 >= 1 ? a:1 : '{%d}'
   let flag = ""
   if flag == "" && exists("*SyntasticStatuslineFlag")
     let flag = SyntasticStatuslineFlag()
   endif
   if flag == "" && exists("*ALEGetStatusLine")
     let total = ale#statusline#Count(bufnr('%')).total
-    let flag = total == 0 ? '' : printf('{%d}', total)
+    let flag = total == 0 ? '' : printf(format, total)
   endif
   return flag
 endf
