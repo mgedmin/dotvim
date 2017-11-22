@@ -693,6 +693,9 @@ augroup StatusLine
         \ endif
 augroup END
 
+" Tabline is harder
+set tabline=%!mg#tabline()
+
 "
 " Commands                                                      {{{1
 "
