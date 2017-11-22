@@ -194,7 +194,45 @@ endf
 
 fun! mg#statusline(...)
   let variant = a:0 >= 1 ? a:1 : ''
-  return s:eval('statusline', {'variant': variant})
+  let active = a:0 >= 2 ? a:2 : 1
+  let s:active_winnr = winnr()
+  return s:eval('statusline', {'variant': variant, 'active': active})
+endf
+
+fun! mg#statusline_enable()
+  let s:enabled = 1
+  call mg#statusline_update()
+  augroup mg#statusline
+    au!
+    au TabEnter * call mg#statusline_update()
+    " Mystery: I need WinEnter/WinLeave to correctly update when switching
+    " between windows, but I also need BufWinEnter to correctly initialize
+    " when I do :tabnew.
+    au WinEnter,BufWinEnter * let &l:statusline = mg#statusline(&buftype, 1)
+    au WinLeave,BufWinLeave * let &l:statusline = mg#statusline(&buftype, 0)
+  augroup END
+endf
+
+fun! mg#statusline_update()
+  let curwin = winnr()
+  for i in range(1, winnr('$'))
+    let buftype = getwinvar(i, '&buftype')
+    let active = i == curwin
+    call setwinvar(i, '&statusline', mg#statusline(buftype, active))
+  endfor
+endf
+
+fun! mg#statusline_disable()
+  let s:enabled = 0
+  let curwin = winnr()
+  for i in range(1, tabpagenr('$'))
+    for j in range(1, winnr('$'))
+      call settabwinvar(i, j, '&statusline', '')
+    endfor
+  endfor
+  augroup mg#statusline
+    au!
+  augroup END
 endf
 
 fun! mg#tabline_eval_tabs(options)
@@ -275,6 +313,17 @@ fun! mg#tabline()
         \ })
 endf
 
+fun! mg#tabline_enable()
+  set tabline=%!mg#tabline()
+endf
+
+fun! mg#tabline_disable()
+  set tabline&
+endf
+
 call mg#tabline_highlight()
 call mg#statusline_highlight()
+if get(s:, 'enabled', 0)
+    call mg#statusline_enable()
+endif
 redraw!
