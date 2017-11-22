@@ -7,6 +7,7 @@ map <buffer> <expr> <C-]> ":wincmd p <bar> tag ".expand("<cword>")."\<CR>"
 map <buffer> <expr> gf expand("<cfile>") != "" ? ":wincmd p <bar> e ".expand("<cfile>")."\<CR>" : ""
 
 " Clean up w:quickfix_title produced by vim-fugitive
+" see also https://github.com/tpope/vim-fugitive/issues/973
 let w:quickfix_title = substitute(w:quickfix_title, '^:hub --git-dir=.* --no-pager grep -n --no-color', ':Ggrep', '')
 
 " Shrink too-high quickfix windows
