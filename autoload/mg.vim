@@ -53,6 +53,14 @@ let s:tabline = {
       \ 'active_tab': '{tab}',
       \ 'inactive_tab': '{tab}',
       \ 'tab': '%{nr}T {nr} {name}{modified} ',
+      \ 'name': '{filename}',
+      \ 'name[help]': '{tail}',
+      \ 'name[terminal]': '{filename}{termtitle}',
+      \ 'modified[terminal]': '',
+      \ 'name_empty': '[No name]',
+      \ 'termtitle_empty': '',
+      \ 'termtitle_finished': ' [finished]',
+      \ 'termtitle_nonempty': ' [%s]',
       \ 'modified_sign': ' +',
       \ 'close': '%999X X ',
       \ }
@@ -194,6 +202,8 @@ fun! mg#tabline_eval_tabs(options)
   for i in range(1, tabpagenr('$'))
     let options = copy(a:options)
     let options.nr = i
+    let options.winnr = tabpagewinnr(options.nr)
+    let options.variant = gettabwinvar(options.nr, options.winnr, "&buftype")
     if i == tabpagenr()
       let s .= s:eval('active_tab', options)
     else
@@ -207,15 +217,44 @@ fun! mg#tabline_eval_nr(options)
   return a:options.nr
 endf
 
-fun! mg#tabline_eval_name(options)
+fun! mg#tabline_eval_filename(options)
   let buflist = tabpagebuflist(a:options.nr)
   let winnr = tabpagewinnr(a:options.nr)
   let bufnr = buflist[winnr - 1]
   let name = s:shortpath(bufname(bufnr))
   if name == ''
-    return '[No Name]'
+    return s:eval('name_empty', a:options)
   else
     return s:escape(name)
+  endif
+endf
+
+fun! mg#tabline_eval_tail(options)
+  let buflist = tabpagebuflist(a:options.nr)
+  let winnr = tabpagewinnr(a:options.nr)
+  let bufnr = buflist[winnr - 1]
+  let name = fnamemodify(bufname(bufnr), ":t")
+  if name == ''
+    return s:eval('name_empty', a:options)
+  else
+    return s:escape(name)
+  endif
+endf
+
+fun! mg#tabline_eval_termtitle(options)
+  let buflist = tabpagebuflist(a:options.nr)
+  let winnr = tabpagewinnr(a:options.nr)
+  let bufnr = buflist[winnr - 1]
+  let title = term_gettitle(bufnr)
+  if title == ''
+    let status = term_getstatus(bufnr)
+    if status == 'finished'
+      return s:eval('termtitle_finished', a:options)
+    else
+      return s:eval('termtitle_empty', a:options)
+    endif
+  else
+    return s:escape(printf(s:eval('termtitle_nonempty', a:options), title))
   endif
 endf
 
