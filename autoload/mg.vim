@@ -57,7 +57,7 @@ let s:tabline = {
       \ 'name[help]': '{tail}',
       \ 'name[terminal]': '{filename}{termtitle}',
       \ 'modified[terminal]': '',
-      \ 'name_empty': '[No name]',
+      \ 'name_empty': '[No Name]',
       \ 'termtitle_empty': '',
       \ 'termtitle_finished': ' [finished]',
       \ 'termtitle_nonempty': ' [%s]',
