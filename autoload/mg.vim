@@ -80,6 +80,16 @@ let s:r2_fg = [ '#bcbcbc', 250 ]
 let s:r2_bg = [ '#585858', 240 ]
 let s:tag_fg = [ '#d0d0d0', 252 ]
 let s:tag_bg = [ '#008700', 28 ]
+let s:inactive_fg = [ '#8a8a8a', 245 ]
+let s:inactive_bg = [ '#303030', 236 ]
+let s:inactive_l1_fg = [ '#585858', 240 ]
+let s:inactive_l1_bg = [ '#262626', 235 ]
+let s:inactive_r1_fg = [ '#262626', 235 ]
+let s:inactive_r1_bg = [ '#606060', 241 ]
+let s:inactive_r2_fg = [ '#585858', 240 ]
+let s:inactive_r2_bg = [ '#262626', 235 ]
+let s:inactive_tag_fg = [ '#949494', 246 ]
+let s:inactive_tag_bg = [ '#005f00', 22 ]
 " and for tabline
 let s:active_fg = [ '#bcbcbc', 250 ]
 let s:active_bg = [ '#262626', 235 ]
@@ -90,19 +100,28 @@ let s:middle_bg = [ '#9e9e9e', 247 ]
 let s:close_fg = [ '#bcbcbc', 250 ]
 let s:close_bg = [ '#4e4e4e', 239 ]
 
+fun! mg#highlight(group, fg, bg, extra)
+  exec 'hi '.a:group.' ctermfg='.a:fg[1].' ctermbg='.a:bg[1].' guifg='.a:fg[0].' guibg='.a:bg[0] . ' ' . a:extra
+endf
+
 fun! mg#statusline_highlight_part(part, fg, bg)
-  exec 'hi mg_statusline_'.a:part.' ctermfg='.a:fg[1].' ctermbg='.a:bg[1].' guifg='.a:fg[0].' guibg='.a:bg[0]
+  call mg#highlight('mg_statusline_'.a:part, a:fg, a:bg, '')
 endf
 
 fun! mg#statusline_highlight()
+  call mg#highlight('StatusLineNC', s:inactive_fg, s:inactive_bg, 'term=NONE cterm=NONE gui=NONE')
   call mg#statusline_highlight_part('l1', s:l1_fg, s:l1_bg)
   call mg#statusline_highlight_part('r1', s:r1_fg, s:r1_bg)
   call mg#statusline_highlight_part('r2', s:r2_fg, s:r2_bg)
   call mg#statusline_highlight_part('tag', s:tag_fg, s:tag_bg)
+  call mg#statusline_highlight_part('l1_inactive', s:inactive_l1_fg, s:inactive_l1_bg)
+  call mg#statusline_highlight_part('r1_inactive', s:inactive_r1_fg, s:inactive_r1_bg)
+  call mg#statusline_highlight_part('r2_inactive', s:inactive_r2_fg, s:inactive_r2_bg)
+  call mg#statusline_highlight_part('tag_inactive', s:inactive_tag_fg, s:inactive_tag_bg)
 endf
 
 fun! mg#tabline_highlight_part(part, fg, bg)
-  exec 'hi mg_tabline_'.a:part.' ctermfg='.a:fg[1].' ctermbg='.a:bg[1].' guifg='.a:fg[0].' guibg='.a:bg[0]
+  call mg#highlight('mg_tabline_'.a:part, a:fg, a:bg, '')
 endf
 
 fun! mg#tabline_highlight()
@@ -119,6 +138,7 @@ endf
 
 fun! s:eval(s, options)
   let variant = get(a:options, "variant", "")
+  let active = get(a:options, "active", 1)
   let component_map = get(a:options, "components", s:statusline)
   let highlight_map = get(a:options, "highlight", s:statusline_highlight)
   let dyn_prefix = get(a:options, "prefix", "statusline")
@@ -136,6 +156,11 @@ fun! s:eval(s, options)
     let highlight = 'error'
   endif
   if highlight != ''
+    if active && hlID(highlight . "_active") != 0
+      let highlight .= "_active"
+    elseif !active && hlID(highlight . "_inactive") != 0
+      let highlight .= "_inactive"
+    endif
     let result = s:colorize(result, highlight)
   endif
   return result
