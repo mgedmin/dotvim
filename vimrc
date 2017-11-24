@@ -1251,6 +1251,7 @@ augroup END
 
 " Make fugitive's fake buffers visually distinguishable         {{{2
 augroup MakeFugitiveVisible
+  au!
   au BufNew,BufReadPost fugitive://* Margin 0
 augroup END
 
