@@ -2,38 +2,32 @@
 " This maps component names to definitions, which can use Vim's statusline
 " escapes or refer to other components via {name}.
 " The main component is called 'statusline'.
-" Components can have variations, mentioned in square brackets.
-" Invoke them by calling mg#statusline("variant").
+" Components can have variations, mentioned in square brackets, for different
+" buftypes.
 let s:statusline = {
       \ 'statusline': '{left} %={right}',
       \ 'left[quickfix]': '{quickfix_tail}{quickfix_title}',
       \ 'left[help]': '{help_prefix} %<{filename}',
-      \ 'left': '%<{filename}%( {flags}%)',
+      \ 'left': '%<{filename}%( {flags}%){errors}',
       \ 'right': '{tag}{pos}{position}',
-      \ 'left[full]': '{bufnr}:%<{filename}%( {flags}%)%( {tag}%)',
-      \ 'right[full]': '{position} {total_lines} {pos}',
       \ 'tag': '%{mg#statusline_tag(" %s ")}',
-      \ 'tag[full]': '%{mg#statusline_tag()}',
       \ 'bufnr': '%n',
       \ 'filename': '%f',
       \ 'help_prefix': ' Help ',
       \ 'quickfix_tail': ' %t ',
       \ 'quickfix_title': "%{exists('w:quickfix_title') ? ' '.w:quickfix_title : ''}",
-      \ 'flags': '{help}{modified}{ro}{lcd}{errors}',
+      \ 'flags': '{help}{modified}{ro}{lcd}',
       \ 'help': '%h',
       \ 'modified': '%m',
       \ 'modified[terminal]': '',
       \ 'ro': '%r',
-      \ 'errors': '%{mg#statusline_errors(" %d ")}',
-      \ 'errors[full]': '%{mg#statusline_errors()}',
+      \ 'errors': '%{mg#statusline_errors(" %d ")}',
       \ 'position': ' %3l:%-2v ',
-      \ 'position[full]': '%-10.({line}:{col}{maybe_virtual}%)',
       \ 'line': '%l',
       \ 'col': '%c',
       \ 'maybe_virtual': '%V',
       \ 'total_lines': '%4L',
       \ 'pos': ' %P ',
-      \ 'pos[full]': '%P',
       \ }
 let s:statusline_highlight = {
       \ 'tag': 'mg_statusline_tag',
@@ -225,7 +219,8 @@ fun! mg#statusline(...)
 endf
 
 fun! mg#statusline_enable()
-  let s:enabled = 1
+  let s:statusline_enabled = 1
+  call mg#statusline_highlight()
   call mg#statusline_update()
   augroup mg#statusline
     au!
@@ -235,6 +230,7 @@ fun! mg#statusline_enable()
     " when I do :tabnew.
     au WinEnter,BufWinEnter * let &l:statusline = mg#statusline(&buftype, 1)
     au WinLeave,BufWinLeave * let &l:statusline = mg#statusline(&buftype, 0)
+    au ColorScheme * call mg#statusline_highlight()
   augroup END
 endf
 
@@ -248,7 +244,7 @@ fun! mg#statusline_update()
 endf
 
 fun! mg#statusline_disable()
-  let s:enabled = 0
+  let s:statusline_enabled = 0
   let curwin = winnr()
   for i in range(1, tabpagenr('$'))
     for j in range(1, winnr('$'))
@@ -339,16 +335,32 @@ fun! mg#tabline()
 endf
 
 fun! mg#tabline_enable()
+  let s:tabline_enabled = 1
+  call mg#tabline_highlight()
   set tabline=%!mg#tabline()
+  augroup mg#tabline
+    au!
+    au ColorScheme * call mg#tabline_highlight()
+  augroup END
 endf
 
 fun! mg#tabline_disable()
+  let s:tabline_enabled = 0
   set tabline&
+  augroup mg#tabline
+    au!
+  augroup END
 endf
 
-call mg#tabline_highlight()
-call mg#statusline_highlight()
-if get(s:, 'enabled', 0)
-    call mg#statusline_enable()
+let s:redraw = 0
+if get(s:, 'statusline_enabled', 0)
+  call mg#statusline_enable()
+  let s:redraw = 1
 endif
-redraw!
+if get(s:, 'tabline_enabled', 0)
+  call mg#tabline_enable()
+  let s:redraw = 1
+endif
+if s:redraw
+  redraw!
+endif
