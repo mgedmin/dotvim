@@ -1243,7 +1243,7 @@ augroup END
 
 " chmod +x on save                                              {{{2
 augroup MakeExecutableOnSave
-  " http://unix.stackexchange.com/questions/39982/vim-create-file-with-x-bit
+  " https://unix.stackexchange.com/questions/39982/vim-create-file-with-x-bit
   " See also http://vim.wikia.com/wiki/Setting_file_attributes_without_reloading_a_buffer
   au!
   au BufWritePost * call chmodx#doit()
