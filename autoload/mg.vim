@@ -56,7 +56,7 @@ let s:tabline = {
       \ 'termtitle_finished': ' [finished]',
       \ 'termtitle_nonempty': ' [%s]',
       \ 'modified_sign': ' +',
-      \ 'close': '%999X X ',
+      \ 'close': '%999X ⨯ ',
       \ }
 let s:tabline_highlight = {
       \ 'active_tab': 'mg_tabline_active',
