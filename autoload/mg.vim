@@ -176,7 +176,7 @@ fun! s:escape(s)
 endf
 
 fun! s:shortpath(path)
-  return substitute(a:path, '\([.]\=[^/]\)[^/]\+/', '\1/', 'g')
+  return a:path != "" ? pathshorten(fnamemodify(a:path, ":~:.")) : ""
 endf
 
 fun! mg#statusline_lcd()
