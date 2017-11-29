@@ -187,6 +187,12 @@ fun! s:colorize(s, group_name)
   endif
 endf
 
+fun! s:optimize(s)
+  " also fixes a bug in vim where %(%#foo#...%*%)%#bar#...%* gets it confused
+  " about the correct width
+  return substitute(a:s, '%\*\(%[()]\)\=%#', '\1%#', 'g')
+endf
+
 fun! s:escape(s)
   return substitute(a:s, '%', '%%', 'g')
 endf
@@ -239,7 +245,7 @@ fun! mg#statusline(...)
   let variant = a:0 >= 1 ? a:1 : ''
   let active = a:0 >= 2 ? a:2 : 1
   let s:active_winnr = winnr()
-  return s:eval('statusline', {'variant': variant, 'active': active})
+  return s:optimize(s:eval('statusline', {'variant': variant, 'active': active}))
 endf
 
 fun! mg#statusline_enable()
