@@ -8,11 +8,12 @@ let s:statusline = {
       \ 'statusline': '{left} %={right}',
       \ 'left[quickfix]': '{quickfix_tail}{quickfix_title}',
       \ 'left[help]': '{help_prefix} %<{filename}',
-      \ 'left': '%<{filename}%( {flags}%){errors}',
+      \ 'left[terminal]': '%f%( {flags}%)',
+      \ 'left': '{directory}{filename}%( {flags}%){errors}',
       \ 'right': '{tag}{pos}{position}',
       \ 'tag': '%{mg#statusline_tag(" %s ")}',
       \ 'bufnr': '%n',
-      \ 'filename': '%f',
+      \ 'filename': '%t',
       \ 'help_prefix': ' Help ',
       \ 'quickfix_tail': ' %t ',
       \ 'quickfix_title': "%{exists('w:quickfix_title') ? ' '.w:quickfix_title : ''}",
@@ -30,6 +31,7 @@ let s:statusline = {
       \ 'pos': ' %P ',
       \ }
 let s:statusline_highlight = {
+      \ 'directory': 'mg_statusline_directory',
       \ 'tag': 'mg_statusline_tag',
       \ 'lcd': 2,
       \ 'errors': 'error',
@@ -74,6 +76,7 @@ let s:r2_fg = [ '#bcbcbc', 250 ]
 let s:r2_bg = [ '#585858', 240 ]
 let s:tag_fg = [ '#d0d0d0', 252 ]
 let s:tag_bg = [ '#008700', 28 ]
+let s:directory_fg = s:tag_fg
 let s:inactive_fg = [ '#8a8a8a', 245 ]
 let s:inactive_bg = [ '#303030', 236 ]
 let s:inactive_l1_fg = [ '#585858', 240 ]
@@ -84,11 +87,13 @@ let s:inactive_r2_fg = [ '#585858', 240 ]
 let s:inactive_r2_bg = [ '#262626', 235 ]
 let s:inactive_tag_fg = [ '#949494', 246 ]
 let s:inactive_tag_bg = [ '#005f00', 22 ]
+let s:inactive_directory_fg = s:inactive_fg
+let s:inactive_directory_bg = s:inactive_bg
 " and for tabline
-let s:active_fg = [ '#bcbcbc', 250 ]
-let s:active_bg = [ '#262626', 235 ]
-let s:inactive_fg = [ '#bcbcbc', 250 ]
-let s:inactive_bg = [ '#585858', 240 ]
+let s:active_tab_fg = [ '#bcbcbc', 250 ]
+let s:active_tab_bg = [ '#262626', 235 ]
+let s:inactive_tab_fg = [ '#bcbcbc', 250 ]
+let s:inactive_tab_bg = [ '#585858', 240 ]
 let s:middle_fg = [ '#303030', 236 ]
 let s:middle_bg = [ '#9e9e9e', 247 ]
 let s:close_fg = [ '#bcbcbc', 250 ]
@@ -102,16 +107,27 @@ fun! mg#statusline_highlight_part(part, fg, bg)
   call mg#highlight('mg_statusline_'.a:part, a:fg, a:bg, '')
 endf
 
+fun! s:statusline_bg()
+  " Bit of a hack there: I assume the statusline uses reverse video
+  let gui_fg = synIDattr(synIDtrans(hlID("StatusLine")), "fg", "gui")
+  let cterm_fg = synIDattr(synIDtrans(hlID("StatusLine")), "fg", "cterm")
+  return [ gui_fg == "" ? "black" : gui_fg, cterm_fg == "" ? "black" : cterm_fg]
+endf
+
+highlight User3                 ctermfg=245
+
 fun! mg#statusline_highlight()
   call mg#highlight('StatusLineNC', s:inactive_fg, s:inactive_bg, 'term=NONE cterm=NONE gui=NONE')
   call mg#statusline_highlight_part('l1', s:l1_fg, s:l1_bg)
   call mg#statusline_highlight_part('r1', s:r1_fg, s:r1_bg)
   call mg#statusline_highlight_part('r2', s:r2_fg, s:r2_bg)
   call mg#statusline_highlight_part('tag', s:tag_fg, s:tag_bg)
+  call mg#statusline_highlight_part('directory', s:directory_fg, s:statusline_bg())
   call mg#statusline_highlight_part('l1_inactive', s:inactive_l1_fg, s:inactive_l1_bg)
   call mg#statusline_highlight_part('r1_inactive', s:inactive_r1_fg, s:inactive_r1_bg)
   call mg#statusline_highlight_part('r2_inactive', s:inactive_r2_fg, s:inactive_r2_bg)
   call mg#statusline_highlight_part('tag_inactive', s:inactive_tag_fg, s:inactive_tag_bg)
+  call mg#statusline_highlight_part('directory_inactive', s:inactive_directory_fg, s:inactive_directory_bg)
 endf
 
 fun! mg#tabline_highlight_part(part, fg, bg)
@@ -119,8 +135,8 @@ fun! mg#tabline_highlight_part(part, fg, bg)
 endf
 
 fun! mg#tabline_highlight()
-  call mg#tabline_highlight_part('active', s:active_fg, s:active_bg)
-  call mg#tabline_highlight_part('inactive', s:inactive_fg, s:inactive_bg)
+  call mg#tabline_highlight_part('active', s:active_tab_fg, s:active_tab_bg)
+  call mg#tabline_highlight_part('inactive', s:inactive_tab_fg, s:inactive_tab_bg)
   call mg#tabline_highlight_part('middle', s:middle_fg, s:middle_bg)
   call mg#tabline_highlight_part('close', s:close_fg, s:close_bg)
 endf
@@ -179,8 +195,16 @@ fun! s:shortpath(path)
   return a:path != "" ? pathshorten(fnamemodify(a:path, ":~:.")) : ""
 endf
 
+fun! s:mediumpath(path)
+  return a:path != "" ? fnamemodify(a:path, ":~:.") : ""
+endf
+
 fun! mg#statusline_lcd()
   return haslocaldir() ? '[lcd]' : ''
+endf
+
+fun! mg#statusline_directory()
+  return substitute(s:mediumpath(bufname('')), '[^/]*$', '', '')
 endf
 
 fun! mg#statusline_tag(...)

@@ -646,14 +646,17 @@ if has("eval")
   fun! ResetStatusLineColor()
     if g:asyncrun_status != 'running'
       hi! link StatusLine StatusLineNeutral
+      call mg#statusline_highlight()
     endif
   endf
   fun! OnAsyncRunExit()
     if g:asyncrun_status == 'success'
       hi! link StatusLine StatusLineSuccess
+      call mg#statusline_highlight()
       cclose
     elseif g:asyncrun_status == 'failure'
       hi! link StatusLine StatusLineFailure
+      call mg#statusline_highlight()
       botright cw
       " update folds
       normal zx
@@ -668,7 +671,7 @@ endif
 if has("autocmd")
   augroup AsyncRun
     au!
-    au User AsyncRunStart hi! link StatusLine StatusLineRunning | redrawstatus
+    au User AsyncRunStart hi! link StatusLine StatusLineRunning | call mg#statusline_highlight() | redrawstatus
   augroup END
 endif
 
@@ -1509,6 +1512,9 @@ if has("syntax") && !exists("g:syntax_on")
 endif
 
 " My colour overrides
+" (TBH I should be putting these in a function and calling it from a
+" ColorScheme autocommand, but meh, it's easy enough to do a ,s when my colors
+" get stomped over)
 
 highlight NonText               ctermfg=gray guifg=gray term=standout
 highlight SpecialKey            ctermfg=gray guifg=gray term=standout
@@ -1533,7 +1539,7 @@ highlight ErrorMsg              guifg=red guibg=white
 " syntax script and it changed it
 highlight link Test Special
 
-" 'statusline' contains %1* and %2*
+" 'statusline' contains %1* and %2*, or, well, it used to ;)
 highlight User1                 gui=NONE guifg=green guibg=black
             \                   cterm=bold,reverse ctermbg=green ctermfg=NONE
 highlight User2                 gui=NONE guifg=magenta guibg=black
