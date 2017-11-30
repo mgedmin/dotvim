@@ -6,19 +6,8 @@ snippet python3 "#! python3" !b
 #!/usr/bin/env python3
 endsnippet
 
-snippet yplan "YPlan preamble" !b
-# -*- encoding:utf-8 -*-
-from __future__ import unicode_literals
-
-endsnippet
-
-snippet "sb|shoobx" "(c) Shoobx" !br
-###############################################################################
-#
-# Copyright `date +%Y` by Shoobx, Inc.
-#
-###############################################################################
-
+snippet here "here = ...dirname(__file__)" !b
+here = os.path.abspath(os.path.dirname(__file__))
 endsnippet
 
 snippet super "Magic super()" !w
@@ -49,14 +38,6 @@ parser.add_argument('--version', action='version',
                     version="%(prog)s version " + __version__)
 parser.add_argument('-v', '--verbose', action='store_true')
 args = parser.parse_args()
-endsnippet
-
-# in case you're stuck on Python 2.6
-snippet optparse "Optparse-based command-line parsing" !b
-parser = optparse.OptionParser('usage: %prog ${1:[options]}',
-                               description="${2}")
-parser.add_option('-v', '--verbose', action='store_true')
-opts, args = parser.parse_args()
 endsnippet
 
 snippet classifiers "PyPI classifiers" !b
