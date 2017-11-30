@@ -9,8 +9,8 @@ let s:statusline = {
       \ 'left[quickfix]': '{quickfix_tail}{quickfix_title}',
       \ 'left[help]': '{help_prefix} %<{filename}',
       \ 'left[terminal]': '%f%( {flags}%)',
-      \ 'left': '{directory}{filename}%( {flags}%){errors}',
-      \ 'right': '{tag}{pos}{position}',
+      \ 'left': '{directory}{filename}%( {flags}%)',
+      \ 'right': '{tag}{errors}{pos}{position}',
       \ 'tag': '%{mg#statusline_tag(" %s ")}',
       \ 'bufnr': '%n',
       \ 'filename': '%t',
@@ -34,7 +34,7 @@ let s:statusline_highlight = {
       \ 'directory': 'mg_statusline_directory',
       \ 'tag': 'mg_statusline_tag',
       \ 'lcd': 2,
-      \ 'errors': 'error',
+      \ 'errors': 'mg_statusline_error',
       \ 'help_prefix': 'mg_statusline_l1',
       \ 'quickfix_tail': 'mg_statusline_l1',
       \ 'pos': 'mg_statusline_r2',
@@ -77,6 +77,8 @@ let s:r2_bg = [ '#585858', 240 ]
 let s:tag_fg = [ '#d0d0d0', 252 ]
 let s:tag_bg = [ '#008700', 28 ]
 let s:directory_fg = s:tag_fg
+let s:error_fg = [ '#ededeb', 15 ]
+let s:error_bg = [ '#ef2828', 9 ]
 let s:inactive_fg = [ '#8a8a8a', 245 ]
 let s:inactive_bg = [ '#303030', 236 ]
 let s:inactive_l1_fg = [ '#585858', 240 ]
@@ -89,6 +91,8 @@ let s:inactive_tag_fg = [ '#949494', 246 ]
 let s:inactive_tag_bg = [ '#005f00', 22 ]
 let s:inactive_directory_fg = s:inactive_fg
 let s:inactive_directory_bg = s:inactive_bg
+let s:inactive_error_fg = [ '#949494', 246 ]
+let s:inactive_error_bg = [ '#af0000', 124 ]
 " and for tabline
 let s:active_tab_fg = [ '#bcbcbc', 250 ]
 let s:active_tab_bg = [ '#262626', 235 ]
@@ -122,11 +126,13 @@ fun! mg#statusline_highlight()
   call mg#statusline_highlight_part('r1', s:r1_fg, s:r1_bg)
   call mg#statusline_highlight_part('r2', s:r2_fg, s:r2_bg)
   call mg#statusline_highlight_part('tag', s:tag_fg, s:tag_bg)
+  call mg#statusline_highlight_part('error', s:error_fg, s:error_bg)
   call mg#statusline_highlight_part('directory', s:directory_fg, s:statusline_bg())
   call mg#statusline_highlight_part('l1_inactive', s:inactive_l1_fg, s:inactive_l1_bg)
   call mg#statusline_highlight_part('r1_inactive', s:inactive_r1_fg, s:inactive_r1_bg)
   call mg#statusline_highlight_part('r2_inactive', s:inactive_r2_fg, s:inactive_r2_bg)
   call mg#statusline_highlight_part('tag_inactive', s:inactive_tag_fg, s:inactive_tag_bg)
+  call mg#statusline_highlight_part('error_inactive', s:inactive_error_fg, s:inactive_error_bg)
   call mg#statusline_highlight_part('directory_inactive', s:inactive_directory_fg, s:inactive_directory_bg)
 endf
 
