@@ -60,6 +60,9 @@ endif
 if !exists("g:pyTestRunnerFilenameFiltering")
     let g:pyTestRunnerFilenameFiltering = ""
 endif
+if !exists("g:pyTestRunnerFilenameFiltering")
+    let g:pyTestRunnerUseAbsoluteFilenames = 0
+  endif
 if !exists("g:pyTestRunnerPackageFiltering")
     let g:pyTestRunnerPackageFiltering = "-s"
 endif
@@ -93,6 +96,7 @@ function! UseZopeTestRunner()
     let g:pyTestRunnerPackageFiltering = "-s"
     let g:pyTestRunnerModuleFiltering = "-m"
     let g:pyTestRunnerFilenameFiltering = ""
+    let g:pyTestRunnerUseAbsoluteFilenames = 1
     let g:pyTestRunnerDirectoryFiltering = ""
     let g:pyTestRunnerClipboardExtras = "-pvc"
     let g:pyTestRunnerClipboardExtrasSuffix = ""
@@ -107,6 +111,7 @@ function! UseDjangoTestRunner()
     let g:pyTestRunnerPackageFiltering = ""
     let g:pyTestRunnerModuleFiltering = ""
     let g:pyTestRunnerFilenameFiltering = " "
+    let g:pyTestRunnerUseAbsoluteFilenames = 1
     let g:pyTestRunnerDirectoryFiltering = ""
     let g:pyTestRunnerClipboardExtras = "" " "-v2"
     let g:pyTestRunnerClipboardExtrasSuffix = ""
@@ -121,6 +126,7 @@ function! UsePyTestTestRunner()
     let g:pyTestRunnerPackageFiltering = ""
     let g:pyTestRunnerModuleFiltering = ""
     let g:pyTestRunnerFilenameFiltering = " "
+    let g:pyTestRunnerUseAbsoluteFilenames = 1
     let g:pyTestRunnerDirectoryFiltering = ""
     let g:pyTestRunnerClipboardExtras = ""
     let g:pyTestRunnerClipboardExtrasSuffix = ""
@@ -161,7 +167,7 @@ function! GetTestUnderCursor()
         endif
     endif
     if g:pyTestRunnerFilenameFiltering != ""
-        let l:filename = expand("%")
+        let l:filename = expand(g:pyTestRunnerUseAbsoluteFilenames ? "%:p" : "%")
         let l:test = g:pyTestRunnerFilenameFiltering . " " . l:filename . " " . l:test
     endif
     if l:test != ""
