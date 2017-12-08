@@ -703,7 +703,7 @@ if has("user_commands")
 
 " like :Explore, only never split windows                       {{{2
 " workaround for https://github.com/vim/vim/issues/1506
-command! E exec "e" expand("%:~:.:h")
+command! E exec "e" curdir#get()
 
 " how many occurrences of the current search pattern?           {{{2
 command! -range=% CountMatches          <line1>,<line2>s///n
