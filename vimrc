@@ -1539,12 +1539,6 @@ highlight ErrorMsg              guifg=red guibg=white
 " syntax script and it changed it
 highlight link Test Special
 
-" 'statusline' contains %1* and %2*, or, well, it used to ;)
-highlight User1                 gui=NONE guifg=green guibg=black
-            \                   cterm=bold,reverse ctermbg=green ctermfg=NONE
-highlight User2                 gui=NONE guifg=magenta guibg=black
-            \                   cterm=bold,reverse ctermbg=magenta ctermfg=NONE
-
 " for custom :match commands
 highlight Red                   guibg=red ctermbg=red
 highlight Green                 guibg=green ctermbg=green
