@@ -1192,7 +1192,7 @@ imap            <F8>            <C-O><F8>
 map             <F9>    :Make<CR>
 imap            <F9>    <C-O><F9>
 " <S-F9> = toggle quickfix window
-map             <S-F9>  :call asyncrun#quickfix_toggle(8)<CR>
+map             <S-F9>  :call asyncrun#quickfix_toggle(8)<bar>call mg#statusline_update()<CR>
 imap            <S-F9>  <C-O><S-F9>
 
 " <F10> = quit
