@@ -5,24 +5,22 @@
 " Components can have variations, mentioned in square brackets, for different
 " buftypes.
 let s:statusline = {
-      \ 'statusline': '{left} %={right}',
+      \ 'statusline': '{lcd}%<{left} %={right}',
       \ 'left[quickfix]': '{quickfix_tail}{quickfix_title}',
       \ 'left[help]': '{help_prefix} %<{filename}',
       \ 'left[terminal]': '%f%( {flags}%)',
       \ 'left': '{directory}{filename}%( {flags}%)',
       \ 'right': '{tag}{errors}{pos}{position}',
-      \ 'tag': '%{mg#statusline_tag(" %s ")}',
       \ 'bufnr': '%n',
       \ 'filename': '%t',
       \ 'help_prefix': ' Help ',
       \ 'quickfix_tail': ' %t ',
       \ 'quickfix_title': "%{exists('w:quickfix_title') ? ' '.w:quickfix_title : ''}",
-      \ 'flags': '{help}{modified}{ro}{lcd}',
+      \ 'flags': '{help}{modified}{ro}',
       \ 'help': '%h',
       \ 'modified': '%m',
       \ 'modified[terminal]': '',
       \ 'ro': '%r',
-      \ 'errors': '%{mg#statusline_errors(" %d ")}',
       \ 'position': ' %3l:%-2v ',
       \ 'line': '%l',
       \ 'col': '%c',
@@ -33,7 +31,7 @@ let s:statusline = {
 let s:statusline_highlight = {
       \ 'directory': 'mg_statusline_directory',
       \ 'tag': 'mg_statusline_tag',
-      \ 'lcd': 2,
+      \ 'lcd': 'mg_statusline_lcd',
       \ 'errors': 'mg_statusline_error',
       \ 'help_prefix': 'mg_statusline_l1',
       \ 'quickfix_tail': 'mg_statusline_l1',
@@ -68,6 +66,8 @@ let s:tabline_highlight = {
       \ }
 
 " colors based on lightline.vim's powerline theme
+let s:lcd_fg = [ '#d0d0d0', 252 ]
+let s:lcd_bg = [ '#ac7ea8', 13 ]
 let s:l1_fg = [ '#ffffff', 231 ]
 let s:l1_bg = [ '#585858', 240 ]
 let s:r1_fg = [ '#606060', 241 ]
@@ -81,6 +81,8 @@ let s:error_fg = [ '#ededeb', 15 ]
 let s:error_bg = [ '#ef2828', 9 ]
 let s:inactive_fg = [ '#8a8a8a', 245 ]
 let s:inactive_bg = [ '#303030', 236 ]
+let s:inactive_lcd_fg = [ '#949494', 246 ]
+let s:inactive_lcd_bg = [ '#754f7b', 5 ]
 let s:inactive_l1_fg = [ '#585858', 240 ]
 let s:inactive_l1_bg = [ '#262626', 235 ]
 let s:inactive_r1_fg = [ '#262626', 235 ]
@@ -122,12 +124,14 @@ highlight User3                 ctermfg=245
 
 fun! mg#statusline_highlight()
   call mg#highlight('StatusLineNC', s:inactive_fg, s:inactive_bg, 'term=NONE cterm=NONE gui=NONE')
+  call mg#statusline_highlight_part('lcd', s:lcd_fg, s:lcd_bg)
   call mg#statusline_highlight_part('l1', s:l1_fg, s:l1_bg)
   call mg#statusline_highlight_part('r1', s:r1_fg, s:r1_bg)
   call mg#statusline_highlight_part('r2', s:r2_fg, s:r2_bg)
   call mg#statusline_highlight_part('tag', s:tag_fg, s:tag_bg)
   call mg#statusline_highlight_part('error', s:error_fg, s:error_bg)
   call mg#statusline_highlight_part('directory', s:directory_fg, s:statusline_bg())
+  call mg#statusline_highlight_part('lcd_inactive', s:inactive_lcd_fg, s:inactive_lcd_bg)
   call mg#statusline_highlight_part('l1_inactive', s:inactive_l1_fg, s:inactive_l1_bg)
   call mg#statusline_highlight_part('r1_inactive', s:inactive_r1_fg, s:inactive_r1_bg)
   call mg#statusline_highlight_part('r2_inactive', s:inactive_r2_fg, s:inactive_r2_bg)
@@ -212,7 +216,8 @@ fun! s:mediumpath(path)
 endf
 
 fun! mg#statusline_lcd()
-  return haslocaldir() ? '[lcd]' : ''
+  let format = a:0 >= 1 ? a:1 : ' %s '
+  return haslocaldir() ? printf(format, 'lcd') : ''
 endf
 
 fun! mg#statusline_directory()
@@ -220,7 +225,7 @@ fun! mg#statusline_directory()
 endf
 
 fun! mg#statusline_tag(...)
-  let format = a:0 >= 1 ? a:1 : '[%s]'
+  let format = a:0 >= 1 ? a:1 : ' %s '
   let tag = ""
   if tag == "" && exists("*TagInStatusLine")
     let tag = TagInStatusLine()
@@ -235,7 +240,7 @@ fun! mg#statusline_tag(...)
 endf
 
 fun! mg#statusline_errors(...)
-  let format = a:0 >= 1 ? a:1 : '{%d}'
+  let format = a:0 >= 1 ? a:1 : ' %d '
   let flag = ""
   if flag == "" && exists("*SyntasticStatuslineFlag")
     let flag = SyntasticStatuslineFlag()
