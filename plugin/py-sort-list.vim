@@ -1,11 +1,12 @@
 " File: py-sort-list.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.1
-" Last Modified: 2012-09-07
+" Version: 0.2
+" Last Modified: 2017-12-13
 "
 " Overview
 " --------
-" Defines a :SortPythonList command that sorts a list literal under cursor
+" Defines a :SortPythonList command that sorts a list literal under cursor and
+" a :ReversePythonList that reverses it
 "
 " Installation
 " ------------
@@ -48,6 +49,19 @@ def SortPythonList():
     new_line = indent + repr(sorted(values))
     vim.current.line = new_line
 
+def ReversePythonList():
+    import vim, ast
+    line = vim.current.line
+    indent = line[:-len(line.lstrip())]
+    try:
+        values = ast.literal_eval(line.strip())
+    except SyntaxError:
+        print("Current line does not contain a valid Python list literal")
+        return
+    new_line = indent + repr(values[::-1])
+    vim.current.line = new_line
+
 END
 
 command! SortPythonList :exec s:python "SortPythonList()"
+command! ReversePythonList :exec s:python "ReversePythonList()"
