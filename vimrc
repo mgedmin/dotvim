@@ -875,6 +875,9 @@ function! s:RedrawCommand()
     if exists(':GitGutter')
         let s .= '|GitGutter'
     endif
+    if exists('*mg#statusline_update')
+        let s .= '|call mg#statusline_update()'
+    endif
     let s .= "\<CR>"
     if &foldlevel > 0
         let s .= 'zx'
