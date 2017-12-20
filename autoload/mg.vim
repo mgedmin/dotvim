@@ -5,13 +5,15 @@
 " Components can have variations, mentioned in square brackets, for different
 " buftypes.
 let s:statusline = {
-      \ 'statusline': '{lcd}%<{left} %={right}',
+      \ 'statusline': '{bufnr}{lcd}%<{left} %={right}',
       \ 'left[quickfix]': '{quickfix_tail}{quickfix_title}',
       \ 'left[help]': '{help_prefix} %<{filename}',
-      \ 'left[terminal]': '%f%( {flags}%)',
-      \ 'left': '{directory}{filename}%( {flags}%)',
+      \ 'left[terminal]': ' %f%( {flags}%)',
+      \ 'left': ' {directory}{filename}%( {flags}%)',
       \ 'right': '{tag}{errors}{pos}{position}',
-      \ 'bufnr': '%n',
+      \ 'bufnr[quickfix]': '',
+      \ 'bufnr[help]': '',
+      \ 'bufnr': ' %n ',
       \ 'filename': '%t',
       \ 'help_prefix': ' Help ',
       \ 'quickfix_tail': ' %t ',
@@ -35,6 +37,7 @@ let s:statusline_highlight = {
       \ 'errors': 'mg_statusline_error',
       \ 'help_prefix': 'mg_statusline_l1',
       \ 'quickfix_tail': 'mg_statusline_l1',
+      \ 'bufnr': 'mg_statusline_l1',
       \ 'pos': 'mg_statusline_r2',
       \ 'position': 'mg_statusline_r1',
       \ }
