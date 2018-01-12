@@ -155,9 +155,24 @@ fun! mg#tabline_highlight()
 endf
 
 
-fun! s:expand(s, options)
-  return substitute(a:s, '{\([a-z_]\+\)}', {m -> s:eval(m[1], a:options)}, 'g')
-endf
+if has('lambda')
+  fun! s:expand(s, options)
+    return substitute(a:s, '{\([a-z_]\+\)}', {m -> s:eval(m[1], a:options)}, 'g')
+  endf
+else
+  fun! s:expand(s, options)
+    let bits = split(a:s, '\ze{[a-z_]\+}')
+    let result = []
+    for bit in bits
+      if bit != "" && bit[0] == '{'
+        let [name, rest] = split(bit[1:], "}", 1)
+        let bit = s:eval(name, a:options) . rest
+      endif
+      call add(result, bit)
+    endfor
+    return join(result, "")
+  endf
+endif
 
 fun! s:eval(s, options)
   let variant = get(a:options, "variant", "")
@@ -193,11 +208,7 @@ fun! s:colorize(s, group_name)
   if a:s == "" || a:group_name == ""
     return a:s
   endif
-  if type(a:group_name) == v:t_number
-    return "%" . a:group_name . "*" . a:s . "%*"
-  else
-    return "%#" . a:group_name . "#" . a:s . "%*"
-  endif
+  return "%#" . a:group_name . "#" . a:s . "%*"
 endf
 
 fun! s:optimize(s)
