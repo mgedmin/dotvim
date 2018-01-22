@@ -802,6 +802,7 @@ function! s:Margin(...)
   endif
 endf
 command! -nargs=? -bar Margin  call s:Margin(<args>)
+command! -bar MarginOff        set colorcolumn=
 
 " :NoLCD                                                        {{{2
 command! NoLCD          exe 'cd '.getcwd()
