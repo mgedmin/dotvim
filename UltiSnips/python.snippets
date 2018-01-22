@@ -62,10 +62,27 @@ extras_require={
 },
 endsnippet
 
+global !p
+import subprocess
+def git_url(path='', default=''):
+    wd = os.path.dirname(os.path.abspath(path))
+    if not os.path.isdir(wd):
+        return default
+    with open(os.devnull, 'w') as devnull:
+        pipe = subprocess.Popen(["git", "ls-remote", "--get-url"],
+                                stdout=subprocess.PIPE,
+                                stderr=devnull,
+                                cwd=wd)
+    remote = pipe.communicate()[0].strip()
+    if not isinstance(remote, str):
+        remote = remote.decode('UTF-8', 'replace')
+    return remote or default
+endglobal
+
 snippet setup "setup.py" !b
 #!/usr/bin/env python
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 here = os.path.dirname(__file__)
 with open(os.path.join(here, 'README.rst')) as f:
@@ -76,7 +93,7 @@ setup(
     version='${2:0.1}',
     author='Marius Gedminas',
     author_email='marius@gedmin.as',
-    url='${3:https://github.com/mgedmin/$1/}',
+    url='${3:`!p snip.rv = rv = git_url(path, 'https://github.com/mgedmin/...')`}',
     description='${5:description}',
     long_description=long_description,
     classifiers=[
@@ -94,20 +111,18 @@ setup(
 ##      'Operating System :: POSIX',
 ##      'Operating System :: OS Independent',
 ##      'Programming Language :: Python',
-##      'Programming Language :: Python :: 2.6',
 ##      'Programming Language :: Python :: 2.7',
-##      'Programming Language :: Python :: 3.2',
-##      'Programming Language :: Python :: 3.3',
 ##      'Programming Language :: Python :: 3.4',
+##      'Programming Language :: Python :: 3.5',
+##      'Programming Language :: Python :: 3.6',
 ##      'Programming Language :: Python :: Implementation :: CPython',
 ##      'Programming Language :: Python :: Implementation :: PyPy',
     ],
     license='${6:licence}',
 
     py_modules=['${7:mymodule}'],
-##  packages=['$7'],
-##  package_dir={'$7': 'src/$7'},
-##  package_data={'$7': ['*.png']},
+##  packages=find_packages('src'),
+##  package_dir={'': 'src/'},
 ##  include_package_data=True,
     zip_safe=False,
     test_suite='${8:test_$7}',
