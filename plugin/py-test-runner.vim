@@ -132,6 +132,21 @@ function! UsePyTestTestRunner()
     let g:pyTestRunnerClipboardExtrasSuffix = ""
 endfunction
 
+function! UseNoseTestRunner()
+    " Assumes you have py.test, generates command lines of the form
+    "   nosetests <filename>:{class}.{method}
+    let g:pyTestRunner = "nosetests"
+    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}.{method}"
+    let g:pyTestRunnerTestFiltering = "<NOSPACE>:<NOSPACE>"
+    let g:pyTestRunnerPackageFiltering = ""
+    let g:pyTestRunnerModuleFiltering = ""
+    let g:pyTestRunnerFilenameFiltering = " "
+    let g:pyTestRunnerUseAbsoluteFilenames = 1
+    let g:pyTestRunnerDirectoryFiltering = ""
+    let g:pyTestRunnerClipboardExtras = ""
+    let g:pyTestRunnerClipboardExtrasSuffix = ""
+endfunction
+
 function! GetTestUnderCursor()
     let l:test = ""
     if expand("%:e") == "txt" || expand("%:e") == "test"
