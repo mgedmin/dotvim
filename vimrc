@@ -108,7 +108,7 @@ endif
 
 " Input                                                         {{{2
 
-set timeoutlen=1000 ttimeoutlen=20 " timeout keys after 20ms, mappings after 1s
+set ttimeout ttimeoutlen=20     " timeout keys after 20ms (mappings time out after 1 s)
                                 " doesn't seem to work for <esc>Ok
 set updatetime=250              " faster CursorHold events for vim-gitgutter
 
