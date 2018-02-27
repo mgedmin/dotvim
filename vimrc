@@ -856,10 +856,9 @@ command! LaptopModeOff  call s:LaptopMode(0)
 " :TermRestart -- re-exec the terminal command that exited      {{{2
 augroup TermRestart
   au!
-  au BufWinEnter *
-    \ if &buftype == 'terminal' |
-    \   command! -buffer TermRestart exec 'term ++curwin' expand("%")[1:] |
-    \ endif
+  au BufWinEnter * if &buftype == 'terminal'
+  au BufWinEnter *   command! -buffer TermRestart exec 'term ++curwin' expand("%")[1:]
+  au BufWinEnter * endif
 augroup END
 
 endif " has("user_commands")
