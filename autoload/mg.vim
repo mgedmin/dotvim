@@ -9,12 +9,14 @@ let s:statusline = {
       \ 'left[quickfix]': '{quickfix_tail}{quickfix_title}',
       \ 'left[help]': '{help_prefix} %<{filename}',
       \ 'left[terminal]': ' %f%( {flags}%)',
+      \ 'statusline[nerdtree]': '{nerdtree_prefix} %={pos}',
       \ 'left': ' {directory}{filename}%( {flags}%)',
       \ 'right': '{tag}{errors}{pos}{position}',
       \ 'bufnr[quickfix]': '',
       \ 'bufnr[help]': '',
       \ 'bufnr': ' %n ',
       \ 'filename': '%t',
+      \ 'nerdtree_prefix': ' NERDTree ',
       \ 'help_prefix': ' Help ',
       \ 'quickfix_tail': ' %t ',
       \ 'quickfix_title': "%{exists('w:quickfix_title') ? ' '.w:quickfix_title : ''}",
@@ -35,6 +37,7 @@ let s:statusline_highlight = {
       \ 'tag': 'mg_statusline_tag',
       \ 'lcd': 'mg_statusline_lcd',
       \ 'errors': 'mg_statusline_error',
+      \ 'nerdtree_prefix': 'mg_statusline_l1',
       \ 'help_prefix': 'mg_statusline_l1',
       \ 'quickfix_tail': 'mg_statusline_l1',
       \ 'bufnr': 'mg_statusline_l1',
@@ -267,10 +270,20 @@ fun! mg#statusline_errors(...)
 endf
 
 fun! mg#statusline(...)
-  let variant = a:0 >= 1 ? a:1 : ''
-  let active = a:0 >= 2 ? a:2 : 1
+  let buftype = a:0 >= 1 ? a:1 : ''
+  let filetype = a:0 >= 2 ? a:2 : ''
+  let active = a:0 >= 3 ? a:3 : 1
+  let variant = mg#statusline_variant(buftype, filetype)
   let s:active_winnr = winnr()
   return s:optimize(s:eval('statusline', {'variant': variant, 'active': active}))
+endf
+
+fun! mg#statusline_variant(buftype, filetype)
+  if a:buftype =~ '^\(quickfix\|help\|terminal\)$'
+    return a:buftype
+  else
+    return a:filetype
+  endif
 endf
 
 fun! mg#statusline_enable()
@@ -283,8 +296,8 @@ fun! mg#statusline_enable()
     " Mystery: I need WinEnter/WinLeave to correctly update when switching
     " between windows, but I also need BufWinEnter to correctly initialize
     " when I do :tabnew.
-    au WinEnter,BufWinEnter * let &l:statusline = mg#statusline(&buftype, 1)
-    au WinLeave,BufWinLeave * let &l:statusline = mg#statusline(&buftype, 0)
+    au WinEnter,BufWinEnter * let &l:statusline = mg#statusline(&buftype, &filetype, 1)
+    au WinLeave,BufWinLeave * let &l:statusline = mg#statusline(&buftype, &filetype, 0)
     au ColorScheme * call mg#statusline_highlight()
   augroup END
 endf
@@ -293,8 +306,9 @@ fun! mg#statusline_update()
   let curwin = winnr()
   for i in range(1, winnr('$'))
     let buftype = getwinvar(i, '&buftype')
+    let filetype = getwinvar(i, '&filetype')
     let active = i == curwin
-    call setwinvar(i, '&statusline', mg#statusline(buftype, active))
+    call setwinvar(i, '&statusline', mg#statusline(buftype, filetype, active))
   endfor
 endf
 
