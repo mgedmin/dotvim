@@ -151,6 +151,7 @@ set suffixes+=.class            " ignore Java class files
 set suffixes+=.pyc,.pyo         " ignore compiled Python files
 set suffixes+=.egg-info         " ignore compiled Python files
 set suffixes+=.~1~,.~2~         " ignore Bazaar droppings
+set suffixes+=.png              " don't edit .png files please
 set wildignore+=*.pyc,*.pyo     " same as 'suffixes', but for tab completion
 set wildignore+=*.[oad],*.so    " and, more importantly, Command-T
 set wildignore+=*.egg-info/*    " setuptools droppings
