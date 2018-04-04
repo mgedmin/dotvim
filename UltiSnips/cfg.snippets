@@ -2,7 +2,7 @@ snippet flake8 "[flake8] section in setup.cfg" b
 [flake8]
 doctests = yes
 max-line-length = 80
-ignore = E121,E123,E126,E133,E226,E241,E242,E704,W503
+ignore = E121,E123,E126,E133,E226,E241,E242,E704,W503,W504
 # https://pep8.readthedocs.org/en/latest/intro.html#error-codes
 # these are ignored by default:
 # E121: continuation line under-indented for hanging indent
@@ -13,7 +13,8 @@ ignore = E121,E123,E126,E133,E226,E241,E242,E704,W503
 # E241: multiple spaces after ‘,’
 # E242: tab after ‘,’
 # E704: multiple statements on one line (def)
-# W503: ‘<>’ is deprecated, use ‘!=’
+# W503: line break before binary operator                                    |
+# W504: line break after binary operator
 endsnippet
 
 snippet "# ([EWFC]\d\d\d):? *" "flake8 error code" br
@@ -81,6 +82,7 @@ flake8_codes = '''
 | F841 | local variable ``name`` is assigned to but never used               |
 '''
 # https://github.com/PyCQA/pycodestyle/blob/master/docs/intro.rst#error-codes
+# or https://raw.githubusercontent.com/PyCQA/pycodestyle/master/docs/intro.rst
 pycodestyle_codes = r'''
 | **E1**     | *Indentation*                                                        |
 +------------+----------------------------------------------------------------------+
@@ -270,7 +272,9 @@ pycodestyle_codes = r'''
 +------------+----------------------------------------------------------------------+
 | **W5**     | *Line break warning*                                                 |
 +------------+----------------------------------------------------------------------+
-| W503 (*)   | line break occurred before a binary operator                         |
+| W503 (*)   | line break before binary operator                                    |
++------------+----------------------------------------------------------------------+
+| W504 (*)   | line break after binary operator                                     |
 +------------+----------------------------------------------------------------------+
 +------------+----------------------------------------------------------------------+
 | **W6**     | *Deprecation warning*                                                |
@@ -284,6 +288,8 @@ pycodestyle_codes = r'''
 | W604       | backticks are deprecated, use 'repr()'                               |
 +------------+----------------------------------------------------------------------+
 | W605       | invalid escape sequence '\x'                                         |
++------------+----------------------------------------------------------------------+
+| W606       | 'async' and 'await' are reserved keywords starting with Python 3.7   |
 '''
 # https://github.com/PyCQA/mccabe/blob/master/mccabe.py#L233
 mccabbe_codes = '''
