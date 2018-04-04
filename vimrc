@@ -948,6 +948,9 @@ map!            <S-Insert>      <MiddleMouse>
 " gV selects the just-pasted text                               {{{2
 nnoremap <expr> gV              "`[" . getregtype() . "`]"
 
+" p preserves the unnamed register/clipboard in visual mode     {{{2
+vnoremap <expr> p  'p' . (v:register =~ '["*+]' ? ":let @".v:register."=@0\<cr>" : '')
+
 " .vimrc editing                                                {{{2
 set wildcharm=<C-Z>
 map             ,e              :e $HOME/.vim/vimrc<CR>
