@@ -653,14 +653,14 @@ if has("eval")
   fun! OnAsyncRunExit()
     if g:asyncrun_status == 'success'
       hi! link StatusLine StatusLineSuccess
-      call mg#statusline_highlight()
       cclose
+      call mg#statusline_highlight()
     elseif g:asyncrun_status == 'failure'
       hi! link StatusLine StatusLineFailure
-      call mg#statusline_highlight()
       botright cw
       " update folds
       normal zx
+      call mg#statusline_highlight()
     endif
     redrawstatus
     " perhaps echo 'async job finished:' g:asyncrun_code
