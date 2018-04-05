@@ -20,7 +20,7 @@ let s:statusline = {
       \ 'help_prefix': ' Help ',
       \ 'quickfix_tail': ' %t ',
       \ 'quickfix_title': "%{exists('w:quickfix_title') ? ' '.w:quickfix_title : ''}",
-      \ 'flags': '{help}{modified}{ro}',
+      \ 'flags': '{help}{modified}{ro}{git_status}',
       \ 'help': '%h',
       \ 'modified': '%m',
       \ 'modified[terminal]': '',
@@ -241,6 +241,44 @@ fun! mg#statusline_directory()
   return substitute(s:mediumpath(bufname('')), '[^/]*$', '', '')
 endf
 
+fun! mg#statusline_invalidate_git_cache()
+  if exists("b:git_status")
+    unlet b:git_status
+  endif
+endf
+
+let s:git_status_mappings = {
+      \ "!!": "ignored",
+      \ "??": "unknown",
+      \ }
+
+fun! mg#statusline_git_status()
+  let format = a:0 >= 1 ? a:1 : '[git:%s]'
+  let tracked = a:0 >= 2 ? a:2 : '[git]'
+  if !exists("b:git_status")
+    let b:git_status = ''
+    if exists('*fugitive#repo') && filereadable(expand("%"))
+      try
+        let path = fugitive#buffer().path()
+        let status = fugitive#repo().git_chomp_in_tree('status', '--porcelain', '--ignored', '--', path)[:1]
+        if status == ""
+          let status = "  "
+        endif
+        let b:git_status = status
+      catch /.*/
+      endtry
+    endif
+  endif
+  let status = get(s:git_status_mappings, b:git_status, b:git_status)
+  if status == ""
+    return ""
+  elseif status == "  "
+    return tracked
+  else
+    return printf(format, status)
+  endif
+endf
+
 fun! mg#statusline_tag(...)
   let format = a:0 >= 1 ? a:1 : ' %s '
   let tag = ""
@@ -299,6 +337,7 @@ fun! mg#statusline_enable()
     au WinEnter,BufWinEnter * let &l:statusline = mg#statusline(&buftype, &filetype, 1)
     au WinLeave,BufWinLeave * let &l:statusline = mg#statusline(&buftype, &filetype, 0)
     au ColorScheme * call mg#statusline_highlight()
+    au BufEnter,BufWritePost,ShellCmdPost,FocusGained * call mg#statusline_invalidate_git_cache()
   augroup END
 endf
 
@@ -316,7 +355,7 @@ fun! mg#statusline_disable()
   let s:statusline_enabled = 0
   let curwin = winnr()
   for i in range(1, tabpagenr('$'))
-    for j in range(1, winnr('$'))
+    for j in range(1, tabpagewinnr(i, '$'))
       call settabwinvar(i, j, '&statusline', '')
     endfor
   endfor
