@@ -497,8 +497,8 @@ endif
 " A.L.E.
 
 if has("eval")
-  let g:ale_sign_error = '⚡ '
-  let g:ale_sign_warning = '⚠ '
+  let g:ale_sign_error = '☞ '
+  let g:ale_sign_warning = '☞ '
   let g:ale_statusline_format = ['{%d}', '{%d}', '']
 
   " if I become annoyed about ALE showing errors for half-typed text, perhaps
@@ -1580,11 +1580,13 @@ highlight Red                   guibg=red ctermbg=red
 highlight Green                 guibg=green ctermbg=green
 
 " for less intrusive signs
-highlight SignColumn guibg=#fefefe ctermbg=230 guibg=#ffffd7
+highlight SignColumn ctermbg=230 guibg=#ffffd7
 if exists("*gitgutter#highlight#define_highlights")
   " let vim-gitgutter know we changed the SignColumn colors!
   call gitgutter#highlight#define_highlights()
 endif
+
+hi ALEErrorSign ctermfg=red ctermbg=230 guibg=#ffffd7
 
 " gutter on the right of the text
 highlight ColorColumn ctermbg=230 guibg=#ffffd7
