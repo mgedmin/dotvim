@@ -1151,7 +1151,7 @@ cmap            <C-H>           <C-BS>
 " Do not lose "complete all" (gvim-only)
 cnoremap        <C-S-A>         <C-A>
 
-" Insert line under cursor
+" Insert line under cursor (builtin in vim 8.0.1787)
 cnoremap        <C-R><C-L>      <C-R>=getline(".")<CR>
 
 " Windows style editing                                         {{{2
