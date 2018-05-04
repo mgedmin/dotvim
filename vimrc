@@ -882,9 +882,14 @@ command! LaptopModeOff  call s:LaptopMode(0)
 " :TermRestart -- re-exec the terminal command that exited      {{{2
 augroup TermRestart
   au!
-  au BufWinEnter * if &buftype == 'terminal'
-  au BufWinEnter *   command! -buffer TermRestart exec 'term ++curwin' expand("%")[1:]
-  au BufWinEnter * endif
+  if exists("##TerminalOpen")
+    " vim 8.0.1789 does not emit BufWinEnter for terminal windows
+    au TerminalOpen * command! -buffer TermRestart exec 'term ++curwin' expand("%")[1:]
+  else
+    au BufWinEnter * if &buftype == 'terminal'
+    au BufWinEnter *   command! -buffer TermRestart exec 'term ++curwin' expand("%")[1:]
+    au BufWinEnter * endif
+  endif
 augroup END
 
 endif " has("user_commands")
