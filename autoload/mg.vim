@@ -85,6 +85,8 @@ let s:tag_bg = [ '#008700', 28 ]
 let s:directory_fg = s:tag_fg
 let s:error_fg = [ '#ededeb', 15 ]
 let s:error_bg = [ '#ef2828', 9 ]
+let s:active_fg = [ '#ffffff', 231 ]
+let s:active_bg = [ '#000000', 0 ]
 let s:inactive_fg = [ '#8a8a8a', 245 ]
 let s:inactive_bg = [ '#303030', 236 ]
 let s:inactive_lcd_fg = [ '#949494', 246 ]
@@ -119,16 +121,24 @@ fun! mg#statusline_highlight_part(part, fg, bg)
   call mg#highlight('mg_statusline_'.a:part, a:fg, a:bg, '')
 endf
 
+fun! s:statusline_bg_for(mode)
+  let reverse = synIDattr(synIDtrans(hlID("StatusLine")), "reverse", a:mode)
+  let which = reverse ? "fg" : "bg"
+  let color = synIDattr(synIDtrans(hlID("StatusLine")), which, a:mode)
+  return color == "" ? "black" : color
+endf
+
 fun! s:statusline_bg()
   " Bit of a hack there: I assume the statusline uses reverse video
-  let gui_fg = synIDattr(synIDtrans(hlID("StatusLine")), "fg", "gui")
-  let cterm_fg = synIDattr(synIDtrans(hlID("StatusLine")), "fg", "cterm")
-  return [ gui_fg == "" ? "black" : gui_fg, cterm_fg == "" ? "black" : cterm_fg]
+  let gui_fg = s:statusline_bg_for("gui")
+  let cterm_fg = s:statusline_bg_for("cterm")
+  return [ gui_fg, cterm_fg ]
 endf
 
 highlight User3                 ctermfg=245
 
 fun! mg#statusline_highlight()
+  call mg#highlight('StatusLine', s:active_fg, s:statusline_bg(), 'term=bold cterm=bold gui=bold')
   call mg#highlight('StatusLineNC', s:inactive_fg, s:inactive_bg, 'term=NONE cterm=NONE gui=NONE')
   call mg#statusline_highlight_part('lcd', s:lcd_fg, s:lcd_bg)
   call mg#statusline_highlight_part('l1', s:l1_fg, s:l1_bg)
