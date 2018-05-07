@@ -231,6 +231,11 @@ if has("eval")
   let g:sh_fold_enabled = 7     " fold functions, heredocs, ifs/loops
 endif
 
+" C headers                                                     {{{2
+if has("eval")
+  let g:c_syntax_for_h = 1      " assume *.h are C, not C++
+endif
+
 " Netrw explorer                                                {{{2
 if has("eval")
   let g:netrw_list_hide = '.*\.swp\($\|\t\),.*\.py[co]\($\|\t\)'
@@ -265,6 +270,9 @@ if has("eval")
   " to only update existing tags files and never create new ones:
   let g:gutentags_project_root = ['tags']
   let g:gutentags_add_default_project_roots = 0
+
+  " Base64 encode/decode
+  Plug 'christianrondeau/vim-base64'
 
 
   " Programming: C                                              {{{3
