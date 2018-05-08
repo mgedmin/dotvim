@@ -653,6 +653,7 @@ vmap <Leader>S <Plug>VSurround
 if v:version >= 700 && has("eval")
   let g:NERDTreeIgnore = ['\.pyc$', '\~$', '^tags$', '^__pycache__$']
   let g:NERDTreeHijackNetrw = 0
+  let g:NERDTreeShowHidden = 1
 endif
 
 map <Leader>n :NERDTreeToggle<CR>
