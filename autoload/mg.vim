@@ -352,6 +352,7 @@ fun! mg#statusline_enable()
 endf
 
 fun! mg#statusline_update()
+  call mg#statusline_invalidate_git_cache()
   let curwin = winnr()
   for i in range(1, winnr('$'))
     let buftype = getwinvar(i, '&buftype')
