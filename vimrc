@@ -858,6 +858,9 @@ function! Flake8(exe, args, recheck_now)
   if a:recheck_now && exists('*SyntasticCheck')
     SyntasticCheck
   endif
+  if a:recheck_now && exists('*ALELint')
+    ALELint
+  endif
 endf
 function! Python2(recheck_now)
   call Flake8('python2', '-m flake8', a:recheck_now)
