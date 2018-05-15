@@ -528,6 +528,8 @@ if has("eval")
   let g:CommandTMaxHeight = 20
   let g:CommandTTraverseSCM = "pwd"
 
+  let g:CommandTMaxFiles=800000  " firefox source tree is _big_
+
   nmap <silent> <Leader>T <Plug>(CommandTTag)
   nmap <silent> <Leader>B <Plug>(CommandTBuffer)
   nmap <silent> <Leader>H <Plug>(CommandTHelp)
