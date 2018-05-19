@@ -271,7 +271,7 @@ if has("eval")
   let g:gutentags_project_root = ['tags']
   let g:gutentags_add_default_project_roots = 0
 
-  " Base64 encode/decode
+  " Base64 encode/decode on <leader>atob and <leader>btoa in visual mode
   Plug 'christianrondeau/vim-base64'
 
 
