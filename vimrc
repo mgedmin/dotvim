@@ -26,7 +26,8 @@ if v:version >= 700
   set listchars+=nbsp:_
 endif
 if has("linebreak")
-  let &sbr = nr2char(8618).' '  " Show ↪ at the beginning of wrapped lines
+  set linebreak                 " wrap lines at word boundaries, not mid-word
+  let &sbr = nr2char(8618).' '  " show ↪ at the beginning of wrapped lines
 endif
 if has("extra_search")
   set hlsearch                  " highlight search matches
@@ -36,7 +37,7 @@ if exists("&colorcolumn")
   let &colorcolumn=join(range(81,999),",") " highlight columns over 80
 endif
 set numberwidth=6               " I want it constant width everywhere
-set title                       " Set xterm title even in Wayland (where autodetect fails)
+set title                       " set xterm title even in Wayland (where autodetect fails)
 
 " I want gvim to look the same as vim in gnome-terminal
 set guifont=Ubuntu\ Mono\ 13
