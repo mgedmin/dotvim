@@ -865,9 +865,11 @@ function! Flake8(exe, args, recheck_now)
 endf
 function! Python2(recheck_now)
   call Flake8('python2', '-m flake8', a:recheck_now)
+  let g:coverage_script = 'coverage'
 endf
 function! Python3(recheck_now)
   call Flake8('python3', '-m flake8', a:recheck_now)
+  let g:coverage_script = 'python3 -m coverage'
 endf
 command! -bar Python2 call Python2(1)
 command! -bar Python3 call Python3(1)
