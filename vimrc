@@ -1245,6 +1245,8 @@ imap            <F7>            <C-O><F7>
 " (some file-type dependent autocommands redefine it)
 map             <F8>            :let @/='\<'.expand('<cword>').'\>'<bar>set hls<CR>
 imap            <F8>            <C-O><F8>
+vnoremap        <F8>
+      \ y:let @/='\V'.substitute(escape(@@,"/\\"),"\n","\\\\n","ge")<bar>set hls<CR>
 
 " <F9> = make (often overwritten by filetype plugins)
 map             <F9>    :Make<CR>
