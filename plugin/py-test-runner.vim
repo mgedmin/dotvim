@@ -1,7 +1,7 @@
 " File: py-test-runner.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.6
-" Last Modified: 2017-10-21
+" Version: 0.7
+" Last Modified: 2018-05-25
 "
 " Overview
 " --------
@@ -18,6 +18,12 @@
 "
 " Usage
 " -----
+" :call UseZopeTestRunner()    -- use zope.testrunner (default)
+" :call UseNoseTestRunner()    -- use nosetests
+" :call UsePyTestTestRunner()  -- use py.test
+" :call UsePyTestTestRunner("venv/bin/py.test")  -- use py.test from this venv
+" :call UsePyTestTestRunner("py.test", "-vv")    -- pass extra arguments to py.test
+"
 " :RunTestUnderCursor -- launches the test runner (configured via
 " g:pyTestRunner) with :make
 "
@@ -86,11 +92,11 @@ if !exists("*TagInStatusLine")
     finish
 endif
 
-function! UseZopeTestRunner()
+function! UseZopeTestRunner(...)
     " Assumes you have bin/test, generates command lines of the form
     "   bin/test -s <package> -m <module> -t '{method} [(].*{class}[)]'
     "
-    let g:pyTestRunner = "bin/test"
+    let g:pyTestRunner = a:0 > 0 ? join(a:000, " ") : "bin/test"
     let g:pyTestRunnerTestFilteringClassAndMethodFormat = "'{method} [(].*{class}[)]'"
     let g:pyTestRunnerTestFiltering = "-t"
     let g:pyTestRunnerPackageFiltering = "-s"
@@ -117,10 +123,10 @@ function! UseDjangoTestRunner()
     let g:pyTestRunnerClipboardExtrasSuffix = ""
 endfunction
 
-function! UsePyTestTestRunner()
+function! UsePyTestTestRunner(...)
     " Assumes you have py.test, generates command lines of the form
     "   py.test <filename>::{class}.{method}
-    let g:pyTestRunner = "py.test -ra"
+    let g:pyTestRunner = a:0 > 0 ? join(a:000, " ") : "py.test -ra"
     let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}::{method}"
     let g:pyTestRunnerTestFiltering = "<NOSPACE>::<NOSPACE>"
     let g:pyTestRunnerPackageFiltering = ""
@@ -132,10 +138,10 @@ function! UsePyTestTestRunner()
     let g:pyTestRunnerClipboardExtrasSuffix = ""
 endfunction
 
-function! UseNoseTestRunner()
+function! UseNoseTestRunner(...)
     " Assumes you have py.test, generates command lines of the form
     "   nosetests <filename>:{class}.{method}
-    let g:pyTestRunner = "nosetests"
+    let g:pyTestRunner = a:0 > 0 ? join(a:000, " ") : "nosetests"
     let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}.{method}"
     let g:pyTestRunnerTestFiltering = "<NOSPACE>:<NOSPACE>"
     let g:pyTestRunnerPackageFiltering = ""
