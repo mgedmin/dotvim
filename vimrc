@@ -282,6 +282,13 @@ if has("eval")
   Plug 'mgedmin/chelper.vim'
 
 
+  " Programming: JavaScript                                     {{{3
+
+  Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
+  " XXX vim-jsx doesn't support xml_syntax_folding which I've got enabled :(
+
+
   " Programming: Python                                         {{{3
 
   " Show [CurrentClass.current_method] in the status line for Python files
