@@ -1296,7 +1296,10 @@ augroup END
 " see :help last-position-jump
 augroup LastPositionJump
   au!
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") && &ft != 'gitcommit' | exe "normal g`\"" | endif
+  au BufReadPost *
+              \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+              \ |   exe "normal! g`\""
+              \ | endif
 augroup END
 
 " Create missing directory on save                              {{{2
