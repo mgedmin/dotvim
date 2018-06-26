@@ -1344,6 +1344,9 @@ function! FocusOnTestFailure()
   let idx = 0
   for d in getqflist()
     let idx += 1
+    " py.test output has error messages starting with "E "; the filename and
+    " line number follow a few lines down and I can jump there with :cn,
+    " but I'd like to see the error message first
     if !d.valid && d.text =~ "^E "
       " silent! because sometimes I get E788: Not allowed to edit another
       " buffer now, when this is invoked from g:asyncrun_exit
