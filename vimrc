@@ -461,6 +461,9 @@ if has("eval")
   " Syntax for Robot Framework tests
   Plug 'mfukar/robotframework-vim'
 
+  " Jenkinsfile
+  Plug 'martinda/Jenkinsfile-vim-syntax'
+
 
   "                                                             }}}3
 
