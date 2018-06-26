@@ -13,7 +13,7 @@ ignore = E121,E123,E126,E133,E226,E241,E242,E704,W503,W504
 # E241: multiple spaces after ‘,’
 # E242: tab after ‘,’
 # E704: multiple statements on one line (def)
-# W503: line break before binary operator                                    |
+# W503: line break before binary operator
 # W504: line break after binary operator
 endsnippet
 
@@ -292,12 +292,12 @@ pycodestyle_codes = r'''
 | W606       | 'async' and 'await' are reserved keywords starting with Python 3.7   |
 '''
 # https://github.com/PyCQA/mccabe/blob/master/mccabe.py#L233
-mccabbe_codes = '''
-| C901       | C901 'name' is too complex                                    |
+mccabe_codes = '''
+| C901       | 'name' is too complex                                                |
 '''
 
 codes = {}
-for line in flake8_codes.splitlines() + pycodestyle_codes.splitlines():
+for line in flake8_codes.splitlines() + pycodestyle_codes.splitlines() + mccabe_codes.splitlines():
     if line.startswith(('| E', '| W', '| F', '| C')):
         code, message = line.strip('| ').split(' | ')
         codes[code.split()[0]] = message
