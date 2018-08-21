@@ -3,17 +3,35 @@ language: python
 sudo: false
 python:
     - 2.7
-    - 3.2
-    - 3.3
     - 3.4
     - 3.5
+    - 3.6
     - pypy
+matrix:
+    include:
+        - python: 3.7
+          dist: xenial
+          sudo: true
 install:
     - pip install .
 script:
     - python setup.py test -q
 notifications:
     email: false
+endsnippet
+
+snippet "^3[.]?7" "travis.yml snippet for python 3.7" !br
+matrix:
+    include:
+        - python: 3.7
+          dist: xenial
+          sudo: true
+endsnippet
+
+snippet "(?!^)(- )?3[.]?7" "travis.yml snippet for python 3.7" !br
+- python: 3.7
+  dist: xenial
+  sudo: true
 endsnippet
 
 snippet tox-travis "travis.yml based on tox-travis" !b
@@ -47,10 +65,9 @@ language: python
 sudo: false
 python:
     - 2.7
-    - 3.2
-    - 3.3
     - 3.4
     - 3.5
+    - 3.6
     - pypy
 install:
     - python bootstrap.py
@@ -81,6 +98,7 @@ environment:
     - PYTHON: "C:\\\\Python34"
     - PYTHON: "C:\\\\Python35"
     - PYTHON: "C:\\\\Python36"
+    - PYTHON: "C:\\\\Python37"
 
 init:
   - "echo %PYTHON%"
