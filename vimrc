@@ -135,6 +135,8 @@ set expandtab                   " tabs are evil
 set noshiftround                " do NOT enforce the indent
 set autoindent                  " automatic indent
 set nosmartindent               " but no smart indent (ain't smart enough)
+set copyindent                  " no tabs if previous line used spaces
+set preserveindent              " no tabs if line didn't use them before
 set isfname-=\=                 " fix filename completion in VAR=/path
 if v:version >= 704
   set fo+=j                     " remove comment leader when joining lines
