@@ -348,22 +348,22 @@ if has("eval")
   Plug 'airblade/vim-gitgutter'
 
   " Higlight git conflict markers in files
-  Plug 'ingo-library'
-  Plug 'ConflictDetection'
+  Plug 'vim-scripts/ingo-library'
+  Plug 'vim-scripts/ConflictDetection'
 
   " Use [x/]x to navigate to conflict markers
-  Plug 'CountJump'
-  Plug 'ConflictMotions'
+  Plug 'vim-scripts/CountJump'
+  Plug 'vim-scripts/ConflictMotions'
 
   " Version control integration for SVN and other legacy VCSes -- :VCSVimDiff
-  Plug 'vcscommand.vim'
+  Plug 'vim-scripts/vcscommand.vim'
 
   " Load previous svn-commit.tmp automatically when you repeat 'svn ci' after
   " a failed commit.
-  Plug 'svn_commit'
+  Plug 'vim-scripts/svn_commit'
 
   " Show the svn diff while I'm editing an svn commit message.
-  Plug 'svn-diff.vim'
+  Plug 'vim-scripts/svn-diff.vim'
 
 
   " Navigation                                                  {{{3
@@ -375,7 +375,7 @@ if has("eval")
   " Pure-python alternative to command-t, slightly different UI, not as nice
   " to use as command-t but useful for some circumstances (Vim w/o Ruby).
   " Bound to <C-P>
-  Plug 'ctrlp.vim'
+  Plug 'vim-scripts/ctrlp.vim'
 
   " List open buffers with various sorting modes on \b
   Plug 'jlanzarotta/bufexplorer'
@@ -392,7 +392,7 @@ if has("eval")
   let g:gundo_prefer_python3 = has('python3')  " Unbreak broken default config
 
   " Defines the very useful :Rename newfilename.txt
-  Plug 'Rename'
+  Plug 'vim-scripts/Rename'
 
   " :%S/foo/bar/gc --> case-preserving :%s
   Plug 'tpope/vim-abolish'
@@ -401,10 +401,10 @@ if has("eval")
   Plug 'tpope/vim-characterize'
 
   " ^P/^N completion on the command line
-  Plug 'CmdlineComplete'
+  Plug 'vim-scripts/CmdlineComplete'
 
   " Emacs-like Alt-t transpose words
-  Plug 'transpose-words'
+  Plug 'vim-scripts/transpose-words'
   if !has('nvim')
     exec "set <M-t>=\<Esc>t"
   endif
@@ -453,10 +453,10 @@ if has("eval")
   Plug 'mgedmin/vim-jinja'
 
   " Nginx syntax
-  Plug 'nginx.vim'
+  Plug 'vim-scripts/nginx.vim'
 
   " xchat log syntax highlighting (set ft=xchatlog)
-  Plug 'xchat-log-syntax'
+  Plug 'vim-scripts/xchat-log-syntax'
   " there's also 'XChat-IRC-Log' (set ft=irclog), but it fails to highlight
   " anything?
 
