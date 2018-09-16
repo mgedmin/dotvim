@@ -2,6 +2,9 @@
 
 setlocal sw=2 et
 
+" ,t - add a timed comment
+map <buffer> ,t :put ='    # ['.strftime('%H:%M').'] '<cr>A
+
 " ,q - quote program output
 map <buffer> ,q :Quote<cr>
 
