@@ -82,6 +82,13 @@ if has("persistent_undo")
   call s:Mkdir(&undodir)
 endif
 
+" No swap files for unmodified buffers                          {{{2
+set noswapfile
+augroup Swap
+  autocmd CursorHold,BufWritePost,BufReadPost,BufLeave *
+      \ if isdirectory(expand("<amatch>:h")) | let &swapfile = &modified | endif
+augroup END
+
 " Behaviour                                                     {{{2
 set wildmenu                    " nice tab-completion on the command line
 set wildmode=longest,full       " nicer tab-completion on the command line
