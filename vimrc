@@ -280,6 +280,8 @@ if has("eval")
   " to only update existing tags files and never create new ones:
   let g:gutentags_project_root = ['tags']
   let g:gutentags_add_default_project_roots = 0
+  let g:gutentags_generate_on_missing = 0
+  let g:gutentags_generate_on_new = 0
 
   " Base64 encode/decode on <leader>atob and <leader>btoa in visual mode
   Plug 'christianrondeau/vim-base64'
