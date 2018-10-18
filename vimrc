@@ -267,6 +267,7 @@ if has("eval")
   " Show syntax errors and style warning in files I edit.  Updates
   " asynchonously (requires Vim 8).
   if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
+    let g:ale_set_balloons = 1   " must be set before loading ale
     Plug 'w0rp/ale'
     let g:ale_linters = {'python': ['flake8']}
   else
@@ -550,7 +551,9 @@ if has("eval")
   let g:CommandTMaxHeight = 20
   let g:CommandTTraverseSCM = "pwd"
 
-  let g:CommandTMaxFiles=800000  " firefox source tree is _big_
+  "let g:CommandTMaxFiles=800000  " firefox source tree is _big_
+  " OTOH my home directory is also big and it sucks that I cannot interrupt
+  " command-t with a ctrl-c when I accidentally trigger it there
 
   nmap <silent> <Leader>T <Plug>(CommandTTag)
   nmap <silent> <Leader>B <Plug>(CommandTBuffer)
@@ -926,6 +929,7 @@ augroup TermRestart
   if exists("##TerminalOpen")
     " vim 8.0.1789 does not emit BufWinEnter for terminal windows
     au TerminalOpen * command! -buffer TermRestart exec 'term ++curwin' expand("%")[1:]
+    au TerminalOpen * map <buffer> <F5> :TermRestart<CR>
   else
     au BufWinEnter * if &buftype == 'terminal'
     au BufWinEnter *   command! -buffer TermRestart exec 'term ++curwin' expand("%")[1:]
