@@ -53,7 +53,7 @@ if !exists("g:pyTestRunnerTestFilteringClassAndMethodFormat")
     " in parens
     " let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}.{method}"
     " and backslashes are annoying, so let's avoid them
-    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "'{method} [(].*{class}[)]'"
+    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "'{method} [(].*[.]{class}[)]'"
     " or we could just filter by method name, but eh
     " let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{method}"
 endif
@@ -70,7 +70,7 @@ if !exists("g:pyTestRunnerFilenameFiltering")
     let g:pyTestRunnerUseAbsoluteFilenames = 0
   endif
 if !exists("g:pyTestRunnerPackageFiltering")
-    let g:pyTestRunnerPackageFiltering = "-s"
+    let g:pyTestRunnerPackageFiltering = ""
 endif
 if !exists("g:pyTestRunnerModuleFiltering")
     let g:pyTestRunnerModuleFiltering = "-m"
@@ -97,9 +97,10 @@ function! UseZopeTestRunner(...)
     "   bin/test -s <package> -m <module> -t '{method} [(].*{class}[)]'
     "
     let g:pyTestRunner = a:0 > 0 ? join(a:000, " ") : "bin/test"
-    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "'{method} [(].*{class}[)]'"
+    let g:pyTestRunnerTestFilteringClassAndMethodFormat = "'{method} [(].*[.]{class}[)]'"
     let g:pyTestRunnerTestFiltering = "-t"
-    let g:pyTestRunnerPackageFiltering = "-s"
+    ""let g:pyTestRunnerPackageFiltering = "-s" <-- doesn't work sometimes!
+    let g:pyTestRunnerPackageFiltering = ""
     let g:pyTestRunnerModuleFiltering = "-m"
     let g:pyTestRunnerFilenameFiltering = ""
     let g:pyTestRunnerUseAbsoluteFilenames = 1
