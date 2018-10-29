@@ -270,6 +270,8 @@ if has("eval")
     let g:ale_set_balloons = 1   " must be set before loading ale
     Plug 'w0rp/ale'
     let g:ale_linters = {'python': ['flake8']}
+    " see https://github.com/w0rp/ale/issues/1827#issuecomment-433920827
+    let g:ale_python_flake8_change_directory = 0
   else
     " Show syntax errors and style warnings in files I edit.  Updates on save.
     Plug 'scrooloose/syntastic'
