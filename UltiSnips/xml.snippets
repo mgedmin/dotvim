@@ -1,0 +1,28 @@
+snippet "<?obj(ect)?" "GTK+ Builder <object>" br
+<object class="${1:GtkBox}"$2>
+  <property name="visible">True</property>
+  $3
+</object>
+endsnippet
+
+snippet "<?prop(erty)?" "GTK+ builder <property>" br
+<property name="$1">$2</property>
+endsnippet
+
+snippet "<?title" "<title>" br
+<property name="title" translatable="yes">$2</property>
+endsnippet
+
+snippet "<?child" "GTK+ Builder <child>" br
+<child>
+  $1
+</child>
+endsnippet
+
+snippet shortcut "<object class=GtkShortcutsShortcut>" b
+<object class="GtkShortcutsShortcut">
+  <property name="visible">True</property>
+  <property name="accelerator">${1:&lt;alt&gt;Left}</property>
+  <property name="title" translatable="yes" context="shortcut window">$2</property>
+</object>
+endsnippet
