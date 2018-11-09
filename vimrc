@@ -788,6 +788,10 @@ command! FindControlChars               normal /[\x00-\x08\x0a-\x1f\x7f]<cr>
 " where's the next untranslated message in a .po file?          {{{2
 command! FindUntranslated               /msgstr ""\ze\n\n
 
+" what are .po file stats?                                      {{{2
+command! -bar PoStats
+            \ echo system("msgfmt --statistics -c -o /dev/null -", bufnr("%"))
+
 " convert \uXXXX to actual characters                           {{{2
 command! -range=% ExpandUnicode         <line1>,<line2>s/\\u\([0-9a-fA-F]\{4}\)/\=nr2char(str2nr(submatch(1), 16))/gc
 
