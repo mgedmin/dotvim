@@ -403,6 +403,9 @@ if has("eval")
   Plug 'sjl/gundo.vim'
   let g:gundo_prefer_python3 = has('python3')  " Unbreak broken default config
 
+  " :MacroEdit q
+  Plug 'dohsimpson/vim-macroeditor'
+
   " Defines the very useful :Rename newfilename.txt
   Plug 'vim-scripts/Rename'
 
