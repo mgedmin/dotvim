@@ -40,6 +40,11 @@ parser.add_argument('-v', '--verbose', action='store_true')
 args = parser.parse_args()
 endsnippet
 
+snippet version "Argparse-based command-line parsing for --version" !b
+parser.add_argument('--version', action='version',
+                    version="%(prog)s version " + __version__)
+endsnippet
+
 snippet classifiers "PyPI classifiers" !b
 'Programming Language :: Python :: 2.7',
 'Programming Language :: Python :: 3.4',
