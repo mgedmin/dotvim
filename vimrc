@@ -1216,6 +1216,7 @@ cnoremap        <C-R><C-L>      <C-R>=getline(".")<CR>
 
 " Windows style editing                                         {{{2
 imap            <C-Del>         <C-O>dw
+imap            <C-kDel>        <C-O>dw
 imap            <C-Backspace>   <C-O>db
 
 map             <S-Insert>      "+p
