@@ -52,6 +52,7 @@ endif
 
 " Interpreting file contents                                    {{{2
 set modelines=5                 " debian disables this by default
+set nomodeline                  " on second thought, debian has it right
 set fileencodings=ucs-bom,utf-8,windows-1257 " autodetect
 
 " Backup files                                                  {{{2
