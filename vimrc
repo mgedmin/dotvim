@@ -966,9 +966,7 @@ function! s:RedrawCommand()
         let s .= '|call mg#statusline_update()'
     endif
     let s .= "\<CR>"
-    if &foldlevel > 0
-        let s .= 'zx'
-    endif
+    let s .= 'zx'
     return s . "\<C-L>"
 endf
 noremap <silent> <expr> <C-L>   <SID>RedrawCommand()
