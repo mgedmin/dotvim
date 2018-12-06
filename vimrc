@@ -258,7 +258,7 @@ endif
 " Plugins                                                       {{{1
 "
 
-" vim-plug                                                      {{{2
+" vim-plug plus list of plugins to install                      {{{2
 
 if has("eval")
   call plug#begin('~/.vim/bundle')
@@ -448,6 +448,14 @@ if has("eval")
   " Resize quickfix windows to fit content -- broooken currently
   " see https://github.com/blueyed/vim-qf_resize/issues/5
   "Plug 'blueyed/vim-qf_resize'
+
+  " Text objects for vim's folds (vaz etc.)
+  Plug 'kana/vim-textobj-user'
+  Plug 'kana/vim-textobj-fold'
+
+  " The popular vim-surround that I hate every time I try
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-repeat'
 
 
   " Additional filetypes                                        {{{3
