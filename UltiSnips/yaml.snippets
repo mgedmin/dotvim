@@ -1,3 +1,25 @@
+snippet travis "travis.yml based on pytest" !b
+language: python
+python:
+    - 2.7
+    - 3.4
+    - 3.5
+    - 3.6
+    - 3.7
+    - pypy
+matrix:
+    include:
+        - python: 3.7
+          dist: xenial
+          sudo: true
+install:
+    - pip install pytest
+script:
+    - pytest
+notifications:
+    email: false
+endsnippet
+
 snippet travis-setup "travis.yml based on setup.py test" !b
 language: python
 sudo: false
@@ -69,6 +91,11 @@ python:
     - 3.5
     - 3.6
     - pypy
+matrix:
+    include:
+        - python: 3.7
+          dist: xenial
+          sudo: true
 install:
     - python bootstrap.py
     - bin/buildout
