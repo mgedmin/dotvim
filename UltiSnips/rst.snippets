@@ -1,3 +1,9 @@
+global !p
+import os
+def dirname(path=''):
+    return os.path.basename(os.path.dirname(os.path.abspath(path)))
+endglobal
+
 snippet pdb "import pdb; pdb.set_trace()" w
 import pdb; pdb.set_trace()
 endsnippet
@@ -63,6 +69,20 @@ endsnippet
 snippet coveralls "coveralls.io badge" "github_owner_repo(snip.buffer.name)" be
 .. image:: https://coveralls.io/repos/`!p snip.rv = rv = github_owner_repo(path)`/badge.svg?branch=master
     :target: https://coveralls.io/r/`!p snip.rv = rv`
+
+endsnippet
+
+snippet pypi "pypi.org badge" b
+.. image:: https://img.shields.io/pypi/v/${1:`!p snip.rv = dirname(path)`}.svg
+    :target: https://pypi.org/project/$1/
+    :alt: Latest release
+
+endsnippet
+
+snippet pyversions "python versions badge" b
+.. image:: https://img.shields.io/pypi/pyversions/${1:`!p snip.rv = dirname(path)`}.svg
+    :target: https://pypi.org/project/$1/
+    :alt: Supported Python versions
 
 endsnippet
 
