@@ -685,11 +685,6 @@ if has("eval")
   let bzr_highlight_diff = 1
 endif
 
-" surround.vim (which I no longer use)                          {{{2
-" make it not clobber 's' in visual mode
-vmap <Leader>s <Plug>Vsurround
-vmap <Leader>S <Plug>VSurround
-
 " NERD_tree.vim                                                 {{{2
 if v:version >= 700 && has("eval")
   let g:NERDTreeIgnore = [
