@@ -196,6 +196,12 @@ snippet loader "Unit test loader"
 unittest.defaultTestLoader.loadTestsFromName(${1:__name__}),
 endsnippet
 
+snippet test "Skeleton for a pytest test" b
+def test_${1:fname}():
+    ${2}
+
+endsnippet
+
 snippet pdb "pdb.set_trace()" !b
 import pdb; pdb.set_trace()
 endsnippet
