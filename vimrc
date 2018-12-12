@@ -723,6 +723,9 @@ if has("eval")
       call mg#statusline_highlight()
     endif
   endf
+  " hmm should I use autocmd User AsyncRunStop ... ?
+  " anyway you can add on top of this with
+  "  autocmd User AsyncRunStop HighlightCoverageForAll
   fun! OnAsyncRunExit()
     if g:asyncrun_status == 'success'
       hi! link StatusLine StatusLineSuccess
