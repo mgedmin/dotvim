@@ -890,6 +890,10 @@ command! NoLCD          exe 'cd '.getcwd()
 command! -nargs=? EditSnippets
   \ exe ":e ~/.vim/UltiSnips/".(<q-args> != "" ? <q-args> : &ft != "" ? &ft : "all").".snippets"
 
+" :EditFiletypePlugin                                           {{{2
+command! -nargs=? EditFiletypePlugin
+  \ exe ":e ~/.vim/ftplugin/".(<q-args> != "" ? <q-args> : &ft).".vim"
+
 " :Python3 and :Python2 to toggle Syntastic/flake8 mode         {{{2
 
 function! Flake8(exe, args, recheck_now)
