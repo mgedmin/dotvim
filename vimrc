@@ -1469,10 +1469,10 @@ augroup Python_prog
   autocmd BufRead,BufNewFile **/equities.*/**/*.py call FT_Python_MAN()
   autocmd BufRead,BufNewFile **/equities.*/**/*.html call FT_Python_MAN()
   autocmd BufRead,BufNewFile **/equities.*/.git/COMMIT_EDITMSG call FT_Python_MAN()
-  autocmd BufReadPre,BufNewFile **/tilaajavastuubol*/**/* call FT_Bolagsfakta_Syntastic()
+  autocmd BufReadPre,BufNewFile **/tilaajavastuu/bol*/**/* call FT_Bolagsfakta_Syntastic()
   autocmd BufRead,BufNewFile /var/lib/buildbot/masters/*/*.cfg  setlocal tags=/root/buildbot.tags
   autocmd BufRead,BufNewFile /usr/**/buildbot/**/*.py  setlocal tags=/root/buildbot.tags
-  if getcwd() =~ '.*bolagsfakta.*' | call FT_Bolagsfakta_Syntastic() | endif
+  if getcwd() =~ '.*tilaajavastuu.*' | call FT_Bolagsfakta_Syntastic() | endif
 augroup END
 
 augroup JS_prog
