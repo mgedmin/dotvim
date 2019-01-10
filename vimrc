@@ -390,7 +390,7 @@ if has("eval")
   " Bound to <C-P>
   Plug 'vim-scripts/ctrlp.vim'
 
-  " List open buffers with various sorting modes on \b
+  " List open buffers with various sorting modes on \be
   Plug 'jlanzarotta/bufexplorer'
 
   " File tree in a sidebar.  Bound to <Leader>N, <Leader>f
@@ -593,8 +593,9 @@ endif
 " bufexplorer.vim                                               {{{2
 
 if has("eval")
-  let g:bufExplorerShowRelativePath=1
-  let g:bufExplorerSplitOutPathName=0
+  let g:bufExplorerShowRelativePath = 1
+  let g:bufExplorerSplitOutPathName = 0
+  let g:bufExplorerShowNoName = 1
 endif
 
 " YouCompleteMe (which I no longer use)                         {{{2
