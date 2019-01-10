@@ -565,6 +565,9 @@ if has("eval")
   let g:CommandTMaxHeight = 20
   let g:CommandTTraverseSCM = "pwd"
 
+  " Allow Command-T to replace bufexplorer windows
+  let g:CommandTWindowFilter = '!&buflisted && &buftype == "nofile" && &filetype != "bufexplorer"'
+
   "let g:CommandTMaxFiles=800000  " firefox source tree is _big_
   " OTOH my home directory is also big and it sucks that I cannot interrupt
   " command-t with a ctrl-c when I accidentally trigger it there
