@@ -271,6 +271,7 @@ if has("eval")
     let g:ale_set_balloons = 1   " must be set before loading ale
     Plug 'w0rp/ale'
     let g:ale_linters = {'python': ['flake8']}
+    let g:ale_fixers = {'javascript': ['prettier']}
     " see https://github.com/w0rp/ale/issues/1827#issuecomment-433920827
     let g:ale_python_flake8_change_directory = 0
   else
