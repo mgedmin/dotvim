@@ -229,3 +229,10 @@ class ${1:Something}Factory(SQLAlchemyModelFactory):
         sqlalchemy_session = session
 
 endsnippet
+
+snippet assertRaisesRegex "assertRaisesRegex for Python 2 vs 3" b
+# Avoid DeprecationWarning for assertRaisesRegexp on Python 3 while
+# coping with Python 2 not having the Regex spelling variant
+assertRaisesRegex = getattr(unittest.TestCase, 'assertRaisesRegex',
+                            unittest.TestCase.assertRaisesRegexp)
+endsnippet
