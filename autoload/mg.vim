@@ -310,7 +310,7 @@ fun! mg#statusline_errors(...)
   if flag == "" && exists("*SyntasticStatuslineFlag")
     let flag = SyntasticStatuslineFlag()
   endif
-  if flag == "" && exists("*ale#statusline#Count")
+  if flag == "" && exists(":ALELint")
     let total = ale#statusline#Count(bufnr('%')).total
     let flag = total == 0 ? '' : printf(format, total)
   endif
