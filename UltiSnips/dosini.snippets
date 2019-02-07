@@ -19,6 +19,13 @@ commands =
     coverage report -m
 endsnippet
 
+snippet flake8 "tox -e flake8" b
+[testenv:flake8]
+deps = flake8
+skipinstall = true
+commands = flake8 setup.py src
+endsnippet
+
 snippet "systemd(-unit|-service)?" "systemd service unit" br
 [Unit]
 Description=${1:description}
