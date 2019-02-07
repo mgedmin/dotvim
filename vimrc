@@ -272,6 +272,8 @@ if has("eval")
     Plug 'w0rp/ale'
     let g:ale_linters = {'python': ['flake8']}
     let g:ale_fixers = {'javascript': ['prettier']}
+    let g:ale_python_flake8_executable = 'python2'
+    let g:ale_python_flake8_options = '-m flake8'
     " see https://github.com/w0rp/ale/issues/1827#issuecomment-433920827
     let g:ale_python_flake8_change_directory = 0
   else
@@ -777,6 +779,15 @@ endif
 call mg#statusline_enable()
 call mg#tabline_enable()
 
+if has("autocmd")
+  " Make sure to update the lint error counter in the statusline whenever the
+  " linter finishes running in the background
+  augroup ALEProgress
+    autocmd!
+    autocmd User ALELintPost call mg#statusline_update()
+  augroup END
+endif
+
 "
 " Commands                                                      {{{1
 "
@@ -908,16 +919,16 @@ function! Flake8(exe, args, recheck_now)
   let g:ale_python_flake8_executable = a:exe
   let g:ale_python_flake8_options = a:args
   let g:syntastic_python_flake8_exe = a:exe . ' ' . a:args
-  if a:recheck_now && exists('*SyntasticCheck')
+  if a:recheck_now && exists(':SyntasticCheck')
     SyntasticCheck
   endif
-  if a:recheck_now && exists('*ALELint')
+  if a:recheck_now && exists(':ALELint')
     ALELint
   endif
 endf
 function! Python2(recheck_now)
   call Flake8('python2', '-m flake8', a:recheck_now)
-  let g:coverage_script = 'coverage'
+  let g:coverage_script = 'python2 -m coverage'
 endf
 function! Python3(recheck_now)
   call Flake8('python3', '-m flake8', a:recheck_now)
