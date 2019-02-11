@@ -1,53 +1,53 @@
 snippet travis "travis.yml based on pytest" !b
 language: python
 python:
-    - 2.7
-    - 3.4
-    - 3.5
-    - 3.6
-    - 3.7
-    - pypy
+	- 2.7
+	- 3.4
+	- 3.5
+	- 3.6
+	- 3.7
+	- pypy
 matrix:
-    include:
-        - python: 3.7
-          dist: xenial
-          sudo: true
+	include:
+		- python: 3.7
+		  dist: xenial
+		  sudo: true
 install:
-    - pip install pytest
+	- pip install pytest
 script:
-    - pytest
+	- pytest
 notifications:
-    email: false
+	email: false
 endsnippet
 
 snippet travis-setup "travis.yml based on setup.py test" !b
 language: python
 sudo: false
 python:
-    - 2.7
-    - 3.4
-    - 3.5
-    - 3.6
-    - pypy
+	- 2.7
+	- 3.4
+	- 3.5
+	- 3.6
+	- pypy
 matrix:
-    include:
-        - python: 3.7
-          dist: xenial
-          sudo: true
+	include:
+		- python: 3.7
+		  dist: xenial
+		  sudo: true
 install:
-    - pip install .
+	- pip install .
 script:
-    - python setup.py test -q
+	- python setup.py test -q
 notifications:
-    email: false
+	email: false
 endsnippet
 
 snippet "^3[.]?7" "travis.yml snippet for python 3.7" !br
 matrix:
-    include:
-        - python: 3.7
-          dist: xenial
-          sudo: true
+	include:
+		- python: 3.7
+		  dist: xenial
+		  sudo: true
 endsnippet
 
 snippet "(?!^)(- )?3[.]?7" "travis.yml snippet for python 3.7" !br
@@ -62,11 +62,11 @@ sudo: false
 python:
 `tox -l|sed -e 's/py\([0-9]\)\([0-9]\+\)/\1.\2/' -e 's/^/    - /'`
 install:
-    - pip install tox-travis
+	- pip install tox-travis
 script:
-    - tox
+	- tox
 notifications:
-    email: false
+	email: false
 endsnippet
 
 snippet travis-toxenv "travis.yml based on tox and TOXENV" !b
@@ -75,34 +75,34 @@ sudo: false
 env:
 `tox -l|sed -e 's/^/    - TOXENV=/'`
 install:
-    - pip install tox
+	- pip install tox
 script:
-    - tox
+	- tox
 notifications:
-    email: false
+	email: false
 endsnippet
 
 snippet travis-buildout "travis.yml based on buildout" !b
 language: python
 sudo: false
 python:
-    - 2.7
-    - 3.4
-    - 3.5
-    - 3.6
-    - pypy
+	- 2.7
+	- 3.4
+	- 3.5
+	- 3.6
+	- pypy
 matrix:
-    include:
-        - python: 3.7
-          dist: xenial
-          sudo: true
+	include:
+		- python: 3.7
+		  dist: xenial
+		  sudo: true
 install:
-    - python bootstrap.py
-    - bin/buildout
+	- python bootstrap.py
+	- bin/buildout
 script:
-    - bin/test -pvc
+	- bin/test -pvc
 notifications:
-    email: false
+	email: false
 endsnippet
 
 snippet ansible "ansible playbook" !b
