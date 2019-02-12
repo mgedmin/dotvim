@@ -2,6 +2,7 @@
 
 setlocal wrap nolist lbr display=lastline tw=9999 nojoinspaces nosmartindent
 setlocal et spell
+setlocal colorcolumn=
 
 map <buffer> <Up> gk
 map <buffer> <Down> gj
@@ -12,6 +13,7 @@ imap <buffer> <Down> <C-O>gj
 map <buffer> ,n ]s
 map <buffer> ,p [s
 
+map <buffer> ,c I<!--<esc>A--><esc>
 
 " :FixStrings
 "

@@ -32,5 +32,5 @@ syn match Tag /<[^>]\+>/ contains=@NoSpell
 hi Tag ctermfg=gray
 syn match Entity /&.\{-};/ contains=@NoSpell
 hi Entity ctermfg=darkgreen
-syn region Comment start=/<!--/ end=/-->/
+syn region Comment start=/<!--/ end=/-->/ contains=String
 hi Comment ctermfg=darkblue
