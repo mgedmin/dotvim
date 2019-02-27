@@ -137,7 +137,7 @@ endif
 set backspace=indent,eol,start  " sensible backspacing
 set nowrap                      " do not wrap long lines
 set shiftwidth=4                " more-or-less reasonable indents
-set softtabstop=4               " make the <tab> key more useful
+set softtabstop=-1              " make the <tab> key more useful
 set tabstop=8                   " anything else is heresy
 set expandtab                   " tabs are evil
 set noshiftround                " do NOT enforce the indent
