@@ -738,6 +738,7 @@ if has("eval")
       hi! link StatusLine StatusLineSuccess
       cclose
       call mg#statusline_highlight()
+      call mg#statusline_update()
     elseif g:asyncrun_status == 'failure'
       hi! link StatusLine StatusLineFailure
       botright cw
@@ -745,7 +746,7 @@ if has("eval")
       normal zx
       call mg#statusline_highlight()
     endif
-    redrawstatus
+    redrawstatus!
     " perhaps echo 'async job finished:' g:asyncrun_code
     " but I tried that and didn't like it
     call FocusOnTestFailure()
@@ -755,7 +756,7 @@ endif
 if has("autocmd")
   augroup AsyncRun
     au!
-    au User AsyncRunStart hi! link StatusLine StatusLineRunning | call mg#statusline_highlight() | redrawstatus
+    au User AsyncRunStart hi! link StatusLine StatusLineRunning | call mg#statusline_highlight() | redrawstatus!
   augroup END
 endif
 
