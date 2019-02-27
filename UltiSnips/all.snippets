@@ -40,6 +40,12 @@ snippet coveragerc ".coveragerc" b
 # cover_pylib = False
 # branch = True
 
+[paths]
+source =
+    src/
+    .tox/*/lib/python*/site-packages/
+    .tox/pypy*/site-packages/
+
 [report]
 exclude_lines =
     pragma: nocover
