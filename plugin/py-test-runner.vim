@@ -99,8 +99,7 @@ function! UseZopeTestRunner(...)
     let g:pyTestRunner = a:0 > 0 ? join(a:000, " ") : "bin/test"
     let g:pyTestRunnerTestFilteringClassAndMethodFormat = "'{method} [(].*[.]{class}[)]'"
     let g:pyTestRunnerTestFiltering = "-t"
-    ""let g:pyTestRunnerPackageFiltering = "-s" <-- doesn't work sometimes!
-    let g:pyTestRunnerPackageFiltering = ""
+    let g:pyTestRunnerPackageFiltering = "-s"  " NB: doesn't work sometimes!
     let g:pyTestRunnerModuleFiltering = "-m"
     let g:pyTestRunnerFilenameFiltering = ""
     let g:pyTestRunnerUseAbsoluteFilenames = 1
