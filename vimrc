@@ -914,6 +914,9 @@ command! -nargs=? EditSnippets
 command! -nargs=? EditFiletypePlugin
   \ exe ":e ~/.vim/ftplugin/".(<q-args> != "" ? <q-args> : &ft).".vim"
 
+" :EditMacro as alias for :MacroEdit because my brain works that way
+command! -nargs=1 EditMacro MacroEdit <args>
+
 " :Python3 and :Python2 to toggle Syntastic/flake8 mode         {{{2
 
 function! Flake8(exe, args, recheck_now)
