@@ -1416,7 +1416,7 @@ endf
 function! FT_Python_Ivija()
   setlocal wildignore+=docs/src/*  " make command-t ignore the duplicated subtree
   setlocal wildignore+=reportgen-output/*
-  let g:pyTestRunnerClipboardExtras = '-vc'
+  let g:pyTestRunnerClipboardExtras = '-c'
 endf
 
 function! FT_Python_Schooltool()
