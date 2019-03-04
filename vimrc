@@ -912,7 +912,8 @@ command! -nargs=? EditSnippets
 
 " :EditFiletypePlugin                                           {{{2
 command! -nargs=? EditFiletypePlugin
-  \ exe ":e ~/.vim/ftplugin/".(<q-args> != "" ? <q-args> : &ft).".vim"
+  \ exe (&buftype == "quickfix" ? ":sp" : ":e") . " ~/.vim/ftplugin/"
+  \     . (<q-args> != "" ? <q-args> : &ft) . ".vim"
 
 " :EditMacro as alias for :MacroEdit because my brain works that way
 command! -nargs=1 EditMacro MacroEdit <args>
