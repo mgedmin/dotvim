@@ -1,10 +1,6 @@
 " Syntax tweaks for Python files
 " Adds folding for classes and functions
 
-" Sometimes long docstrings confuse vim's syntax highlighting engine
-" and this makes things better, maybe
-syn sync fromstart
-
 if &foldmethod != 'diff'
   setlocal foldmethod=expr
 endif
