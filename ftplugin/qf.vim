@@ -15,6 +15,9 @@ map <buffer> gF :pyx source_locator.locate(vim.current.line, command_prefix='win
 " recognized as an error line
 map <buffer> <expr> <CR> getqflist()[line('.')-1].valid ? "\<CR>" : "gF"
 
+" Make Ctrl+Shift+F9 re-run the last test
+map  <buffer> <C-S-F9>  :RunLastTestAgain<CR>
+
 " Clean up w:quickfix_title produced by vim-fugitive
 " see also https://github.com/tpope/vim-fugitive/issues/973
 let w:quickfix_title = substitute(w:quickfix_title, '^:hub --git-dir=.* --no-pager grep -n --no-color', ':Ggrep', '')

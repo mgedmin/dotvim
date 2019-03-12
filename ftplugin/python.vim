@@ -48,9 +48,11 @@ map  <buffer> <C-S-F6>  :SwitchCodeAndTest!<CR>
 " <C-F9> = run test under cursor
 " (plugin/py-test-runner.vim; integrates with asyncrun.vim)
 map  <buffer> <C-F9>    :RunTestUnderCursor<CR>
+imap <buffer> <C-F9>    <C-O><C-F9>
 
 " <C-S-F9> = repeat last test run
 map  <buffer> <C-S-F9>  :RunLastTestAgain<CR>
+imap <buffer> <C-S-F9>  <C-O><C-S-F9>
 
 " <F10> = run pyflakes on this file (obsoleted by syntastic)
 "map  <buffer> <F10>    :setlocal makeprg=pyflakes\ %\|make<CR>
