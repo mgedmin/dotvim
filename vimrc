@@ -151,20 +151,25 @@ if v:version >= 704
 endif
 
 " Editing code                                                  {{{2
+set path&
 set path+=/usr/include/i386-linux-gnu   " multiarch on ubuntu
 set path+=/usr/include/x86_64-linux-gnu " multiarch on ubuntu
 set path+=**                    " let :find do recursive searches
+set tags&
 set tags-=./TAGS                " ignore emacs tags to prevent duplicates
 set tags-=TAGS                  " ignore emacs tags to prevent duplicates
 set tags-=./tags                " bin/tags is not a tags file
 set tags+=tags;$HOME            " look for tags in parent dirs
+set suffixes&
 set suffixes+=.class            " ignore Java class files
 set suffixes+=.pyc,.pyo         " ignore compiled Python files
 set suffixes+=.egg-info         " ignore compiled Python files
 set suffixes+=.~1~,.~2~         " ignore Bazaar droppings
 set suffixes+=.png              " don't edit .png files please
+set wildignore&
 set wildignore+=*.pyc,*.pyo     " same as 'suffixes', but for tab completion
 set wildignore+=*.[oad],*.so    " and, more importantly, Command-T
+set wildignore+=__pycache__/*   " Python droppings
 set wildignore+=*.egg-info/*    " setuptools droppings
 set wildignore+=*~              " backup files
 set wildignore+=local/*         " virtualenv
@@ -176,7 +181,7 @@ set wildignore+=parts/omelette/*  " collective.recipe.omelette
 set wildignore+=parts/*         " all buildout-generated junk even
 set wildignore+=.venv/*         " virtualenv
 set wildignore+=eggs/*          " virtualenv
-set wildignore+=.tox/*          " tox
+"set wildignore+=.tox/*         " tox -- I find it useful to :e files from .tox/
 set wildignore+=_build/*        " sphinx
 set wildignore+=python/*        " virtualenv called 'python'
 set wildignore+=__pycache__     " compiled python files
