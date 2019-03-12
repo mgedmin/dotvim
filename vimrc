@@ -741,7 +741,13 @@ if has("eval")
       call mg#statusline_update()
     elseif g:asyncrun_status == 'failure'
       hi! link StatusLine StatusLineFailure
-      botright cw
+      if mode() == "n"
+        botright cw
+      else
+        let curwin = winnr()
+        botright cw
+        exec curwin . "wincmd w"
+      endif
       " update folds
       normal zx
       call mg#statusline_highlight()
