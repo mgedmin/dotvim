@@ -447,6 +447,9 @@ if has("eval")
   " Enable vim filename:lineno and :e filename:lineno
   Plug 'kopischke/vim-fetch'
 
+  " Edit symlink targets instead of symlinks
+  Plug 'aymericbeaumet/symlink.vim'
+
   " Async shell commands (see :Make)
   Plug 'skywind3000/asyncrun.vim'
 
@@ -464,6 +467,9 @@ if has("eval")
   " The popular vim-surround that I hate every time I try
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
+
+  " Show vim command output in a buffer, e.g. :Bufferize scriptnames
+  Plug 'AndrewRadev/bufferize.vim'
 
 
   " Additional filetypes                                        {{{3
