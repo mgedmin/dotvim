@@ -1,7 +1,7 @@
 " File: py-test-runner.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.7
-" Last Modified: 2018-05-25
+" Version: 0.8
+" Last Modified: 2019-04-04
 "
 " Overview
 " --------
@@ -26,6 +26,9 @@
 "
 " :RunTestUnderCursor -- launches the test runner (configured via
 " g:pyTestRunner) with :make
+"
+" :RunLastTestAgain -- runs the last test again (useful when you've moved the
+" cursor away while editing)
 "
 " :CopyTestUnderCursor -- copies the command line to run the test into the
 " X11 selection
@@ -66,7 +69,7 @@ endif
 if !exists("g:pyTestRunnerFilenameFiltering")
     let g:pyTestRunnerFilenameFiltering = ""
 endif
-if !exists("g:pyTestRunnerFilenameFiltering")
+if !exists("g:pyTestRunnerUseAbsoluteFilenames")
     let g:pyTestRunnerUseAbsoluteFilenames = 0
   endif
 if !exists("g:pyTestRunnerPackageFiltering")
@@ -87,11 +90,6 @@ if !exists("g:pyTestLastTest")
     let g:pyTestLastTest = ""
 endif
 
-runtime plugin/pythonhelper.vim
-if !exists("*TagInStatusLine")
-    finish
-endif
-
 function! UseZopeTestRunner(...)
     " Assumes you have bin/test, generates command lines of the form
     "   bin/test -s <package> -m <module> -t '{method} [(].*{class}[)]'
@@ -108,10 +106,10 @@ function! UseZopeTestRunner(...)
     let g:pyTestRunnerClipboardExtrasSuffix = ""
 endfunction
 
-function! UseDjangoTestRunner()
+function! UseDjangoTestRunner(...)
     " Assumes you have django-nose, generates command lines of the form
     "   bin/django test <filename>:{class}.{method}
-    let g:pyTestRunner = "bin/django test"
+    let g:pyTestRunner = a:0 > 0 ? join(a:000, " ") : "bin/django test"
     let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}.{method}"
     let g:pyTestRunnerTestFiltering = "<NOSPACE>:<NOSPACE>"
     let g:pyTestRunnerPackageFiltering = ""
@@ -126,7 +124,7 @@ endfunction
 function! UsePyTestTestRunner(...)
     " Assumes you have py.test, generates command lines of the form
     "   py.test <filename>::{class}.{method}
-    let g:pyTestRunner = a:0 > 0 ? join(a:000, " ") : "py.test -ra"
+    let g:pyTestRunner = a:0 > 0 ? join(a:000, " ") : "pytest -ra"
     let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}::{method}"
     let g:pyTestRunnerTestFiltering = "<NOSPACE>::<NOSPACE>"
     let g:pyTestRunnerPackageFiltering = ""
@@ -158,7 +156,12 @@ function! GetTestUnderCursor()
     if expand("%:e") == "txt" || expand("%:e") == "test"
         let l:test = g:pyTestRunnerTestFiltering . " " . expand("%:t")
     else
-        let l:tag = TagInStatusLine()
+        if exists("*TagInStatusLine")
+            " defined by https://github.com/mgedmin/pythonhelper.vim
+            let l:tag = TagInStatusLine()
+        else
+            let l:tag = ""
+        endif
         if l:tag != ""
             " Older versions of pythonhelper.vim return [fulltagname]
             " Newer versions of pythonhelper.vim return [in fulltagname (type)]
