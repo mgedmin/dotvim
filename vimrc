@@ -1436,31 +1436,10 @@ endf
 function! FT_Python_Ivija()
   setlocal wildignore+=docs/src/*  " make command-t ignore the duplicated subtree
   setlocal wildignore+=reportgen-output/*
-  let g:pyTestRunnerClipboardExtras = '-c'
-endf
-
-function! FT_Python_Schooltool()
-  let g:pyTestRunnerClipboardExtras='-pvc1'
-  let g:pyTestRunnerDirectoryFiltering = ''
-  let g:pyTestRunnerModuleFiltering = ''
 endf
 
 function! FT_Python_Django()
-  call UseDjangoTestRunner()
   setlocal wildignore+=var/www/static/*
-endf
-
-function! FT_Python_Yplan()
-  let g:pyTestRunnerClipboardExtras=''
-  let g:pyTestRunnerDirectoryFiltering = ''
-  let g:pyTestRunnerFilenameFiltering = " "
-  let g:pyTestRunnerPackageFiltering = ""
-  let g:pyTestRunnerModuleFiltering = ''
-  let g:pyTestRunnerTestFiltering = "<NOSPACE>:<NOSPACE>"
-  let g:pyTestRunner = "../runlocaltests.sh"
-  let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{class}.{method}"
-  Margin 120
-  setlocal makeprg=arc\ lint\ --output\ summary
 endf
 
 function! FT_Bolagsfakta_Syntastic()
@@ -1470,10 +1449,6 @@ function! FT_Bolagsfakta_Syntastic()
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
   let g:coverage_script = 'python3 -m coverage'
-  if exists('*UsePyTestTestRunner')
-    call UsePyTestTestRunner()
-  endif
-  let g:pyTestRunner = "server/env/bin/py.test -ra"
   let g:py_test_locator_prefixes = ["server/"]
   let g:source_locator_prefixes = ['server/', 'robottests/']
   if executable('./.ctags-wrapper')
@@ -1486,30 +1461,11 @@ function! FT_Bolagsfakta_Syntastic()
   endf
 endf
 
-function! FT_Python_MAN()
-  Margin 120
-  setlocal makeprg=flake8
-  let g:pyTestRunner = "py.test"
-  let g:pyTestRunnerClipboardExtras=''
-  let g:pyTestRunnerDirectoryFiltering = ''
-  let g:pyTestRunnerFilenameFiltering = " "
-  let g:pyTestRunnerPackageFiltering = ""
-  let g:pyTestRunnerModuleFiltering = ''
-  let g:pyTestRunnerTestFiltering = "-k"
-  let g:syntastic_html_tidy_exec = '/usr/bin/tidy' " because tidy in the activated virtualenv nukes the *.egg-info etc.
-endf
-
 augroup Python_prog
   autocmd!
   autocmd BufRead,BufNewFile ~/src/ivija/**/*.txt  set ft=rst
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'ivija' | call FT_Python_Ivija() | endif
-  autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'schooltool' | call FT_Python_Schooltool() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'labtarna' | call FT_Python_Django() | endif
-  autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'masinis' | call FT_Python_Django() | endif
-  autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'yplan' | call FT_Python_Yplan() | endif
-  autocmd BufRead,BufNewFile **/equities.*/**/*.py call FT_Python_MAN()
-  autocmd BufRead,BufNewFile **/equities.*/**/*.html call FT_Python_MAN()
-  autocmd BufRead,BufNewFile **/equities.*/.git/COMMIT_EDITMSG call FT_Python_MAN()
   autocmd BufReadPre,BufNewFile **/tilaajavastuu/bol*/**/* call FT_Bolagsfakta_Syntastic()
   autocmd BufRead,BufNewFile /var/lib/buildbot/masters/*/*.cfg  setlocal tags=/root/buildbot.tags
   autocmd BufRead,BufNewFile /usr/**/buildbot/**/*.py  setlocal tags=/root/buildbot.tags
@@ -1609,13 +1565,6 @@ augroup END
 " BookServ dev                                                  {{{2
 
 function! FT_BookServ_Py()
-  let g:pyTestRunner = 'bin/test'
-  let g:pyTestRunnerTestFiltering = "-m"
-  let g:pyTestRunnerDirectoryFiltering = ""
-  let g:pyTestRunnerPackageFiltering = ""
-  let g:pyTestRunnerModuleFiltering = ""
-  let g:pyTestRunnerClipboardExtras = ""
-  let g:pyTestRunnerFilenameFiltering = " "
   setlocal path^=src/bookserv/templates,src/bookserv/public
   setlocal includeexpr=substitute(v:fname,'^/','','')
 endf

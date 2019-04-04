@@ -3,3 +3,4 @@ bundle
 *.spl
 *.sug
 autoload/plug.vim.old
+.coverage
