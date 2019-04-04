@@ -46,7 +46,7 @@ map  <buffer> <C-S-F6>  :SwitchCodeAndTest!<CR>
 "map  <buffer> <F9>     :SyntasticCheck<CR>
 
 " <C-F9> = run test under cursor
-" (plugin/py-test-runner.vim; integrates with asyncrun.vim)
+" (https://github.com/mgedmin/py-test-runner.vim; integrates with asyncrun.vim)
 map  <buffer> <C-F9>    :RunTestUnderCursor<CR>
 imap <buffer> <C-F9>    <C-O><C-F9>
 

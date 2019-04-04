@@ -335,6 +335,9 @@ if has("eval")
   " Automate switching between code and unit test files, bound to <C-F6>
   Plug 'mgedmin/test-switcher.vim'
 
+  " Run test under cursor
+  Plug 'mgedmin/py-test-runner.vim'
+
   " Locate the source code line from clipboard contents, bound to <F7>
   Plug 'mgedmin/source-locator.vim'
 
