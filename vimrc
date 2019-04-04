@@ -753,7 +753,7 @@ if has("eval")
       cclose
       call mg#statusline_highlight()
       call mg#statusline_update()
-    elseif g:asyncrun_status == 'failure'
+    elseif g:asyncrun_status == 'failure' && g:asyncrun_code != -1
       hi! link StatusLine StatusLineFailure
       if mode() == "n"
         botright cw
@@ -765,6 +765,10 @@ if has("eval")
       " update folds
       normal zx
       call mg#statusline_highlight()
+    else
+      hi! link StatusLine StatusLineNeutral
+      call mg#statusline_highlight()
+      call mg#statusline_update()
     endif
     redrawstatus!
     " perhaps echo 'async job finished:' g:asyncrun_code
