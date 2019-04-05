@@ -801,6 +801,11 @@ endif
 " And then I went ahead and overengineered everything in autoload/mg.vim
 " And then later copied the aesthetics of lightline.vim.
 
+" I forgot why I hated :lcd.  Now I hate how netrw uses :lcd and puts the icon
+" in my statusline, so let's disable that and see if I hate :lcd when I cannot
+" see it.
+let g:show_lcd_in_status = 0
+
 call mg#statusline_enable()
 call mg#tabline_enable()
 

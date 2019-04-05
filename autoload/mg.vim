@@ -242,9 +242,13 @@ fun! s:mediumpath(path)
   return a:path != "" ? fnamemodify(a:path, ":~:.") : ""
 endf
 
+if !exists("g:show_lcd_in_status")
+  let g:show_lcd_in_status = 1
+endif
+
 fun! mg#statusline_lcd()
   let format = a:0 >= 1 ? a:1 : ' %s '
-  return haslocaldir() ? printf(format, 'lcd') : ''
+  return g:show_lcd_in_status && haslocaldir() ? printf(format, 'lcd') : ''
 endf
 
 fun! mg#statusline_directory()
