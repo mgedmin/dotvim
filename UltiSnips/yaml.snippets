@@ -11,7 +11,6 @@ matrix:
 	include:
 		- python: 3.7
 		  dist: xenial
-		  sudo: true
 install:
 	- pip install pytest
 script:
@@ -22,7 +21,6 @@ endsnippet
 
 snippet travis-setup "travis.yml based on setup.py test" !b
 language: python
-sudo: false
 python:
 	- 2.7
 	- 3.4
@@ -33,7 +31,6 @@ matrix:
 	include:
 		- python: 3.7
 		  dist: xenial
-		  sudo: true
 install:
 	- pip install .
 script:
@@ -47,18 +44,15 @@ matrix:
 	include:
 		- python: 3.7
 		  dist: xenial
-		  sudo: true
 endsnippet
 
 snippet "(?!^)(- )?3[.]?7" "travis.yml snippet for python 3.7" !br
 - python: 3.7
   dist: xenial
-  sudo: true
 endsnippet
 
 snippet tox-travis "travis.yml based on tox-travis" !b
 language: python
-sudo: false
 python:
 `tox -l|sed -e 's/py\([0-9]\)\([0-9]\+\)/\1.\2/' -e 's/^/    - /'`
 install:
@@ -71,7 +65,6 @@ endsnippet
 
 snippet travis-toxenv "travis.yml based on tox and TOXENV" !b
 language: python
-sudo: false
 env:
 `tox -l|sed -e 's/^/    - TOXENV=/'`
 install:
@@ -84,7 +77,6 @@ endsnippet
 
 snippet travis-buildout "travis.yml based on buildout" !b
 language: python
-sudo: false
 python:
 	- 2.7
 	- 3.4
@@ -95,7 +87,6 @@ matrix:
 	include:
 		- python: 3.7
 		  dist: xenial
-		  sudo: true
 install:
 	- python bootstrap.py
 	- bin/buildout
