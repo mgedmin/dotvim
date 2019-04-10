@@ -944,6 +944,16 @@ command! -nargs=? EditFiletypePlugin
   \ exe (&buftype == "quickfix" ? ":sp" : ":e") . " ~/.vim/ftplugin/"
   \     . (<q-args> != "" ? <q-args> : &ft) . ".vim"
 
+" :EditSyntaxPlugin                                             {{{2
+command! -nargs=? EditSyntaxPlugin
+  \ exe (&buftype == "quickfix" ? ":sp" : ":e") . " ~/.vim/syntax/"
+  \     . (<q-args> != "" ? <q-args> : &ft) . ".vim"
+
+" :EditIndentPlugin                                             {{{2
+command! -nargs=? EditIndentPlugin
+  \ exe (&buftype == "quickfix" ? ":sp" : ":e") . " ~/.vim/indent/"
+  \     . (<q-args> != "" ? <q-args> : &ft) . ".vim"
+
 " :EditMacro as alias for :MacroEdit because my brain works that way
 command! -nargs=1 EditMacro MacroEdit <args>
 
