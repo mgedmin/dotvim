@@ -283,7 +283,7 @@ if has("eval")
     Plug 'w0rp/ale'
     let g:ale_linters = {'python': ['flake8']}
     let g:ale_fixers = {'javascript': ['prettier']}
-    let g:ale_python_flake8_executable = 'python2'
+    let g:ale_python_flake8_executable = 'python3'
     let g:ale_python_flake8_options = '-m flake8'
     " see https://github.com/w0rp/ale/issues/1827#issuecomment-433920827
     let g:ale_python_flake8_change_directory = 0
@@ -352,6 +352,7 @@ if has("eval")
 
   " :HighlightCoverage for Python
   Plug 'mgedmin/coverage-highlight.vim'
+  let g:coverage_script = 'python3 -m coverage'
   noremap [C :<C-U>PrevUncovered<CR>
   noremap ]C :<C-U>NextUncovered<CR>
 
