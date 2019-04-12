@@ -176,7 +176,8 @@ def test_suite():
     return doctest.DocTestSuite()
 endsnippet
 
-snippet doctest "Skeleton for a doctest" !b
+pre_expand "snip.buffer[snip.line] = ''; snip.cursor.set(snip.line, 0)"
+snippet doctest "Skeleton for a doctest" b
 def doctest_${1:fname}():
     """Test for ${2:$1}
 
