@@ -740,9 +740,14 @@ endif
 
 " asyncrun.vim + fugitive.vim = <3                              {{{2
 if has("user_commands")
+  " :Make as described in
   " https://github.com/skywind3000/asyncrun.vim/wiki/Cooperate-with-vim-fugitive
   " now :Gpush and :Gfetch are async!
-  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+  command! -bang -nargs=* -complete=file Make
+              \ AsyncRun -program=make @ <args>
+  command! -bang -nargs=* -complete=file VerboseMake
+              \ echo &makeprg <q-args>
+              \ | AsyncRun -program=make @ <args>
 endif
 if has("eval")
   fun! ResetStatusLineColor()
@@ -781,6 +786,9 @@ if has("eval")
     " perhaps echo 'async job finished:' g:asyncrun_code
     " but I tried that and didn't like it
     call FocusOnTestFailure()
+    if g:asyncrun_info == "-program=make @ " && &makeprg == "make coverage"
+      HighlightCoverageForAll
+    endif
   endf
   let g:asyncrun_exit = "call OnAsyncRunExit()"
 endif
@@ -1009,6 +1017,10 @@ function! s:LaptopMode(on)
 endf
 command! LaptopMode     call s:LaptopMode(1)
 command! LaptopModeOff  call s:LaptopMode(0)
+
+" :MakeTarget [target]                                          {{{2
+command -bar -nargs=* MakeTarget
+      \ let &makeprg = join(["make", <f-args>], ' ') | set makeprg
 
 " :TermRestart -- re-exec the terminal command that exited      {{{2
 augroup TermRestart
@@ -1363,7 +1375,7 @@ vnoremap        <F8>
       \ y:let @/='\V'.substitute(escape(@@,"/\\"),"\n","\\\\n","ge")<bar>set hls<CR>
 
 " <F9> = make (often overwritten by filetype plugins)
-map             <F9>    :Make<CR>
+map             <F9>    :VerboseMake<CR>
 imap            <F9>    <C-O><F9>
 " <S-F9> = toggle quickfix window
 map             <S-F9>  :call asyncrun#quickfix_toggle(8)<bar>call mg#statusline_update()<CR>
