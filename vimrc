@@ -222,6 +222,12 @@ set errorformat&
 "   %X%*\a: Leaving directory %*[`']%f'
 "   %DMaking %*\a in %f
 "   %f|%l| %m
+"
+" and sometimes it misfires, so let's fix it up a bit
+" (TBH I don't even know what compiler produces filename(lineno) so why even
+" have it?)
+set errorformat-=%f(%l):%m
+set errorformat+=%f\\(%l):%m
 
 " Sometimes pytest prepends an 'E' marker at the beginning of a traceback line
 set errorformat+=
