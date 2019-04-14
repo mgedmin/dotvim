@@ -169,6 +169,7 @@ set suffixes+=.png              " don't edit .png files please
 set wildignore&
 set wildignore+=*.pyc,*.pyo     " same as 'suffixes', but for tab completion
 set wildignore+=*.[oad],*.so    " and, more importantly, Command-T
+set wildignore+=__pycache__     " Python droppings
 set wildignore+=__pycache__/*   " Python droppings
 set wildignore+=*.egg-info/*    " setuptools droppings
 set wildignore+=*~              " backup files
