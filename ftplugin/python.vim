@@ -56,3 +56,6 @@ imap <buffer> <C-S-F9>  <C-O><C-S-F9>
 
 " <F10> = run pyflakes on this file (obsoleted by syntastic)
 "map  <buffer> <F10>    :setlocal makeprg=pyflakes\ %\|make<CR>
+
+" <F11> = toggle coverage highlighting
+map  <buffer> <F11>     :ToggleCoverage<CR>
