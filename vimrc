@@ -355,6 +355,8 @@ if has("eval")
   let g:coverage_script = 'python3 -m coverage'
   noremap [C :<C-U>PrevUncovered<CR>
   noremap ]C :<C-U>NextUncovered<CR>
+  noremap <M-Up> :<C-U>PrevUncovered<CR>
+  noremap <M-Down> :<C-U>NextUncovered<CR>
 
   " Better Python autoindentation
   Plug 'Vimjas/vim-python-pep8-indent'
