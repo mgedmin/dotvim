@@ -37,3 +37,10 @@ ExecStart=${3:program --args}
 [Install]
 WantedBy=multi-user.target
 endsnippet
+
+snippet pytest "pytest.ini" b
+[pytest]
+addopts = -ra
+# addopts = -ra --doctest-modules --doctest-report ndiff
+# doctest_optionflags = ELLIPSIS
+endsnippet
