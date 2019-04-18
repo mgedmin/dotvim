@@ -1663,78 +1663,91 @@ endif
 " ColorScheme autocommand, but meh, it's easy enough to do a ,s when my colors
 " get stomped over)
 
-highlight NonText               ctermfg=gray guifg=gray term=standout
-highlight SpecialKey            ctermfg=gray guifg=gray term=standout
-highlight MatchParen            gui=bold guibg=NONE guifg=lightblue cterm=bold ctermbg=255
-highlight SpellBad              cterm=underline ctermfg=red ctermbg=NONE
-highlight SpellCap              cterm=underline ctermfg=blue ctermbg=NONE
+fun! MyColorTweaks()
 
-if $TERM == "Eterm"
-  highlight StatusLine          ctermfg=white ctermbg=black cterm=bold
-  highlight StatusLineNC        ctermfg=white ctermbg=black cterm=NONE
-  highlight VertSplit           ctermfg=white ctermbg=black cterm=NONE
-endif
+  highlight NonText               ctermfg=gray guifg=gray term=standout
+  highlight SpecialKey            ctermfg=gray guifg=gray term=standout
+  highlight MatchParen            gui=bold guibg=NONE guifg=lightblue cterm=bold ctermbg=255
+  highlight SpellBad              cterm=underline ctermfg=red ctermbg=NONE
+  highlight SpellCap              cterm=underline ctermfg=blue ctermbg=NONE
 
-" Get rid of italics (they look ugly)
-highlight htmlItalic            gui=NONE guifg=orange
-highlight htmlUnderlineItalic   gui=underline guifg=orange
+  if $TERM == "Eterm"
+    highlight StatusLine          ctermfg=white ctermbg=black cterm=bold
+    highlight StatusLineNC        ctermfg=white ctermbg=black cterm=NONE
+    highlight VertSplit           ctermfg=white ctermbg=black cterm=NONE
+  endif
 
-" Make error messages more readable
-highlight ErrorMsg              guifg=red guibg=white
+  " Get rid of italics (they look ugly)
+  highlight htmlItalic            gui=NONE guifg=orange
+  highlight htmlUnderlineItalic   gui=underline guifg=orange
 
-" Python doctests -- I got used to one color, then upgraded the Python
-" syntax script and it changed it
-highlight link Test Special
+  " Make error messages more readable
+  highlight ErrorMsg              guifg=red guibg=white
 
-" for custom :match commands
-highlight Red                   guibg=red ctermbg=red
-highlight Green                 guibg=green ctermbg=green
+  " Python doctests -- I got used to one color, then upgraded the Python
+  " syntax script and it changed it
+  highlight link Test Special
 
-" for less intrusive signs
-highlight SignColumn ctermbg=230 guibg=#ffffd7
-if exists("*gitgutter#highlight#define_highlights")
-  " let vim-gitgutter know we changed the SignColumn colors!
-  call gitgutter#highlight#define_highlights()
-endif
+  " for custom :match commands
+  highlight Red                   guibg=red ctermbg=red
+  highlight Green                 guibg=green ctermbg=green
 
-hi ALEErrorSign ctermfg=red ctermbg=230 guibg=#ffffd7
+  " for less intrusive signs
+  highlight SignColumn ctermbg=230 guibg=#ffffd7
+  if exists("*gitgutter#highlight#define_highlights")
+    " let vim-gitgutter know we changed the SignColumn colors!
+    call gitgutter#highlight#define_highlights()
+  endif
 
-" gutter on the right of the text
-highlight ColorColumn ctermbg=230 guibg=#ffffd7
+  hi ALEErrorSign ctermfg=red ctermbg=230 guibg=#ffffd7
 
-" gutter below the text
-highlight NonText ctermbg=230 guibg=#ffffd7
-set shortmess+=I " suppress intro message because the above makes it look bad
+  hi GitGutterAdd ctermfg=70 ctermbg=230
+  hi GitGutterChange ctermfg=208 ctermbg=230
+  hi GitGutterDelete ctermfg=160 ctermbg=230
 
-" fold column aka gutter on the left
-highlight FoldColumn ctermbg=230 guibg=#ffffd7
+  " gutter on the right of the text
+  highlight ColorColumn ctermbg=230 guibg=#ffffd7
 
-" number column aka gutter on the left
-highlight LineNr ctermbg=230 guibg=#ffffd7
-highlight CursorLineNr ctermbg=230 guibg=#ffffd7 cterm=underline
+  " gutter below the text
+  highlight NonText ctermbg=230 guibg=#ffffd7
+  set shortmess+=I " suppress intro message because the above makes it look bad
 
-" cursor column
-highlight CursorColumn ctermbg=230 guibg=#ffffd7
-highlight CursorLine ctermbg=230 guibg=#ffffd7
+  " fold column aka gutter on the left
+  highlight FoldColumn ctermbg=230 guibg=#ffffd7
 
-" avoid invisible color combination (red on red)
-highlight DiffText ctermbg=1
+  " number column aka gutter on the left
+  highlight LineNr ctermbg=230 guibg=#ffffd7
+  highlight CursorLineNr ctermbg=230 guibg=#ffffd7 cterm=underline
 
-" easier on the eyes
-highlight Folded ctermbg=229 guibg=#ffffaf
+  " cursor column
+  highlight CursorColumn ctermbg=230 guibg=#ffffd7
+  highlight CursorLine ctermbg=230 guibg=#ffffd7
 
-set fillchars=vert:│,fold:-
-highlight VertSplit cterm=reverse ctermbg=7
+  " avoid invisible color combination (red on red)
+  highlight DiffText ctermbg=1
 
-" indicate test status
-hi StatusLineNeutral
-            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
-hi StatusLineRunning ctermfg=53 guifg=#5f005f
-            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
-hi StatusLineSuccess ctermfg=22 guifg=#005f00
-            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
-hi StatusLineFailure ctermfg=52 guifg=#5f0000
-            \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+  " easier on the eyes
+  highlight Folded ctermbg=229 guibg=#ffffaf
+
+  set fillchars=vert:│,fold:-
+  highlight VertSplit cterm=reverse ctermbg=7
+
+  " indicate test status
+  hi StatusLineNeutral
+              \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+  hi StatusLineRunning ctermfg=53 guifg=#5f005f
+              \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+  hi StatusLineSuccess ctermfg=22 guifg=#005f00
+              \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+  hi StatusLineFailure ctermfg=52 guifg=#5f0000
+              \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+endf
+call MyColorTweaks()
+
+augroup MyColorTweaks
+  au!
+  au ColorScheme * call MyColorTweaks()
+augroup END
 
 
 "
