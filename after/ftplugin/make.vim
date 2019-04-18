@@ -1,0 +1,1 @@
+setlocal softtabstop=8
