@@ -569,8 +569,8 @@ endif
 " A.L.E.
 
 if has("eval")
-  let g:ale_sign_error = '☞ '
-  let g:ale_sign_warning = '☞ '
+  let g:ale_sign_error = '☞'
+  let g:ale_sign_warning = '☞'
   let g:ale_statusline_format = ['{%d}', '{%d}', '']
 
   " if I become annoyed about ALE showing errors for half-typed text, perhaps
