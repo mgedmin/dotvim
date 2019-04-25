@@ -1,58 +1,26 @@
 snippet travis "travis.yml based on pytest" !b
 language: python
+dist: xenial
 python:
 	- 2.7
 	- 3.4
 	- 3.5
 	- 3.6
 	- 3.7
-	- pypy
-matrix:
-	include:
-		- python: 3.7
-		  dist: xenial
+	- pypy2.7-6.0
+	- pypy3.5-6.0
 install:
 	- pip install pytest
 script:
 	- pytest
 notifications:
 	email: false
-endsnippet
-
-snippet travis-setup "travis.yml based on setup.py test" !b
-language: python
-python:
-	- 2.7
-	- 3.4
-	- 3.5
-	- 3.6
-	- pypy
-matrix:
-	include:
-		- python: 3.7
-		  dist: xenial
-install:
-	- pip install .
-script:
-	- python setup.py test -q
-notifications:
-	email: false
-endsnippet
-
-snippet "^3[.]?7" "travis.yml snippet for python 3.7" !br
-matrix:
-	include:
-		- python: 3.7
-		  dist: xenial
-endsnippet
-
-snippet "(?!^)(- )?3[.]?7" "travis.yml snippet for python 3.7" !br
-- python: 3.7
-  dist: xenial
+cache: pip
 endsnippet
 
 snippet tox-travis "travis.yml based on tox-travis" !b
 language: python
+dist: xenial
 python:
 `tox -l|sed -e 's/py\([0-9]\)\([0-9]\+\)/\1.\2/' -e 's/^/    - /'`
 install:
@@ -61,39 +29,7 @@ script:
 	- tox
 notifications:
 	email: false
-endsnippet
-
-snippet travis-toxenv "travis.yml based on tox and TOXENV" !b
-language: python
-env:
-`tox -l|sed -e 's/^/    - TOXENV=/'`
-install:
-	- pip install tox
-script:
-	- tox
-notifications:
-	email: false
-endsnippet
-
-snippet travis-buildout "travis.yml based on buildout" !b
-language: python
-python:
-	- 2.7
-	- 3.4
-	- 3.5
-	- 3.6
-	- pypy
-matrix:
-	include:
-		- python: 3.7
-		  dist: xenial
-install:
-	- python bootstrap.py
-	- bin/buildout
-script:
-	- bin/test -pvc
-notifications:
-	email: false
+cache: pip
 endsnippet
 
 snippet ansible "ansible playbook" !b
