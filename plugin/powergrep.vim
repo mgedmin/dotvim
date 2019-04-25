@@ -1,7 +1,7 @@
 " File: powergrep.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 1.1
-" Last Modified: 2012-11-29
+" Version: 1.2
+" Last Modified: 2019-04-25
 "
 " Overview
 " --------
@@ -41,6 +41,7 @@
 "   :Grepall[!] [arguments-for-find --] arguments-for-grep [-- filter]
 "   :Gid[!] arguments-for-gid [-- filter]
 "   :Gitgrep[!] arguments-for-git-grep [-- filter]
+"   :Ripgrep[!] arguments-for-rg [-- filter]
 "
 " Requirements
 " ------------
@@ -55,6 +56,8 @@
 " :Gid uses 'lid' from GNU id-utils, and 'sort'.
 "
 " :Gitgrep uses 'git grep'.
+"
+" :Ripgrep uses 'rg'.
 "
 " Installation
 " ------------
@@ -106,11 +109,17 @@ function! Gitgrep(query, bang)
   call DoGrep('git grep -nH $*', a:query, a:bang)
 endf
 
+function! Ripgrep(query, bang)
+  call DoGrep('rg --vimgrep $*', a:query, a:bang)
+endf
+
 command! -nargs=+ -complete=tag -bang Grep	call Grep(<q-args>, <q-bang>)
 command! -nargs=+ -complete=tag -bang Grepall	call Grepall(<q-args>, <q-bang>)
 command! -nargs=+ -complete=tag -bang Gid	call Gid(<q-args>, <q-bang>)
 command! -nargs=+ -complete=tag -bang Grin	call Grin(<q-args>, <q-bang>)
 command! -nargs=+ -complete=tag -bang Gitgrep	call Gitgrep(<q-args>, <q-bang>)
+command! -nargs=+ -complete=tag -bang Ripgrep	call Ripgrep(<q-args>, <q-bang>)
 
+" These are Bad Ideas, heh heh heh
 cabbrev grepall grepall<C-\>esubstitute(getcmdline(), '^grepall', 'Grepall', '')<cr>
 cabbrev gid gid<C-\>esubstitute(getcmdline(), '^gid', 'Gid', '')<cr>
