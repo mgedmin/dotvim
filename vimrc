@@ -169,23 +169,20 @@ set suffixes+=.png              " don't edit .png files please
 set wildignore&
 set wildignore+=*.pyc,*.pyo     " same as 'suffixes', but for tab completion
 set wildignore+=*.[oad],*.so    " and, more importantly, Command-T
-set wildignore+=__pycache__     " Python droppings
-set wildignore+=__pycache__/*   " Python droppings
-set wildignore+=*.egg-info/*    " setuptools droppings
+set wildignore+=*/__pycache__   " compiled python files
+set wildignore+=*/*.egg-info    " setuptools droppings DOES NOT WORK WHY??
 set wildignore+=*~              " backup files
-set wildignore+=local/*         " virtualenv
-set wildignore+=build/*         " distutils, I hates them
-set wildignore+=dist/*          " distutils deliverables
-set wildignore+=htmlcov/*       " coverage.py
-set wildignore+=coverage/*      " zope.testrunner --coverage
-set wildignore+=parts/omelette/*  " collective.recipe.omelette
-set wildignore+=parts/*         " all buildout-generated junk even
-set wildignore+=.venv/*         " virtualenv
-set wildignore+=eggs/*          " virtualenv
+set wildignore+=*/local         " virtualenv
+set wildignore+=*/build         " distutils, I hates them
+set wildignore+=*/dist          " distutils deliverables
+set wildignore+=*/htmlcov       " coverage.py html reports
+set wildignore+=*/coverage      " zope.testrunner --coverage
+set wildignore+=*/parts         " all buildout-generated junk even
+set wildignore+=*/.venv         " virtualenv
+set wildignore+=*/python        " virtualenv called 'python'
+set wildignore+=*/eggs          " buildout?
 "set wildignore+=.tox/*         " tox -- I find it useful to :e files from .tox/
-set wildignore+=_build/*        " sphinx
-set wildignore+=python/*        " virtualenv called 'python'
-set wildignore+=__pycache__     " compiled python files
+set wildignore+=*/_build        " sphinx
 set wildignore+=*/node_modules  " thousands of files, omg
 
 if v:version >= 700
@@ -591,6 +588,15 @@ if has("eval")
   let g:CommandTCancelMap = ['<C-c>', '<Esc>', '<C-g>'] " add ^G
   let g:CommandTMaxHeight = 20
   let g:CommandTTraverseSCM = "pwd"
+  let g:CommandTFileScanner = "find"  " should be faster than the default 'ruby'
+  " I may want to experiment with these:
+  " let g:CommandTFileScanner = "git"
+  " let g:CommandTGitIncludeUntracked = 1
+
+  if exists(":CommandTFlush")
+    " In case we changed &wildignore and want to test it
+    CommandTFlush
+  endif
 
   " Allow Command-T to replace bufexplorer windows
   let g:CommandTWindowFilter = '!&buflisted && &buftype == "nofile" && &filetype != "bufexplorer"'
