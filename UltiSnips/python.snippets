@@ -178,7 +178,49 @@ def test_suite():
     return doctest.DocTestSuite()
 endsnippet
 
-pre_expand "snip.buffer[snip.line] = ''; snip.cursor.set(snip.line, 0)"
+global !p
+def adjust_indent(snip, indent=0):
+    snip.buffer[snip.line] = '' * indent
+    snip.cursor.set(snip.line, indent)
+
+def blank_lines_above(snip, count=2):
+    how_many = 0
+    line = snip.snippet_start[0] - 1
+    while line > 0 and snip.buffer[line] == "":
+        how_many += 1
+        line -= 1
+    line = snip.snippet_start[0]
+    while how_many < count:
+        snip.buffer[line:line] = ['']
+        how_many += 1
+    while how_many > count:
+        line -= 1
+        del snip.buffer[line]
+        how_many -= 1
+
+def blank_lines_below(snip, count=2):
+    how_many = 0
+    line = snip.snippet_end[0]
+    while line > snip.snippet_start[0] and snip.buffer[line - 1] == "":
+        line -= 1
+    while line < len(snip.buffer) and snip.buffer[line] == "":
+        how_many += 1
+        line += 1
+    while how_many < count:
+        snip.buffer[line:line] = ['']
+        how_many += 1
+    while how_many > count:
+        line -= 1
+        del snip.buffer[line]
+        how_many -= 1
+
+def blank_lines_around(snip, count=2):
+    blank_lines_above(snip, count)
+    blank_lines_below(snip, count)
+endglobal
+
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_around(snip, 2)"
 snippet doctest "Skeleton for a doctest" b
 def doctest_${1:fname}():
     """Test for ${2:$1}
@@ -189,6 +231,8 @@ def doctest_${1:fname}():
 
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_around(snip, 2)"
 snippet test_suite "A test_suite() function" !b
 def test_suite():
     return unittest.TestSuite([
@@ -201,6 +245,8 @@ snippet loader "Unit test loader"
 unittest.defaultTestLoader.loadTestsFromName(${1:__name__}),
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_around(snip, 2)"
 snippet test "Skeleton for a pytest test" b
 def test_${1:fname}():
     ${2}
@@ -215,6 +261,8 @@ snippet ipdb "ipdb.set_trace()" !b
 import ipdb; ipdb.set_trace()
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_around(snip, 2)"
 snippet testcase "TestCase" !b
 class Test${1:ClassName}(unittest.TestCase):
 
@@ -222,11 +270,15 @@ class Test${1:ClassName}(unittest.TestCase):
         ${3:pass}
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_above(snip, 2)"
 snippet ifmain "if __name__ == '__main__':" !b
 if __name__ == "__main__":
     main()
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_around(snip, 2)"
 snippet factory "SQLAlchemyModel Factory subclass" !b
 class ${1:Something}Factory(SQLAlchemyModelFactory):
     class Meta:
