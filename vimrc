@@ -7,23 +7,23 @@
 "
 " Options                                                       {{{1
 "
-set nocompatible                " be modern (default if you have a .vimrc)
+setglobal nocompatible                " be modern (default if you have a .vimrc)
 
 " Presentation                                                  {{{2
-set laststatus=2                " always show a status line
-set cmdheight=2                 " avoid 'Press ENTER to continue'
-set guioptions-=L               " disable left scrollbar in GUI
-set guioptions-=m               " disable GUI menu
-set guicursor+=a:blinkon0       " disable cursor blinking
-set showcmd                     " show partial commands in status line
-set ruler                       " show cursor position in status line
-set list                        " show tabs and spaces at end of line:
-set listchars=tab:>-,trail:.,extends:>
+setglobal laststatus=2                " always show a status line
+setglobal cmdheight=2                 " avoid 'Press ENTER to continue'
+setglobal guioptions-=L               " disable left scrollbar in GUI
+setglobal guioptions-=m               " disable GUI menu
+setglobal guicursor+=a:blinkon0       " disable cursor blinking
+setglobal showcmd                     " show partial commands in status line
+setglobal ruler                       " show cursor position in status line
+setglobal list                        " show tabs and spaces at end of line:
+setglobal listchars=tab:>-,trail:.,extends:>
 if v:version >= 600
-  set listchars+=precedes:<
+  setglobal listchars+=precedes:<
 endif
 if v:version >= 700
-  set listchars+=nbsp:_
+  setglobal listchars+=nbsp:_
 endif
 if has("linebreak")
   set linebreak                 " wrap lines at word boundaries, not mid-word
@@ -56,12 +56,12 @@ set nomodeline                  " on second thought, debian has it right
 set fileencodings=ucs-bom,utf-8,windows-1257 " autodetect
 
 " Backup files                                                  {{{2
-set backup                      " make backups
-set backupdir=~/tmp             " but don't clutter $PWD with them
+setglobal backup                      " make backups
+setglobal backupdir=~/tmp             " but don't clutter $PWD with them
 
 if $USER == "root"
   " 'sudo vi' on certain machines cannot write to ~/tmp (NFS root-squash)
-  set backupdir=/root/tmp
+  setglobal backupdir=/root/tmp
 endif
 
 " create the backup directory if it doesn't already exist
@@ -91,16 +91,16 @@ augroup Swap
 augroup END
 
 " Behaviour                                                     {{{2
-set wildmenu                    " nice tab-completion on the command line
-set wildmode=longest,full       " nicer tab-completion on the command line
-set hidden                      " side effect: undo list is not lost on C-^
-set browsedir=buffer            " :browse e starts in %:h, not in $PWD
-set autoread                    " automatically reload files changed on disk
-set history=1000                " remember more lines of cmdline history
-set switchbuf=useopen           " quickfix reuses open windows
-set iskeyword-=/                " Ctrl-W in command-line stops at /
-set splitright                  " put new splits on the right please
-set nrformats-=octal            " Ctrl-A/X on YYYY-0M-0D
+setglobal wildmenu                    " nice tab-completion on the command line
+setglobal wildmode=longest,full       " nicer tab-completion on the command line
+setglobal hidden                      " side effect: undo list is not lost on C-^
+setglobal browsedir=buffer            " :browse e starts in %:h, not in $PWD
+setglobal autoread                    " automatically reload files changed on disk
+setglobal history=1000                " remember more lines of cmdline history
+setglobal switchbuf=useopen           " quickfix reuses open windows
+setglobal iskeyword-=/                " Ctrl-W in command-line stops at /
+setglobal splitright                  " put new splits on the right please
+setglobal nrformats-=octal            " Ctrl-A/X on YYYY-0M-0D
 
 if has('mouse_xterm')
   set mouse=a                   " use mouse in xterms
@@ -111,8 +111,8 @@ set clipboard-=autoselect       " unnamed + autoselect = can't use Vp to replace
 set clipboard^=unnamed          " interoperate with the X clipboard
 
 if v:version >= 700
-  set diffopt+=vertical         " split diffs vertically
-  set spelllang=en,lt           " spell-check two languages at once
+  setglobal diffopt+=vertical         " split diffs vertically
+  setglobal spelllang=en,lt           " spell-check two languages at once
 endif
 
 " Input                                                         {{{2
@@ -122,32 +122,32 @@ set ttimeout ttimeoutlen=20     " timeout keys after 20ms (mappings time out aft
 set updatetime=250              " faster CursorHold events for vim-gitgutter
 
 " Movement                                                      {{{2
-set incsearch                   " incremental searching
-set scrolloff=2                 " always keep cursor 2 lines from screen edge
-set nostartofline               " don't jump to start of line
+setglobal incsearch                   " incremental searching
+setglobal scrolloff=2                 " always keep cursor 2 lines from screen edge
+setglobal nostartofline               " don't jump to start of line
 
 " Folding                                                       {{{2
 if v:version >= 600 && &foldmethod == 'manual'
-" set foldmethod=marker         " use folding by markers by default
-  set foldmethod=syntax         " use syntax folding by default
-  set foldlevelstart=9999       " initially open all folds
+" setglobal foldmethod=marker         " use folding by markers by default
+  setglobal foldmethod=syntax         " use syntax folding by default
+  setglobal foldlevelstart=9999       " initially open all folds
 endif
 
 " Editing                                                       {{{2
-set backspace=indent,eol,start  " sensible backspacing
-set nowrap                      " do not wrap long lines
-set shiftwidth=4                " more-or-less reasonable indents
-set softtabstop=-1              " make the <tab> key more useful
-set tabstop=8                   " anything else is heresy
-set expandtab                   " tabs are evil
-set noshiftround                " do NOT enforce the indent
-set autoindent                  " automatic indent
-set nosmartindent               " but no smart indent (ain't smart enough)
-set copyindent                  " no tabs if previous line used spaces
-set preserveindent              " no tabs if line didn't use them before
-set isfname-=\=                 " fix filename completion in VAR=/path
+setglobal backspace=indent,eol,start  " sensible backspacing
+setglobal nowrap                      " do not wrap long lines
+setglobal shiftwidth=4                " more-or-less reasonable indents
+setglobal softtabstop=-1              " make the <tab> key more useful
+setglobal tabstop=8                   " anything else is heresy
+setglobal expandtab                   " tabs are evil
+setglobal noshiftround                " do NOT enforce the indent
+setglobal autoindent                  " automatic indent
+setglobal nosmartindent               " but no smart indent (ain't smart enough)
+setglobal copyindent                  " no tabs if previous line used spaces
+setglobal preserveindent              " no tabs if line didn't use them before
+setglobal isfname-=\=                 " fix filename completion in VAR=/path
 if v:version >= 704
-  set fo+=j                     " remove comment leader when joining lines
+  setglobal fo+=j                     " remove comment leader when joining lines
 endif
 
 " Editing code                                                  {{{2
