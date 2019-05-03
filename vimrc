@@ -769,6 +769,12 @@ if has("eval")
   " anyway you can add on top of this with
   "  autocmd User AsyncRunStop HighlightCoverageForAll
   fun! OnAsyncRunExit()
+    if exists(":GitGutter")
+      " No real reason to do this here, but why not?  I often switch
+      " to another terminal, git commit, switch back then idly run 'make
+      " coverage'
+      GitGutter
+    endif
     if g:asyncrun_status == 'success'
       hi! link StatusLine StatusLineSuccess
       cclose
@@ -1341,7 +1347,8 @@ map             <F2>            :update<bar>wall<CR>
 imap            <F2>            <C-O><F2>
 
 " <F3> = turn off search highlighting
-map             <F3>            :nohlsearch<bar>call ResetStatusLineColor()<CR>
+map             <F3>
+      \ :nohlsearch<bar>call ResetStatusLineColor()<bar>GitGutter<CR>
 imap            <F3>            <C-O><F3>
 
 " <S-F3> = turn off location list
