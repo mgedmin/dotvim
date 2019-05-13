@@ -1,7 +1,7 @@
 " File: powergrep.vim
 " Author: Marius Gedminas <marius@gedmin.as>
-" Version: 1.2
-" Last Modified: 2019-04-25
+" Version: 1.3
+" Last Modified: 2019-05-09
 "
 " Overview
 " --------
@@ -64,7 +64,7 @@
 " Copy this file into $HOME/.vim/plugin/
 
 
-function! DoGrep(cmd, query, bang)
+function! DoGrep(cmd, query, bang, gfm)
   let l:grepfilter=''
   let l:query=a:query
   if a:query =~ " -- "
@@ -73,13 +73,16 @@ function! DoGrep(cmd, query, bang)
   endif
   let oldGrepPrg=&grepprg
   let &grepprg=a:cmd.l:grepfilter
+  let oldGrepFormat=&grepformat
+  let &grepformat=a:gfm
   execute "grep" . a:bang l:query
   let &grepprg=oldGrepPrg
+  let &grepformat=oldGrepFormat
   cw
 endf
 
 function! Grep(query, bang)
-  call DoGrep('grep -nH $*', a:query, a:bang)
+  call DoGrep('grep -nH $*', a:query, a:bang, '%f:%l:%m')
 endf
 
 function! Grepall(query, bang)
@@ -94,23 +97,23 @@ function! Grepall(query, bang)
   else
     let l:cmd = 'find '.l:findArgs.' -type f \! -path "*/.svn/*" \! -path "*/.bzr/*" -print0\|xargs -0 grep -nH $*'
   endif
-  call DoGrep(l:cmd, l:query, a:bang)
+  call DoGrep(l:cmd, l:query, a:bang, '%f:%l:%m')
 endf
 
 function! Gid(query, bang)
-  call DoGrep('lid -Rgrep $* \|sort -t : -k 2,2 -n\|sort -t : -k 1,1 -s', a:query, a:bang)
+  call DoGrep('lid -Rgrep $* \|sort -t : -k 2,2 -n\|sort -t : -k 1,1 -s', a:query, a:bang, '%f:%l:%m')
 endf
 
 function! Grin(query, bang)
-  call DoGrep('grin --emacs $*', a:query, a:bang)
+  call DoGrep('grin --emacs $*', a:query, a:bang, '%f:%l:%m')
 endf
 
 function! Gitgrep(query, bang)
-  call DoGrep('git grep -nH $*', a:query, a:bang)
+  call DoGrep('git grep -nH $*', a:query, a:bang, '%f:%l:%m')
 endf
 
 function! Ripgrep(query, bang)
-  call DoGrep('rg --vimgrep $*', a:query, a:bang)
+  call DoGrep('rg --vimgrep $*', a:query, a:bang, '%f:%l:%c:%m')
 endf
 
 command! -nargs=+ -complete=tag -bang Grep	call Grep(<q-args>, <q-bang>)
@@ -119,6 +122,7 @@ command! -nargs=+ -complete=tag -bang Gid	call Gid(<q-args>, <q-bang>)
 command! -nargs=+ -complete=tag -bang Grin	call Grin(<q-args>, <q-bang>)
 command! -nargs=+ -complete=tag -bang Gitgrep	call Gitgrep(<q-args>, <q-bang>)
 command! -nargs=+ -complete=tag -bang Ripgrep	call Ripgrep(<q-args>, <q-bang>)
+command! -nargs=+ -complete=tag -bang Rg	call Ripgrep(<q-args>, <q-bang>)
 
 " These are Bad Ideas, heh heh heh
 cabbrev grepall grepall<C-\>esubstitute(getcmdline(), '^grepall', 'Grepall', '')<cr>
