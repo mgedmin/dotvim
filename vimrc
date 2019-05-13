@@ -807,6 +807,8 @@ if has("eval")
     call FocusOnTestFailure()
     if g:asyncrun_info == "-program=make @ " && &makeprg == "make coverage"
       HighlightCoverageForAll
+    elseif g:asyncrun_status == 'success'
+      echo "Success!"
     endif
   endf
   let g:asyncrun_exit = "call OnAsyncRunExit()"
