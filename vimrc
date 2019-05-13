@@ -246,6 +246,9 @@ set errorformat+=
 ""            \%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,
 ""            \%Z%[%^\ ]%\\@=%m
 
+set errorformat+=
+      \File\ \"%f\"\\,\ line\ %l\\,%#%m
+
 " Shell scripts                                                 {{{2
 if has("eval")
   let g:is_posix = 1            " /bin/sh is POSIX, not ancient Bourne shell
