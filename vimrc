@@ -15,6 +15,7 @@ set cmdheight=2                 " avoid 'Press ENTER to continue'
 set guioptions-=L               " disable left scrollbar in GUI
 set guioptions-=m               " disable GUI menu
 set guicursor+=a:blinkon0       " disable cursor blinking
+set shortmess-=S                " show N/M while searching
 set showcmd                     " show partial commands in status line
 set ruler                       " show cursor position in status line
 set list                        " show tabs and spaces at end of line:
