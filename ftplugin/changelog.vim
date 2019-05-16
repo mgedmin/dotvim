@@ -8,9 +8,13 @@ map <buffer> ,t :put ='    # ['.strftime('%H:%M').'] '<cr>A
 " ,q - quote program output
 map <buffer> ,q :Quote<cr>
 
-com! -range Quote <line1>,<line2> call s:quote()
+" ,c - comment a block
+map <buffer> ,c :Comment<cr>
 
-fun! s:quote()
+com! -range Quote <line1>,<line2> call s:quote("| ")
+com! -range Comment <line1>,<line2> call s:quote("# ")
+
+fun! s:quote(prefix)
     let saved = exists('*getcurpos') ? getcurpos() : getpos('.')
     let previous = getline(prevnonblank(line('.') - 1))
     let indent = matchstr(previous, '^\s*')
@@ -18,7 +22,7 @@ fun! s:quote()
         let indent .= "  "
     endif
     let line = getline('.')
-    let new_line = indent . '| ' . s:expandtabs(line)
+    let new_line = indent . a:prefix . s:expandtabs(line)
     call setline('.', substitute(new_line, '\s\+$', '', ''))
     call setpos('.', saved)
 endfun
