@@ -570,6 +570,7 @@ endif
 " A.L.E.
 
 if has("eval")
+  " see also MyColorTweaks()
   let g:ale_sign_error = '☞'
   let g:ale_sign_warning = '☞'
   let g:ale_statusline_format = ['{%d}', '{%d}', '']
@@ -1712,46 +1713,95 @@ fun! MyColorTweaks()
   highlight Green                 guibg=green ctermbg=green
 
   " for less intrusive signs
-  highlight SignColumn ctermbg=230 guibg=#ffffd7
+  if &background == "dark"
+    highlight SignColumn ctermbg=235 guibg=#262626
+  else
+    highlight SignColumn ctermbg=230 guibg=#ffffd7
+  endif
   if exists("*gitgutter#highlight#define_highlights")
     " let vim-gitgutter know we changed the SignColumn colors!
     call gitgutter#highlight#define_highlights()
   endif
 
-  hi ALEErrorSign ctermfg=red ctermbg=230 guibg=#ffffd7
+  if &background == "dark"
+    let g:ale_sign_error = '☛'
+    let g:ale_sign_warning = '☛'
+    hi ALEErrorSign ctermfg=red ctermbg=235
+    runtime! autoload/ale/sign.vim
+  else
+    let g:ale_sign_error = '☞'
+    let g:ale_sign_warning = '☞'
+    hi ALEErrorSign ctermfg=red ctermbg=230 guibg=#ffffd7
+    runtime! autoload/ale/sign.vim
+  endif
 
-  hi GitGutterAdd ctermfg=70 ctermbg=230
-  hi GitGutterChange ctermfg=208 ctermbg=230
-  hi GitGutterDelete ctermfg=160 ctermbg=230
+  if &background == "dark"
+    hi GitGutterAdd ctermfg=70 ctermbg=235
+    hi GitGutterChange ctermfg=208 ctermbg=235
+    hi GitGutterDelete ctermfg=160 ctermbg=235
+  else
+    hi GitGutterAdd ctermfg=70 ctermbg=230
+    hi GitGutterChange ctermfg=208 ctermbg=230
+    hi GitGutterDelete ctermfg=160 ctermbg=230
+  endif
 
   " gutter on the right of the text
-  highlight ColorColumn ctermbg=230 guibg=#ffffd7
+  if &background == "dark"
+    highlight ColorColumn ctermbg=233 guibg=#121212
+  else
+    highlight ColorColumn ctermbg=230 guibg=#ffffd7
+  endif
 
   " gutter below the text
-  highlight NonText ctermbg=230 guibg=#ffffd7
+  if &background == "dark"
+    highlight NonText ctermbg=233 guibg=#121212
+  else
+    highlight NonText ctermbg=230 guibg=#ffffd7
+  endif
   set shortmess+=I " suppress intro message because the above makes it look bad
 
   " fold column aka gutter on the left
-  highlight FoldColumn ctermbg=230 guibg=#ffffd7
+  if &background == "dark"
+    highlight FoldColumn ctermbg=235 guibg=#262626
+  else
+    highlight FoldColumn ctermbg=230 guibg=#ffffd7
+  endif
 
   " number column aka gutter on the left
-  highlight LineNr ctermbg=230 guibg=#ffffd7
-  highlight CursorLineNr ctermbg=230 guibg=#ffffd7 cterm=underline
+  if &background == "dark"
+    highlight LineNr ctermbg=235 guibg=#262626
+    highlight CursorLineNr ctermbg=235 guibg=#262626 cterm=underline
+  else
+    highlight LineNr ctermbg=230 guibg=#ffffd7
+    highlight CursorLineNr ctermbg=230 guibg=#ffffd7 cterm=underline
+  endif
 
   " cursor column
-  highlight CursorColumn ctermbg=230 guibg=#ffffd7
-  highlight CursorLine ctermbg=230 guibg=#ffffd7
+  if &background == "dark"
+    highlight CursorColumn ctermbg=235 guibg=#262626
+    highlight CursorLine ctermbg=235 guibg=#262626
+  else
+    highlight CursorColumn ctermbg=230 guibg=#ffffd7
+    highlight CursorLine ctermbg=230 guibg=#ffffd7
+  endif
 
   " avoid invisible color combination (red on red)
-  highlight DiffText ctermbg=1
+  highlight DiffText ctermbg=203
 
   " easier on the eyes
   highlight Folded ctermbg=229 guibg=#ffffaf
 
   set fillchars=vert:│,fold:-
-  highlight VertSplit cterm=reverse ctermbg=7
+  if &background == "dark"
+    highlight VertSplit cterm=NONE ctermbg=235
+  else
+    highlight VertSplit cterm=reverse ctermbg=7
+  endif
 
   " indicate test status
+  if &background == "dark"
+    hi StatusLineNeutral ctermfg=237
+  endif
   hi StatusLineNeutral
               \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
   hi StatusLineRunning ctermfg=53 guifg=#5f005f
@@ -1760,6 +1810,8 @@ fun! MyColorTweaks()
               \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
   hi StatusLineFailure ctermfg=52 guifg=#5f0000
               \ term=bold,reverse cterm=bold,reverse gui=bold,reverse
+  hi! link StatusLine StatusLineNeutral
+  call mg#statusline_highlight()
 endf
 call MyColorTweaks()
 
