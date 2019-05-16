@@ -226,7 +226,7 @@ set errorformat&
 " (TBH I don't even know what compiler produces filename(lineno) so why even
 " have it?)
 set errorformat-=%f(%l):%m
-set errorformat+=%f\\(%l):%m
+"set errorformat+=%f\\(%l):%m
 
 " Sometimes pytest prepends an 'E' marker at the beginning of a traceback line
 set errorformat+=
