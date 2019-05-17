@@ -22,6 +22,17 @@ function! LocListOpen()
   return 0
 endf
 
+function! CurrentErrorValid(loclist)
+  if a:loclist
+    let mylist = getloclist(0)
+    let idx = getloclist(0, {"idx": 0}).idx
+  else
+    let mylist = getqflist()
+    let idx = getqflist({"idx": 0}).idx
+  endif
+  return idx < len(mylist) && mylist[idx].valid
+endf
+
 function! ShowErrorUnderCursor()
   if LocListOpen()
     let mylist = getloclist(0)
@@ -51,13 +62,13 @@ command! -bar FirstOrNextInList
         \     let g:quickloclist_first=0 <bar>
         \ endif <bar>
         \ if LocListOpen() <bar>
-        \   if g:quickloclist_first <bar>
+        \   if g:quickloclist_first && CurrentErrorValid(1) <bar>
         \     ll <bar>
         \   else <bar>
         \     lnext <bar>
         \   endif <bar>
         \ else <bar>
-        \   if g:quickloclist_first <bar>
+        \   if g:quickloclist_first && CurrentErrorValid(0) <bar>
         \     cc <bar>
         \   else <bar>
         \     cn <bar>
