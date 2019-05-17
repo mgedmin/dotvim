@@ -574,9 +574,14 @@ endif
 " A.L.E.
 
 if has("eval")
-  " see also MyColorTweaks()
-  let g:ale_sign_error = '☞'
-  let g:ale_sign_warning = '☞'
+  let g:ale_sign_error = '>>'
+  let g:ale_sign_warning = '>>'
+  if exists('*sign_getdefined') && sign_getdefined('ALEErrorSign') != []
+    " If you want to change the sign text after they've been defined (e.g.
+    " if you edit the .vimrc and source it), you have to re-define the sign.
+    runtime! autoload/ale/sign.vim
+  endif
+
   let g:ale_statusline_format = ['{%d}', '{%d}', '']
 
   " if I become annoyed about ALE showing errors for half-typed text, perhaps
@@ -1728,15 +1733,11 @@ fun! MyColorTweaks()
   endif
 
   if &background == "dark"
-    let g:ale_sign_error = '☛'
-    let g:ale_sign_warning = '☛'
     hi ALEErrorSign ctermfg=red ctermbg=235
-    runtime! autoload/ale/sign.vim
+    hi ALEWarningSign ctermfg=202 ctermbg=235
   else
-    let g:ale_sign_error = '☞'
-    let g:ale_sign_warning = '☞'
     hi ALEErrorSign ctermfg=red ctermbg=230 guibg=#ffffd7
-    runtime! autoload/ale/sign.vim
+    hi ALEWarningSign ctermfg=202 ctermbg=230 guibg=#ffffd7
   endif
 
   if &background == "dark"
