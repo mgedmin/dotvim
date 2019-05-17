@@ -379,6 +379,10 @@ if has("eval")
   " GitHub support for vim-fugitive
   Plug 'tpope/vim-rhubarb'
 
+  " Gitlab support for vim-fugitive
+  Plug 'shumphrey/fugitive-gitlab.vim'
+  let g:fugitive_gitlab_domains = ['https://gitlab.gnome.org']
+
   " Show git change status for each line in the gutter
   Plug 'airblade/vim-gitgutter'
 
