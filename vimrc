@@ -1696,9 +1696,14 @@ fun! MyColorTweaks()
 
   highlight NonText               ctermfg=gray guifg=gray term=standout
   highlight SpecialKey            ctermfg=gray guifg=gray term=standout
-  highlight MatchParen            gui=bold guibg=NONE guifg=lightblue cterm=bold ctermbg=255
   highlight SpellBad              cterm=underline ctermfg=red ctermbg=NONE
   highlight SpellCap              cterm=underline ctermfg=blue ctermbg=NONE
+
+  if &background == "dark"
+    highlight MatchParen            gui=bold guibg=NONE guifg=lightblue cterm=bold ctermbg=232
+  else
+    highlight MatchParen            gui=bold guibg=NONE guifg=lightblue cterm=bold ctermbg=255
+  endif
 
   if $TERM == "Eterm"
     highlight StatusLine          ctermfg=white ctermbg=black cterm=bold
@@ -1794,7 +1799,11 @@ fun! MyColorTweaks()
   highlight DiffText ctermbg=203
 
   " easier on the eyes
-  highlight Folded ctermbg=229 guibg=#ffffaf
+  if &background == "dark"
+    highlight Folded ctermbg=234
+  else
+    highlight Folded ctermbg=229 guibg=#ffffaf
+  endif
 
   set fillchars=vert:│,fold:-
   if &background == "dark"
