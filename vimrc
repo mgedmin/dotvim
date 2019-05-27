@@ -768,7 +768,7 @@ if has("user_commands")
   " now :Gpush and :Gfetch are async!
   command! -bang -nargs=* -complete=file Make
               \ silent wall
-              \ AsyncRun -program=make @ <args>
+              \ | AsyncRun -program=make @ <args>
   command! -bang -nargs=* -complete=file VerboseMake
               \ silent wall
               \ | echo &makeprg <q-args>
