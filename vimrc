@@ -767,9 +767,11 @@ if has("user_commands")
   " https://github.com/skywind3000/asyncrun.vim/wiki/Cooperate-with-vim-fugitive
   " now :Gpush and :Gfetch are async!
   command! -bang -nargs=* -complete=file Make
+              \ silent wall
               \ AsyncRun -program=make @ <args>
   command! -bang -nargs=* -complete=file VerboseMake
-              \ echo &makeprg <q-args>
+              \ silent wall
+              \ | echo &makeprg <q-args>
               \ | AsyncRun -program=make @ <args>
 endif
 if has("eval")
