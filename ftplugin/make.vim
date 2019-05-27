@@ -13,4 +13,4 @@ function! TabOnFirstColumnOnly()
   endif
 endf
 
-inoremap <Tab> <C-R>=TabOnFirstColumnOnly()<CR>
+inoremap <buffer> <Tab> <C-R>=TabOnFirstColumnOnly()<CR>
