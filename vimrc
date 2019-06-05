@@ -1676,15 +1676,6 @@ if has("gui_running")
   set t_vb=                     " this must be set after :gui
 endif
 
-" I want gvims to look the same as vims in my gnome-terminal (which uses Tango
-" colours).  Unfortunately I need to keep switching these manually whenever I
-" change the Gtk+ theme (between ones with white background and ones with dark
-" background).
-if !exists('colors_name')
-  colorscheme whitetango
-  "colorscheme darklooks
-endif
-
 if has("syntax") && !exists("g:syntax_on")
   syntax enable
 endif
@@ -1834,6 +1825,7 @@ call MyColorTweaks()
 augroup MyColorTweaks
   au!
   au ColorScheme * call MyColorTweaks()
+  au OptionSet background call MyColorTweaks()
 augroup END
 
 
