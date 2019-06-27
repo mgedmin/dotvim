@@ -10,7 +10,7 @@
 " it gives the extension of a file to edit, if unset, nothing happens.
 
 " Utility function: switch to buffer containing file or open a new buffer
-function! SwitchToFile(name)
+function s:SwitchToFile(name)
     let tmp = bufnr(a:name)
     if tmp == -1
 	exe 'edit ' . a:name
@@ -21,26 +21,26 @@ endf
 
 " If you're editing a .c, .cc or .cpp file, switch to the appropriate .h
 " and vice versa
-function! ToggleHeader()
+function ToggleHeader()
     if expand('%:e') == 'h' || expand('%:e') == 'hxx'
 	if filereadable(expand('%:r').'.cc')
-	    call SwitchToFile(expand('%:r').'.cc')
+	    call s:SwitchToFile(expand('%:r').'.cc')
 	elseif filereadable(expand('%:r').'.cpp')
-	    call SwitchToFile(expand('%:r').'.cpp')
+	    call s:SwitchToFile(expand('%:r').'.cpp')
 	elseif filereadable(expand('%:r').'.c')
-	    call SwitchToFile(expand('%:r').'.c')
+	    call s:SwitchToFile(expand('%:r').'.c')
 	elseif filereadable(expand('%:r').'.cxx')
-	    call SwitchToFile(expand('%:r').'.cxx')
+	    call s:SwitchToFile(expand('%:r').'.cxx')
 	elseif exists("g:cpph_default_ext")
-	    call SwitchToFile(expand('%:r').g:cpph_default_ext)
+	    call s:SwitchToFile(expand('%:r').g:cpph_default_ext)
 	endif
     elseif expand('%:e') == 'c' || expand('%:e') == 'cc' || expand('%:e') == 'cpp'
-	call SwitchToFile(expand('%:r').'.h')
+	call s:SwitchToFile(expand('%:r').'.h')
     elseif expand('%:e') == 'cxx'
 	if filereadable(expand('%:r').'.hxx')
-	    call SwitchToFile(expand('%:r').'.hxx')
+	    call s:SwitchToFile(expand('%:r').'.hxx')
 	else
-	  call SwitchToFile(expand('%:r').'.h')
+	  call s:SwitchToFile(expand('%:r').'.h')
 	endif
     endif
 endf
