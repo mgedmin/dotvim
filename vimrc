@@ -1585,7 +1585,7 @@ function! FT_Maybe_ReST()
     " Why the FUCK does this FUCKING trigger when I'm editing a Mercurial
     " commit message, after I do :new
     if &ft == "text" || &ft == ""
-        setlocal ft=rest
+        setlocal ft=rst
     endif
     setlocal shiftwidth=4 softtabstop=4 expandtab
     map <buffer> <F5>    :ImportName <C-R><C-W><CR>
