@@ -37,7 +37,7 @@ def github_owner_repo(path='', default=''):
 endglobal
 
 snippet "<?issue" "GitHub issue link" "github_owner_repo(snip.buffer.name)" er
-\`issue $1 <https://`!p snip.rv = github_owner_repo(path)`/issue/$1>\`_
+\`issue $1 <https://github.com/`!p snip.rv = github_owner_repo(path)`/issue/$1>\`_
 endsnippet
 
 snippet travis "Travis CI badge" b
