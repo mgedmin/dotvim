@@ -489,6 +489,9 @@ if has("eval")
   " Show vim command output in a buffer, e.g. :Bufferize scriptnames
   Plug 'AndrewRadev/bufferize.vim'
 
+  " Highlight ANSI color escapes in buffers, plus other things
+  Plug 'chrisbra/Colorizer'
+
 
   " Additional filetypes                                        {{{3
 
