@@ -33,27 +33,6 @@ snippet datetime "YYYY-MM-DDTHH:MM:SS.ssssss" w
 `!v strftime('%Y-%m-%dT%H:%M:%S.000000')`
 endsnippet
 
-snippet coveragerc ".coveragerc" b
-[run]
-# source = ...
-# omit = ...
-# cover_pylib = False
-# branch = True
-
-[paths]
-source =
-    src/
-    .tox/*/lib/python*/site-packages/
-    .tox/pypy*/site-packages/
-
-[report]
-exclude_lines =
-    pragma: nocover
-    except ImportError:
-    except NameError:
-    if __name__ == .__main__.:
-endsnippet
-
 snippet pypirc ".pypirc" b
 [pypi]
 username = $1

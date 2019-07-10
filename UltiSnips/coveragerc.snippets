@@ -1,0 +1,30 @@
+snippet coveragerc ".coveragerc" b
+[run]
+# source = ...
+# omit = ...
+# cover_pylib = False
+# branch = True
+
+[paths]
+source =
+    src/
+    .tox/*/lib/python*/site-packages/
+    .tox/pypy*/site-packages/
+
+[report]
+exclude_lines =
+    pragma: nocover
+    except ImportError:
+    except NameError:
+    if __name__ == .__main__.:
+endsnippet
+
+snippet paths "[paths] in a .coveragerc" b
+[paths]
+source =
+    src/
+    .tox/*/lib/python*/site-packages/
+    .tox/pypy*/site-packages/
+
+endsnippet
+
