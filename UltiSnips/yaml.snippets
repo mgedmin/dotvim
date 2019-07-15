@@ -3,12 +3,11 @@ language: python
 dist: xenial
 python:
 	- 2.7
-	- 3.4
 	- 3.5
 	- 3.6
 	- 3.7
-	- pypy2.7-6.0
-	- pypy3.5-6.0
+	- pypy
+	- pypy3
 install:
 	- pip install pytest
 script:
@@ -49,7 +48,6 @@ environment:
     # https://www.appveyor.com/docs/installed-software#python lists available
     # versions
     - PYTHON: "C:\\\\Python27"
-    - PYTHON: "C:\\\\Python34"
     - PYTHON: "C:\\\\Python35"
     - PYTHON: "C:\\\\Python36"
     - PYTHON: "C:\\\\Python37"
