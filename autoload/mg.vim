@@ -11,7 +11,7 @@ let s:statusline = {
       \ 'left[terminal]': ' %f%( {flags}%)',
       \ 'statusline[nerdtree]': '{nerdtree_prefix} %={pos}',
       \ 'left': ' {directory}{filename}%( {flags}%)',
-      \ 'right': '{tag}{errors}{pos}{position}',
+      \ 'right': '{tag}{errors}{pos}{position}{size}',
       \ 'bufnr[quickfix]': '',
       \ 'bufnr[help]': '',
       \ 'bufnr': ' %n ',
@@ -31,6 +31,7 @@ let s:statusline = {
       \ 'maybe_virtual': '%V',
       \ 'total_lines': '%4L',
       \ 'pos': ' %P ',
+      \ 'size': ' %L ',
       \ }
 let s:statusline_highlight = {
       \ 'directory': 'mg_statusline_directory',
