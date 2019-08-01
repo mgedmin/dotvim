@@ -1677,7 +1677,13 @@ endif " has("autocmd")
 if has("gui_running")
   gui                           " see :help 'background' why I need this before
   set t_vb=                     " this must be set after :gui
+elseif exists("$VIM_BACKGROUND")
+  " vim has terminal background color detection, but it's unreliable
+  " and also causes flashing, so I set a custom env var in my .bashrc to
+  " force a specific vim background color
+  let &background = $VIM_BACKGROUND
 endif
+
 
 if has("syntax") && !exists("g:syntax_on")
   syntax enable
