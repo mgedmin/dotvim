@@ -297,6 +297,9 @@ endf
 fun! mg#statusline_tag(...)
   let format = a:0 >= 1 ? a:1 : ' %s '
   let tag = ""
+  if tag == "" && exists("*taghelper#curtag")
+    let tag = taghelper#curtag()
+  endif
   if tag == "" && exists("*TagInStatusLine")
     let tag = TagInStatusLine()
   endif

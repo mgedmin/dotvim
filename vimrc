@@ -306,11 +306,8 @@ if has("eval")
   " Base64 encode/decode on <leader>atob and <leader>btoa in visual mode
   Plug 'christianrondeau/vim-base64'
 
-
-  " Programming: C                                              {{{3
-
-  " Show [current_function] in the status line for C files
-  Plug 'mgedmin/chelper.vim'
+  " Show [current_function] in the status line for C and Python files
+  Plug 'mgedmin/taghelper.vim'
 
 
   " Programming: JavaScript                                     {{{3
@@ -321,10 +318,6 @@ if has("eval")
 
 
   " Programming: Python                                         {{{3
-
-  " Show [CurrentClass.current_method] in the status line for Python files
-  " (my fork because bugfixes)
-  Plug 'mgedmin/pythonhelper.vim'
 
   " Insert Python import statements computed from tags, bound to <F5>
   Plug 'mgedmin/python-imports.vim'
