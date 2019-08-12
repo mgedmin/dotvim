@@ -1057,7 +1057,11 @@ endf
 command! LaptopMode     call s:LaptopMode(1)
 command! LaptopModeOff  call s:LaptopMode(0)
 
-" :MakeTarget [target]                                          {{{2
+" :MakeCommand <command>                                        {{{2
+command -bar -nargs=* MakeCommand
+      \ let &makeprg = <q-args> | set makeprg
+
+" :MakeTarget [<target>]                                        {{{2
 command -bar -nargs=* MakeTarget
       \ let &makeprg = join(["make", <f-args>], ' ') | set makeprg
 
