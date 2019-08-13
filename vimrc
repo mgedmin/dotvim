@@ -816,7 +816,7 @@ if has("eval")
     " perhaps echo 'async job finished:' g:asyncrun_code
     " but I tried that and didn't like it
     call FocusOnTestFailure()
-    if g:asyncrun_info == "-program=make @ " && &makeprg == "make coverage"
+    if g:asyncrun_info == "-program=make @ " && (&makeprg == "make coverage" || &makeprg == "tox -e coverage")
       HighlightCoverageForAll
     elseif g:asyncrun_status == 'success'
       echo "Success!"
