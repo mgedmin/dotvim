@@ -2,9 +2,10 @@
 
 " Configure external tools (eg flake8) to expect the appropriate Python 2 vs 3
 " syntax based on the shebang line
+" (let us assume /usr/bin/python is polyglot that supports both)
 if getline(1) =~ 'python3' && exists("*Python3")
   call Python3(0)
-elseif getline(1) =~ 'python$' && exists("*Python2")
+elseif getline(1) =~ 'python2' && exists("*Python2")
   call Python2(0)
 endif
 
