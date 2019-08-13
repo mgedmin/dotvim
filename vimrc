@@ -485,6 +485,9 @@ if has("eval")
   " Highlight ANSI color escapes in buffers, plus other things
   Plug 'chrisbra/Colorizer'
 
+  " Tell me which vim version introduced a feature with :HelpfulVersion foo
+  Plug 'tweekmonster/helpful.vim'
+
 
   " Additional filetypes                                        {{{3
 
