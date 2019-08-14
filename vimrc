@@ -170,9 +170,11 @@ set suffixes+=.png              " don't edit .png files please
 set wildignore&
 set wildignore+=*.pyc,*.pyo     " same as 'suffixes', but for tab completion
 set wildignore+=*.[oad],*.so    " and, more importantly, Command-T
-set wildignore+=*/__pycache__   " compiled python files
-set wildignore+=*/*.egg-info    " setuptools droppings DOES NOT WORK WHY??
+set wildignore+=*/__pycache__/* " compiled python files
+set wildignore+=*/*.egg-info/*  " setuptools droppings
 set wildignore+=*~              " backup files
+" most of these directory ignores are probably broken because they don't have
+" the trailing /* which appears to be necessary, in addition to the leading */
 set wildignore+=*/local         " virtualenv
 set wildignore+=*/build         " distutils, I hates them
 set wildignore+=*/dist          " distutils deliverables
