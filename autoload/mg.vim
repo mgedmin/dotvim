@@ -333,13 +333,21 @@ fun! mg#statusline_errors(...)
 endf
 
 fun! mg#statusline_coverage(...)
-  let format = a:0 >= 1 ? a:1 : ' %s%% '
+  let format = a:0 >= 1 ? a:1 : ' %s '
   let coverage = ""
   if coverage == "" && exists("*coverage_highlight#get_current")
-    let coverage = coverage_highlight#get_current(format)
+    let coverage = coverage_highlight#get_current("%s%%")
   endif
-  if coverage == "" && exists("*coverage_highlight#get_total")
-    let coverage = coverage_highlight#get_total(format)
+  if exists("*coverage_highlight#get_total")
+    let total_coverage = coverage_highlight#get_total("%s%%")
+    if coverage == ""
+      let coverage = total_coverage
+    else
+      let coverage = printf("%s/%s", coverage, total_coverage)
+    endif
+  endif
+  if coverage != ""
+    let coverage = printf(format, coverage)
   endif
   return coverage
 endf
