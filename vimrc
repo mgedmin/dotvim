@@ -505,6 +505,9 @@ if has("eval")
   " Improved YAML syntax for Ansible
   Plug 'chase/vim-ansible-yaml'
 
+  " YAML folding
+  Plug 'pedrohdz/vim-yaml-folds'
+
   " Jinja syntax
   " (my fork because mitsuhiko is MIA and ignores GH issues)
   Plug 'mgedmin/vim-jinja'
