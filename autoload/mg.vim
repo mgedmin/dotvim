@@ -342,7 +342,7 @@ fun! mg#statusline_coverage(...)
     let total_coverage = coverage_highlight#get_total("%s%%")
     if coverage == ""
       let coverage = total_coverage
-    else
+    elseif total_coverage != ""
       let coverage = printf("%s/%s", coverage, total_coverage)
     endif
   endif
