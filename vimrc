@@ -187,6 +187,7 @@ set wildignore+=*/eggs          " buildout?
 "set wildignore+=.tox/*         " tox -- I find it useful to :e files from .tox/
 set wildignore+=*/_build        " sphinx
 set wildignore+=*/node_modules  " thousands of files, omg
+set wildignore+=*/obj-x86_64-pc-linux-gnu/*  " firefox builds, 43018 files
 
 if v:version >= 700
   set complete-=i               " don't autocomplete from included files (slow)
