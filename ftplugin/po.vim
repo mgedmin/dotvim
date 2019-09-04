@@ -5,7 +5,7 @@
 "
 " Bigger scrolloff
 
-setlocal scrolloff=3
+setlocal scrolloff=3 spell
 
 fun! s:unfuzz()
   " Maintain cursor position
