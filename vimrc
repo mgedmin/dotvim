@@ -1014,6 +1014,10 @@ command! -nargs=1 EditMacro MacroEdit <args>
 " :ReloadFtdetectScripts after editing a ~/.vim/ftdetect/*.vim  {{{2
 command! -bang ReloadFtdetectScripts :unlet did_load_filetypes | runtime filetype.vim
 
+" :ReloadPlugin name                                            {{{2
+command! -nargs=1 -complete=custom,reload#complete
+            \ ReloadPlugin :call reload#plugin(<f-args>)
+
 " :Python3 and :Python2 to toggle Syntastic/flake8 mode         {{{2
 
 function! Flake8(exe, args, recheck_now)
