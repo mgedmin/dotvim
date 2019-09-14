@@ -188,13 +188,15 @@ def adjust_indent(snip, indent=0):
     snip.buffer[snip.line] = '' * indent
     snip.cursor.set(snip.line, indent)
 
-def blank_lines_above(snip, count=2):
+def blank_lines_above(snip, count=2, except_at_start_of_file=0):
     how_many = 0
     line = snip.snippet_start[0] - 1
     while line > 0 and snip.buffer[line] == "":
         how_many += 1
         line -= 1
     line = snip.snippet_start[0]
+    if line == how_many:
+        count = except_at_start_of_file
     while how_many < count:
         snip.buffer[line:line] = ['']
         how_many += 1
@@ -203,7 +205,7 @@ def blank_lines_above(snip, count=2):
         del snip.buffer[line]
         how_many -= 1
 
-def blank_lines_below(snip, count=2):
+def blank_lines_below(snip, count=2, except_at_end_of_file=0):
     how_many = 0
     line = snip.snippet_end[0]
     while line > snip.snippet_start[0] and snip.buffer[line - 1] == "":
@@ -211,6 +213,8 @@ def blank_lines_below(snip, count=2):
     while line < len(snip.buffer) and snip.buffer[line] == "":
         how_many += 1
         line += 1
+    if line == len(snip.buffer):
+        count = except_at_end_of_file
     while how_many < count:
         snip.buffer[line:line] = ['']
         how_many += 1
@@ -273,6 +277,30 @@ class Test${1:ClassName}(unittest.TestCase):
 
     def test_${2:method}(self):
         ${3:pass}
+endsnippet
+
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_around(snip, 2)"
+snippet class "Skeleton for a class definition" b
+class ${1:ClassName}:
+    ${2}
+
+endsnippet
+
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_around(snip, 2)"
+snippet deff "Skeleton for a function definition" b
+def ${1:fname}(${2}):
+    ${3}
+
+endsnippet
+
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_around(snip, 1)"
+snippet defm "Skeleton for a method definition" b
+    def ${1:fname}(self${2}):
+        ${3}
+
 endsnippet
 
 pre_expand "adjust_indent(snip, 0)"

@@ -1685,11 +1685,12 @@ endif " has("autocmd")
 if has("gui_running")
   gui                           " see :help 'background' why I need this before
   set t_vb=                     " this must be set after :gui
-elseif exists("$VIM_BACKGROUND")
+elseif exists("$LC_VIM_BACKGROUND")
   " vim has terminal background color detection, but it's unreliable
   " and also causes flashing, so I set a custom env var in my .bashrc to
-  " force a specific vim background color
-  let &background = $VIM_BACKGROUND
+  " force a specific vim background color.  The variable is called LC_xxx
+  " so that ssh will forward it to remove machines.
+  let &background = $LC_VIM_BACKGROUND
 endif
 
 
