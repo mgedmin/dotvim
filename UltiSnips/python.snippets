@@ -276,14 +276,14 @@ snippet testcase "TestCase" !b
 class Test${1:ClassName}(unittest.TestCase):
 
     def test_${2:method}(self):
-        ${3:pass}
+        ${0:pass}
 endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
 post_expand "blank_lines_around(snip, 2)"
 snippet class "Skeleton for a class definition" b
 class ${1:ClassName}:
-    ${2}
+    ${0}
 
 endsnippet
 
@@ -291,7 +291,7 @@ pre_expand "adjust_indent(snip, 0)"
 post_expand "blank_lines_around(snip, 2)"
 snippet deff "Skeleton for a function definition" b
 def ${1:fname}(${2}):
-    ${3}
+    ${0}
 
 endsnippet
 
@@ -299,7 +299,7 @@ pre_expand "adjust_indent(snip, 0)"
 post_expand "blank_lines_around(snip, 1)"
 snippet defm "Skeleton for a method definition" b
     def ${1:fname}(self${2}):
-        ${3}
+        ${0}
 
 endsnippet
 
