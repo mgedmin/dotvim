@@ -322,6 +322,9 @@ if has("eval")
 
   " Programming: Python                                         {{{3
 
+  " Sort Python imports using isort
+  Plug 'fisadev/vim-isort'
+
   " Insert Python import statements computed from tags, bound to <F5>
   Plug 'mgedmin/python-imports.vim'
 
