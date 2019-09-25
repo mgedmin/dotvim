@@ -1805,10 +1805,10 @@ fun! MyColorTweaks()
   " cursor column
   if &background == "dark"
     highlight CursorColumn ctermbg=235 guibg=#262626
-    highlight CursorLine ctermbg=235 guibg=#262626
+    highlight CursorLine ctermbg=235 guibg=#262626 cterm=NONE
   else
     highlight CursorColumn ctermbg=230 guibg=#ffffd7
-    highlight CursorLine ctermbg=230 guibg=#ffffd7
+    highlight CursorLine ctermbg=230 guibg=#ffffd7 cterm=NONE
   endif
 
   " avoid invisible color combination (red on red)
