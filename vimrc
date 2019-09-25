@@ -287,7 +287,7 @@ if has("eval")
     let g:ale_set_balloons = 1   " must be set before loading ale
     Plug 'w0rp/ale'
     let g:ale_linters = {'python': ['flake8']}
-    let g:ale_fixers = {'javascript': ['prettier']}
+    let g:ale_fixers = {'javascript': ['prettier'], 'python': ['isort']}
     let g:ale_python_flake8_executable = 'python3'
     let g:ale_python_flake8_options = '-m flake8'
     " see https://github.com/w0rp/ale/issues/1827#issuecomment-433920827
@@ -594,6 +594,8 @@ if has("eval")
   ""let g:ale_lint_on_save = 1
   ""let g:ale_lint_delay = 1000
   ""let g:ale_lint_on_text_changed = 0
+
+  nmap <Leader>af <Plug>(ale_fix)
 endif
 
 " Command-t                                                     {{{2
