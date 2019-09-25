@@ -326,3 +326,7 @@ snippet assertRaisesRegex "assertRaisesRegex for Python 2 vs 3" b
 assertRaisesRegex = getattr(unittest.TestCase, "assertRaisesRegex",
                             unittest.TestCase.assertRaisesRegexp)
 endsnippet
+
+snippet self "self.foo = foo" b
+self.${1} = ${2:$1}
+endsnippet
