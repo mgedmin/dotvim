@@ -19,6 +19,8 @@ function! DiffFoldLevel(lineno)
     return getline(a:lineno - 1) =~ '^retrieving revision ' ? '=' : '>1'
   elseif line =~ '^\(deleted\|new\) file mode \|^\(index\|similarity\|rename\) '
     return '='
+  elseif line =~ '^Binary files .* differ$'
+    return '='
   elseif line =~ '^index ' && getline(a:lineno - 1) =~ '^diff'
     let lvl = foldlevel(a:lineno - 1)
     return '='
