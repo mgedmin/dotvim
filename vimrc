@@ -755,7 +755,8 @@ endif
 
 map <Leader>n :NERDTreeToggle<CR>
 map <Leader>N :NERDTreeFocus<CR>
-map <Leader>f :NERDTreeFind<CR>
+map <expr> <Leader>f
+      \ filereadable(expand("%")) ? ":NERDTreeFind\<CR>" : ":NERDTreeFind %:h\<CR>O"
 
 " jedi.vim (which I no longer use)                              {{{2
 if has("eval")
@@ -997,17 +998,17 @@ command! -nargs=? EditSnippets
 
 " :EditFiletypePlugin                                           {{{2
 command! -nargs=? EditFiletypePlugin
-  \ exe (&buftype == "quickfix" ? ":sp" : ":e") . " ~/.vim/ftplugin/"
+  \ exe ":sp ~/.vim/ftplugin/"
   \     . (<q-args> != "" ? <q-args> : &ft) . ".vim"
 
 " :EditSyntaxPlugin                                             {{{2
 command! -nargs=? EditSyntaxPlugin
-  \ exe (&buftype == "quickfix" ? ":sp" : ":e") . " ~/.vim/syntax/"
+  \ exe ":sp ~/.vim/syntax/"
   \     . (<q-args> != "" ? <q-args> : &ft) . ".vim"
 
 " :EditIndentPlugin                                             {{{2
 command! -nargs=? EditIndentPlugin
-  \ exe (&buftype == "quickfix" ? ":sp" : ":e") . " ~/.vim/indent/"
+  \ exe "sp ~/.vim/indent/"
   \     . (<q-args> != "" ? <q-args> : &ft) . ".vim"
 
 " :EditMacro as alias for :MacroEdit because my brain works that way
