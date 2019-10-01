@@ -1,6 +1,6 @@
+" make gf work when on top of the '--- a/path/to/file' line
 setlocal includeexpr=substitute(v:fname,'^[ab]/','','')
-setlocal path-=**
-
+setlocal path-=**   " (without doing expensive full-tree searches)
 
 fun! s:debug(...)
   if &verbose > 0
