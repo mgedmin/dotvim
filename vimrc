@@ -756,6 +756,7 @@ endif
 map <Leader>n :NERDTreeToggle<CR>
 map <Leader>N :NERDTreeFocus<CR>
 map <expr> <Leader>f
+      \ expand("%") == "" ? ":NERDTreeFocus\<CR>" :
       \ filereadable(expand("%")) ? ":NERDTreeFind\<CR>" : ":NERDTreeFind %:h\<CR>O"
 
 " jedi.vim (which I no longer use)                              {{{2
