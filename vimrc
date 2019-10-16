@@ -271,6 +271,14 @@ if has("eval")
 endif
 
 "
+" Abbreviations                                                 {{{1
+"
+
+" I keep mistyping these
+abbrev Pyhton Python
+abbrev improt import
+
+"
 " Plugins                                                       {{{1
 "
 
