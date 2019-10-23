@@ -11,6 +11,9 @@ map <buffer> ,q :Quote<cr>
 " ,c - comment a block
 map <buffer> ,c :Comment<cr>
 
+" ,p - remove shell prompt
+map <buffer> ,p :s/^\S\+@\S\+ \S\+ $\( sudo\)\= /  /<cr>
+
 com! -range Quote <line1>,<line2> call s:quote("| ")
 com! -range Comment <line1>,<line2> call s:quote("# ")
 
