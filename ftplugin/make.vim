@@ -1,5 +1,5 @@
-function! TabOnFirstColumnOnly()
-  setlocal expandtab
+function! s:TabOnFirstColumnOnly()
+  setlocal expandtab softtabstop=8
   if col(".") == 1
     return "\<C-V>\<Tab>"
   else
@@ -13,8 +13,13 @@ function! TabOnFirstColumnOnly()
   endif
 endf
 
+function! s:ResetOptions()
+  setlocal noexpandtab softtabstop=0
+  return ""
+endf
+
 " <Tab>: insert spaces, except on 1st column insert a tab
-inoremap <buffer> <Tab> <C-R>=TabOnFirstColumnOnly()<CR>
+inoremap <buffer> <Tab> <C-R>=<SID>TabOnFirstColumnOnly()<CR><C-R>=<SID>ResetOptions()<CR>
 
 " ,p: add a .PHONY: above a make rule
 noremap <buffer> ,p :s/^\ze\([-a-z]\+\):/.PHONY: \1\r/<bar>noh<CR>
