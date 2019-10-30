@@ -321,6 +321,11 @@ if has("eval")
   Plug 'mgedmin/taghelper.vim'
 
 
+  " Programming: VimScript                                      {{{3
+
+  Plug 'junegunn/vader.vim'
+
+
   " Programming: JavaScript                                     {{{3
 
   Plug 'pangloss/vim-javascript'
@@ -329,6 +334,9 @@ if has("eval")
 
 
   " Programming: Python                                         {{{3
+
+  " Random Python code refactorings like :SortList, :SwapAssignment etc.
+  Plug 'mgedmin/python-refactorings.vim'
 
   " Insert Python import statements computed from tags, bound to <F5>
   Plug 'mgedmin/python-imports.vim'
