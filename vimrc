@@ -760,7 +760,7 @@ endif
 if v:version >= 700 && has("eval")
   let g:NERDTreeIgnore = [
         \ '\.pyc$', '\~$', '^tags$', '^__pycache__$', '\.sw[a-z]$',
-        \ '^\.cache$', '^\.git$'
+        \ '^\.cache$', '^\.git$', '^\.tox$', '\.egg-info$'
         \ ]
   let g:NERDTreeHijackNetrw = 0
   let g:NERDTreeShowHidden = 1
