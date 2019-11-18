@@ -1,6 +1,5 @@
 snippet travis "travis.yml based on pytest" !b
 language: python
-dist: xenial
 python:
 	- 2.7
 	- 3.5
@@ -19,7 +18,6 @@ endsnippet
 
 snippet tox-travis "travis.yml based on tox-travis" !b
 language: python
-dist: xenial
 python:
 `tox -l|sed -e 's/py\([0-9]\)\([0-9]\+\)/\1.\2/' -e 's/^/    - /'`
 install:
@@ -29,6 +27,19 @@ script:
 notifications:
 	email: false
 cache: pip
+endsnippet
+
+snippet notifications ".travis.yml notifications" b
+notifications:
+	irc:
+		channels:
+			- "chat.freenode.net##mgedmin"
+		on_success: change
+		on_failure: always
+		template:
+			# ping my nick so I get a pushbullet notification on my phone
+			- "mgedmin: %{repository_name} (%{branch}) build %{result}: %{build_url}"
+
 endsnippet
 
 snippet ansible "ansible playbook" !b
