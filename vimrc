@@ -393,7 +393,7 @@ if has("eval")
 
   " Gitlab support for vim-fugitive
   Plug 'shumphrey/fugitive-gitlab.vim'
-  let g:fugitive_gitlab_domains = ['https://gitlab.gnome.org']
+  let g:fugitive_gitlab_domains = ['https://gitlab.gnome.org', 'https://git.vaultit.org/']
 
   " Show git change status for each line in the gutter
   Plug 'airblade/vim-gitgutter'
@@ -1552,6 +1552,7 @@ function! FT_Bolagsfakta_Syntastic()
   set wildignore+=*/server/var,*/build,*/pkgbuild
   call Python3(0)
   let g:ale_javascript_eslint_executable = 'client/eslint'
+  let g:ale_python_mypy_executable = 'server/env/bin/mypy'
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
   let g:coverage_script = 'python3 -m coverage'
