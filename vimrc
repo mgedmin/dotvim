@@ -500,6 +500,7 @@ if has("eval")
 
   " Show vim command output in a buffer, e.g. :Bufferize scriptnames
   Plug 'AndrewRadev/bufferize.vim'
+  let g:bufferize_keep_buffers = 1
 
   " Tell me which vim version introduced a feature with :HelpfulVersion foo
   Plug 'tweekmonster/helpful.vim'
