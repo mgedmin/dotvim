@@ -1060,6 +1060,11 @@ endf
 command! -bar Python2 call Python2(1)
 command! -bar Python3 call Python3(1)
 
+" :MyPy enables Python type checking                            {{{2
+
+command! -bar MyPy    let g:ale_linters.python = ['flake8', 'mypy']
+command! -bar MyPyOff let g:ale_linters.python = ['flake8']
+
 " :ESLint/:JSHint to tell Syntastic what to use for js          {{{2
 
 command! -bar ESLint  let g:syntastic_javascript_checkers = ['eslint'] | SyntasticCheck
