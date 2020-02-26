@@ -11,10 +11,24 @@ endif
 
 
 " PEP-8 is good
+" (note that vim's runtime ftplugin/python.vim overrides these, so use
+" ~/.vim/after/ftplugin/python.vim instead)
 setlocal shiftwidth=4 softtabstop=4 expandtab tabstop=8
+
+" dynamic shiftwidth
+augroup PythonDynamicShiftWidth
+  au CursorMoved,CursorMovedI,WinEnter <buffer>
+        \ if python#in_docstring() |
+        \   setlocal sw=2 sts=2 |
+        \ else |
+        \   setlocal sw=4 sts=4 |
+        \ endif
+augroup END
 
 " I sometimes use ## as a comment marker for commented-out code,
 " to distinguish it from real comments
+" (note that vim's runtime ftplugin/python.vim overrides this, so look in
+" ~/.vim/after/ftplugin/python.vim instead)
 setlocal comments+=b:##
 
 " I work with Pylons projects ('/foo.mako' -> templates/foo.mako) more
