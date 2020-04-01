@@ -36,7 +36,7 @@ def github_owner_repo(path='', default=''):
     return path
 endglobal
 
-snippet "<?issue" "GitHub issue link" "github_owner_repo(snip.buffer.name)" er
+snippet "[<`]?issue" "GitHub issue link" "github_owner_repo(snip.buffer.name)" er
 \`issue $1 <https://github.com/`!p snip.rv = github_owner_repo(path)`/issues/$1>\`_
 endsnippet
 

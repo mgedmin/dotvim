@@ -5,6 +5,9 @@ if exists("b:did_ftplugin")
   finish
 endif
 
+" So I can hit Enter on UltiSnips-snippet-options and not end up in :h options
+setlocal isk+=-
+
 nnoremap <buffer><cr> <c-]>
 nnoremap <buffer><bs> <c-T>
 

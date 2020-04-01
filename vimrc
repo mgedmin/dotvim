@@ -276,6 +276,7 @@ endif
 
 " I keep mistyping these
 abbrev Pyhton Python
+abbrev PYthon Python
 abbrev improt import
 
 "
@@ -320,6 +321,8 @@ if has("eval")
   " Show [current_function] in the status line for C and Python files
   Plug 'mgedmin/taghelper.vim'
 
+  " Comment out stuff with gc<motion> (gcc for the current line)
+  Plug 'tpope/vim-commentary'
 
   " Programming: VimScript                                      {{{3
 
