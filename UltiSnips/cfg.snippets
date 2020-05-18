@@ -316,3 +316,24 @@ universal = 1
 [metadata]
 license_file = LICENSE
 endsnippet
+
+snippet isort "[isort] section in setup.cfg" b
+[isort]
+# from X import (
+#   a,
+#   b,
+# )
+multi_line_output = 3
+include_trailing_comma = true
+lines_after_imports = 2
+reverse_relative = true
+default_section = THIRDPARTY
+known_first_party = $1
+# known_third_party = pytest, ...
+# skip = filename...
+endsnippet
+
+snippet mypy "[mypy] section in setup.cfg" b
+[mypy]
+mypy_path = src
+endsnippet
