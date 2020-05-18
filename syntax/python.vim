@@ -22,7 +22,16 @@ function! PythonFoldLevel(lineno)
     return '>1'
   elseif line =~ '^    \(def\|class\)\>'
     return '>2'
-  elseif line =~ '^[^ #]' " # so that comments in the middle of functions don't break folds
+  elseif line =~ '^[^ #)]'
+    " a non-blank character at the first column stops a fold, except
+    " for '#', so that comments in the middle of functions don't break folds,
+    " and ')', so that I can have multiline function signatures like
+    "
+    "     def fn(
+    "         arg1,
+    "         arg2,
+    "     ):
+    "         ...
     return 0
   elseif line =~ '^# \|^#$' " except when they're proper comments and not commentd-out code (for which I use ##
     return 0
