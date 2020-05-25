@@ -532,6 +532,7 @@ if has("eval")
 
   " Nginx syntax
   Plug 'vim-scripts/nginx.vim'
+  " huh this has no ftdetect plugin??  and stock vim doesn't either?
 
   " xchat log syntax highlighting (set ft=xchatlog)
   Plug 'vim-scripts/xchat-log-syntax'
