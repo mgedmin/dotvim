@@ -124,6 +124,9 @@ setup(
     author="Marius Gedminas",
     author_email="marius@gedmin.as",
     url="${3:`!p snip.rv = git_url(path, "https://github.com/mgedmin/...")`}",
+    project_urls={
+        'Changelog': '${4:`!p snip.rv = git_url(path, "https://github.com/mgedmin/...")`/blob/master/CHANGES.rst}',
+    },
     description="${5:description}",
     long_description=long_description,
     long_description_content_type='text/x-rst',
@@ -171,6 +174,12 @@ endsnippet
 
 snippet "url=" "url= in a setup.py" r
 url="${3:`!p snip.rv = git_url(path, "https://github.com/mgedmin/...")`}",
+endsnippet
+
+snippet "project_urls=" "project_urls= in a setup.py" r
+project_urls={
+    'Changelog': '${4:`!p snip.rv = git_url(path, "https://github.com/mgedmin/...")`/blob/master/CHANGES.rst}',
+},
 endsnippet
 
 snippet testfile "Skeleton for a test file" !b
