@@ -21,16 +21,14 @@ snippet super "Magic super()" !w
 # snip.rv = 'super(${1:ClassName}, self).${2:method}(' <-- does not work
 snip.rv = 'super('
 import vim
-# this needs pythonhelper.vim, e.g. https://github.com/mgedmin/pythonhelper.vim
-tag = vim.eval('TagInStatusLine()')
+try:
+    # this needs taghelper.vim from https://github.com/mgedmin/taghelper.vim
+    tag = vim.eval('taghelper#curtag()')
+except vim.error:
+    tag = None
 if tag:
-    # pythonhelper.vim's TagInStatusLine() returns '[in SomeClass.some_method (method)]'
-    # my fork of it returns '[SomeClass.some_method]'
-    # handle both
+    # taghelper#curtag() returns '[SomeClass.some_method]'
     tag = tag.strip('[]')
-    if tag.startswith('in '):
-        tag = tag[3:]
-    tag = tag.partition(' (')[0]
     if '.' in tag:
         class_name, method_name = tag.split('.')[-2:]
         snip.rv = 'super(%s, self).%s(' % (class_name, method_name)
