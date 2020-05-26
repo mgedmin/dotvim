@@ -1708,6 +1708,14 @@ augroup Ansible
               \ let &l:path = expand("%:p:h:h")."/**,".&g:path
 augroup END
 
+" .vimrc                                                        {{{2
+
+augroup VimRc
+  autocmd!
+  autocmd BufReadPre,BufNewFile ~/.vimrc,~/.vim/*
+              \ setlocal path=~/.vim/** includeexpr=substitute(v:fname,'^.*/','','')
+augroup END
+
 endif " has("autocmd")
 
 "
