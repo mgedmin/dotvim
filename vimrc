@@ -1199,7 +1199,7 @@ map!            <S-Insert>      <MiddleMouse>
 nnoremap <expr> gV              "`[" . getregtype() . "`]"
 
 " p preserves the unnamed register/clipboard in visual mode     {{{2
-vnoremap <expr> p  'p' . (v:register =~ '["*+]' ? ":let @".v:register."=@0\<cr>" : '')
+vnoremap <expr> p  vp#mapping()
 
 " .vimrc editing                                                {{{2
 set wildcharm=<C-Z>
