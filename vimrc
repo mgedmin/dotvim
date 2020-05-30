@@ -398,6 +398,12 @@ if has("eval")
   Plug 'shumphrey/fugitive-gitlab.vim'
   let g:fugitive_gitlab_domains = ['https://gitlab.gnome.org', 'https://git.vaultit.org/']
 
+  " Git log browsing (unmaintained)
+  Plug 'gregsexton/gitv', {'on': ['Gitv']}
+
+  " Git log browsing (alternative)
+  Plug 'rbong/vim-flog', {'on': ['Flog', 'Flogsplit']}
+
   " Show git change status for each line in the gutter
   Plug 'airblade/vim-gitgutter'
 
@@ -902,7 +908,7 @@ if has("user_commands")
 
 " like :Explore, only never split windows                       {{{2
 " workaround for https://github.com/vim/vim/issues/1506
-command! E exec "e" curdir#get()
+command! -complete=file E exec "e" (<q-args> != "" ? <q-args> : curdir#get())
 
 " how many occurrences of the current search pattern?           {{{2
 command! -range=% CountMatches          <line1>,<line2>s///n
