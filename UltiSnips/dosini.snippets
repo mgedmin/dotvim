@@ -26,6 +26,13 @@ skip_install = true
 commands = flake8 setup.py src
 endsnippet
 
+snippet mypy "tox -e mypy" b
+[testenv:mypy]
+deps = mypy
+skip_install = true
+commands = mypy src
+endsnippet
+
 snippet "systemd(-unit|-service)?" "systemd service unit" br
 [Unit]
 Description=${1:description}
