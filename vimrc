@@ -1020,7 +1020,8 @@ command! NoLCD          exe 'cd '.getcwd()
 " :EditSnippets for UltiSnips                                   {{{2
 " NB there's already :UltiSnipsEdit
 command! -nargs=? EditSnippets
-  \ exe ":e ~/.vim/UltiSnips/".(<q-args> != "" ? <q-args> : &ft != "" ? &ft : "all").".snippets"
+  \ exe ":sp ~/.vim/UltiSnips/"
+  \     . (<q-args> != "" ? <q-args> : &ft != "" ? &ft : "all") . ".snippets"
 
 " :EditFiletypePlugin                                           {{{2
 command! -nargs=? EditFiletypePlugin
