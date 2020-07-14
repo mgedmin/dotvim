@@ -184,6 +184,7 @@ set wildignore+=*/parts         " all buildout-generated junk even
 set wildignore+=*/.venv         " virtualenv
 set wildignore+=*/python        " virtualenv called 'python'
 set wildignore+=*/eggs          " buildout?
+set wildignore+=*/.eggs         " setuptools
 "set wildignore+=.tox/*         " tox -- I find it useful to :e files from .tox/
 set wildignore+=*/_build        " sphinx
 set wildignore+=*/node_modules  " thousands of files, omg
@@ -770,9 +771,9 @@ endif
 " NERD_tree.vim                                                 {{{2
 if v:version >= 700 && has("eval")
   let g:NERDTreeIgnore = [
-        \ '\.pyc$', '\~$', '^tags$', '^__pycache__$', '\.sw[a-z]$',
+        \ '\.py[co]$', '\~$', '^tags$', '^__pycache__$', '\.sw[a-z]$',
         \ '^\.cache$', '^\.git$', '^\.tox$', '\.egg-info$',
-        \ '^\.mypy_cache$', '^\.pytest_cache$',
+        \ '^\.mypy_cache$', '^\.pytest_cache$', '^\.eggs$',
         \ ]
   let g:NERDTreeHijackNetrw = 0
   let g:NERDTreeShowHidden = 1
