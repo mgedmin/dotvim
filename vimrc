@@ -1574,7 +1574,7 @@ function! FT_Bolagsfakta_Syntastic()
   let g:ale_python_mypy_executable = 'server/env/bin/mypy'
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
-  let g:coverage_script = 'python3 -m coverage'
+  let g:coverage_script = 'server/env/bin/coverage'
   let g:py_test_locator_prefixes = ["server/"]
   let g:source_locator_prefixes = ['server/', 'robottests/']
   if executable('./.ctags-wrapper')
