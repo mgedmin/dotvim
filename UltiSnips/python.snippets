@@ -15,7 +15,7 @@ snippet here "here = ...dirname(__file__)" !b
 here = os.path.abspath(os.path.dirname(__file__))
 endsnippet
 
-snippet super "Magic super()" !w
+snippet super2 "Magic super() for Python 2" !w
 `!p
 # Set a fallback completion first
 # snip.rv = 'super(${1:ClassName}, self).${2:method}(' <-- does not work
@@ -32,6 +32,25 @@ if tag:
     if '.' in tag:
         class_name, method_name = tag.split('.')[-2:]
         snip.rv = 'super(%s, self).%s(' % (class_name, method_name)
+`$1)
+endsnippet
+
+snippet super "Magic super() for Python 3" !w
+`!p
+# Set a fallback completion first
+snip.rv = 'super().'
+import vim
+try:
+    # this needs taghelper.vim from https://github.com/mgedmin/taghelper.vim
+    tag = vim.eval('taghelper#curtag()')
+except vim.error:
+    tag = None
+if tag:
+    # taghelper#curtag() returns '[SomeClass.some_method]'
+    tag = tag.strip('[]')
+    if '.' in tag:
+        class_name, method_name = tag.split('.')[-2:]
+        snip.rv = 'super().%s(' % method_name
 `$1)
 endsnippet
 
