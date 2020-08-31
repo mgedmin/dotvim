@@ -634,10 +634,10 @@ if has("eval")
   let g:CommandTCancelMap = ['<C-c>', '<Esc>', '<C-g>'] " add ^G
   let g:CommandTMaxHeight = 20
   let g:CommandTTraverseSCM = "pwd"
-  let g:CommandTFileScanner = "find"  " should be faster than the default 'ruby'
+  ""let g:CommandTFileScanner = "find"  " should be faster than the default 'ruby'
   " I may want to experiment with these:
-  " let g:CommandTFileScanner = "git"
-  " let g:CommandTGitIncludeUntracked = 1
+  let g:CommandTFileScanner = "git"
+  let g:CommandTGitIncludeUntracked = 1
 
   if exists(":CommandTFlush")
     " In case we changed &wildignore and want to test it
@@ -650,6 +650,8 @@ if has("eval")
   "let g:CommandTMaxFiles=800000  " firefox source tree is _big_
   " OTOH my home directory is also big and it sucks that I cannot interrupt
   " command-t with a ctrl-c when I accidentally trigger it there
+
+  let g:CommandTMaxFiles=10000  " it's unbearably slow after 10000 files
 
   nmap <silent> <Leader>T <Plug>(CommandTTag)
   nmap <silent> <Leader>B <Plug>(CommandTBuffer)
