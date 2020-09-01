@@ -393,6 +393,9 @@ fun! mg#statusline_enable()
     au WinLeave,BufWinLeave * let &l:statusline = mg#statusline(&buftype, &filetype, 0)
     au ColorScheme * call mg#statusline_highlight()
     au BufEnter,BufWritePost,ShellCmdPost,FocusGained * call mg#statusline_invalidate_git_cache()
+    " I'm getting seriously ugly artefacts if I don't update the
+    " statusline on TerminalOpen; maybe a more lightweight
+    au TerminalOpen * let &l:statusline = mg#statusline(&buftype, &filetype, 1)
   augroup END
 endf
 
