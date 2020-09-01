@@ -43,6 +43,7 @@ let s:statusline_highlight = {
       \ 'help_prefix': 'mg_statusline_l1',
       \ 'quickfix_tail': 'mg_statusline_l1',
       \ 'bufnr': 'mg_statusline_l1',
+      \ 'bufnr[terminal]': 'mg_statusline_term_l1',
       \ 'pos': 'mg_statusline_r2',
       \ 'position': 'mg_statusline_r1',
       \ }
@@ -109,6 +110,10 @@ let s:inactive_error_fg = [ '#949494', 246 ]
 let s:inactive_error_bg = [ '#af0000', 124 ]
 let s:inactive_coverage_fg = [ '#ededeb', 15 ]
 let s:inactive_coverage_bg = [ '#ff8700', 208 ]
+let s:term_l1_fg = [ '#ededeb', 15 ]
+let s:term_l1_bg = [ '#87ff87', 120 ]
+let s:inactive_term_l1_fg = [ '#000000', 0 ]
+let s:inactive_term_l1_bg = [ '#87ff87', 120 ]
 " and for tabline
 let s:active_tab_fg = [ '#bcbcbc', 250 ]
 let s:active_tab_bg = [ '#262626', 235 ]
@@ -162,6 +167,8 @@ fun! mg#statusline_highlight()
   call mg#statusline_highlight_part('error_inactive', s:inactive_error_fg, s:inactive_error_bg)
   call mg#statusline_highlight_part('coverage_inactive', s:inactive_coverage_fg, s:inactive_coverage_bg)
   call mg#statusline_highlight_part('directory_inactive', s:inactive_directory_fg, s:inactive_directory_bg)
+  call mg#statusline_highlight_part('term_l1', s:term_l1_fg, s:term_l1_bg)
+  call mg#statusline_highlight_part('term_l1_inactive', s:inactive_term_l1_fg, s:inactive_term_l1_bg)
 endf
 
 fun! mg#tabline_highlight_part(part, fg, bg)
@@ -202,6 +209,9 @@ fun! s:eval(s, options)
   let highlight_map = get(a:options, "highlight", s:statusline_highlight)
   let dyn_prefix = get(a:options, "prefix", "statusline")
   let highlight = get(highlight_map, a:s, "")
+  if has_key(highlight_map, a:s . "[" . variant . "]")
+    let highlight = get(highlight_map, a:s . "[" . variant . "]")
+  endif
   if has_key(component_map, a:s . "[" . variant . "]")
     let result = s:expand(component_map[a:s . "[" . variant . "]"], a:options)
   elseif has_key(component_map, a:s)
