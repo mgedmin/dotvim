@@ -1587,6 +1587,10 @@ function! FT_Bolagsfakta_Syntastic()
     pyx import random
     return pyxeval('"%04x-%032x-%08x" % (random.randrange(16**4), random.randrange(16**32), random.randrange(16**8))')
   endf
+  fun! RandomUUID()
+    pyx import uuid
+    return pyxeval('str(uuid.uuid4())')
+  endf
 endf
 
 augroup Python_prog
