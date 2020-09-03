@@ -810,6 +810,9 @@ if has("user_commands")
               \ silent wall
               \ | echo &makeprg <q-args>
               \ | AsyncRun -program=make @ <args>
+  command! -bang -nargs=* Tox
+              \ silent wall
+              \ | AsyncRun tox <args>
 endif
 if has("eval")
   fun! ResetStatusLineColor()
@@ -855,6 +858,8 @@ if has("eval")
     " but I tried that and didn't like it
     call FocusOnTestFailure()
     if g:asyncrun_info == "-program=make @ " && (&makeprg == "make coverage" || &makeprg == "tox -e coverage")
+      HighlightCoverageForAll
+    elseif g:asyncrun_info == "tox -e coverage"
       HighlightCoverageForAll
     elseif g:asyncrun_status == 'success'
       echo "Success!"
