@@ -395,7 +395,9 @@ fun! mg#statusline_enable()
     au BufEnter,BufWritePost,ShellCmdPost,FocusGained * call mg#statusline_invalidate_git_cache()
     " I'm getting seriously ugly artefacts if I don't update the
     " statusline on TerminalOpen; maybe a more lightweight
-    au TerminalOpen * let &l:statusline = mg#statusline(&buftype, &filetype, 1)
+    if exists("##TerminalOpen")
+      au TerminalOpen * let &l:statusline = mg#statusline(&buftype, &filetype, 1)
+    endif
   augroup END
 endf
 
