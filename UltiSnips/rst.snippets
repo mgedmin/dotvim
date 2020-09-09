@@ -2,6 +2,10 @@ global !p
 import os
 def dirname(path=''):
     return os.path.basename(os.path.dirname(os.path.abspath(path)))
+
+def adjust_indent(snip, indent=0):
+    snip.buffer[snip.line] = '' * indent
+    snip.cursor.set(snip.line, indent)
 endglobal
 
 snippet pdb "import pdb; pdb.set_trace()" w
@@ -40,42 +44,49 @@ snippet "[<`]?issue" "GitHub issue link" "github_owner_repo(snip.buffer.name)" e
 \`issue $1 <https://github.com/`!p snip.rv = github_owner_repo(path)`/issues/$1>\`_
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
 snippet travis "Travis CI badge" b
 .. image:: https://travis-ci.org/${1:owner/repo}.svg?branch=master
     :target: https://travis-ci.org/$1
 
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
 snippet travis "Travis CI badge" "github_owner_repo(snip.buffer.name)" be
 .. image:: https://travis-ci.org/`!p snip.rv = rv = github_owner_repo(path)`.svg?branch=master
     :target: https://travis-ci.org/`!p snip.rv = rv`
 
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
 snippet appveyor "Appveyor badge" b
 .. image:: https://ci.appveyor.com/api/projects/status/github/${1:owner/repo}?branch=master&svg=true
     :target: https://ci.appveyor.com/project/$1
 
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
 snippet appveyor "Appveyor badge" "github_owner_repo(snip.buffer.name)" be
 .. image:: https://ci.appveyor.com/api/projects/status/github/`!p snip.rv = rv = github_owner_repo(path)`?branch=master&svg=true
     :target: https://ci.appveyor.com/project/`!p snip.rv = rv`
 
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
 snippet coveralls "coveralls.io badge" b
 .. image:: https://coveralls.io/repos/${1:owner/repo}/badge.svg?branch=master
     :target: https://coveralls.io/r/$1
 
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
 snippet coveralls "coveralls.io badge" "github_owner_repo(snip.buffer.name)" be
 .. image:: https://coveralls.io/repos/`!p snip.rv = rv = github_owner_repo(path)`/badge.svg?branch=master
     :target: https://coveralls.io/r/`!p snip.rv = rv`
 
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
 snippet pypi "pypi.org badge" b
 .. image:: https://img.shields.io/pypi/v/${1:`!p snip.rv = dirname(path)`}.svg
     :target: https://pypi.org/project/$1/
@@ -83,6 +94,7 @@ snippet pypi "pypi.org badge" b
 
 endsnippet
 
+pre_expand "adjust_indent(snip, 0)"
 snippet pyversions "python versions badge" b
 .. image:: https://img.shields.io/pypi/pyversions/${1:`!p snip.rv = dirname(path)`}.svg
     :target: https://pypi.org/project/$1/
