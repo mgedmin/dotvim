@@ -386,6 +386,10 @@ if has("eval")
   let python_highlight_all = 1
   let python_slow_sync = 1
 
+  " :Pydoc
+  Plug 'fs111/pydoc.vim'
+  let g:pydoc_cmd = 'python3 -m pydoc'
+
 
   " Version control integration                                 {{{3
 
