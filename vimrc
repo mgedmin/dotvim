@@ -318,6 +318,9 @@ if has("eval")
 
   " Base64 encode/decode on <leader>atob and <leader>btoa in visual mode
   Plug 'christianrondeau/vim-base64'
+  " and since I can never remember the mappings
+  vmap <leader>a2b <leader>atob
+  vmap <leader>b2a <leader>btoa
 
   " Show [current_function] in the status line for C and Python files
   Plug 'mgedmin/taghelper.vim'
