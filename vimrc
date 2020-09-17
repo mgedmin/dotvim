@@ -230,11 +230,13 @@ set errorformat&
 " (TBH I don't even know what compiler produces filename(lineno) so why even
 " have it?)
 set errorformat-=%f(%l):%m
-"set errorformat+=%f\\(%l):%m
+
+" Sometimes Vim gets confused about ISO-8601 timestamps and thinks they're
+" filenames
+set errorformat^=%+G%.\ \ %.%#
 
 " Sometimes pytest prepends an 'E' marker at the beginning of a traceback line
-set errorformat+=
-      \E\ %#File\ \"%f\"\\,\ line\ %l%.%#
+set errorformat+=E\ %#File\ \"%f\"\\,\ line\ %l%.%#
 
 " Python tracebacks (unittest + doctest output)                 {{{2
 
