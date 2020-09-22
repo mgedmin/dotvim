@@ -1,3 +1,14 @@
-snippet phony ".PHONY: {target-on-next-line}" b
-.PHONY: ${1:`!v matchstr(getline(line('.')+1), '^\S[^:]*\ze:')`}
+global !p
+import re
+endglobal
+
+snippet "phony|[.]PHONY: *" ".PHONY:" br
+.PHONY: ${1}
+${1}:
+	${0}
+endsnippet
+
+context "snip.line+1 < len(snip.buffer) and re.match(r'^(\S[^:]*):', snip.buffer[snip.line+1])"
+snippet "phony|[.]PHONY: .*" ".PHONY: {target-on-next-line}" bre
+.PHONY: `!p snip.rv = context.group(1)`
 endsnippet
