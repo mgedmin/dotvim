@@ -233,7 +233,7 @@ set errorformat-=%f(%l):%m
 
 " Sometimes Vim gets confused about ISO-8601 timestamps and thinks they're
 " filenames
-set errorformat^=%+G%.\ \ %.%#
+set errorformat^=%+G%\\d%#%.\ \ %.%#
 
 " Sometimes pytest prepends an 'E' marker at the beginning of a traceback line
 set errorformat+=E\ %#File\ \"%f\"\\,\ line\ %l%.%#
