@@ -561,6 +561,10 @@ if has("eval")
   " Jenkinsfile
   Plug 'martinda/Jenkinsfile-vim-syntax'
 
+  " PostgreSQL
+  Plug 'lifepillar/pgsql.vim'
+  let g:sql_type_default = 'pgsql'
+
 
   "                                                             }}}3
 
