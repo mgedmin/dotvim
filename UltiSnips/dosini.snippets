@@ -33,6 +33,13 @@ skip_install = true
 commands = mypy src
 endsnippet
 
+snippet isort "tox -e isort" b
+[testenv:isort]
+deps = isort
+skip_install = true
+commands = isort {posargs: -c src}
+endsnippet
+
 snippet "systemd(-unit|-service)?" "systemd service unit" br
 [Unit]
 Description=${1:description}
