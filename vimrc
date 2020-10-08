@@ -300,8 +300,6 @@ if has("eval")
     Plug 'w0rp/ale'
     let g:ale_linters = {'python': ['flake8']}
     let g:ale_fixers = {'javascript': ['prettier'], 'python': ['isort']}
-    let g:ale_python_flake8_executable = 'python3'
-    let g:ale_python_flake8_options = '-m flake8'
     " see https://github.com/w0rp/ale/issues/1827#issuecomment-433920827
     let g:ale_python_flake8_change_directory = 0
   else
@@ -1087,8 +1085,9 @@ function! Python2(recheck_now)
   let g:coverage_script = 'python2 -m coverage'
 endf
 function! Python3(recheck_now)
-  call Flake8('python3', '-m flake8', a:recheck_now)
-  let g:coverage_script = 'python3 -m coverage'
+  " I prefer to pipx install flake8 and coverage
+  call Flake8('flake8', '', a:recheck_now)
+  let g:coverage_script = 'coverage'
 endf
 command! -bar Python2 call Python2(1)
 command! -bar Python3 call Python3(1)
