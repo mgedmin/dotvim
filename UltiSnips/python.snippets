@@ -363,3 +363,10 @@ endsnippet
 snippet self "self.foo = foo" b
 self.${1} = ${2:$1}
 endsnippet
+
+# XXX: make it use blank_lines_around(snip, 1) if it's indented
+post_expand "blank_lines_around(snip, 2)"
+snippet def "a function" b
+def ${1}(${2}):
+    ${3}
+endsnippet
