@@ -171,6 +171,7 @@ set wildignore&
 set wildignore+=*.pyc,*.pyo     " same as 'suffixes', but for tab completion
 set wildignore+=*.[oad],*.so    " and, more importantly, Command-T
 set wildignore+=*/__pycache__/* " compiled python files
+set wildignore+=*.egg-info/     " setuptools droppings
 set wildignore+=*/*.egg-info/*  " setuptools droppings
 set wildignore+=*~              " backup files
 " most of these directory ignores are probably broken because they don't have
