@@ -377,7 +377,7 @@ if has("eval")
 
   " :HighlightCoverage for Python
   Plug 'mgedmin/coverage-highlight.vim'
-  let g:coverage_script = 'python3 -m coverage'
+  let g:coverage_script = 'coverage'
   noremap [C :<C-U>PrevUncovered<CR>
   noremap ]C :<C-U>NextUncovered<CR>
   noremap <M-Up> :<C-U>PrevUncovered<CR>
