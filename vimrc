@@ -236,6 +236,9 @@ set errorformat-=%f(%l):%m
 " filenames
 set errorformat^=%+G%\\d%#%.\ \ %.%#
 
+" make: *** [Makefile:14: target] Error 1
+set errorformat^=%+Gmake:\ ***\ %.%#
+
 " Sometimes pytest prepends an 'E' marker at the beginning of a traceback line
 set errorformat+=E\ %#File\ \"%f\"\\,\ line\ %l%.%#
 
