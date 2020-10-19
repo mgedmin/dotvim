@@ -374,3 +374,10 @@ snippet def "a function" b
 def ${1}(${2}):
     ${3}
 endsnippet
+
+
+snippet parametrize "@pytest.mark.parametrize" b
+@pytest.mark.parametrize("${1}", [
+    ${2},
+])
+endsnippet
