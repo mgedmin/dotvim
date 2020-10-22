@@ -238,6 +238,9 @@ set errorformat^=%+G%\\d%#%.\ \ %.%#
 
 " make: *** [Makefile:14: target] Error 1
 set errorformat^=%+Gmake:\ ***\ %.%#
+"
+" FAILED tests.py::test_with_params[YYYY-MM-DD:HH:MM:SS] - Exception: bla bla
+set errorformat^=%+GFAILED\ %.%#
 
 " Sometimes pytest prepends an 'E' marker at the beginning of a traceback line
 set errorformat+=E\ %#File\ \"%f\"\\,\ line\ %l%.%#

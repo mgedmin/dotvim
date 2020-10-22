@@ -389,3 +389,26 @@ mypy_path = src
 [mypy-somelibrary]
 ignore_missing_imports = True
 endsnippet
+
+snippet coverage "[coverage:...] sections in setup.cfg" b
+[coverage:run]
+# source = ...
+# omit = ...
+# cover_pylib = False
+# branch = True
+# plugins =
+#     coverage_python_version
+
+[coverage:paths]
+source =
+    src/
+    .tox/*/lib/python*/site-packages/
+    .tox/pypy*/site-packages/
+
+[coverage:report]
+exclude_lines =
+    pragma: nocover
+    except ImportError:
+    except NameError:
+    if __name__ == .__main__.:
+endsnippet
