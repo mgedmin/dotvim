@@ -43,6 +43,13 @@ notifications:
 
 endsnippet
 
+snippet apt "apt: packages in .travis.yml" b
+addons:
+	apt:
+		packages:
+			- $0
+endsnippet
+
 snippet ansible "ansible playbook" !b
 ---
 - hosts: ${1:localhost}

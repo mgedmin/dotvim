@@ -46,15 +46,15 @@ endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
 snippet travis "Travis CI badge" b
-.. image:: https://travis-ci.org/${1:owner/repo}.svg?branch=master
-    :target: https://travis-ci.org/$1
+.. image:: https://travis-ci.com/${1:owner/repo}.svg?branch=master
+    :target: https://travis-ci.com/$1
 
 endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
 snippet travis "Travis CI badge" "github_owner_repo(snip.buffer.name)" be
-.. image:: https://travis-ci.org/`!p snip.rv = rv = github_owner_repo(path)`.svg?branch=master
-    :target: https://travis-ci.org/`!p snip.rv = rv`
+.. image:: https://travis-ci.com/`!p snip.rv = rv = github_owner_repo(path)`.svg?branch=master
+    :target: https://travis-ci.com/`!p snip.rv = rv`
 
 endsnippet
 
