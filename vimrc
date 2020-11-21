@@ -1562,7 +1562,7 @@ augroup END
 " Avoid editing files inside .tox/*/lib/*/site-packages         {{{2
 augroup AvoidEditsUnderTox
   au!
-  au BufNew,BufReadPost */.tox/*/python*/site-packages/* setlocal readonly
+  au BufReadPost */.tox/*/python*/site-packages/* setlocal readonly
 augroup END
 
 " focus the 1st py.test failure in quickfix                     {{{2
