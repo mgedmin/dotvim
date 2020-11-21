@@ -59,6 +59,20 @@ snippet travis "Travis CI badge" "github_owner_repo(snip.buffer.name)" be
 endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
+snippet gha "GitHub Actions badge" b
+.. image:: https://github.com/${1:owner/repo}/workflows/tests/badge.svg
+    :target: https://github.com/$1/actions?query=workflow%3Atests
+
+endsnippet
+
+pre_expand "adjust_indent(snip, 0)"
+snippet gha "GitHub Actions badge" "github_owner_repo(snip.buffer.name)" be
+.. image:: https://github.com/`!p snip.rv = rv = github_owner_repo(path)`/workflows/tests/badge.svg
+    :target: https://github.com/`!p snip.rv = rv`/actions?query=workflow%3Atests
+
+endsnippet
+
+pre_expand "adjust_indent(snip, 0)"
 snippet appveyor "Appveyor badge" b
 .. image:: https://ci.appveyor.com/api/projects/status/github/${1:owner/repo}?branch=master&svg=true
     :target: https://ci.appveyor.com/project/$1
