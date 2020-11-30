@@ -1,26 +1,24 @@
 global !p
+import glob
 import os
+import subprocess
+import urllib.parse
+from types import SimpleNamespace
+
+
 def dirname(path=''):
+    """dirname('/home/mg/projects/foo/tox.ini') -> 'foo'."""
     return os.path.basename(os.path.dirname(os.path.abspath(path)))
 
+
 def adjust_indent(snip, indent=0):
+    """Adjust the indentation of the current line in a pre_expand."""
     snip.buffer[snip.line] = '' * indent
     snip.cursor.set(snip.line, indent)
-endglobal
 
-snippet pdb "import pdb; pdb.set_trace()" w
-import pdb; pdb.set_trace(); 
-endsnippet
 
-snippet traceback "Traceback pattern for doctests" b
-Traceback (most recent call last):
-  ...
-${1:Exception}
-endsnippet
-
-global !p
-import subprocess
 def github_owner_repo(path='', default=''):
+    """Figure out the "owner/repo" part of the GitHub URL."""
     wd = os.path.dirname(os.path.abspath(path))
     if not os.path.isdir(wd):
         return default
@@ -38,7 +36,49 @@ def github_owner_repo(path='', default=''):
     if path.endswith('.git'):
         path = path[:-4]
     return path
+
+
+def github_workflow_context(path=''):
+    """Figure out if GitHub Actions are being used."""
+    wd = os.path.dirname(os.path.abspath(path))
+    if not os.path.isdir(wd):
+        return None
+    owner_repo = github_owner_repo(path)
+    if not owner_repo:
+        return None
+    root = subprocess.run(['git', 'rev-parse', '--show-toplevel'], cwd=wd,
+                          stderr=subprocess.DEVNULL,
+                          stdout=subprocess.PIPE, text=True).stdout.strip()
+    if not root:
+        return None
+    workflow_files = glob.glob(os.path.join('.github', 'workflows', '*.yml'))
+    for wf in workflow_files:
+        with open(wf) as f:
+            text = f.read()
+        m = re.search(r'^name: ([^#\n]+)', text, re.MULTILINE)
+        if m:
+            name = urllib.parse.quote(m.group(1).strip())
+            if name:
+                badge_url = f"https://github.com/{owner_repo}/workflows/{name}/badge.svg"
+                badge_link = f"https://github.com/{owner_repo}/actions?query=workflow%3A{name}"
+                return SimpleNamespace(
+                    workflow_name=name,
+                    owner_repo=owner_repo,
+                    badge_url=badge_url,
+                    badge_link=badge_link,
+                )
+    return None
 endglobal
+
+snippet pdb "import pdb; pdb.set_trace()" w
+import pdb; pdb.set_trace(); 
+endsnippet
+
+snippet traceback "Traceback pattern for doctests" b
+Traceback (most recent call last):
+  ...
+${1:Exception}
+endsnippet
 
 snippet "[<`]?issue" "GitHub issue link" "github_owner_repo(snip.buffer.name)" er
 \`issue $1 <https://github.com/`!p snip.rv = github_owner_repo(path)`/issues/$1>\`_
@@ -51,10 +91,11 @@ snippet travis "Travis CI badge" b
 
 endsnippet
 
+context "github_owner_repo(snip.buffer.name)"
 pre_expand "adjust_indent(snip, 0)"
-snippet travis "Travis CI badge" "github_owner_repo(snip.buffer.name)" be
-.. image:: https://travis-ci.com/`!p snip.rv = rv = github_owner_repo(path)`.svg?branch=master
-    :target: https://travis-ci.com/`!p snip.rv = rv`
+snippet travis "Travis CI badge" be
+.. image:: https://travis-ci.com/`!p snip.rv = context`.svg?branch=master
+    :target: https://travis-ci.com/`!p snip.rv = context`
 
 endsnippet
 
@@ -65,10 +106,11 @@ snippet gha "GitHub Actions badge" b
 
 endsnippet
 
+context "github_workflow_context(snip.buffer.name)"
 pre_expand "adjust_indent(snip, 0)"
-snippet gha "GitHub Actions badge" "github_owner_repo(snip.buffer.name)" be
-.. image:: https://github.com/`!p snip.rv = rv = github_owner_repo(path)`/workflows/tests/badge.svg
-    :target: https://github.com/`!p snip.rv = rv`/actions?query=workflow%3Atests
+snippet gha "GitHub Actions badge" be
+.. image:: `!p snip.rv = context.badge_url`?branch=master
+    :target: `!p snip.rv = context.badge_link`
 
 endsnippet
 
@@ -79,10 +121,11 @@ snippet appveyor "Appveyor badge" b
 
 endsnippet
 
+context "github_owner_repo(snip.buffer.name)"
 pre_expand "adjust_indent(snip, 0)"
-snippet appveyor "Appveyor badge" "github_owner_repo(snip.buffer.name)" be
-.. image:: https://ci.appveyor.com/api/projects/status/github/`!p snip.rv = rv = github_owner_repo(path)`?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/`!p snip.rv = rv`
+snippet appveyor "Appveyor badge" be
+.. image:: https://ci.appveyor.com/api/projects/status/github/`!p snip.rv = context`?branch=master&svg=true
+    :target: https://ci.appveyor.com/project/`!p snip.rv = context`
 
 endsnippet
 
@@ -93,10 +136,11 @@ snippet coveralls "coveralls.io badge" b
 
 endsnippet
 
+context "github_owner_repo(snip.buffer.name)"
 pre_expand "adjust_indent(snip, 0)"
-snippet coveralls "coveralls.io badge" "github_owner_repo(snip.buffer.name)" be
-.. image:: https://coveralls.io/repos/`!p snip.rv = rv = github_owner_repo(path)`/badge.svg?branch=master
-    :target: https://coveralls.io/r/`!p snip.rv = rv`
+snippet coveralls "coveralls.io badge" be
+.. image:: https://coveralls.io/repos/`!p snip.rv = context`/badge.svg?branch=master
+    :target: https://coveralls.io/r/`!p snip.rv = context`
 
 endsnippet
 
