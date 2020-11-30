@@ -60,7 +60,7 @@ def github_workflow_context(path=''):
             name = urllib.parse.quote(m.group(1).strip())
             if name:
                 badge_url = f"https://github.com/{owner_repo}/workflows/{name}/badge.svg"
-                badge_link = f"https://github.com/{owner_repo}/actions?query=workflow%3A{name}"
+                badge_link = f"https://github.com/{owner_repo}/actions"
                 return SimpleNamespace(
                     workflow_name=name,
                     owner_repo=owner_repo,
@@ -101,8 +101,8 @@ endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
 snippet gha "GitHub Actions badge" b
-.. image:: https://github.com/${1:owner/repo}/workflows/tests/badge.svg
-    :target: https://github.com/$1/actions?query=workflow%3Atests
+.. image:: https://github.com/${1:owner/repo}/workflows/${2:tests}/badge.svg
+    :target: https://github.com/$1/actions{$3:?query=workflow%3A$2}
 
 endsnippet
 
@@ -110,7 +110,7 @@ context "github_workflow_context(snip.buffer.name)"
 pre_expand "adjust_indent(snip, 0)"
 snippet gha "GitHub Actions badge" be
 .. image:: `!p snip.rv = context.badge_url`?branch=master
-    :target: `!p snip.rv = context.badge_link`
+    :target: `!p snip.rv = context.badge_link`${1:?query=workflow%3A`!p snip.rv = context.workflow_name`}
 
 endsnippet
 
