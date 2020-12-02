@@ -1,6 +1,12 @@
 global !p
+import glob
 import subprocess
+import urllib.parse
+from types import SimpleNamespace
+
+
 def github_owner_repo(path='', default=''):
+    """Figure out the "owner/repo" part of the GitHub URL."""
     wd = os.path.dirname(os.path.abspath(path))
     if not os.path.isdir(wd):
         return default
@@ -18,12 +24,58 @@ def github_owner_repo(path='', default=''):
     if path.endswith('.git'):
         path = path[:-4]
     return path
+
+
+def github_workflow_context(path=''):
+    """Figure out if GitHub Actions are being used."""
+    wd = os.path.dirname(os.path.abspath(path))
+    if not os.path.isdir(wd):
+        return None
+    owner_repo = github_owner_repo(path)
+    if not owner_repo:
+        return None
+    root = subprocess.run(['git', 'rev-parse', '--show-toplevel'], cwd=wd,
+                          stderr=subprocess.DEVNULL,
+                          stdout=subprocess.PIPE, text=True).stdout.strip()
+    if not root:
+        return None
+    workflow_files = glob.glob(os.path.join('.github', 'workflows', '*.yml'))
+    for wf in workflow_files:
+        with open(wf) as f:
+            text = f.read()
+        m = re.search(r'^name: ([^#\n]+)', text, re.MULTILINE)
+        if m:
+            name = urllib.parse.quote(m.group(1).strip())
+            if name:
+                badge_url = f"https://github.com/{owner_repo}/workflows/{name}/badge.svg"
+                badge_link = f"https://github.com/{owner_repo}/actions"
+                return SimpleNamespace(
+                    workflow_name=name,
+                    owner_repo=owner_repo,
+                    badge_url=badge_url,
+                    badge_link=badge_link,
+                )
+    return None
 endglobal
 
 snippet travis "Travis CI badge" b
 [![Build Status](https://travis-ci.com/${1:owner/repo}.svg?branch=master)](https://travis-ci.com/$1)
 endsnippet
 
-snippet travis "Travis CI badge" "github_owner_repo(snip.buffer.name)" be
-[![Build Status](https://travis-ci.com/`!p snip.rv = rv = github_owner_repo(path)`.svg?branch=master)](https://travis-ci.com/`!p snip.rv = rv`)
+context "github_owner_repo(snip.buffer.name)"
+snippet travis "Travis CI badge" be
+[![Build Status](https://travis-ci.com/`!p snip.rv = context`.svg?branch=master)](https://travis-ci.com/`!p snip.rv = context`)
+endsnippet
+
+snippet gha "GitHub Actions badge" b
+[![Build Status](https://github.com/${1:owner/repo}/workflows/${2:build}/badge.svg?branch=master)](https://github.com/$1/actions${3:?query=workflow%3A$2})
+endsnippet
+
+context "github_workflow_context(snip.buffer.name)"
+snippet gha "GitHub Actions badge" be
+[![Build Status](`!p snip.rv = context.badge_url`?branch=master)](`!p snip.rv = context.badge_link`${1:?query=workflow%3A`!p snip.rv = context.workflow_name`})
+endsnippet
+
+snippet image "Markdown image syntax"
+![](${1:image.png})
 endsnippet
