@@ -5,5 +5,5 @@ endf
 "
 " intended for a mapping like cnoremap <M-d> <C-\>edit_cmdline#delete_word()<CR>
 function! dit_cmdline#delete_word()
-  return substitute(getcmdline(), '\%'.getcmdpos().'c\W*\w*', '', '')
+  return substitute(getcmdline(), '\%'.getcmdpos().'c[^[:keyword:]]*\k*', '', '')
 endf
