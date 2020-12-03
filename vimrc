@@ -1394,8 +1394,11 @@ cnoremap        <C-A>           <Home>
 cnoremap        <Esc>b          <S-Left>
 cnoremap        <Esc>f          <S-Right>
 
+" Alt+d delete word
+cnoremap        <Esc>d  <C-\>edit_cmdline#delete_word()<CR>
+
 " ^K deletes to end of line
-cnoremap        <C-K>   <C-\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>
+cnoremap        <C-K>   <C-\>edit_cmdline#delete_to_eol()<CR>
 
 " Alt-Backspace deletes word backwards
 cnoremap        <A-BS>          <C-W>
