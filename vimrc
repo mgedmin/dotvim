@@ -1394,6 +1394,10 @@ cnoremap        <C-A>           <Home>
 cnoremap        <Esc>b          <S-Left>
 cnoremap        <Esc>f          <S-Right>
 
+" Alt+Left/Right move word backwards/forwards
+cnoremap        <M-Left>        <S-Left>
+cnoremap        <M-Right>       <S-Right>
+
 " Alt+d delete word
 cnoremap        <Esc>d  <C-\>edit_cmdline#delete_word()<CR>
 
