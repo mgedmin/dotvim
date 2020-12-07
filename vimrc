@@ -534,6 +534,10 @@ if has("eval")
   " Tell me which vim version introduced a feature with :HelpfulVersion foo
   Plug 'tweekmonster/helpful.vim'
 
+  " Sum numbers in visual selection
+  Plug 'emugel/vim-sum'
+  vmap <Esc>= <Plug>VimSumVisual
+
 
   " Additional filetypes                                        {{{3
 
