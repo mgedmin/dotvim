@@ -377,7 +377,7 @@ include_trailing_comma = true
 lines_after_imports = 2
 reverse_relative = true
 default_section = THIRDPARTY
-known_first_party = $1
+known_first_party = ${1:`!v mg_snip#python_main_module()`}
 # known_third_party = pytest, ...
 # skip = filename...
 endsnippet
