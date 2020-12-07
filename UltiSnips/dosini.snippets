@@ -37,7 +37,7 @@ snippet isort "tox -e isort" b
 [testenv:isort]
 deps = isort
 skip_install = true
-commands = isort {posargs: -c src}
+commands = isort {posargs: -c --diff `!v (glob("*.py", 0, 1) + glob("src", 0, 1))->join(" ")`}
 endsnippet
 
 snippet "systemd(-unit|-service)?" "systemd service unit" br
