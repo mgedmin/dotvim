@@ -40,6 +40,20 @@ skip_install = true
 commands = isort {posargs: -c --diff `!v (glob("*.py", 0, 1) + glob("src", 0, 1))->join(" ")`}
 endsnippet
 
+snippet check-manifest "tox -e check-manifest" b
+[testenv:check-manifest]
+deps = check-manifest
+skip_install = true
+commands = check-manifest {posargs}
+endsnippet
+
+snippet check-python-versions "tox -e check-python-versions" b
+[testenv:check-python-versions]
+deps = check-python-versions
+skip_install = true
+commands = check-python-versions {posargs}
+endsnippet
+
 snippet "systemd(-unit|-service)?" "systemd service unit" br
 [Unit]
 Description=${1:description}
