@@ -30,7 +30,7 @@ snippet mypy "tox -e mypy" b
 [testenv:mypy]
 deps = mypy
 skip_install = true
-commands = mypy src
+commands = mypy `!v (glob("*.py", 0, 1) + glob("src", 0, 1))->join(" ")`
 endsnippet
 
 snippet isort "tox -e isort" b
