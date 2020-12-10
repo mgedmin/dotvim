@@ -19,9 +19,9 @@ setlocal shiftwidth=4 softtabstop=4 expandtab tabstop=8
 augroup PythonDynamicShiftWidth
   au CursorMoved,CursorMovedI,WinEnter <buffer>
         \ if python#in_docstring() |
-        \   setlocal sw=2 sts=2 |
+        \   setlocal sw=2 sts=2 com+=fb:- |
         \ else |
-        \   setlocal sw=4 sts=4 |
+        \   setlocal sw=4 sts=4 com-=fb:- |
         \ endif
 augroup END
 
