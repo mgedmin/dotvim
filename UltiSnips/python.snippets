@@ -381,3 +381,16 @@ snippet parametrize "@pytest.mark.parametrize" b
     ${2},
 ])
 endsnippet
+
+snippet aoc "advent of code" b
+#!/usr/bin/python3
+"""
+$0
+"""
+
+import sys
+
+
+with open("input" if len(sys.argv) < 2 else sys.argv[1]) as f:
+    ...
+endsnippet
