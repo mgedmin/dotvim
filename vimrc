@@ -232,14 +232,19 @@ set errorformat&
 set errorformat-=%f(%l):%m
 
 " Sometimes Vim gets confused about ISO-8601 timestamps and thinks they're
-" filenames
-set errorformat^=%+G%\\d%#%.\ \ %.%#
+" filenames; this is a big hammer that ignores anything filename-like on lines
+" that start with at least two spaces, possibly preceded by a number and
+" optional punctuation
+set errorformat^=%+G%\\d%#%.%\\=\ \ %.%#
 
 " make: *** [Makefile:14: target] Error 1
 set errorformat^=%+Gmake:\ ***\ %.%#
-"
+
 " FAILED tests.py::test_with_params[YYYY-MM-DD:HH:MM:SS] - Exception: bla bla
 set errorformat^=%+GFAILED\ %.%#
+
+" AssertionError: assert ...YYYY-MM-DD:HH:MM:SS...
+set errorformat^=%+GAssertionError:\ %.%#
 
 " --- /path/to/file:before  YYYY-MM-DD HH:MM:SS.ssssss
 set errorformat^=---%f:%m
