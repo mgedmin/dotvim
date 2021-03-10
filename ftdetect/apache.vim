@@ -1,5 +1,5 @@
 " ansible files/ and templates/
-au BufRead,BufNewFile */files/apache/*.conf,*/templates/apache/*.conf.j2
+au BufRead,BufNewFile */files/apache/*.conf,*/templates/apache/*.conf.j2,*.apache.conf.j2
       \ set filetype=apache
 
 " autodetect from content?
