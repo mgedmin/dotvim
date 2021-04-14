@@ -514,6 +514,9 @@ if has("eval")
   " Edit symlink targets instead of symlinks
   Plug 'aymericbeaumet/symlink.vim'
 
+  " symlink.vim: 'moll/vim-bbye' is required in order for this plugin to properly work in diff mode
+  Plug 'moll/vim-bbye'
+
   " Async shell commands (see :Make)
   Plug 'skywind3000/asyncrun.vim'
 
