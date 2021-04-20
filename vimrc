@@ -1504,12 +1504,12 @@ imap            <S-F6>          <C-O><S-F6>
 map             <F7>            :ClipboardTest<CR>
 imap            <F7>            <C-O><F7>
 
-" <F8> = highlight identifier under cursor
+" <F8> = highlight identifier under cursor and show how often it appears in the buffer
 " (some file-type dependent autocommands redefine it)
-map             <F8>            :let @/='\<'.expand('<cword>').'\>'<bar>set hls<CR>
+map             <F8>            :let @/='\<'.expand('<cword>').'\>'<bar>set hls<bar>%s///gne<CR>
 imap            <F8>            <C-O><F8>
 vnoremap        <F8>
-      \ y:let @/='\V'.substitute(escape(@@,"/\\"),"\n","\\\\n","ge")<bar>set hls<CR>
+      \ y:let @/='\V'.substitute(escape(@@,"/\\"),"\n","\\\\n","ge")<bar>set hls<bar>%s///gne<CR>
 
 " <F9> = make (often overwritten by filetype plugins)
 map             <F9>    :VerboseMake<CR>
