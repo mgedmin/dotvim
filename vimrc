@@ -1623,6 +1623,10 @@ function! FT_Python_Django()
   setlocal wildignore+=var/www/static/*
 endf
 
+function! FT_Tilaajavastuu()
+  let g:source_locator_prefixes = ['db/']
+endf
+
 function! FT_Bolagsfakta_Syntastic()
   set wildignore+=*/server/var,*/build,*/pkgbuild
   call Python3(0)
@@ -1653,6 +1657,7 @@ augroup Python_prog
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'ivija' | call FT_Python_Ivija() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'labtarna' | call FT_Python_Django() | endif
   autocmd BufReadPre,BufNewFile **/tilaajavastuu/bol*/**/* call FT_Bolagsfakta_Syntastic()
+  autocmd BufReadPre,BufNewFile **/tilaajavastuu/**/* call FT_Tilaajavastuu()
   autocmd BufRead,BufNewFile /var/lib/buildbot/masters/*/*.cfg  setlocal tags=/root/buildbot.tags
   autocmd BufRead,BufNewFile /usr/**/buildbot/**/*.py  setlocal tags=/root/buildbot.tags
   if getcwd() =~ '.*tilaajavastuu.*' | call FT_Bolagsfakta_Syntastic() | endif
