@@ -1057,7 +1057,7 @@ endf
 command! -nargs=? -bar Margin  call s:Margin(<args>)
 command! -bar MarginOff        set colorcolumn=
 
-" :NoLCD                                                        {{{2
+" :NoLCD -- stop having a local working directory per window    {{{2
 command! NoLCD          exe 'cd '.getcwd()
 
 " :EditSnippets for UltiSnips                                   {{{2
