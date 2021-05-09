@@ -1789,6 +1789,14 @@ augroup VimRc
               \ setlocal path=~/.vim/** includeexpr=substitute(v:fname,'^.*/','','')
 augroup END
 
+" autosave on focus loss                                        {{{2
+
+augroup Focus
+  autocmd!
+  autocmd FocusLost * wall
+  autocmd FocusGained * checktime
+augroup END
+
 endif " has("autocmd")
 
 "
