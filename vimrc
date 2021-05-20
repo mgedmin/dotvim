@@ -467,8 +467,9 @@ if has("eval")
   Plug 'jlanzarotta/bufexplorer'
 
   " File tree in a sidebar.  Bound to <Leader>N, <Leader>f
-  Plug 'scrooloose/nerdtree', {
+  Plug 'preservim/nerdtree', {
     \ 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
+  Plug 'Xuyuanp/nerdtree-git-plugin'
 
 
   " Extending vim's features                                    {{{3
