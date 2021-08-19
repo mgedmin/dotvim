@@ -1664,6 +1664,7 @@ augroup Python_prog
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'labtarna' | call FT_Python_Django() | endif
   autocmd BufReadPre,BufNewFile **/tilaajavastuu/bol*/**/* call FT_Bolagsfakta_Syntastic()
   autocmd BufReadPre,BufNewFile **/tilaajavastuu/**/* call FT_Tilaajavastuu()
+  autocmd BufReadPre,BufNewFile **/tilaajavastuu/bol*/**/*.html setlocal sw=4
   if getcwd() =~ '.*tilaajavastuu.*' | call FT_Bolagsfakta_Syntastic() | endif
 augroup END
 
