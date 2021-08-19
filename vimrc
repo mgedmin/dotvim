@@ -238,6 +238,9 @@ set errorformat-=%f(%l):%m
 " optional punctuation
 set errorformat^=%+G%\\d%#%.%\\=\ \ %.%#
 
+" Similar, but when the entire line starts with a date
+set errorformat^=%+G\\d\\d\\d\\d-\\d\\d-\\d\\d\ \\d\\d:\\d\\d%.%#
+
 " make: *** [Makefile:14: target] Error 1
 set errorformat^=%+Gmake:\ ***\ %.%#
 
