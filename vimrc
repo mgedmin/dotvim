@@ -302,6 +302,7 @@ endif
 abbrev Pyhton Python
 abbrev PYthon Python
 abbrev improt import
+abbrev retunr return
 
 "
 " Plugins                                                       {{{1
