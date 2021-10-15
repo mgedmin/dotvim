@@ -1636,7 +1636,7 @@ function! FT_Python_Django()
 endf
 
 function! FT_Tilaajavastuu()
-  let g:source_locator_prefixes = ['db/']
+  let g:source_locator_prefixes = ['db/', 'server/', 'robottests/']
 endf
 
 function! FT_Bolagsfakta_Syntastic()
@@ -1648,7 +1648,6 @@ function! FT_Bolagsfakta_Syntastic()
   let g:syntastic_javascript_checkers = ['eslint']
   let g:coverage_script = 'server/env/bin/coverage'
   let g:py_test_locator_prefixes = ["server/"]
-  let g:source_locator_prefixes = ['server/', 'robottests/']
   if executable('./.ctags-wrapper')
     let g:gutentags_ctags_executable = fnamemodify('./.ctags-wrapper', ':p')
   endif
