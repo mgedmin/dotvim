@@ -1280,6 +1280,12 @@ map <expr>      ,R              ":e ".expand("%:r")."."
 " close just the deepest level of folds                         {{{2
 map             ,zm             zRzm
 
+" Slower mouse wheel scrolling in terminals                     {{{2
+" for some reason regular scrolls get interpreted as <C-ScrollWheelUp/Down> in
+" VTE terminals
+map             <C-ScrollWheelUp>   <C-Y>
+map             <C-ScrollWheelDown> <C-E>
+
 " Scrolling with Ctrl+Up/Down                                   {{{2
 map             <C-Up>          1<C-U>
 map             <C-Down>        1<C-D>
