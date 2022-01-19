@@ -1008,6 +1008,9 @@ command! -nargs=* SVNVimDiff            VCSVimDiff <args>
 
 command! -nargs=* BZRVimDiff            VCSVimDiff <args>
 
+" I can't unlearn :Gblame                                       {{{2
+command! -bang -nargs=? -range=-1 -complete=customlist,fugitive#BlameComplete  Gblame  exe fugitive#Command(<line1>, <count>, +"<range>", <bang>0, "<mods>", "blame " . <q-args>)
+
 " :CW                                                           {{{2
 " (but maybe I should add 'wincmd J' to ftplugin/qf.vim instead?)
 command! CW             botright cw
