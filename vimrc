@@ -1126,8 +1126,8 @@ command! -bar Python3 call Python3(1)
 
 " :MyPy enables Python type checking                            {{{2
 
-command! -bar MyPy    let g:ale_linters.python = ['flake8', 'mypy']
-command! -bar MyPyOff let g:ale_linters.python = ['flake8']
+command! -bar MyPy    let g:ale_linters.python = ['flake8', 'mypy'] | ALELint
+command! -bar MyPyOff let g:ale_linters.python = ['flake8'] | ALELint
 
 " :ESLint/:JSHint to tell Syntastic what to use for js          {{{2
 
