@@ -1318,6 +1318,10 @@ map!            <C-S-Up>        <C-O><C-W><Up>
 map!            <C-S-Down>      <C-O><C-W><Down>
 map!            <C-S-Left>      <C-O><C-W><Left>
 map!            <C-S-Right>     <C-O><C-W><Right>
+tmap            <C-S-Up>        <C-W><Up>
+tmap            <C-S-Down>      <C-W><Down>
+tmap            <C-S-Left>      <C-W><Left>
+tmap            <C-S-Right>     <C-W><Right>
 
 " Jumping to lint errors with Ctrl-J/K                          {{{2
 nmap <silent>   <C-K>           <Plug>(ale_previous_wrap)
