@@ -305,6 +305,7 @@ abbrev Pyhton Python
 abbrev PYthon Python
 abbrev improt import
 abbrev retunr return
+abbrev PAth Path
 
 "
 " Plugins                                                       {{{1
