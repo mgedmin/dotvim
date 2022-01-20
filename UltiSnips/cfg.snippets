@@ -412,3 +412,13 @@ exclude_lines =
     except NameError:
     if __name__ == .__main__.:
 endsnippet
+
+snippet pytest "[tool:pytest] in setup.cfg" b
+[tool:pytest]
+norecursedirs = .* *.egg-info dist build tmp scripts
+python_files = tests.py
+addopts = -ra
+# python_functions = !test_suite
+# addopts = -ra --doctest-modules --doctest-report ndiff
+# doctest_optionflags = ELLIPSIS
+endsnippet
