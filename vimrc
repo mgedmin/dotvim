@@ -903,7 +903,7 @@ if has("eval")
     call FocusOnTestFailure()
     if g:asyncrun_info == "-program=make @ " && (&makeprg == "make coverage" || &makeprg == "tox -e coverage")
       HighlightCoverageForAll
-    elseif g:asyncrun_info == "tox -e coverage"
+    elseif g:asyncrun_info == "tox -e coverage" || g:asyncrun_info == "-program=make @ coverage"
       HighlightCoverageForAll
     elseif g:asyncrun_status == 'success'
       echo "Success!"
