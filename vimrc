@@ -1931,7 +1931,7 @@ fun! MyColorTweaks()
 
   " number column aka gutter on the left
   if &background == "dark"
-    highlight LineNr ctermbg=235 guibg=#262626
+    highlight LineNr ctermfg=11 ctermbg=235 guibg=#262626
     highlight CursorLineNr ctermbg=235 guibg=#262626 cterm=underline
   else
     highlight LineNr ctermbg=230 guibg=#ffffd7
