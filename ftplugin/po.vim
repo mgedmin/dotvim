@@ -25,5 +25,6 @@ endf
 
 com! -bar Unfuzz  call s:unfuzz()
 
+map <buffer> <F4> :FindUntranslatedOrFuzzy<cr>
 map <buffer> <F5> :Unfuzz<cr>
 imap <buffer> <F5> <C-o><F5>
