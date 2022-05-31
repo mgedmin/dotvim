@@ -823,6 +823,9 @@ if v:version >= 700 && has("eval")
         \ ]
   let g:NERDTreeHijackNetrw = 0
   let g:NERDTreeShowHidden = 1
+  " let g:NERDRespectWildIgnore = 1 <-- hmm, why didn't I have this one
+  " instead of overriding g:NERDTreeToggle?  Either it's new, or it ignores
+  " something that I ordinarily want to see, like node-modules.
 endif
 
 map <Leader>n :NERDTreeToggle<CR>
@@ -1544,6 +1547,10 @@ imap            <S-F9>  <C-O><S-F9>
 " (some file-type dependent autocommands redefine it)
 ""map           <F10>           :q<CR>
 ""imap          <F10>           <ESC>
+
+" <S-F10> = toggle NERDTree
+map             <S-F10>         :NERDTreeToggle<CR>
+imap            <S-F10>         <C-O><S-F10>
 
 " <F11> = toggle 'paste'
 set pastetoggle=<F11>
