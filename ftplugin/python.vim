@@ -9,6 +9,9 @@ elseif getline(1) =~ 'python2' && exists("*Python2")
   call Python2(0)
 endif
 
+if has('patch-8.2.5066')
+  setlocal listchars+=leadmultispace:⸱\ \ \  " NB: trailing whitespace
+endif
 
 " PEP-8 is good
 " (note that vim's runtime ftplugin/python.vim overrides these, so use
