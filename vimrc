@@ -1660,6 +1660,10 @@ function! FT_Bolagsfakta_Syntastic()
   set wildignore+=*/server/var,*/build,*/pkgbuild
   call Python3(0)
   let g:ale_javascript_eslint_executable = 'client/eslint'
+  " the only problem is that :ALEFix takes ***ages*** on a 1000-line .jsx,
+  " when the equivalent command-line :!prettier --write % takes milliseconds
+  let g:ale_javascript_prettier_executable = 'client/node_modules/.bin/prettier'
+  let g:ale_javascript_prettier_options = '--parser babel'
   let g:ale_python_mypy_executable = 'server/env/bin/mypy'
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
