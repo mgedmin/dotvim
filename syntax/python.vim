@@ -12,6 +12,8 @@ function! PythonFoldLevel(lineno)
     let line = getline(a:lineno + 1)
     if line =~ '^\(def\|class\)\>'
       return 0
+    elseif line =~ '^@'
+      return 0
     elseif line =~ '^    \(def\|class\|#\)\>'
       return 1
     else
@@ -20,9 +22,11 @@ function! PythonFoldLevel(lineno)
     endif
   elseif line =~ '^\(def\|class\)\>'
     return '>1'
+  elseif line =~ '^@'   " multiline decorator maybe
+    return '>1'
   elseif line =~ '^    \(def\|class\)\>'
     return '>2'
-  elseif line =~ '^[^ #)]'
+  elseif line =~ '^[^] #)]'
     " a non-blank character at the first column stops a fold, except
     " for '#', so that comments in the middle of functions don't break folds,
     " and ')', so that I can have multiline function signatures like
