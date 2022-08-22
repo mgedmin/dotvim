@@ -183,7 +183,8 @@ fun! mg#tabline_highlight()
 endf
 
 
-if has('lambda')
+if has('lambda') && 0
+  " Unfortunately substitute() limits recursion to 4 levels, see :h E1290
   fun! s:expand(s, options)
     return substitute(a:s, '{\([a-z_]\+\)}', {m -> s:eval(m[1], a:options)}, 'g')
   endf
