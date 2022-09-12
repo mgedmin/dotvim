@@ -119,6 +119,10 @@ if v:version >= 700
   set spelllang=en,lt           " spell-check two languages at once
 endif
 
+if has('splitscroll')
+  set nosplitscroll             " avoid scrolling text when creating splits
+endif
+
 " Input                                                         {{{2
 
 set ttimeout ttimeoutlen=20     " timeout keys after 20ms (mappings time out after 1 s)
