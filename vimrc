@@ -119,7 +119,7 @@ if v:version >= 700
   set spelllang=en,lt           " spell-check two languages at once
 endif
 
-if has('splitscroll')
+if exists('&splitscroll')
   set nosplitscroll             " avoid scrolling text when creating splits
 endif
 
