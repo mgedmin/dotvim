@@ -4,6 +4,8 @@ function python#in_docstring()
   " pythonString
   let synstack = synstack(line, 1)
   let syn = empty(synstack) ? "" : synIDattr(synstack[0], "name")
-  let in_docstring = syn =~# 'python\(Raw\)\=String'
+  " f-strings can never be docstrings, but I have a bunch of f-strings
+  " containing yaml where I want two-space indents too!
+  let in_docstring = syn =~# 'python\(Raw\|F\)\=String'
   return in_docstring
 endf
