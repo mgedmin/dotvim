@@ -468,6 +468,7 @@ if has("eval")
   " Open files by typing a subsequence of the pathname, bound to <Leader>t
   Plug 'wincent/command-t', {
               \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'}
+  let g:CommandTPreferredImplementation='ruby'
 
   " Pure-python alternative to command-t, slightly different UI, not as nice
   " to use as command-t but useful for some circumstances (Vim w/o Ruby).
