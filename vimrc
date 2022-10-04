@@ -563,6 +563,9 @@ if has("eval")
   Plug 'emugel/vim-sum'
   vmap <Esc>= <Plug>VimSumVisual
 
+  " :StartupTime
+  Plug 'dstein64/vim-startuptime'
+
 
   " Additional filetypes                                        {{{3
 
