@@ -1288,8 +1288,8 @@ map             ,FE             :e $HOME/.vim/ftplugin/<C-Z><C-Z>
 map             ,XE             :e $HOME/.vim/syntax/<C-Z><C-Z>
 
 " double comma for limited virtual keyboards                    {{{2
-map             ,,              :update<CR>
-imap            ,,              <ESC>
+""map             ,,              :update<CR>
+""imap            ,,              <ESC>
 
 " open a file in the same dir as the current one                {{{2
 map <expr>      ,E              ":e ".curdir#get()."/"
