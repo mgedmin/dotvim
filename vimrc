@@ -119,8 +119,11 @@ if v:version >= 700
   set spelllang=en,lt           " spell-check two languages at once
 endif
 
-if exists('&splitscroll')
-  set nosplitscroll             " avoid scrolling text when creating splits
+if exists('&splitkeep')
+  set splitkeep=screen          " avoid scrolling text when creating splits
+endif
+if exists('&smoothscroll')
+  set smoothscroll              " allow scrolling by screen line (^Y/^E only for now)
 endif
 
 " Input                                                         {{{2
