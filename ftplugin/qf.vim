@@ -27,6 +27,9 @@ if exists("w:quickfix_title")
 endif
 
 " Shrink too-high quickfix windows
-if winheight(0) > line('$') && get(g:, 'asyncrun_status') != 'running'
+" The getqflist() check is a workaround for https://github.com/vim/vim/issues/11292
+" it probably breaks autoresizing for loclists, but then I don't use loclists
+" so I don't care
+if winheight(0) > line('$') && get(g:, 'asyncrun_status') != 'running' && getqflist() != []
   exe "resize" line('$')
 endif
