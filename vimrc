@@ -716,7 +716,7 @@ endif
 " ctrlp.vim                                                     {{{2
 
 if has("eval")
-  let g:ctrlp_match_window_reversed = 0
+  let g:ctrlp_match_window_reversed = 1
   let g:ctrlp_reuse_window = 'netrw\|BufExplorer'
   let g:ctrlp_custom_ignore = {
               \ 'dir': '\v[\/]build$',
