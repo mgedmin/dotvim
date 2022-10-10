@@ -430,6 +430,7 @@ if has("eval")
 
   " Git integration -- :Gdiff, :Ggrep etc.
   Plug 'tpope/vim-fugitive'
+  let g:fugitive_legacy_commands = 1  " :Gbrowse, :Gblame are burned into my muscle memory
 
   " GitHub support for vim-fugitive
   Plug 'tpope/vim-rhubarb'
@@ -1022,9 +1023,6 @@ command! -nargs=0 SVNUpdate             VCSUpdate <args>
 command! -nargs=* SVNVimDiff            VCSVimDiff <args>
 
 command! -nargs=* BZRVimDiff            VCSVimDiff <args>
-
-" I can't unlearn :Gblame                                       {{{2
-command! -bang -nargs=? -range=-1 -complete=customlist,fugitive#BlameComplete  Gblame  exe fugitive#Command(<line1>, <count>, +"<range>", <bang>0, "<mods>", "blame " . <q-args>)
 
 " :CW                                                           {{{2
 " (but maybe I should add 'wincmd J' to ftplugin/qf.vim instead?)
