@@ -396,3 +396,10 @@ import sys
 with open("input" if len(sys.argv) < 2 else sys.argv[1]) as f:
     ...
 endsnippet
+
+snippet fixture "pytest fixture" b
+@pytest.fixture
+def ${1}(${2}):
+    ${3}
+    yield ${4}
+endsnippet
