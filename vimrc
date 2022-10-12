@@ -323,6 +323,10 @@ abbrev PAth Path
 if has("eval")
   call plug#begin('~/.vim/bundle')
 
+  " :help for vim-plug itself                                   {{{3
+
+  Plug 'junegunn/vim-plug'
+
   " Programming                                                 {{{3
 
   " Show syntax errors and style warning in files I edit.  Updates
