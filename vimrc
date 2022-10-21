@@ -1681,7 +1681,7 @@ function! FT_Bolagsfakta_Syntastic()
   let g:syntastic_javascript_eslint_exec = 'client/eslint'
   let g:syntastic_javascript_checkers = ['eslint']
   let g:coverage_script = 'server/env/bin/coverage'
-  let g:py_test_locator_prefixes = ["server/"]
+  let g:source_locator_prefixes = ["server/"]
   if executable('./.ctags-wrapper')
     let g:gutentags_ctags_executable = fnamemodify('./.ctags-wrapper', ':p')
   endif
@@ -1705,6 +1705,7 @@ augroup Python_prog
   autocmd BufReadPre,BufNewFile **/tilaajavastuu/**/* call FT_Tilaajavastuu()
   autocmd BufReadPre,BufNewFile **/tilaajavastuu/bol*/**/*.html setlocal sw=4
   if getcwd() =~ '.*tilaajavastuu.*' | call FT_Bolagsfakta_Syntastic() | endif
+  if getcwd() =~ '.*tilaajavastuu.*' | call FT_Tilaajavastuu() | endif
 augroup END
 
 augroup JS_prog
