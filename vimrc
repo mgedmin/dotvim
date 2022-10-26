@@ -1838,7 +1838,7 @@ augroup END
 
 augroup Focus
   autocmd!
-  autocmd FocusLost * wall
+  autocmd FocusLost * silent! wall
   autocmd FocusGained * checktime
 augroup END
 
