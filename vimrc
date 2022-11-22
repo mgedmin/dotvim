@@ -1146,7 +1146,16 @@ command! -bar Python3 call Python3(1)
 
 " :MyPy enables Python type checking                            {{{2
 
-command! -bar MyPy    let g:ale_linters.python = ['flake8', 'mypy'] | ALELint
+function! MyPyOn()
+  let g:ale_linters.python = ['flake8', 'mypy']
+  if filereadable('.tox/mypy/bin/mypy')
+    let g:ale_python_mypy_executable = '.tox/mypy/bin/mypy'
+  else
+    let g:ale_python_mypy_executable = 'mypy'
+  endif
+  ALELint
+endf
+command! -bar MyPy    call MyPyOn()
 command! -bar MyPyOff let g:ale_linters.python = ['flake8'] | ALELint
 
 " :ESLint/:JSHint to tell Syntastic what to use for js          {{{2
