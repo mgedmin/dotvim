@@ -193,7 +193,7 @@ setup(
 )
 endsnippet
 
-snippet "ldct|" "long_description_content_type= in setup.py" b
+snippet "ldct|long_description_content_type=?" "long_description_content_type= in setup.py" br
 long_description_content_type='text/x-rst',
 endsnippet
 
@@ -378,7 +378,7 @@ def ${1}(${2}):
 endsnippet
 
 
-snippet parametrize "@pytest.mark.parametrize" b
+snippet "@?(pytest.mark.)?parametrize" "@pytest.mark.parametrize" br
 @pytest.mark.parametrize("${1}", [
     ${2},
 ])
