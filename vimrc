@@ -369,6 +369,11 @@ if has("eval")
   Plug 'junegunn/vader.vim'
 
 
+  " Programming: Rust                                           {{{3
+
+  Plug 'rust-lang/rust.vim'
+
+
   " Programming: JavaScript                                     {{{3
 
   Plug 'pangloss/vim-javascript'
