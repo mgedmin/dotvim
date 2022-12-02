@@ -1015,6 +1015,9 @@ command! Diffoff                        diffoff | setlocal nowrap
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
                   \ | wincmd p | diffthis
 
+" ShowMerge find the merge commit while looking at a commit in fugitive
+command! ShowMerge call mg#fugitive#ShowMerge()
+
 " :Time SomeOtherCommand                                        {{{2
 command! -nargs=+ -complete=command Time
             \ let start = reltime() |
