@@ -313,6 +313,7 @@ abbrev PYthon Python
 abbrev improt import
 abbrev retunr return
 abbrev PAth Path
+abbrev ehco echo
 
 "
 " Plugins                                                       {{{1
