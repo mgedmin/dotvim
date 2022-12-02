@@ -1,4 +1,4 @@
-fun! chmodx#doit()
+fun! mg#chmodx#doit()
     if getline(1) =~ "^#!"
         if expand("<afile>:t") =~ "test.*py"
             return
