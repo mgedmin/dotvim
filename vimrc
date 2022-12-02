@@ -1034,7 +1034,7 @@ command! -nargs=* SVNVimDiff            VCSVimDiff <args>
 
 command! -nargs=* BZRVimDiff            VCSVimDiff <args>
 
-" :CW                                                           {{{2
+" :CW is a better :cw                                           {{{2
 " (but maybe I should add 'wincmd J' to ftplugin/qf.vim instead?)
 command! CW             botright cw
 
