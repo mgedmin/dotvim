@@ -336,10 +336,11 @@ if has("eval")
     let g:ale_set_balloons = 1   " must be set before loading ale
     Plug 'w0rp/ale'
     let g:ale_linters = {'python': ['flake8']}
+    let g:ale_fixers = {'javascript': ['prettier'], 'python': ['isort']}
     if filereadable(expand('~/.cargo/bin/rust-analyzer'))
       let g:ale_linters.rust = ['analyzer']
+      let g:ale_fixers.rust = [ 'rustfmt']
     endif
-    let g:ale_fixers = {'javascript': ['prettier'], 'python': ['isort']}
     " see https://github.com/w0rp/ale/issues/1827#issuecomment-433920827
     let g:ale_python_flake8_change_directory = 0
   else
