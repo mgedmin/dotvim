@@ -1,5 +1,5 @@
 " Return the directory of the current buffer
-function! curdir#get()
+function! mg#curdir#get()
     if expand("%") == '' && exists('b:netrw_curdir')
         return b:netrw_curdir
     endif

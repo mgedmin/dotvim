@@ -985,7 +985,7 @@ if has("user_commands")
 
 " like :Explore, only never split windows                       {{{2
 " workaround for https://github.com/vim/vim/issues/1506
-command! -nargs=* -complete=file E exec "e" (<q-args> != "" ? <q-args> : curdir#get())
+command! -nargs=* -complete=file E exec "e" (<q-args> != "" ? <q-args> : mg#curdir#get())
 
 " how many occurrences of the current search pattern?           {{{2
 command! -range=% CountMatches          <line1>,<line2>s///n
@@ -1295,7 +1295,7 @@ map             ,XE             :e $HOME/.vim/syntax/<C-Z><C-Z>
 ""imap            ,,              <ESC>
 
 " open a file in the same dir as the current one                {{{2
-map <expr>      ,E              ":e ".curdir#get()."/"
+map <expr>      ,E              ":e ".mg#curdir#get()."/"
 
 " open a file with same basename but different extension        {{{2
 map <expr>      ,R              ":e ".expand("%:r")."."
