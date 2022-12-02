@@ -10,4 +10,4 @@
 " See ~/.vim/web-annotate.cfg for a sample config.
 "
 
-command! -bar WebAnnotate call web_annotate#open()
+command! -bar WebAnnotate call mg#web_annotate#open()

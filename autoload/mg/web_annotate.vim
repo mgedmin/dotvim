@@ -1,3 +1,5 @@
+" See plugin/web-annotate.vim for the documentation
+
 let s:python = has('python3') ? 'python3' : 'python'
 exec s:python "<< END"
 import os, re, vim, subprocess
@@ -103,6 +105,6 @@ class WebAnnotator(object):
 
 END
 
-fun web_annotate#open()
+fun mg#web_annotate#open()
   exec s:python "WebAnnotator().open()"
 endf
