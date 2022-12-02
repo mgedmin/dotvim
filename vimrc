@@ -1604,7 +1604,7 @@ augroup END
 " Create missing directory on save                              {{{2
 augroup MkDirOnSave
   au!
-  au BufWritePre * call mkdirondemand#doit()
+  au BufWritePre * call mg#mkdir#ondemand()
 augroup END
 
 " Autodetect filetype on first save                             {{{2
