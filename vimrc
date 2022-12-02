@@ -1168,23 +1168,6 @@ command! -bar MyPyOff let g:ale_linters.python = ['flake8'] | ALELint
 command! -bar ESLint  let g:syntastic_javascript_checkers = ['eslint'] | SyntasticCheck
 command! -bar JSHint  let g:syntastic_javascript_checkers = ['jshint'] | SyntasticCheck
 
-" :LaptopMode[Off]                                              {{{2
-function! s:LaptopMode(on)
-  " Be more friendly to laptop mode -- avoid spinning up rotational hard disks
-  " too often.  DANGER: this could result in data loss if the system crashes,
-  " so beware!
-  if exists('&fsync')
-    let &fsync = !a:on
-    set fsync?
-  endif
-  if exists('&swapsync')          " (neovim doesn't have this option)
-    let &swapsync = a:on ? '' : 'fsync'
-    set swapsync?
-  endif
-endf
-command! LaptopMode     call s:LaptopMode(1)
-command! LaptopModeOff  call s:LaptopMode(0)
-
 " :MakeCommand <command>                                        {{{2
 command -bar -nargs=* MakeCommand
       \ let &makeprg = <q-args> | set makeprg
