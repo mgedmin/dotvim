@@ -159,6 +159,8 @@ set preserveindent              " no tabs if line didn't use them before
 set isfname-=\=                 " fix filename completion in VAR=/path
 if v:version >= 704
   set fo+=j                     " remove comment leader when joining lines
+  let &flp='^\s*\d\+[\]:.)}\t ]\s*'  " default value
+  let &flp.='\|^\s*[-*]\s'           " also recognize bulleted lists
 endif
 
 " Editing code                                                  {{{2
