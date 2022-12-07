@@ -1,0 +1,16 @@
+snippet tests "tests in a rust module" b
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test$1() {
+        $2
+    }
+}
+endsnippet
+
+
+snippet "(// )?aoc" "advent of code url in comment" br
+// https://adventofcode.com/`!v strftime("%Y")`/day/`!v expand("%:p:h:h:t")->substitute('^day0*', '', '')`
+endsnippet
