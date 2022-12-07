@@ -1666,6 +1666,7 @@ endf
 function! FT_Python_Ivija()
   setlocal wildignore+=docs/src/*  " make command-t ignore the duplicated subtree
   setlocal wildignore+=reportgen-output/*
+  let g:ale_linters.xml = []
 endf
 
 function! FT_Python_Django()
