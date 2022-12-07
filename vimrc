@@ -337,14 +337,19 @@ if has("eval")
   if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
     let g:ale_set_balloons = 1   " must be set before loading ale
     Plug 'w0rp/ale'
-    let g:ale_linters = {'python': ['flake8']}
-    let g:ale_fixers = {'javascript': ['prettier'], 'python': ['isort']}
+    let g:ale_linters = {}
+    let g:ale_linters.python = ['flake8']
+    let g:ale_linters.rust = ['cargo']
+    let g:ale_fixers = {}
+    let g:ale_fixers.javascript = ['prettier']
+    let g:ale_fixers.python = ['isort']
+    let g:ale_fixers.rust = ['rustfmt']
     if filereadable(expand('~/.cargo/bin/rust-analyzer'))
-      let g:ale_linters.rust = ['analyzer']
-      let g:ale_fixers.rust = [ 'rustfmt']
+      let g:ale_linters.rust = ['analyzer', 'cargo']
     endif
     " see https://github.com/w0rp/ale/issues/1827#issuecomment-433920827
     let g:ale_python_flake8_change_directory = 0
+    let g:ale_rust_cargo_use_clippy = 1
   else
     " Show syntax errors and style warnings in files I edit.  Updates on save.
     Plug 'scrooloose/syntastic'
