@@ -11,7 +11,29 @@ mod tests {
 endsnippet
 
 
-snippet "(// )?aoc" "advent of code url in comment" br
+global !p
+def eat_hello_world(snip):
+    line = snip.snippet_end[0] + 1
+    expected = [
+        'fn main() {',
+        '    println!("Hello, world!");',
+        '}',
+    ]
+    where = slice(line, line + len(expected))
+    if snip.buffer[where] == expected:
+        del snip.buffer[where]
+endglobal
+
+post_expand "eat_hello_world(snip)"
+snippet "(// )?aoc" "advent of code solution template" br
 // https://adventofcode.com/`!v strftime("%Y")`/day/`!v expand("%:p:h:h:t")->substitute('^day0*', '', '')`
 
+mod part1;
+//mod part2;
+$0
+fn main() {
+    let input = std::fs::read_to_string("input").unwrap();
+    println!("{}", part1::part1(&input));
+//  println!("{}", part2::part2(&input));
+}
 endsnippet
