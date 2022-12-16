@@ -62,15 +62,20 @@ endsnippet
 snippet appveyor "appveyor.yml based on tox" !b
 version: build-{build}-{branch}
 
+# https://www.appveyor.com/docs/lang/python/
+image:
+  - Visual Studio 2019
+
 environment:
   matrix:
-    # https://www.appveyor.com/docs/installed-software#python lists available
-    # versions
-    - PYTHON: "C:\\\\Python27"
-    - PYTHON: "C:\\\\Python35"
-    - PYTHON: "C:\\\\Python36"
-    - PYTHON: "C:\\\\Python37"
-    - PYTHON: "C:\\\\Python38"
+    # https://www.appveyor.com/docs/windows-images-software/#python lists
+    # available versions
+    - PYTHON: "C:\\\\Python27-x64"
+    - PYTHON: "C:\\\\Python37-x64"
+    - PYTHON: "C:\\\\Python38-x64"
+    - PYTHON: "C:\\\\Python39-x64"
+    - PYTHON: "C:\\\\Python310-x64"
+    - PYTHON: "C:\\\\Python311-x64"
 
 init:
   - "echo %PYTHON%"
