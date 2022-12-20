@@ -1473,8 +1473,8 @@ cnoremap        <Esc>d  <C-\>emg#edit_cmdline#delete_word()<CR>
 cnoremap        <C-K>   <C-\>emg#edit_cmdline#delete_to_eol()<CR>
 
 " Alt-Backspace deletes word backwards
-cnoremap        <A-BS>          <C-W>
-cnoremap        <Esc><BS>       <C-W>
+cnoremap        <A-BS>          <C-\>emg#edit_cmdline#delete_word_backwards()<CR>
+cnoremap        <Esc><BS>       <C-\>emg#edit_cmdline#delete_word_backwards()<CR>
 
 " Ctrl-Backspace deletes word backwards
 cnoremap        <C-BS>          <C-W>
