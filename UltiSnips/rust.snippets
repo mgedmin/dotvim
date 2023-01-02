@@ -45,3 +45,27 @@ fn main() {
 //  println!("{}", part2::part2(&input));
 }
 endsnippet
+
+
+snippet clap "clap-based cmdline parsing" b
+use clap::Parser;
+
+
+#[derive(Parser)]
+#[command()]
+struct Cli {
+    /// Input filename (default: 'input')
+    #[arg(default_value_t = String::from("input"))]
+    filename: String,
+}
+
+//  let cli = Cli::parse();
+endsnippet
+
+snippet Debug "impl Debug for" b
+impl std::fmt::Debug for $1 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "$2")
+    }
+}
+endsnippet
