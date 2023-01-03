@@ -505,8 +505,20 @@ if has("eval")
 
   " File tree in a sidebar.  Bound to <Leader>N, <Leader>f
   Plug 'preservim/nerdtree', {
-    \ 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
+        \ 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
   Plug 'Xuyuanp/nerdtree-git-plugin'
+  let g:NERDTreeGitStatusIndicatorMapCustom = {
+        \ 'Modified'  :'*',
+        \ 'Staged'    :'+',
+        \ 'Untracked' :'?',
+        \ 'Renamed'   :'>',
+        \ 'Unmerged'  :'=',
+        \ 'Deleted'   :'x',
+        \ 'Dirty'     :'*',
+        \ 'Ignored'   :'I',
+        \ 'Clean'     :'v',
+        \ 'Unknown'   :'?',
+        \ }
 
 
   " Extending vim's features                                    {{{3
