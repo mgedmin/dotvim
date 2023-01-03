@@ -77,3 +77,6 @@ imap <buffer> <C-S-F9>  <C-O><C-S-F9>
 
 " <F11> = toggle coverage highlighting
 map  <buffer> <F11>     :ToggleCoverage<CR>
+
+" Smarter ctrl-]
+nnoremap <buffer> <expr> <C-]> mg#python#tag_jump_mapping()
