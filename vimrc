@@ -370,7 +370,7 @@ if has("eval")
   vmap <leader>a2b <leader>atob
   vmap <leader>b2a <leader>btoa
 
-  " Show [current_function] in the status line for C and Python files
+  " Show [current_function] in the status line for supported file types (C, Python, JS, diff)
   Plug 'mgedmin/taghelper.vim'
 
   " Comment out stuff with gc<motion> (gcc for the current line)
@@ -446,6 +446,9 @@ if has("eval")
   Plug 'fs111/pydoc.vim'
   let g:pydoc_cmd = 'python3 -m pydoc'
 
+  " :BlackMachiatto to autoformat the selected range of lines; needs pipx
+  " install black-machiatto
+  Plug 'smbl64/vim-black-macchiato'
 
   " Version control integration                                 {{{3
 
