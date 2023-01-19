@@ -1945,6 +1945,8 @@ fun! MyColorTweaks()
   if &background == "dark"
     hi ALEErrorSign ctermfg=red ctermbg=235
     hi ALEWarningSign ctermfg=202 ctermbg=235
+    hi ALEVirtualTextError ctermfg=9 ctermbg=235
+    hi link ALEVirtualTextWarning ALEVirtualTextError
   else
     hi ALEErrorSign ctermfg=red ctermbg=230 guibg=#ffffd7
     hi ALEWarningSign ctermfg=202 ctermbg=230 guibg=#ffffd7
