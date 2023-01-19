@@ -30,6 +30,15 @@ endif
 " The getqflist() check is a workaround for https://github.com/vim/vim/issues/11292
 " it probably breaks autoresizing for loclists, but then I don't use loclists
 " so I don't care
-if winheight(0) > line('$') && get(g:, 'asyncrun_status') != 'running' && getqflist() != []
-  exe "resize" line('$')
+if get(g:, 'asyncrun_status') != 'running' && getqflist() != []
+  let s:max_height = max([3, line('$')])
+  let s:min_height = min([10, line('$')])
+  if get(g:, 'debug_qf_size', 0)
+    echomsg "adjusting qf size: cur=" .. winheight(0) .. " min=" .. s:min_height .. " max=" .. s:max_height
+  endif
+  if winheight(0) > s:max_height
+    exe "resize" s:max_height
+  elseif winheight(0) < s:min_height
+    exe "resize" s:min_height
+  endif
 endif
