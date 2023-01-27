@@ -1368,8 +1368,8 @@ tmap            <C-S-Left>      <C-W><Left>
 tmap            <C-S-Right>     <C-W><Right>
 
 " Jumping to lint errors with Ctrl-J/K                          {{{2
-nmap <silent>   <C-K>           <Plug>(ale_previous_wrap)
-nmap <silent>   <C-J>           <Plug>(ale_next_wrap)
+nmap <silent>   <C-K>           <Plug>(ale_previous)
+nmap <silent>   <C-J>           <Plug>(ale_next)
 
 " Switching tabs with Alt-1,2,3 in gvim                         {{{2
 map             <A-1>           1gt
