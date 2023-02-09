@@ -8,9 +8,9 @@ fun mg#reload#plugin(name)
   " This works on my machine!  It's not indented to be a very generic
   " solution!  I write plugins to be reloadable: use fun!, don't use guards, etc.
   let path = g:reload#root . "/" . a:name
-  call mg#reload#if_exists(path . "/plugin/*.vim")
-  call mg#reload#if_exists(path . "/autoload/*.vim")
   call mg#reload#if_exists(path . "/pythonx/*.py")
+  call mg#reload#if_exists(path . "/autoload/*.vim")
+  call mg#reload#if_exists(path . "/plugin/*.vim")
 endf
 
 fun mg#reload#if_exists(filespec)
