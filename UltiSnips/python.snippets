@@ -384,6 +384,10 @@ snippet "@?(pytest.mark.)?parametrize" "@pytest.mark.parametrize" br
 ])
 endsnippet
 
+snippet "@?(pytest.mark.)?xfail" "@pytest.mark.xfail" br
+@pytest.mark.xfail(reason="${1}")
+endsnippet
+
 snippet aoc "advent of code" b
 #!/usr/bin/python3
 """
