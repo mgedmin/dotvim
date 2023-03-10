@@ -449,6 +449,7 @@ if has("eval")
   " :BlackMachiatto to autoformat the selected range of lines; needs pipx
   " install black-machiatto
   Plug 'smbl64/vim-black-macchiato'
+  let g:black_macchiato_args = "-S -l79"
 
   " Version control integration                                 {{{3
 
