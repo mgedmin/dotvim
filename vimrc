@@ -399,10 +399,10 @@ if has("eval")
   Plug 'mgedmin/python-refactorings.vim'
 
   " Insert Python import statements computed from tags, bound to <F5>
-  Plug 'mgedmin/python-imports.vim'
+  Plug 'mgedmin/python-imports.vim', {'on': ['ImportName', 'ImportNameHere']}
 
   " A smarter :Tag [package.][module.][class.]name command for Python
-  Plug 'mgedmin/pytag.vim'
+  Plug 'mgedmin/pytag.vim', {'on': ['Tag']}
 
   " <Leader>oo to jump to Python standard library source code
   " (my fork because bugfixes)
@@ -413,19 +413,19 @@ if has("eval")
 ""Plug 'tmhedberg/SimpylFold'
 
   " Automate switching between code and unit test files, bound to <C-F6>
-  Plug 'mgedmin/test-switcher.vim'
+  Plug 'mgedmin/test-switcher.vim', {'on': ['SwitchCodeAndTest', 'TestInTheOtherWindow', 'OpenTestInOtherWindow']}
 
   " Run test under cursor
   Plug 'mgedmin/py-test-runner.vim'
 
   " Locate the source code line from clipboard contents, bound to <F7>
-  Plug 'mgedmin/source-locator.vim'
+  Plug 'mgedmin/source-locator.vim', {'on': ['ClipboardTest', 'LocateTest']}
 
   " :EnableTestOnSave and have fun doing code katas
-  Plug 'mgedmin/test-on-save.vim'
+  Plug 'mgedmin/test-on-save.vim', {'on': ['EnableTestOnSave', 'RunTests']}
 
   " :HighlightCoverage for Python
-  Plug 'mgedmin/coverage-highlight.vim'
+  Plug 'mgedmin/coverage-highlight.vim', {'on': ['HighlightCoverage', 'HighlightCoverageForAll', 'HighlightCoverageOff', 'ToggleCoverage', 'PrevUncovered', 'NextUncovered']}
   let g:coverage_script = 'coverage'
   noremap [C :<C-U>PrevUncovered<CR>
   noremap ]C :<C-U>NextUncovered<CR>
