@@ -768,6 +768,9 @@ if has("eval")
   let g:ctrlp_prompt_mappings = {
               \ 'PrtClearCache()':      ['<F5>', '<c-f>'],
               \ }
+  " faster scanning maybe
+  let g:ctrlp_user_command =
+        \ ['.git', 'cd %s && git ls-files . -co --exclude-standard']
 endif
 
 " bufexplorer.vim                                               {{{2
