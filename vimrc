@@ -317,6 +317,8 @@ abbrev improt import
 abbrev retunr return
 abbrev PAth Path
 abbrev ehco echo
+abbrev wiht with
+abbrev reosurce resource
 
 "
 " Plugins                                                       {{{1
