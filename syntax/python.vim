@@ -39,7 +39,7 @@ function! PythonFoldLevel(lineno)
     return 0
   elseif line =~ '^# \|^#$' " except when they're proper comments and not commentd-out code (for which I use ##
     return 0
-  elseif line =~ '^    [^ ]' " XXX used to be [^ #], why? what did I break by removing #?
+  elseif line =~ '^    [^ )]' " end method folds except watch for black-style signatures
     return 1
   else
     let lvl = foldlevel(a:lineno - 1)
