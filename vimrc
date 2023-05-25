@@ -465,7 +465,10 @@ if has("eval")
 
   " Gitlab support for vim-fugitive
   Plug 'shumphrey/fugitive-gitlab.vim'
-  let g:fugitive_gitlab_domains = ['https://gitlab.gnome.org', 'https://git.vaultit.org/']
+  let g:fugitive_gitlab_domains = {
+        \ 'https://gitlab.gnome.org': '',
+        \ 'ssh://gitlab.tilaajavastuu.fi:2222': 'https://git.vaultit.org/',
+        \ }
 
   " Git log browsing (unmaintained)
   Plug 'gregsexton/gitv', {'on': ['Gitv']}
