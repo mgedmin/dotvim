@@ -7,6 +7,11 @@ function mg#python#in_docstring()
   " f-strings can never be docstrings, but I have a bunch of f-strings
   " containing yaml where I want two-space indents too!
   let in_docstring = syn =~# 'python\(Raw\|F\)\=String'
+  " the syntax check was for a string in column 1, but there's one exception:
+  " if column 1 itself begins the string, I never want 2-space indents for it
+  if getline(line) =~ '^"'
+    return 0
+  endif
   return in_docstring
 endf
 

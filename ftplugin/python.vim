@@ -18,7 +18,8 @@ endif
 " ~/.vim/after/ftplugin/python.vim instead)
 setlocal shiftwidth=4 softtabstop=4 expandtab tabstop=8
 
-" dynamic shiftwidth
+" dynamic shiftwidth, for editing yaml inside docstrings (OpenAPI
+" documentation for HTTP APIs mostly)
 augroup PythonDynamicShiftWidth
   au CursorMoved,CursorMovedI,WinEnter <buffer>
         \ if mg#python#in_docstring() |
