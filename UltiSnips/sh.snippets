@@ -1,6 +1,14 @@
 snippet "(# )?shellcheck" "Suppress shellcheck warning" br
 # shellcheck disable=SC${1:2035}
 endsnippet
+
 snippet source "Tell shellcheck where to source a script" b
 # shellcheck source=${1:/dev/null}
+endsnippet
+
+snippet trap "Set up a cleanup function" b
+cleanup() {
+    $0
+}
+trap cleanup EXIT INT TERM
 endsnippet
