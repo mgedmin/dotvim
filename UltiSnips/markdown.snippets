@@ -79,3 +79,8 @@ endsnippet
 snippet image "Markdown image syntax"
 ![](${1:image.png})
 endsnippet
+
+context "snip.line"
+snippet "([-=~*])+" "underline" bre
+`!p snip.rv = match.group(1) * len(snip.buffer[context - 1])`
+endsnippet
