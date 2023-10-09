@@ -319,6 +319,7 @@ abbrev PAth Path
 abbrev ehco echo
 abbrev wiht with
 abbrev reosurce resource
+abbrev MAke Make
 
 "
 " Plugins                                                       {{{1

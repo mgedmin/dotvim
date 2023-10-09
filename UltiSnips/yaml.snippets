@@ -1,55 +1,3 @@
-snippet travis "travis.yml based on pytest" !b
-language: python
-python:
-	- 2.7
-	- 3.5
-	- 3.6
-	- 3.7
-	- 3.8
-	- pypy
-	- pypy3
-install:
-	- pip install pytest
-script:
-	- pytest
-notifications:
-	email: false
-cache: pip
-endsnippet
-
-snippet tox-travis "travis.yml based on tox-travis" !b
-language: python
-python:
-`tox -l|sed -e 's/py\([0-9]\)\([0-9]\+\)/\1.\2/' -e 's/^/    - /'`
-install:
-	- pip install tox-travis
-script:
-	- tox
-notifications:
-	email: false
-cache: pip
-endsnippet
-
-snippet notifications ".travis.yml notifications" b
-notifications:
-	irc:
-		channels:
-			- "chat.freenode.net##mgedmin"
-		on_success: change
-		on_failure: always
-		template:
-			# ping my nick so I get a pushbullet notification on my phone
-			- "mgedmin: %{repository_name} (%{branch}) build %{result}: %{build_url}"
-
-endsnippet
-
-snippet apt "apt: packages in .travis.yml" b
-addons:
-	apt:
-		packages:
-			- $0
-endsnippet
-
 snippet ansible "ansible playbook" !b
 ---
 - hosts: ${1:localhost}
@@ -121,19 +69,17 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - "2.7"
-          - "3.6"
           - "3.7"
           - "3.8"
           - "3.9"
           - "3.10"
           - "3.11"
-          - "pypy2.7"
+          - "3.12"
           - "pypy3.7"
 
     steps:
       - name: Git clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python \${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -154,19 +100,26 @@ jobs:
           python -m pip install -U pip
           python -m pip install -U setuptools wheel
           python -m pip install -U tox tox-gh-actions
-          python -m pip install -U coveralls
 
       - name: Run tests
         run: tox
 
       - name: Check test coverage
-        run: coverage report -m --fail-under=100
+        run: |
+          coverage report -m --fail-under=100
+          coverage xml
 
       - name: Report to coveralls
-        run: coveralls
-        if: "matrix.python-version != '2.7' && matrix.python-version != 'pypy2.7'"
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        uses: coverallsapp/github-action@v2
+        with:
+          file: coverage.xml
+endsnippet
+
+snippet coveralls "coveralls action for GHA" b
+      - name: Report to coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          file: coverage.xml
 endsnippet
 
 context "re.match('(.*/)?[.]github/workflows/.*[.]yml]$', snip.buffer.name)"
@@ -186,7 +139,7 @@ lint:
 
   steps:
     - name: Git clone
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python \${{ env.default_python || '3.9' }}
       uses: actions/setup-python@v4
