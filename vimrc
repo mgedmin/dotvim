@@ -19,7 +19,7 @@ set shortmess-=S                " show N/M while searching
 set showcmd                     " show partial commands in status line
 set ruler                       " show cursor position in status line
 set list                        " show tabs and spaces at end of line:
-set listchars=tab:>-,trail:.,extends:>
+set listchars=tab:>-,trail:·,extends:>
 if v:version >= 600
   set listchars+=precedes:<
 endif
