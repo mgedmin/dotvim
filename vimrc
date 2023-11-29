@@ -471,6 +471,9 @@ if has("eval")
         \ 'ssh://gitlab.tilaajavastuu.fi:2222': 'https://git.vaultit.org/',
         \ }
 
+  " Azure DevOps support for vim-fugitive
+  Plug 'cedarbaum/fugitive-azure-devops.vim'
+
   " Git log browsing (unmaintained)
   Plug 'gregsexton/gitv', {'on': ['Gitv']}
 
