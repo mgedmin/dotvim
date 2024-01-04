@@ -202,6 +202,7 @@ set wildignore+=*/.eggs         " setuptools
 set wildignore+=*/_build        " sphinx
 set wildignore+=*/node_modules  " thousands of files, omg
 set wildignore+=*/obj-x86_64-pc-linux-gnu/*  " firefox builds, 43018 files
+set wildignore+=.ruff_cache     " ruff, a Python linter
 
 if v:version >= 700
   set complete-=i               " don't autocomplete from included files (slow)
@@ -881,7 +882,7 @@ if v:version >= 700 && has("eval")
   let g:NERDTreeIgnore = [
         \ '\.py[co]$', '\~$', '^tags$', '^__pycache__$', '\.sw[a-z]$',
         \ '^\.cache$', '^\.git$', '^\.tox$', '\.egg-info$',
-        \ '^\.mypy_cache$', '^\.pytest_cache$', '^\.eggs$',
+        \ '^\.mypy_cache$', '^\.pytest_cache$', '^\.eggs$', '^\.ruff_cache$',
         \ ]
   let g:NERDTreeHijackNetrw = 0
   let g:NERDTreeShowHidden = 1
