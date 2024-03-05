@@ -30,7 +30,7 @@ if has("linebreak")
   set linebreak                 " wrap lines at word boundaries, not mid-word
   let &sbr = nr2char(8618).' '  " show ↪ at the beginning of wrapped lines
 endif
-set display=truncate            " when last line doesn't fit, show most of it
+set display=lastline            " when last line doesn't fit, show most of it
 if has("extra_search")
   set hlsearch                  " highlight search matches
   nohlsearch                    " but not initially
