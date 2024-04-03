@@ -443,9 +443,11 @@ if has("eval")
   " https://github.com/Vimjas/vim-python-pep8-indent/pull/90
 
   " More up-to-date Python syntax that supports f-strings and everything
-  Plug 'vim-python/python-syntax'
-  let python_highlight_all = 1
-  let python_slow_sync = 1
+  " Well.  It used to be up-to-date.  Last commit 4 years ago, doesn't support
+  " match statements.
+  ""Plug 'vim-python/python-syntax'
+  ""let python_slow_sync = 1
+  let python_highlight_all = 1  " builtin python syntax also supports this
 
   " :Pydoc
   Plug 'fs111/pydoc.vim'
