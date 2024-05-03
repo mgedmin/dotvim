@@ -1,0 +1,59 @@
+snippet setuptools "setuptools pyproject.toml" b
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+endsnippet
+
+global !p
+import os
+def dirname(path=''):
+    return os.path.basename(os.path.dirname(os.path.abspath(path)))
+endglobal
+
+snippet "(py)?project" "pyproject.toml with project metadata" br
+[project]
+name = "${1:`!p snip.rv = dirname(path)`}"
+version = "${2:version}"
+authors = [
+    {name = "Marius Gedminas", email = "marius@gedmin.as"},
+]
+description = "${5:description}"
+readme = "README.rst"
+keywords = ["${6}", "${7}"]
+classifiers = [
+##      "Development Status :: 3 - Alpha",
+##      "Development Status :: 4 - Beta",
+##      "Development Status :: 5 - Production/Stable",
+##      "Environment :: Console",
+##      "Environment :: Console :: Curses",
+##      "Environment :: Web Environment",
+##      "Environment :: X11 Applications :: Gnome",
+##      "Environment :: X11 Applications :: GTK",
+##      "Intended Audience :: Developers",
+##      "License :: OSI Approved :: GNU General Public License (GPL)",
+##      "License :: OSI Approved :: MIT License",
+##      "Operating System :: POSIX",
+##      "Operating System :: OS Independent",
+##      "Programming Language :: Python",
+##      "Programming Language :: Python :: 3.8",
+##      "Programming Language :: Python :: 3.9",
+##      "Programming Language :: Python :: 3.10",
+##      "Programming Language :: Python :: 3.11",
+##      "Programming Language :: Python :: 3.12",
+##      "Programming Language :: Python :: Implementation :: CPython",
+##      "Programming Language :: Python :: Implementation :: PyPy",
+]
+license = {text = "${7:licence}"}
+requires-python = ">=3.8"
+dependencies = [
+    "${8}"
+]
+
+[project.optional-dependencies]
+##extra = ["...", "..."]
+
+[project.scripts]
+##my-script = "my_package.module:function"
+
+endsnippet
