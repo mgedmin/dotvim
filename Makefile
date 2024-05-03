@@ -3,6 +3,7 @@ extensions += command-t
 ##extensions += ycm		<- I've disabled YouCompleteMe
 
 command_t_ext := bundle/command-t/ruby/command-t/ext/command-t/ext.so
+command_t_clean := bundle/command-t/ruby/command-t/ext/command-t/*.o
 ycm_ext := bundle/YouCompleteMe/python/ycm_core.so bundle/YouCompleteMe/python/ycm_client_support.so
 
 # user config file symlinks to set up with 'make install'
@@ -30,7 +31,7 @@ update: vim-plug
 
 .PHONY: rebuild
 rebuild:
-	rm -f $(command_t_ext) $(ycm_ext)
+	rm -f $(command_t_ext) $(command_t_clean) $(ycm_ext)
 	@make -s all
 
 .PHONY: vim-plug
