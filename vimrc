@@ -302,7 +302,7 @@ endif
 
 " Netrw explorer                                                {{{2
 if has("eval")
-  let g:netrw_list_hide = '.*\.swp\($\|\t\),.*\.py[co]\($\|\t\)'
+  let g:netrw_list_hide = '.*\.swp\($\|\t\),.*\.py[co]\($\|\t\),__pycache__'
   let g:netrw_sort_sequence = '[\/]$,*,\.bak$,\.o$,\.h$,\.info$,\.swp$,\.obj$,\.py[co]$'
   let g:netrw_timefmt = '%Y-%m-%d %H:%M:%S'
 endif
