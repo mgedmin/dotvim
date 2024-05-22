@@ -1716,7 +1716,8 @@ function! FT_Python_Django()
 endf
 
 function! FT_Tilaajavastuu()
-  let g:source_locator_prefixes = ['db/', 'server/', 'robottests/']
+  let g:source_locator_prefixes = ['db/', 'server/', 'robottests/', 'client/']
+  let g:source_locator_suffixes = ['.py', '.txt', '.robot']
   let g:black_macchiato_args = "-S -l100"
 endf
 
