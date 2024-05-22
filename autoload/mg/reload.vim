@@ -4,13 +4,32 @@ fun mg#reload#info(msg)
   echo a:msg
 endf
 
-fun mg#reload#plugin(name)
+fun mg#reload#plugin(name = "")
   " This works on my machine!  It's not indented to be a very generic
   " solution!  I write plugins to be reloadable: use fun!, don't use guards, etc.
-  let path = g:reload#root . "/" . a:name
+  if a:name == ""
+    let name = mg#reload#plugin_name_from_path(expand("%"))
+    if name == ""
+      call mg#reload#info(expand("%") . " is not inside " . g:reload#root)
+      return
+    endif
+  else
+    let name = a:name
+  endif
+  let path = g:reload#root . "/" . name
   call mg#reload#if_exists(path . "/pythonx/*.py")
   call mg#reload#if_exists(path . "/autoload/*.vim")
   call mg#reload#if_exists(path . "/plugin/*.vim")
+endf
+
+fun mg#reload#plugin_name_from_path(filename)
+  let filename = fnamemodify(a:filename, ":p")
+  let prefix = fnamemodify(g:reload#root, ":p")
+  if filename[:len(prefix) - 1] == prefix
+    let suffix = filename[len(prefix):]->substitute('^/', '', '')
+    return suffix->split('/')[0]
+  endif
+  return ""
 endf
 
 fun mg#reload#if_exists(filespec)
