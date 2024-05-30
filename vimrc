@@ -566,8 +566,7 @@ if has("eval")
 
   " Snippets!  Type some text, press <tab> to expand, with get expansion with
   " multiple placeholders you can keep or replace and tab over.
-  " Supposedly better than SnipMate which I used earlier.  Integrates with
-  " YouCompleteMe
+  " Supposedly better than SnipMate which I used earlier.
   if has('python') || has('python3')
     Plug 'SirVer/UltiSnips'
   endif
@@ -579,9 +578,11 @@ if has("eval")
   Plug 'kopischke/vim-fetch'
 
   " Edit symlink targets instead of symlinks
+  " (mostly because I want fugitive to work on my dotfiles repo)
   Plug 'aymericbeaumet/symlink.vim'
 
-  " symlink.vim: 'moll/vim-bbye' is required in order for this plugin to properly work in diff mode
+  " symlink.vim: 'moll/vim-bbye' is required in order for this plugin to
+  " properly work in diff mode
   Plug 'moll/vim-bbye'
 
   " Async shell commands (see :Make)
@@ -615,6 +616,11 @@ if has("eval")
 
   " :StartupTime
   Plug 'dstein64/vim-startuptime'
+
+  " Highlight whatever was yanked, briefly
+  Plug 'machakann/vim-highlightedyank'
+  let g:highlightedyank_highlight_duration = 250
+  let g:highlightedyank_highlight_in_visual = 0
 
 
   " Additional filetypes                                        {{{3
