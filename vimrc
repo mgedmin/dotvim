@@ -622,6 +622,12 @@ if has("eval")
   let g:highlightedyank_highlight_duration = 250
   let g:highlightedyank_highlight_in_visual = 0
 
+  " Highlight whatever was pasted, briefly (too briefly)
+  Plug 'MaxMEllon/vim-shiny'
+  nmap p  <Plug>(shiny-p)
+  nmap P  <Plug>(shiny-P)
+  nmap gp <Plug>(shiny-gp)
+  nmap gP <Plug>(shiny-gP)
 
   " Additional filetypes                                        {{{3
 
