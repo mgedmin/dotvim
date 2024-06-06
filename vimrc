@@ -349,6 +349,7 @@ if has("eval")
     let g:ale_fixers.javascript = ['prettier']
     let g:ale_fixers.python = ['isort']
     let g:ale_fixers.rust = ['rustfmt']
+    let g:ale_fixers.yaml = ['prettier']
     if filereadable(expand('~/.cargo/bin/rust-analyzer'))
       let g:ale_linters.rust = ['analyzer', 'cargo']
     endif
