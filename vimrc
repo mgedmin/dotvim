@@ -1532,6 +1532,9 @@ cnoremap        <C-S-A>         <C-A>
 " Insert line under cursor (builtin in vim 8.0.1787)
 cnoremap        <C-R><C-L>      <C-R>=getline(".")<CR>
 
+" Insert the file name (the tail portion) of the current buffer
+cnoremap        <C-R><C-T>      <C-R>=expand("%:t")<CR>
+
 " Insert the contents of the / register without \< \> with C-R C-/
 cnoremap        <C-R><C-_>      <C-R>=substitute(@/, '\\[<>]', '', 'g')<CR>
 
