@@ -41,7 +41,7 @@ autoload/plug.vim:
 
 .PHONY: update-vim-plug
 update-vim-plug:
-	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	curl -fLo autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 .PHONY: command-t
 command-t: $(command_t_ext)
