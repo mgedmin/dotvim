@@ -347,6 +347,7 @@ if has("eval")
     let g:ale_linters.rust = ['cargo']
     let g:ale_fixers = {}
     let g:ale_fixers.javascript = ['prettier']
+    let g:ale_fixers.typescript = ['prettier']
     let g:ale_fixers.python = ['isort']
     let g:ale_fixers.rust = ['rustfmt']
     let g:ale_fixers.yaml = ['prettier']
@@ -1728,7 +1729,7 @@ function! FT_Python_Django()
 endf
 
 function! FT_Tilaajavastuu()
-  let g:source_locator_prefixes = ['db/', 'server/', 'robottests/', 'client/']
+  let g:source_locator_prefixes = ['db/', 'server/', 'robottests/', 'client/', 'src/']
   let g:source_locator_suffixes = ['.py', '.txt', '.robot']
   let g:black_macchiato_args = "-S -l100"
 endf
@@ -1774,7 +1775,7 @@ augroup END
 
 augroup JS_prog
   autocmd!
-  autocmd FileType javascript   map <buffer> <C-F6>  :SwitchCodeAndTest<CR>
+  autocmd FileType javascript,typescript  map <buffer> <C-F6>  :SwitchCodeAndTest<CR>
 augroup END
 
 function! FT_Mako()
