@@ -25,6 +25,11 @@ snippet date "YYYY-MM-DD" w
 `!v strftime('%Y-%m-%d')`
 endsnippet
 
+post_expand "handle_replace_mode(8)"
+snippet yyyymmdd "YYYYMMDD" w
+`!v strftime('%Y%m%d')`
+endsnippet
+
 snippet "[\[]time]?" "[HH:MM] " r
 [`!v strftime('%H:%M')`] 
 endsnippet
