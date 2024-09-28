@@ -321,6 +321,7 @@ abbrev ehco echo
 abbrev wiht with
 abbrev reosurce resource
 abbrev MAke Make
+abbrev assing assign
 
 "
 " Plugins                                                       {{{1
