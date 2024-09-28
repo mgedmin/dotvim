@@ -1398,10 +1398,12 @@ map!            <C-S-Up>        <C-O><C-W><Up>
 map!            <C-S-Down>      <C-O><C-W><Down>
 map!            <C-S-Left>      <C-O><C-W><Left>
 map!            <C-S-Right>     <C-O><C-W><Right>
-tmap            <C-S-Up>        <C-W><Up>
-tmap            <C-S-Down>      <C-W><Down>
-tmap            <C-S-Left>      <C-W><Left>
-tmap            <C-S-Right>     <C-W><Right>
+if has("terminal")
+  tmap            <C-S-Up>        <C-W><Up>
+  tmap            <C-S-Down>      <C-W><Down>
+  tmap            <C-S-Left>      <C-W><Left>
+  tmap            <C-S-Right>     <C-W><Right>
+endif
 
 " Jumping to lint errors with Ctrl-J/K                          {{{2
 nmap <silent>   <C-K>           <Plug>(ale_previous)
@@ -1485,24 +1487,17 @@ map             <Esc>(          <A-(>
 ""map!            <Esc>*          <A-*>
 ""map!            <Esc>(          <A-(>
 
-" Switching tabs with <C-W><C-PageUp/Down> in terminal mode     {{{2
-if has("terminal")
-  tnoremap      <C-W><C-PageUp>   <C-W>:tabprev<CR>
-  tnoremap      <C-W><C-PageDown> <C-W>:tabnext<CR>
-endif
-
 " Switching tabs with <C-W><A-number> in terminal mode          {{{2
 if has("terminal")
   for s:nr in range(1, 9)
-    exec 'tnoremap <C-W><A-'.s:nr.' <C-W>:tabnext '.s:nr.'<CR>'
-    exec 'tnoremap <C-W><Esc>'.s:nr.' <C-W>:tabnext '.s:nr.'<CR>'
+    exec 'tnoremap <C-W><A-'.s:nr.'> <C-W>:tabnext '.s:nr.'<CR>'
+    exec 'tnoremap <C-W><Esc>'.s:nr.'> <C-W>:tabnext '.s:nr.'<CR>'
   endfor
 endif
 
-" Switching tabs with <C-W>gt/<C-W>gT in terminal mode          {{{2
+" Sending Ctrl-W to the program running in the terminal         {{{2
 if has("terminal")
-  tnoremap      <C-W>gT         <C-W>:tabprev<CR>
-  tnoremap      <C-W>gt         <C-W>:tabnext<CR>
+  tnoremap      <C-W><Space>    <C-W>.
 endif
 
 " Emacs style command line                                      {{{2
