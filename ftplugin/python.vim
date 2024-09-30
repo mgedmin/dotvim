@@ -39,6 +39,8 @@ setlocal comments+=b:##
 " often than I press gf on dotted names (foo.bar -> foo/bar.py)
 setlocal includeexpr=substitute(v:fname,'^/','','')
 
+" Use gq to format with black-macchiato
+let &l:formatprg='black-macchiato ' .. get(g:, 'black_macchiato_args', '')
 
 " I keep mistyping these
 abbr <buffer> improt import
