@@ -40,7 +40,8 @@ setlocal comments+=b:##
 setlocal includeexpr=substitute(v:fname,'^/','','')
 
 " Use gq to format with black-macchiato
-let &l:formatprg='black-macchiato ' .. get(g:, 'black_macchiato_args', '')
+setlocal formatexpr=mg#python#formatexpr()
+
 
 " I keep mistyping these
 abbr <buffer> improt import

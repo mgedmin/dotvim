@@ -1,3 +1,19 @@
+function mg#python#formatexpr()
+  let firstline = v:lnum
+  let lastline = v:lnum + v:count - 1
+  let lines = getline(firstline, lastline)
+  if lines->filter({_, s -> s !~ '^\s*#'})->empty()
+    " the set of lines that don't start with a # is empty, i.o.w.
+    " all lines start with a #
+    echo 'all lines start with #, formatting as comments'
+    return 1                                " fall back to internal formatting
+  endif
+
+  echo 'formatting as python'
+  execute firstline . ',' . lastline . "BlackMacchiato"
+  return 0
+endf
+
 function mg#python#in_docstring()
   let line = line(".")
   " nb: there might be a pythonSpaceError in the syntax stack hiding the
