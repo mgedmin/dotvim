@@ -8,14 +8,17 @@ function mg#python#formatexpr()
     echo 'all lines start with #, formatting as comments'
     return 1                                " fall back to internal formatting
   endif
-
+  if mg#python#in_docstring(firstline) && mg#python#in_docstring(lastline)
+    echo 'formatting as docstring'
+    return 1                                " fall back to internal formatting
+  endif
   echo 'formatting as python'
   execute firstline . ',' . lastline . "BlackMacchiato"
   return 0
 endf
 
-function mg#python#in_docstring()
-  let line = line(".")
+function mg#python#in_docstring(line = 0)
+  let line = a:line == 0 ? line(".") : a:line
   " nb: there might be a pythonSpaceError in the syntax stack hiding the
   " pythonString
   let synstack = synstack(line, 1)
