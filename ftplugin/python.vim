@@ -9,6 +9,10 @@ elseif getline(1) =~ 'python2' && exists("*Python2")
   call Python2(0)
 endif
 
+if mg#python#project_uses_mypy()
+  call MyPyOn('.tox/mypy/bin/mypy')
+endif
+
 if has('patch-8.2.5066')
   setlocal listchars+=leadmultispace:⸱\ \ \  " NB: trailing whitespace
 endif

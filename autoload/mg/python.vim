@@ -57,3 +57,15 @@ function mg#python#tag_jump_mapping()
     endif
   endif
 endf
+
+function mg#python#project_uses_mypy()
+  if !filereadable('tox.ini')
+    return 0
+  endif
+  for line in readfile('tox.ini', '', 1000)
+    if line =~ '\[testenv:mypy\]'
+      return 1
+    endif
+  endfor
+  return 0
+endf
