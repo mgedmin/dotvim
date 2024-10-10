@@ -1178,6 +1178,15 @@ command! -nargs=? EditIndentPlugin
 " :EditMacro as alias for :MacroEdit because my brain works that way
 command! -nargs=1 EditMacro MacroEdit <args>
 
+" :EditTestSwitcher                                             {{{2
+command! EditTestSwitcher :e ~/.vim/test-switcher.cfg
+
+" :EditTestRunner                                               {{{2
+command! EditTestRunner :e ~/.vim/py-test-runner.cfg
+
+" :EditPythonImports                                            {{{2
+command! EditPythonImports :e ~/.vim/python-imports.cfg
+
 " :ReloadFtdetectScripts after editing a ~/.vim/ftdetect/*.vim  {{{2
 command! -bang ReloadFtdetectScripts :unlet did_load_filetypes | runtime filetype.vim
 
