@@ -73,3 +73,14 @@ known_first_party = ['${1:`!v mg#snip#python_main_module()`}']
 # known_third_party = ['pytest', ...]
 # skip = ['filename', ...]
 endsnippet
+
+snippet mypy "[tool.mypy] section in pyproject.toml" b
+[tool.mypy]
+mypy_path = src
+
+[[tool.mypy.overrides]]
+module = [
+    $0
+]
+ignore_missing_imports = true
+endsnippet
