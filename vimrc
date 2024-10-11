@@ -139,11 +139,11 @@ set scrolloff=2                 " always keep cursor 2 lines from screen edge
 set nostartofline               " don't jump to start of line
 
 " Folding                                                       {{{2
-if v:version >= 600 && &foldmethod == 'manual'
+if &foldmethod == 'manual'
 " set foldmethod=marker         " use folding by markers by default
   set foldmethod=syntax         " use syntax folding by default
-  set foldlevelstart=9999       " initially open all folds
 endif
+set foldlevelstart=9999         " initially open all folds
 
 " Editing                                                       {{{2
 set nowrap                      " do not wrap long lines
