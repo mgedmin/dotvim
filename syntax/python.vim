@@ -1,10 +1,12 @@
 " Syntax tweaks for Python files
 " Adds folding for classes and functions
 
-if &foldmethod != 'diff'
+if &foldmethod != 'diff' && &ft == 'python'
   setlocal foldmethod=expr
 endif
-setlocal foldexpr=PythonFoldLevel(v:lnum)
+if &ft == 'python'
+  setlocal foldexpr=PythonFoldLevel(v:lnum)
+endif
 function! PythonFoldLevel(lineno)
   " very primitive at the moment, but actually works quite well in practice
   let line = getline(a:lineno)

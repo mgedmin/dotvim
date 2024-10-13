@@ -300,6 +300,9 @@ if has("eval")
   let g:c_syntax_for_h = 1      " assume *.h are C, not C++
 endif
 
+" Markdown                                                      {{{2
+let g:markdown_fenced_languages=['ini', 'console', 'python']
+
 " Netrw explorer                                                {{{2
 if has("eval")
   let g:netrw_list_hide = '.*\.swp\($\|\t\),.*\.py[co]\($\|\t\),__pycache__'
@@ -642,6 +645,9 @@ if has("eval")
 
   " Improved ReStructuredText syntax
   Plug 'mrsipan/vim-rst'
+
+  " Folding for Markdown files
+  Plug 'masukomi/vim-markdown-folding'
 
   " Improved YAML syntax for Ansible
   Plug 'chase/vim-ansible-yaml'
