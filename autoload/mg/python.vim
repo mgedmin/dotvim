@@ -1,3 +1,39 @@
+pyx << END
+import re
+import subprocess
+import sys
+
+import vim
+
+
+def black_macchiato(firstline, lastline):
+    cmd = vim.eval('get(g:, "black_macchiato_path", "black-macchiato")')
+    args = vim.eval('get(g:, "black_macchiato_args", "")')
+    lines = vim.current.buffer[firstline-1:lastline]
+    result = subprocess.run(
+        f'{cmd} {args}',
+        shell=True,
+        input='\n'.join(lines),
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode == 0:
+        print('format success')
+        new_lines = result.stdout.splitlines()
+        if new_lines != lines:
+            vim.current.buffer[firstline-1:lastline] = new_lines
+        else:
+            print(f'no changes made to {len(lines)} lines')
+    else:
+        msg = result.stderr.strip()
+        msg = re.sub(r'^error: cannot format [^:]+: ', '', msg)
+        msg = re.sub(r'^Cannot parse: (\d+):', lambda m: f'Cannot parse: {int(m[1]) + firstline}:', msg)
+        # for some reason printing to sys.stderr gets suppressed when this is
+        # called from inside a formatexpr
+        print(msg or 'FAILED!')
+        print(msg or 'FAILED!', file=sys.stderr)
+END
+
 function mg#python#formatexpr()
   let firstline = v:lnum
   let lastline = v:lnum + v:count - 1
@@ -13,7 +49,7 @@ function mg#python#formatexpr()
     return 1                                " fall back to internal formatting
   endif
   echo 'formatting as python'
-  execute firstline . ',' . lastline . "BlackMacchiato"
+  pyx black_macchiato(int(vim.eval('firstline')), int(vim.eval('lastline')))
   return 0
 endf
 
