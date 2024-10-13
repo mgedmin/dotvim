@@ -1,3 +1,28 @@
+global !p
+import os
+import subprocess
+def dirname(path=''):
+    return os.path.basename(os.path.dirname(os.path.abspath(path)))
+
+def git_url(path='', default=''):
+    wd = os.path.dirname(os.path.abspath(path))
+    if not os.path.isdir(wd):
+        return default
+    with open(os.devnull, 'w') as devnull:
+        pipe = subprocess.Popen(["git", "ls-remote", "--get-url"],
+                                stdout=subprocess.PIPE,
+                                stderr=devnull,
+                                cwd=wd)
+    remote = pipe.communicate()[0].strip()
+    if not isinstance(remote, str):
+        remote = remote.decode('UTF-8', 'replace')
+    if remote.startswith('git@github.com:'):
+        remote = 'https://github.com/' + remote[len('git@github.com:'):]
+        if remote.endswith('.git'):
+            remote = remote[:-len('.git')]
+    return remote or default
+endglobal
+
 snippet setuptools "setuptools pyproject.toml" b
 [build-system]
 requires = ["setuptools", "setuptools-scm"]
@@ -49,13 +74,23 @@ requires-python = ">=3.8"
 dependencies = [
     "${8}"
 ]
+dynamic = []
+##dynamic = ["version"]
 
 [project.optional-dependencies]
 ##extra = ["...", "..."]
 
+[project.urls]
+Homepage = "${9:`!p snip.rv = git_url(path, "https://github.com/mgedmin/...")`}"
+
 [project.scripts]
 ##my-script = "my_package.module:function"
 
+[tool.setuptools]
+##py-modules = ["mymodule"]
+
+[tool.setuptools.dynamic]
+##version = {attr = "my_package.__version__"}
 endsnippet
 
 snippet isort "[tool.isort] section in pyproject.toml" b
