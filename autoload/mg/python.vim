@@ -30,8 +30,10 @@ def black_macchiato(firstline, lastline):
         msg = re.sub(r'^Cannot parse: (\d+):', lambda m: f'Cannot parse: {int(m[1]) + firstline}:', msg)
         # for some reason printing to sys.stderr gets suppressed when this is
         # called from inside a formatexpr
+        ## print(msg or 'FAILED!', file=sys.stderr)
+        # unfortunately vim.command('echohl ErrorMsg') doesn't affect
+        # Python print() statements
         print(msg or 'FAILED!')
-        print(msg or 'FAILED!', file=sys.stderr)
 END
 
 function mg#python#formatexpr()
