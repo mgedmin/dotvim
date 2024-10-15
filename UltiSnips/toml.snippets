@@ -93,6 +93,13 @@ Homepage = "${9:`!p snip.rv = git_url(path, "https://github.com/mgedmin/...")`}"
 ##version = {attr = "my_package.__version__"}
 endsnippet
 
+snippet extras "extras in pyproject.toml" b
+[project.optional-dependencies]
+${1:extra} = [
+    $0
+]
+endsnippet
+
 snippet isort "[tool.isort] section in pyproject.toml" b
 [tool.isort]
 # from X import (
