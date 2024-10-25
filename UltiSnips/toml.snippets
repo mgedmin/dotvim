@@ -93,11 +93,22 @@ Homepage = "${9:`!p snip.rv = git_url(path, "https://github.com/mgedmin/...")`}"
 ##version = {attr = "my_package.__version__"}
 endsnippet
 
+snippet author "authors in a pyproject.toml" b
+authors = [
+    {name = "Marius Gedminas", email = "marius@gedmin.as"},
+]
+endsnippet
+
 snippet extras "extras in pyproject.toml" b
 [project.optional-dependencies]
 ${1:extra} = [
     $0
 ]
+endsnippet
+
+snippet scripts "scripts in pyproject.toml" b
+[project.scripts]
+${1:my-script} = "${2:my_package.module:function}"
 endsnippet
 
 snippet isort "[tool.isort] section in pyproject.toml" b
