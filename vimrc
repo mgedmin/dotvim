@@ -1809,7 +1809,7 @@ augroup JS_prog
 augroup END
 
 function! FT_Mako()
-  setf html
+  set ft=html
   setlocal includeexpr=substitute(v:fname,'^/','','')
   setlocal indentexpr=
   setlocal indentkeys-={,}
