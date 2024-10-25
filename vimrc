@@ -1420,6 +1420,12 @@ if has("terminal")
   tmap            <C-S-Right>     <C-W><Right>
 endif
 
+" History scrolling in terminal windows with Shift+PageUp/Down  {{{2
+if has("terminal")
+  tnoremap        <S-PageUp>        <C-W>N<PageUp>
+  tnoremap        <S-PageDown>      <C-W>N<PageDown>
+endif
+
 " Jumping to lint errors with Ctrl-J/K                          {{{2
 nmap <silent>   <C-K>           <Plug>(ale_previous)
 nmap <silent>   <C-J>           <Plug>(ale_next)
