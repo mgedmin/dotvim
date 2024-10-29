@@ -933,8 +933,12 @@ endif
 " asyncrun.vim + fugitive.vim = <3                              {{{2
 if has("user_commands")
   " :Make as described in
-  " https://github.com/skywind3000/asyncrun.vim/wiki/Cooperate-with-vim-fugitive
+  " https://github.com/skywind3000/asyncrun.vim/wiki/Cooperate-with-famous-plugins
   " now :Gpush and :Gfetch are async!
+  command! -bang -bar -nargs=* Gpush execute 'AsyncRun<bang> -cwd=' .
+              \ fnameescape(FugitiveGitDir()) 'git push' <q-args>
+  command! -bang -bar -nargs=* Gfetch execute 'AsyncRun<bang> -cwd=' .
+              \ fnameescape(FugitiveGitDir()) 'git fetch' <q-args>
   command! -bang -nargs=* -complete=file Make
               \ silent wall
               \ | AsyncRun -program=make @ <args>
