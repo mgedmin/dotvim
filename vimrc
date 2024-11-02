@@ -513,9 +513,11 @@ if has("eval")
   " Navigation                                                  {{{3
 
   " Open files by typing a subsequence of the pathname, bound to <Leader>t
-  Plug 'wincent/command-t', {
-    \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make' }
-  let g:CommandTPreferredImplementation = 'ruby'
+  if has('ruby')
+    Plug 'wincent/command-t', {
+      \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make' }
+    let g:CommandTPreferredImplementation = 'ruby'
+  endif
 
   " Pure-python alternative to command-t, slightly different UI, not as nice
   " to use as command-t but useful for some circumstances (Vim w/o Ruby).
@@ -1372,8 +1374,10 @@ map             ,FE             :e $HOME/.vim/ftplugin/<C-Z><C-Z>
 map             ,XE             :e $HOME/.vim/syntax/<C-Z><C-Z>
 
 " double comma for limited virtual keyboards                    {{{2
-""map             ,,              :update<CR>
-""imap            ,,              <ESC>
+if exists("$TERMUX_VERSION")
+  map             ,,              :update<CR>
+  imap            ,,              <ESC>
+endif
 
 " open a file in the same dir as the current one                {{{2
 map <expr>      ,E              ":e ".mg#curdir#get()."/"
