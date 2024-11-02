@@ -599,6 +599,9 @@ if has("eval")
   " :EasyAlign
   Plug 'junegunn/vim-easy-align'
 
+  " :Tabularize
+  Plug 'godlygeek/tabular'
+
   " Resize quickfix windows to fit content -- broooken currently
   " see https://github.com/blueyed/vim-qf_resize/issues/5
   "Plug 'blueyed/vim-qf_resize'
