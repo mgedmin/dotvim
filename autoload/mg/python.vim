@@ -107,3 +107,29 @@ function mg#python#project_uses_mypy()
   endfor
   return 0
 endf
+
+
+function mg#python#mypy_on(mypy_executable = '')
+  call filter(g:ale_linters.python, 'v:val != "mypy"')
+  call add(g:ale_linters.python, "mypy")
+  if a:mypy_executable != ''
+    let g:ale_python_mypy_executable = substitute(a:mypy_executable, ' .*', '', '')
+    let g:ale_python_mypy_options = substitute(a:mypy_executable, '^[^ ]*', '', '')
+  elseif filereadable('.tox/mypy/bin/mypy')
+    let g:ale_python_mypy_executable = '.tox/mypy/bin/mypy'
+    let g:ale_python_mypy_options = ''
+  else
+    let g:ale_python_mypy_executable = 'mypy'
+    let g:ale_python_mypy_options = ''
+  endif
+  if exists(':ALELint')
+    ALELint
+  endif
+endf
+
+function mg#python#mypy_off()
+  call filter(g:ale_linters.python, 'v:val != "mypy"')
+  if exists(':ALELint')
+    ALELint
+  endif
+endf

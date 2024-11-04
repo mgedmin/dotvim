@@ -10,7 +10,7 @@ elseif getline(1) =~ 'python2' && exists("*Python2")
 endif
 
 if mg#python#project_uses_mypy()
-  call MyPyOn('.tox/mypy/bin/mypy')
+  call mg#python#mypy_on('.tox/mypy/bin/mypy')
 endif
 
 if has('patch-8.2.5066')
