@@ -133,3 +133,19 @@ function mg#python#mypy_off()
     ALELint
   endif
 endf
+
+function mg#python#ruff()
+  call filter(g:ale_linters.python, 'v:val != "flake8"')
+  call add(g:ale_linters.python, "ruff")
+  if exists(':ALELint')
+    ALELint
+  endif
+endf
+
+function mg#python#flake8()
+  call filter(g:ale_linters.python, 'v:val != "ruff"')
+  call add(g:ale_linters.python, "flake8")
+  if exists(':ALELint')
+    ALELint
+  endif
+endf

@@ -1239,6 +1239,10 @@ command! -bar Python3 call Python3(1)
 command! -bar -nargs=?  MyPy      call mg#python#mypy_on(<q-args>)
 command! -bar           MyPyOff   call mg#python#mypy_off()
 
+" :Ruff switches from flake8 to ruff                            {{{2
+command! -bar           Ruff      call mg#python#ruff()
+command! -bar           Flake8    call mg#python#flake8()
+
 " :ESLint/:JSHint to tell Syntastic what to use for js          {{{2
 
 command! -bar ESLint  let g:syntastic_javascript_checkers = ['eslint'] | SyntasticCheck
