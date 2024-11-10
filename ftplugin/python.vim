@@ -92,7 +92,7 @@ nnoremap <buffer> <expr> <C-]> mg#python#tag_jump_mapping()
 
 " Select part of a string, :Span will tell you where the selection starts and
 " ends, relative to the start of a string.
-function Span()
+function! s:Span()
   let start = getpos("'<")
   let end = getpos("'>")
   if start[1] != end[1]
@@ -110,5 +110,11 @@ function Span()
   let span = (start - stringstart) .. ', ' .. (end - stringstart + 1)
   echo span
   let @" = span
+  if &clipboard =~ 'unnamed\>'
+    let @* = span
+  endif
+  if &clipboard =~ 'unnamedplus'
+    let @+ = span
+  endif
 endf
-command! -range Span :call Span()
+command! -range Span :call <SID>Span()
