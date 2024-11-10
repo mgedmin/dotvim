@@ -1367,8 +1367,8 @@ map             ,FE             :e $HOME/.vim/ftplugin/<C-Z><C-Z>
 map             ,XE             :e $HOME/.vim/syntax/<C-Z><C-Z>
 
 " double comma for limited virtual keyboards                    {{{2
+map             ,,              :update<CR>
 if exists("$TERMUX_VERSION")
-  map             ,,              :update<CR>
   imap            ,,              <ESC>
 endif
 
