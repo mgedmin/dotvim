@@ -61,6 +61,10 @@ fun mg#reload#file(filename)
   endif
 endf
 
+fun mg#reload#path_of(name)
+  return g:reload#root . "/" . a:name
+endf
+
 fun mg#reload#complete(arg_lead, cmdline, cursor_pos)
   return g:reload#root->expand()->readdir()->join("\n")
 endf

@@ -1209,6 +1209,10 @@ command! -bang ReloadFtdetectScripts :unlet did_load_filetypes | runtime filetyp
 command! -nargs=? -complete=custom,mg#reload#complete
             \ ReloadPlugin :call mg#reload#plugin(<f-args>)
 
+" :EditPlugin name
+command! -nargs=? -complete=custom,mg#reload#complete
+          \ EditPlugin :exec 'e ' .. mg#reload#path_of(<q-args>) .. '/'
+
 " :Python3 and :Python2 to toggle Syntastic/flake8 mode         {{{2
 
 function! Flake8(exe, args, recheck_now)
