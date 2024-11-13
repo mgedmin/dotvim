@@ -412,7 +412,7 @@ if has("eval")
   Plug 'mgedmin/python-imports.vim', {'on': ['ImportName', 'ImportNameHere']}
 
   " A smarter :Tag [package.][module.][class.]name command for Python
-  Plug 'mgedmin/pytag.vim', {'on': ['Tag']}
+  Plug 'mgedmin/pytag.vim'
 
   " <Leader>oo to jump to Python standard library source code
   " (my fork because bugfixes)

@@ -87,7 +87,9 @@ imap <buffer> <C-S-F9>  <C-O><C-S-F9>
 map  <buffer> <F11>     :ToggleCoverage<CR>
 
 " Smarter ctrl-]
-nnoremap <buffer> <expr> <C-]> mg#python#tag_jump_mapping()
+if exists("*pytag#tag_jump_mapping")
+  nnoremap <buffer> <expr> <C-]> pytag#tag_jump_mapping() .. 'zv'
+endif
 
 
 " Select part of a string, :Span will tell you where the selection starts and
