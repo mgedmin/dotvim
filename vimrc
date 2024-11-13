@@ -935,6 +935,24 @@ if has("eval")
   let g:jedi#popup_select_first = 0
 endif
 
+" netrw.vim open plugin repo with gx in .vimrc                  {{{2
+fun! Netrw_get_URL_vim()
+  let plugin_url = ''
+  try
+    let save_view = winsaveview()
+    if getline('.') =~ "^\\s*Plug\\s\\+'.*'"
+      let plugin_url = matchstr(getline('.'), "^\\s*Plug\\s\\+'\\zs.*\\ze'")
+      if plugin_url !~ '://'
+        let plugin_url = 'https://github.com/' .. plugin_url
+      endif
+      return plugin_url
+    endif
+  finally
+    call winrestview(save_view)
+    return plugin_url
+  endtry
+endf
+
 " asyncrun.vim + fugitive.vim = <3                              {{{2
 if has("user_commands")
   " :Make as described in
