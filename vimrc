@@ -330,6 +330,11 @@ abbrev assing assign
 " Plugins                                                       {{{1
 "
 
+" Builtin plugins                                               {{{2
+
+" :Cfilter /pat/ to filter quickfix list
+packadd cfilter
+
 " vim-plug plus list of plugins to install                      {{{2
 
 if has("eval")
