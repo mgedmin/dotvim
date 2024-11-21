@@ -1395,6 +1395,10 @@ map             ,XE             :e $HOME/.vim/syntax/<C-Z><C-Z>
 
 " double comma for limited virtual keyboards                    {{{2
 map             ,,              :update<CR>
+map             ,3              <F3>
+map             ,4              <F4>
+map             ,5              <F5>
+map             ,6              <F6>
 if exists("$TERMUX_VERSION")
   imap            ,,              <ESC>
 endif
