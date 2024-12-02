@@ -417,7 +417,8 @@ if has("eval")
   Plug 'mgedmin/python-imports.vim', {'on': ['ImportName', 'ImportNameHere']}
 
   " A smarter :Tag [package.][module.][class.]name command for Python
-  Plug 'mgedmin/pytag.vim'
+  " (my ftplugin/python.vim also remaps Ctrl-] to use it)
+  Plug 'mgedmin/pytag.vim', {'on': ['Tag'], 'for': 'python'}
 
   " <Leader>oo to jump to Python standard library source code
   " (my fork because bugfixes)
@@ -428,7 +429,7 @@ if has("eval")
 ""Plug 'tmhedberg/SimpylFold'
 
   " Automate switching between code and unit test files, bound to <C-F6>
-  Plug 'mgedmin/test-switcher.vim', {'on': ['SwitchCodeAndTest', 'TestInTheOtherWindow', 'OpenTestInOtherWindow']}
+  Plug 'mgedmin/test-switcher.vim', {'on': ['SwitchCodeAndTest', 'TestForTheOtherWindow', 'OpenTestInOtherWindow']}
 
   " Run test under cursor
   Plug 'mgedmin/py-test-runner.vim'
