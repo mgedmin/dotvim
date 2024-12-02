@@ -1313,6 +1313,9 @@ function! s:RedrawCommand()
     if exists(':GitGutter')
         let s .= '|GitGutter'
     endif
+    if exists(':ALELint')
+        let s .= '|ALELint'
+    endif
     if exists('*mg#statusline_update')
         let s .= '|call mg#statusline_update()'
     endif
