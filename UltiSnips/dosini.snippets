@@ -26,6 +26,13 @@ skip_install = true
 commands = flake8 `!v (glob("*.py", 0, 1) + glob("src", 0, 1))->join(" ")`
 endsnippet
 
+snippet ruff "tox -e ruff" bm
+[testenv:ruff]
+deps = ruff
+skip_install = true
+commands = ruff check `!v (glob("*.py", 0, 1) + glob("src", 0, 1))->join(" ")`
+endsnippet
+
 snippet mypy "tox -e mypy" b
 [testenv:mypy]
 deps = mypy
