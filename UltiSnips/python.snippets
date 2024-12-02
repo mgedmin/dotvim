@@ -396,16 +396,18 @@ snippet "@?(pytest.mark.)?xfail" "@pytest.mark.xfail" br
 endsnippet
 
 snippet aoc "advent of code" b
-#!/usr/bin/python3
+#!/usr/bin/python
 """
 $0
+
+https://adventofcode.com/`!v strftime("%Y")`/day/`!v expand("%:p:h:t")->substitute('^day0*', '', '')`
 """
 
+import pathlib
 import sys
 
 
-with open("input" if len(sys.argv) < 2 else sys.argv[1]) as f:
-    ...
+input_file = pathlib.Path((sys.argv + ['example'])[1])
 endsnippet
 
 snippet fixture "pytest fixture" b
