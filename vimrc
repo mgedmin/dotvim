@@ -1747,6 +1747,7 @@ augroup END
 augroup MakeFugitiveVisible
   au!
   au BufNew,BufReadPost fugitive://* Margin 0
+  au FileType floggraph              MarginOff
 augroup END
 
 " Avoid editing files inside .tox/*/lib/*/site-packages         {{{2
