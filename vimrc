@@ -1826,6 +1826,7 @@ endf
 augroup Python_prog
   autocmd!
   autocmd BufRead,BufNewFile ~/src/ivija/**/*.txt  set ft=rst
+  autocmd BufRead,BufNewFile ~/src/ivija/**/*.tt   set ft=xml | Margin 44
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'ivija' | call FT_Python_Ivija() | endif
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'labtarna' | call FT_Python_Django() | endif
   autocmd BufReadPre,BufNewFile **/tilaajavastuu/bol*/**/* call FT_Bolagsfakta_Syntastic()
