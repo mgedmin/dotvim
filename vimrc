@@ -333,7 +333,7 @@ abbrev assing assign
 " Builtin plugins                                               {{{2
 
 " :Cfilter /pat/ to filter quickfix list
-packadd cfilter
+packadd! cfilter
 
 " vim-plug plus list of plugins to install                      {{{2
 
