@@ -64,12 +64,15 @@ function mg#python#in_docstring(line = 0)
   " f-strings can never be docstrings, but I have a bunch of f-strings
   " containing yaml where I want two-space indents too!
   let in_docstring = syn =~# 'python\(Raw\|F\)\=String'
+  return in_docstring
+endf
+
+
+function mg#python#start_of_string(line = 0)
+  let line = a:line == 0 ? line(".") : a:line
   " the syntax check was for a string in column 1, but there's one exception:
   " if column 1 itself begins the string, I never want 2-space indents for it
-  if getline(line) =~ '^"'
-    return 0
-  endif
-  return in_docstring
+  return getline(line) =~ '^"'
 endf
 
 

@@ -26,7 +26,7 @@ setlocal shiftwidth=4 softtabstop=4 expandtab tabstop=8
 " documentation for HTTP APIs mostly)
 augroup PythonDynamicShiftWidth
   au CursorMoved,CursorMovedI,WinEnter <buffer>
-        \ if mg#python#in_docstring() |
+        \ if mg#python#in_docstring() && !mg#python#start_of_string() |
         \   setlocal sw=2 sts=2 com+=fb:- |
         \ else |
         \   setlocal sw=4 sts=4 com-=fb:- |
