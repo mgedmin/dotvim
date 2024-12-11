@@ -1,4 +1,4 @@
-let g:reload#root = "~/.vim/bundle"
+let g:mg#reload#root = "~/.vim/bundle"
 
 fun mg#reload#info(msg)
   echo a:msg
@@ -10,13 +10,13 @@ fun mg#reload#plugin(name = "")
   if a:name == ""
     let name = mg#reload#plugin_name_from_path(expand("%"))
     if name == ""
-      call mg#reload#info(expand("%") . " is not inside " . g:reload#root)
+      call mg#reload#info(expand("%") . " is not inside " . g:mg#reload#root)
       return
     endif
   else
     let name = a:name
   endif
-  let path = g:reload#root . "/" . name
+  let path = g:mg#reload#root . "/" . name
   call mg#reload#if_exists(path . "/pythonx/*.py")
   call mg#reload#if_exists(path . "/autoload/*.vim")
   call mg#reload#if_exists(path . "/plugin/*.vim")
@@ -24,7 +24,7 @@ endf
 
 fun mg#reload#plugin_name_from_path(filename)
   let filename = fnamemodify(a:filename, ":p")
-  let prefix = fnamemodify(g:reload#root, ":p")
+  let prefix = fnamemodify(g:mg#reload#root, ":p")
   if filename[:len(prefix) - 1] == prefix
     let suffix = filename[len(prefix):]->substitute('^/', '', '')
     return suffix->split('/')[0]
@@ -62,9 +62,9 @@ fun mg#reload#file(filename)
 endf
 
 fun mg#reload#path_of(name)
-  return g:reload#root . "/" . a:name
+  return g:mg#reload#root . "/" . a:name
 endf
 
 fun mg#reload#complete(arg_lead, cmdline, cursor_pos)
-  return g:reload#root->expand()->readdir()->join("\n")
+  return g:mg#reload#root->expand()->readdir()->join("\n")
 endf
