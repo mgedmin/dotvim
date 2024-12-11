@@ -1237,6 +1237,10 @@ command! -nargs=? -complete=custom,mg#reload#complete
 command! -nargs=? -complete=custom,mg#reload#complete
           \ EditPlugin :exec 'e ' .. mg#reload#path_of(<q-args>) .. '/'
 
+" :EditAutoload name
+command! -nargs=? -complete=custom,mg#autoload#complete
+          \ EditAutoload :exec 'e ' .. mg#autoload#path_of(<q-args>)
+
 " :Python3 and :Python2 to toggle Syntastic/flake8 mode         {{{2
 
 function! Flake8(exe, args, recheck_now)
