@@ -2009,7 +2009,7 @@ endif
 fun! MyColorTweaks()
 
   highlight NonText               ctermfg=gray guifg=gray term=standout
-  highlight SpecialKey            ctermfg=gray guifg=gray term=standout
+  highlight SpecialKey            ctermfg=8 guifg=gray term=standout
   highlight SpellBad              cterm=underline ctermfg=red ctermbg=NONE
   highlight SpellCap              cterm=underline ctermfg=blue ctermbg=NONE
 
