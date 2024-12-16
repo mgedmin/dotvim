@@ -1548,12 +1548,21 @@ map             <Esc>(          <A-(>
 ""map!            <Esc>*          <A-*>
 ""map!            <Esc>(          <A-(>
 
+" also Alt+PageUp/PageDown
+nnoremap <A-PageUp> gT
+nnoremap <A-PageDown> gt
+inoremap <A-PageUp> <C-O>gT
+inoremap <A-PageDown> <C-O>gt
+
 " Switching tabs with <C-W><A-number> in terminal mode          {{{2
 if has("terminal")
   for s:nr in range(1, 9)
     exec 'tnoremap <C-W><A-'.s:nr.'> <C-W>:tabnext '.s:nr.'<CR>'
     exec 'tnoremap <C-W><Esc>'.s:nr.'> <C-W>:tabnext '.s:nr.'<CR>'
   endfor
+  " also Alt+PageUp/PageDown
+  tnoremap <A-PageUp> <C-W>gT
+  tnoremap <A-PageDown> <C-W>gt
 endif
 
 " Sending Ctrl-W to the program running in the terminal         {{{2
