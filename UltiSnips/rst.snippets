@@ -1,6 +1,6 @@
 global !p
-import glob
 import os
+import pathlib
 import subprocess
 import urllib.parse
 from types import SimpleNamespace
@@ -51,22 +51,23 @@ def github_workflow_context(path=''):
                           stdout=subprocess.PIPE, text=True).stdout.strip()
     if not root:
         return None
-    workflow_files = glob.glob(os.path.join('.github', 'workflows', '*.yml'))
+    branch = subprocess.run(
+        ['git', 'main-branch'],
+        cwd=wd,
+        stderr=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        text=True,
+    ).stdout.strip()
+    workflow_files = pathlib.Path('.github', 'workflows').glob('*.yml')
     for wf in workflow_files:
-        with open(wf) as f:
-            text = f.read()
-        m = re.search(r'^name: ([^#\n]+)', text, re.MULTILINE)
-        if m:
-            name = urllib.parse.quote(m.group(1).strip())
-            if name:
-                badge_url = f"https://github.com/{owner_repo}/workflows/{name}/badge.svg"
-                badge_link = f"https://github.com/{owner_repo}/actions"
-                return SimpleNamespace(
-                    workflow_name=name,
-                    owner_repo=owner_repo,
-                    badge_url=badge_url,
-                    badge_link=badge_link,
-                )
+        badge_url = f"https://github.com/{owner_repo}/actions/workflows/{wf.name}/badge.svg?branch={branch}"
+        badge_link = f"https://github.com/{owner_repo}/actions/workflows/{wf.name}"
+        return SimpleNamespace(
+            workflow_filename=wf.name,
+            owner_repo=owner_repo,
+            badge_url=badge_url,
+            badge_link=badge_link,
+        )
     return None
 endglobal
 
@@ -109,8 +110,8 @@ endsnippet
 context "github_workflow_context(snip.buffer.name)"
 pre_expand "adjust_indent(snip, 0)"
 snippet gha "GitHub Actions badge" be
-.. image:: `!p snip.rv = context.badge_url`?branch=master
-    :target: `!p snip.rv = context.badge_link`${1:?query=workflow%3A`!p snip.rv = context.workflow_name`}
+.. image:: `!p snip.rv = context.badge_url`
+    :target: `!p snip.rv = context.badge_link`
 
 endsnippet
 
