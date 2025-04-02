@@ -1,5 +1,6 @@
 global !p
 import glob
+import pathlib
 import subprocess
 import urllib.parse
 from types import SimpleNamespace
@@ -39,22 +40,23 @@ def github_workflow_context(path=''):
                           stdout=subprocess.PIPE, text=True).stdout.strip()
     if not root:
         return None
-    workflow_files = glob.glob(os.path.join('.github', 'workflows', '*.yml'))
+    branch = subprocess.run(
+        ['git', 'main-branch'],
+        cwd=wd,
+        stderr=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        text=True,
+    ).stdout.strip()
+    workflow_files = pathlib.Path('.github', 'workflows').glob('*.yml')
     for wf in workflow_files:
-        with open(wf) as f:
-            text = f.read()
-        m = re.search(r'^name: ([^#\n]+)', text, re.MULTILINE)
-        if m:
-            name = urllib.parse.quote(m.group(1).strip())
-            if name:
-                badge_url = f"https://github.com/{owner_repo}/workflows/{name}/badge.svg"
-                badge_link = f"https://github.com/{owner_repo}/actions"
-                return SimpleNamespace(
-                    workflow_name=name,
-                    owner_repo=owner_repo,
-                    badge_url=badge_url,
-                    badge_link=badge_link,
-                )
+        badge_url = f"https://github.com/{owner_repo}/actions/workflows/{wf.name}/badge.svg?branch={branch}"
+        badge_link = f"https://github.com/{owner_repo}/actions/workflows/{wf.name}"
+        return SimpleNamespace(
+            workflow_name=wf.name,
+            owner_repo=owner_repo,
+            badge_url=badge_url,
+            badge_link=badge_link,
+        )
     return None
 endglobal
 
@@ -68,12 +70,12 @@ snippet travis "Travis CI badge" be
 endsnippet
 
 snippet gha "GitHub Actions badge" b
-[![Build Status](https://github.com/${1:owner/repo}/workflows/${2:build}/badge.svg?branch=master)](https://github.com/$1/actions${3:?query=workflow%3A$2})
+[![Build Status](https://github.com/${1:owner/repo}/actions/workflows/${2:build.yml}/badge.svg?branch=master)](https://github.com/$1/actions/workflows/$2)
 endsnippet
 
 context "github_workflow_context(snip.buffer.name)"
 snippet gha "GitHub Actions badge" be
-[![Build Status](`!p snip.rv = context.badge_url`?branch=master)](`!p snip.rv = context.badge_link`${1:?query=workflow%3A`!p snip.rv = context.workflow_name`})
+[![Build Status](`!p snip.rv = context.badge_url`)](`!p snip.rv = context.badge_link`)
 endsnippet
 
 snippet image "Markdown image syntax"

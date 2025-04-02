@@ -102,7 +102,7 @@ endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
 snippet gha "GitHub Actions badge" b
-.. image:: https://github.com/${1:owner/repo}/workflows/${2:build}/badge.svg?branch=master
+.. image:: https://github.com/${1:owner/repo}/actions/workflows/${2:build.yml}/badge.svg?branch=master
     :target: https://github.com/$1/actions${3:?query=workflow%3A$2}
 
 endsnippet
