@@ -85,6 +85,10 @@ snippet "[<`]?issue" "GitHub issue link" "github_owner_repo(snip.buffer.name)" e
 \`issue $1 <https://github.com/`!p snip.rv = github_owner_repo(path)`/issues/$1>\`_
 endsnippet
 
+snippet "[<`]?pull" "GitHub issue link" "github_owner_repo(snip.buffer.name)" er
+\`pull $1 <https://github.com/`!p snip.rv = github_owner_repo(path)`/pull/$1>\`_
+endsnippet
+
 pre_expand "adjust_indent(snip, 0)"
 snippet travis "Travis CI badge" b
 .. image:: https://travis-ci.com/${1:owner/repo}.svg?branch=master
