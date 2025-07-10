@@ -521,6 +521,7 @@ if has("eval")
   " Open files by typing a subsequence of the pathname, bound to <Leader>t
   if has('ruby')
     Plug 'wincent/command-t', {
+      \ 'branch': '7-x-release',
       \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make' }
     let g:CommandTPreferredImplementation = 'ruby'
   endif
