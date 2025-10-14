@@ -342,7 +342,8 @@ if has("eval")
 
   " :help for vim-plug itself                                   {{{3
 
-  Plug 'junegunn/vim-plug'
+  Plug 'junegunn/vim-plug', {
+        \ 'do': 'cp plug.vim ~/.vim/autoload/plug.vim' }
 
   " Programming                                                 {{{3
 
