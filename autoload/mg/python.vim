@@ -117,7 +117,7 @@ endf
 function mg#python#ruff()
   call filter(g:ale_linters.python, 'v:val != "flake8"')
   call add(g:ale_linters.python, "ruff")
-  let g:ale_fixers.python = ["ruff"]
+  let g:ale_fixers.python = ["ruff", "isort"]
   if exists(':ALELint')
     ALELint
   endif
