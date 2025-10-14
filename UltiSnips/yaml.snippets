@@ -63,8 +63,8 @@ on:
 
 jobs:
   build:
-    name: Python \${{ matrix.python-version }}
-    runs-on: ubuntu-latest
+    name: Python \${{ matrix.python-version }} on \${{ matrix.os }}
+    runs-on: \${{ matrix.os }}
 
     strategy:
       matrix:
@@ -75,9 +75,14 @@ jobs:
           - "3.11"
           - "3.12"
           - "3.13"
+          - "3.14"
           - "pypy3.8"
           - "pypy3.9"
           - "pypy3.10"
+          - "pypy3.11"
+        os:
+          - ubuntu-latest
+          - windows-latest
 
     steps:
       - name: Git clone
@@ -87,15 +92,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "\${{ matrix.python-version }}"
-
-      - name: Pip cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: \${{ runner.os }}-pip-\${{ matrix.python-version }}-\${{ hashFiles('tox.ini', 'setup.py') }}
-          restore-keys: |
-            \${{ runner.os }}-pip-\${{ matrix.python-version }}-
-            \${{ runner.os }}-pip-
+          cache: pip
+          cache-dependency-path: |
+            setup.py
+            tox.ini
 
       - name: Install dependencies
         run: |
@@ -115,6 +115,30 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           file: coverage.xml
+endsnippet
+
+snippet "build:?" "build job header for GHA" br
+build:
+  name: Python \${{ matrix.python-version }} on \${{ matrix.os }}
+  runs-on: \${{ matrix.os }}
+endsnippet
+
+snippet "os:?" "os matrix for GHA" br
+os:
+  - ubuntu-latest
+  - windows-latest
+endsnippet
+
+snippet "cache:?" "cache args for setup-python for GHA" br
+cache: pip
+cache-dependency-path: |
+  setup.py
+  tox.ini
+endsnippet
+
+snippet coverage-cond "conditional coverage --fail-under for GHA"
+coverage report -m --fail-under=${{ contains(fromJSON('["3.8", "3.9"]'), matrix.python-version) && 99 || 100 }}
+coverage xml
 endsnippet
 
 snippet coveralls "coveralls action for GHA" b
