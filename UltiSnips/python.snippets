@@ -2,6 +2,11 @@ snippet coding "# -*- coding: utf-8 -*-" !b
 # -*- coding: utf-8 -*-
 endsnippet
 
+snippet uv "#! uv run --script" !b
+#!/usr/bin/env -S uv run --script
+
+endsnippet
+
 snippet python3 "#! python3" !b
 #!/usr/bin/env python3
 endsnippet
@@ -9,9 +14,10 @@ endsnippet
 snippet "(# )?dep(s|endencies)?" "script dependencies" !br
 # /// script
 # dependencies = [
-#   "$1",$0
+#   "$1",$2
 # ]
 # ///
+$0
 endsnippet
 
 snippet log "log = logging.getLogger(__name__)" b
