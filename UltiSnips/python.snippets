@@ -280,7 +280,7 @@ def blank_lines_above(snip, count=2, except_at_start_of_file=0):
 
 def blank_lines_below(snip, count=2, except_at_end_of_file=0):
     how_many = 0
-    line = snip.snippet_end[0]
+    line = snip.snippet_end[0] + 1
     while line > snip.snippet_start[0] and snip.buffer[line - 1] == "":
         line -= 1
     while line < len(snip.buffer) and snip.buffer[line] == "":
