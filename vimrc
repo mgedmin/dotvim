@@ -1335,6 +1335,11 @@ noremap <silent> <expr> <C-L>   <SID>RedrawCommand()
 
 inoremap        <Esc>.          <C-R>=split(getline(line(".")-1))[-1]<CR>
 
+" Alt-BS deletes word backwards                                 {{{2
+
+inoremap        <A-BS>          <C-W>
+inoremap        <Esc><BS>       <C-W>
+
 " Digraphs                                                      {{{2
 
 if has("digraphs")
@@ -1570,6 +1575,7 @@ endif
 " Sending Ctrl-W to the program running in the terminal         {{{2
 if has("terminal")
   tnoremap      <C-W><Space>    <C-W>.
+  tnoremap      <C-W><BS>       <C-W>.
 endif
 
 " Emacs style command line                                      {{{2
