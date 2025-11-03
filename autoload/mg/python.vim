@@ -117,7 +117,9 @@ endf
 function mg#python#ruff()
   call filter(g:ale_linters.python, 'v:val != "flake8"')
   call add(g:ale_linters.python, "ruff")
-  let g:ale_fixers.python = ["ruff", "isort"]
+  " I now have a ~/.config/ruff/ruff.toml that enables ruff's isort plugin
+  " let g:ale_fixers.python = ["ruff", "isort"]
+  let g:ale_fixers.python = ["ruff"]
   if exists(':ALELint')
     ALELint
   endif

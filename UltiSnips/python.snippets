@@ -25,6 +25,10 @@ log = logging.getLogger(__name__)
 
 endsnippet
 
+snippet annotations "future import for annotations" b
+from __future__ import annotations
+endsnippet
+
 snippet here "here = ...dirname(__file__)" !b
 here = os.path.abspath(os.path.dirname(__file__))
 endsnippet
@@ -236,6 +240,23 @@ def test_suite():
 endsnippet
 
 global !p
+def add_import(snip, module, name):
+    in_docstring = False
+    n_blanks = 0
+    for lineno, line in enumerate(snip.buffer):
+        if line == '"""':
+            in_docstring = not in_docstring
+        if not in_docstring and not line.startswith('#'):
+            if name in line.split() and 'import' in line.split():
+                return
+        if line == "" and not in_docstring:
+            n_blanks += 1
+            if n_blanks == 2:
+                snip.buffer[lineno:lineno] = [f'from {module} import {name}']
+                # TODO: ALEFix isort
+            return
+
+
 def adjust_indent(snip, indent=0):
     snip.buffer[snip.line] = '' * indent
     snip.cursor.set(snip.line, indent)
@@ -409,21 +430,6 @@ snippet "@?(pytest.mark.)?xfail" "@pytest.mark.xfail" br
 @pytest.mark.xfail(reason="${1}")
 endsnippet
 
-snippet aoc "advent of code" b
-#!/usr/bin/python
-"""
-$0
-
-https://adventofcode.com/`!v strftime("%Y")`/day/`!v expand("%:p:h:t")->substitute('^day0*', '', '')`
-"""
-
-import pathlib
-import sys
-
-
-input_file = pathlib.Path((sys.argv + ['example'])[1])
-endsnippet
-
 snippet fixture "pytest fixture" b
 @pytest.fixture
 def ${1}(${2}):
@@ -435,4 +441,39 @@ snippet raises "pytest.raises" bw
 with pytest.raises($1, match=r"$2") as excinfo:
     $3
 assert excinfo.value
+endsnippet
+
+snippet aoc "advent of code" b
+#!/usr/bin/env python
+"""
+$0
+
+https://adventofcode.com/`!v strftime("%Y")`/day/`!v expand("%:p:h:t")->substitute('^day0*', '', '')``!v expand('%:t') =~ 'part2' ? '#part2' : ''`
+"""
+
+from __future__ import annotations
+
+import argparse
+import pathlib
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("filename", nargs="?", default="example")
+parser.add_argument("-v", "--verbose", action="store_true")
+args = parser.parse_args()
+input_file = pathlib.Path(args.filename)
+input_lines = input_file.read_text().splitlines()
+endsnippet
+
+pre_expand "add_import(snip, 'dataclasses', 'field')"
+snippet field "dataclasses.field()"
+field(default_factory=$1)$0
+endsnippet
+
+pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_around(snip, 1)"
+snippet "(def )?parse" "aoc parse() helper" br
+    @classmethod
+    def parse(cls, s: str) -> Self:
+        return cls($1)$0
 endsnippet
