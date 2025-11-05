@@ -1340,6 +1340,12 @@ inoremap        <Esc>.          <C-R>=split(getline(line(".")-1))[-1]<CR>
 inoremap        <A-BS>          <C-W>
 inoremap        <Esc><BS>       <C-W>
 
+" Alt-d deletes word forwards                                   {{{2
+" (but this breaks <esc> dd, sadness)
+
+""exec "set <M-d>=\<Esc>d"
+""inoremap        <A-d>           <C-O>dw
+
 " Digraphs                                                      {{{2
 
 if has("digraphs")
