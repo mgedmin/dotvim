@@ -270,10 +270,14 @@ def blank_lines_above(snip, count=2, except_at_start_of_file=0):
     line = snip.snippet_start[0]
     if line == how_many:
         count = except_at_start_of_file
-    while how_many < count:
+    if isinstance(count, tuple):
+        mincount, maxcount = count
+    else:
+        mincount = maxcount = count
+    while how_many < mincount:
         snip.buffer[line:line] = ['']
         how_many += 1
-    while how_many > count:
+    while how_many > maxcount:
         line -= 1
         del snip.buffer[line]
         how_many -= 1
@@ -288,10 +292,14 @@ def blank_lines_below(snip, count=2, except_at_end_of_file=0):
         line += 1
     if line == len(snip.buffer):
         count = except_at_end_of_file
-    while how_many < count:
+    if isinstance(count, tuple):
+        mincount, maxcount = count
+    else:
+        mincount = maxcount = count
+    while how_many < mincount:
         snip.buffer[line:line] = ['']
         how_many += 1
-    while how_many > count:
+    while how_many > maxcount:
         line -= 1
         del snip.buffer[line]
         how_many -= 1
@@ -471,9 +479,9 @@ field(default_factory=$1)$0
 endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
-post_expand "blank_lines_around(snip, 1)"
+post_expand "blank_lines_above(snip, 1); blank_lines_below(snip, (1, 2))"
 snippet "(def )?parse" "aoc parse() helper" br
     @classmethod
-    def parse(cls, s: str) -> Self:
-        return cls($1)$0
+    def parse(cls, s: str) -> ${1:Self}:
+        return cls($2)$0
 endsnippet
