@@ -190,3 +190,13 @@ lint:
     - name: Run \${{ matrix.toxenv }}
       run: python -m tox -e \${{ matrix.toxenv }}
 endsnippet
+
+snippet install "Install OS-level deps step in GHA" b
+- name: Install OS dependencies (Linux)
+  if: runner.os == 'Linux'
+  run: sudo apt-get install -y ${1:libxml2-dev libxslt1-dev}
+
+- name: Install OS dependencies (Windows)
+  if: runner.os == 'Windows'
+  run: choco install --no-progress ${2:bzr hg svn}
+endsnippet
