@@ -1184,9 +1184,9 @@ command! ShowSyntaxStack call s:ShowSyntaxStack()
 
 function! s:Margin(...)
   if a:0
-    let &colorcolumn=join(range(a:1+1,a:1+256),",")
+    let &l:colorcolumn=join(range(a:1+1,a:1+256),",")
   else
-    echo min(split(&colorcolumn, ',')) - 1
+    echo min(split(&l:colorcolumn, ',')) - 1
   endif
 endf
 command! -nargs=? -bar Margin  call s:Margin(<args>)
