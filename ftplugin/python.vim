@@ -13,10 +13,6 @@ if mg#python#project_uses_mypy()
   call mg#python#mypy_on('.tox/mypy/bin/mypy')
 endif
 
-if has('patch-8.2.5066')
-  setlocal listchars+=leadmultispace:⸱\ \ \  " NB: trailing whitespace
-endif
-
 " PEP-8 is good
 " (note that vim's runtime ftplugin/python.vim overrides these, so use
 " ~/.vim/after/ftplugin/python.vim instead)
@@ -93,7 +89,8 @@ endif
 
 
 " Select part of a string, :Span will tell you where the selection starts and
-" ends, relative to the start of a string.
+" ends, relative to the start of a string.  See ftplugin/yaml.vim for an
+" explanation of why I needed this, and why I stopped.
 function! s:Span()
   let start = getpos("'<")
   let end = getpos("'>")

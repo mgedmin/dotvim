@@ -1,6 +1,10 @@
 " Syntax tweaks for Python files
 " Adds folding for classes and functions
 
+if has('patch-8.2.5066')
+  setlocal listchars+=leadmultispace:⸱\ \ \  " NB: trailing whitespace
+endif
+
 if &foldmethod != 'diff' && &ft == 'python'
   setlocal foldmethod=expr
 endif
