@@ -23,11 +23,10 @@ def git_url(path='', default=''):
     return remote or default
 endglobal
 
-snippet setuptools "setuptools pyproject.toml" b
+snippet "(setuptools|build-system)" "setuptools pyproject.toml" br
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools >= 77.0.3"${1:, "setuptools-scm"}]
 build-backend = "setuptools.build_meta"
-
 endsnippet
 
 global !p
@@ -56,21 +55,19 @@ classifiers = [
 ##      "Environment :: X11 Applications :: Gnome",
 ##      "Environment :: X11 Applications :: GTK",
 ##      "Intended Audience :: Developers",
-##      "License :: OSI Approved :: GNU General Public License (GPL)",
-##      "License :: OSI Approved :: MIT License",
 ##      "Operating System :: POSIX",
 ##      "Operating System :: OS Independent",
 ##      "Programming Language :: Python",
-##      "Programming Language :: Python :: 3.8",
-##      "Programming Language :: Python :: 3.9",
 ##      "Programming Language :: Python :: 3.10",
 ##      "Programming Language :: Python :: 3.11",
 ##      "Programming Language :: Python :: 3.12",
+##      "Programming Language :: Python :: 3.13",
+##      "Programming Language :: Python :: 3.14",
 ##      "Programming Language :: Python :: Implementation :: CPython",
 ##      "Programming Language :: Python :: Implementation :: PyPy",
 ]
-license = {text = "${7:licence}"}
-requires-python = ">=3.8"
+license = "${7:GPL-3.0-or-later OR MIT}"
+requires-python = ">=3.10"
 dependencies = [
     "${8}"
 ]
