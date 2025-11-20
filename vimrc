@@ -355,6 +355,10 @@ if has("eval")
     let g:ale_linters = {}
     let g:ale_linters.python = ['flake8']
     let g:ale_linters.rust = ['cargo']
+    " ansible-lint is cluttering empty .ansible/{collections,modules,roles}/
+    " subdirectories everywhere, shame on you
+    let g:ale_linters.ansible = []
+    let g:ale_linters.yaml = ['yamllint']
     let g:ale_fixers = {}
     let g:ale_fixers.javascript = ['prettier']
     let g:ale_fixers.typescript = ['prettier']
