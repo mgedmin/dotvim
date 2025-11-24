@@ -96,7 +96,9 @@ augroup END
 set wildmenu                    " nice tab-completion on the command line
 set wildmode=longest,full       " nicer tab-completion on the command line
 set hidden                      " side effect: undo list is not lost on C-^
-set browsedir=buffer            " :browse e starts in %:h, not in $PWD
+if !has('nvim')
+  set browsedir=buffer          " :browse e starts in %:h, not in $PWD
+endif
 set autoread                    " automatically reload files changed on disk
 set history=1000                " remember more lines of cmdline history
 set switchbuf=useopen           " quickfix reuses open windows
@@ -524,7 +526,13 @@ if has("eval")
   " Navigation                                                  {{{3
 
   " Open files by typing a subsequence of the pathname, bound to <Leader>t
-  if has('ruby')
+  if has('nvim')
+    Plug 'wincent/command-t', {
+      \ 'branch': '7-x-release',
+      \ 'do': 'make' }
+    let g:CommandTPreferredImplementation = 'lua'
+    nmap <silent> <Leader>t <Plug>(CommandT)
+  elseif has('ruby')
     Plug 'wincent/command-t', {
       \ 'branch': '7-x-release',
       \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make' }
@@ -1287,11 +1295,11 @@ command! -bar ESLint  let g:syntastic_javascript_checkers = ['eslint'] | Syntast
 command! -bar JSHint  let g:syntastic_javascript_checkers = ['jshint'] | SyntasticCheck
 
 " :MakeCommand <command>                                        {{{2
-command -bar -nargs=* MakeCommand
+command! -bar -nargs=* MakeCommand
       \ let &makeprg = <q-args> | set makeprg
 
 " :MakeTarget [<target>]                                        {{{2
-command -bar -nargs=* MakeTarget
+command! -bar -nargs=* MakeTarget
       \ let &makeprg = join(["make", <f-args>], ' ') | set makeprg
 
 " :TermRestart -- re-exec the terminal command that exited      {{{2
@@ -1718,7 +1726,9 @@ map             <S-F10>         :NERDTreeToggle<CR>
 imap            <S-F10>         <C-O><S-F10>
 
 " <F11> = toggle 'paste'
-set pastetoggle=<F11>
+if !has('nvim')
+  set pastetoggle=<F11>
+endif
 
 " <F12> = show the Unicode name of the character under cursor
 " I used to have my own :UnicodeName for this, but tpope/vim-characterize is
