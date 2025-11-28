@@ -1302,6 +1302,9 @@ command! -bar -nargs=* MakeCommand
 command! -bar -nargs=* MakeTarget
       \ let &makeprg = join(["make", <f-args>], ' ') | set makeprg
 
+" :Term -- find the terminal buffer or spawn new one            {{{2
+command! -bar Term    call mg#term#switch_or_launch()
+
 " :TermRestart -- re-exec the terminal command that exited      {{{2
 augroup TermRestart
   au!
