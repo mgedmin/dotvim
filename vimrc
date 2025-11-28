@@ -1309,9 +1309,12 @@ augroup TermRestart
     " vim 8.0.1789 does not emit BufWinEnter for terminal windows
     au TerminalOpen * command! -buffer TermRestart exec 'term ++curwin' expand("%")[1:]
     au TerminalOpen * map <buffer> <F5> :TermRestart<CR>
+    au TerminalOpen * map <buffer> <CR> yy:wincmd W <bar> ClipboardTest<CR>
   else
     au BufWinEnter * if &buftype == 'terminal'
     au BufWinEnter *   command! -buffer TermRestart exec 'term ++curwin' expand("%")[1:]
+    au BufWinEnter *   map <buffer> <F5> :TermRestart<CR>
+    au BufWinEnter *   map <buffer> <CR> yy:wincmd W <bar> ClipboardTest<CR>
     au BufWinEnter * endif
   endif
 augroup END
