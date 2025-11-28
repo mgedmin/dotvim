@@ -1790,7 +1790,7 @@ augroup END
 " Make fugitive's fake buffers visually distinguishable         {{{2
 augroup MakeFugitiveVisible
   au!
-  au BufNew,BufReadPost fugitive://* Margin 0
+  au BufNew,BufReadPost fugitive://* echo "fugitive detected" | Margin 0
   au FileType floggraph              MarginOff
 augroup END
 
