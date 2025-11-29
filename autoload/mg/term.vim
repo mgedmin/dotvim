@@ -6,6 +6,16 @@ fun! mg#term#find()
   return -1
 endf
 
+fun! mg#term#has_multiple_splits()
+  let n = 0
+  for win_id in gettabinfo('.')[0].windows
+    if win_gettype(win_id) == "" && getwinvar(win_id, '&buftype') == ""
+      let n = n + 1
+    endif
+  endfor
+  return n > 1
+endf
+
 fun! mg#term#switch_or_focus(bufnr)
   for winid in win_findbuf(a:bufnr)
     call win_gotoid(l:winid)
@@ -17,7 +27,11 @@ endf
 fun! mg#term#switch_or_launch()
   let bufnr = mg#term#find()
   if bufnr == -1
-    term ++curwin
+    if mg#term#has_multiple_splits()
+      term ++curwin
+    else
+      term
+    endif
   else
     call mg#term#switch_or_focus(bufnr)
   endif
