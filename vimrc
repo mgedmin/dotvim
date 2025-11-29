@@ -361,6 +361,7 @@ if has("eval")
     " subdirectories everywhere, shame on you
     let g:ale_linters.ansible = []
     let g:ale_linters.yaml = ['yamllint']
+    let g:ale_linters.html = []
     let g:ale_fixers = {}
     let g:ale_fixers.javascript = ['prettier']
     let g:ale_fixers.typescript = ['prettier']
