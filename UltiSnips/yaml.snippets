@@ -108,8 +108,8 @@ jobs:
 
       - name: Check test coverage
         run: |
-          coverage report -m --fail-under=100
           coverage xml
+          coverage report -m --fail-under=100
 
       - name: Report to coveralls
         uses: coverallsapp/github-action@v2
@@ -137,8 +137,8 @@ cache-dependency-path: |
 endsnippet
 
 snippet coverage-cond "conditional coverage --fail-under for GHA"
-coverage report -m --fail-under=${{ contains(fromJSON('["3.8", "3.9"]'), matrix.python-version) && 99 || 100 }}
 coverage xml
+coverage report -m --fail-under=${{ contains(fromJSON('["3.8", "3.9"]'), matrix.python-version) && 99 || 100 }}
 endsnippet
 
 snippet coveralls "coveralls action for GHA" b
