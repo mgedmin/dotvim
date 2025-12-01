@@ -361,7 +361,10 @@ if has("eval")
     " subdirectories everywhere, shame on you
     let g:ale_linters.ansible = []
     let g:ale_linters.yaml = ['yamllint']
+    " eslint complains about not having a config file, the gall!
     let g:ale_linters.html = []
+    " xmllint gets confused about tal: prefixes in Zope page templates
+    let g:ale_linters.xml = []
     let g:ale_fixers = {}
     let g:ale_fixers.javascript = ['prettier']
     let g:ale_fixers.typescript = ['prettier']
