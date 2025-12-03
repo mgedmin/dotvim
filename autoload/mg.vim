@@ -332,6 +332,10 @@ fun! mg#statusline_tag(...)
 endf
 
 fun! mg#statusline_errors(...)
+  if line('$') == 1 && getline(1) == ""
+    " empty buffers have no errors *looks at flake8*
+    return ""
+  endif
   let format = a:0 >= 1 ? a:1 : ' %d '
   let flag = ""
   if flag == "" && exists("*SyntasticStatuslineFlag")
