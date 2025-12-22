@@ -1676,6 +1676,8 @@ imap            <F2>            <C-O><F2>
 map             <F3>
       \ :nohlsearch<bar>call ResetStatusLineColor()<bar>GitGutter<CR>
 imap            <F3>            <C-O><F3>
+cmap            <F3>
+      \ <Cmd>nohlsearch<bar>call ResetStatusLineColor()<bar>GitGutter<CR>
 
 " <S-F3> = turn off location list
 map             <S-F3>          :lclose<CR>
