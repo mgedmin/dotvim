@@ -1198,9 +1198,13 @@ command! ShowSyntaxStack call s:ShowSyntaxStack()
 " :Margin n -- highlight columns beyond n                       {{{2
 " :Margin   -- show the current highlight margin
 
+function! s:ComputeMargin(margin)
+  return join(range(a:margin+1,a:margin+256),",")
+endf
+
 function! s:Margin(...)
   if a:0
-    let &l:colorcolumn=join(range(a:1+1,a:1+256),",")
+    let &l:colorcolumn=s:ComputeMargin(a:1)
   else
     echo min(split(&l:colorcolumn, ',')) - 1
   endif
@@ -1799,7 +1803,8 @@ augroup END
 " Make fugitive's fake buffers visually distinguishable         {{{2
 augroup MakeFugitiveVisible
   au!
-  au BufNew,BufReadPost fugitive://* echo "fugitive detected" | Margin 0
+  au BufNew,BufReadPost fugitive://* let &l:colorcolumn=s:ComputeMargin(0)
+  au BufLeave           fugitive://* Margin 80
   au FileType floggraph              MarginOff
 augroup END
 
