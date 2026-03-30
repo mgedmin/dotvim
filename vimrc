@@ -493,7 +493,6 @@ if has("eval")
   Plug 'shumphrey/fugitive-gitlab.vim'
   let g:fugitive_gitlab_domains = {
         \ 'https://gitlab.gnome.org': 'https://gitlab.gnome.org',
-        \ 'ssh://gitlab.tilaajavastuu.fi:2222': 'https://git.vaultit.org/',
         \ }
 
   " Bitbucket support for vim-fugitive
@@ -1854,55 +1853,11 @@ function! FT_Python_Django()
   setlocal wildignore+=var/www/static/*
 endf
 
-function! FT_Tilaajavastuu()
-  let g:source_locator_prefixes = ['db/', 'server/', 'robottests/', 'client/', 'src/']
-  let g:source_locator_suffixes = ['.py', '.txt', '.robot']
-  let g:black_macchiato_args = "-S -l100"
-endf
-
-function! FT_Bolagsfakta_Syntastic()
-  set wildignore+=*/server/var,*/build,*/pkgbuild
-  call Python3(0)
-  let g:ale_javascript_eslint_executable = 'client/eslint'
-  " the only problem is that :ALEFix takes ***ages*** on a 1000-line .jsx,
-  " when the equivalent command-line :!prettier --write % takes milliseconds
-  if filereadable('client/node_modules/.bin/prettier')
-    let g:ale_javascript_prettier_executable = 'client/node_modules/.bin/prettier'
-    let g:ale_javascript_prettier_options = '--parser babel'
-  else
-    let g:ale_javascript_prettier_executable = 'prettier'
-    let g:ale_javascript_prettier_options = ''
-  endif
-  let g:ale_python_mypy_executable = 'server/env/bin/mypy'
-  let g:syntastic_javascript_eslint_exec = 'client/eslint'
-  let g:syntastic_javascript_checkers = ['eslint']
-  let g:coverage_script = 'server/env/bin/coverage'
-  let g:source_locator_prefixes = ["server/"]
-  if executable('./.ctags-wrapper')
-    let g:gutentags_ctags_executable = fnamemodify('./.ctags-wrapper', ':p')
-  endif
-  Margin 100
-  fun! RandomQvarnID()
-    pyx import random
-    return pyxeval('"%04x-%032x-%08x" % (random.randrange(16**4), random.randrange(16**32), random.randrange(16**8))')
-  endf
-  fun! RandomUUID()
-    pyx import uuid
-    return pyxeval('str(uuid.uuid4())')
-  endf
-endf
-
 augroup Python_prog
   autocmd!
   autocmd BufRead,BufNewFile ~/src/ivija/**/*.txt  set ft=rst
   autocmd BufRead,BufNewFile ~/src/ivija/**/*.tt   set ft=xml | Margin 44
   autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'ivija' | call FT_Python_Ivija() | endif
-  autocmd BufRead,BufNewFile *  if expand('%:p') =~ 'labtarna' | call FT_Python_Django() | endif
-  autocmd BufReadPre,BufNewFile **/tilaajavastuu/bol*/**/* call FT_Bolagsfakta_Syntastic()
-  autocmd BufReadPre,BufNewFile **/tilaajavastuu/**/* call FT_Tilaajavastuu()
-  autocmd BufReadPre,BufNewFile **/tilaajavastuu/bol*/**/*.html setlocal sw=4
-  if getcwd() =~ '.*tilaajavastuu.*' | call FT_Bolagsfakta_Syntastic() | endif
-  if getcwd() =~ '.*tilaajavastuu.*' | call FT_Tilaajavastuu() | endif
 augroup END
 
 augroup JS_prog
