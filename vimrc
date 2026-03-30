@@ -496,6 +496,10 @@ if has("eval")
         \ 'ssh://gitlab.tilaajavastuu.fi:2222': 'https://git.vaultit.org/',
         \ }
 
+  " Bitbucket support for vim-fugitive
+  Plug 'tommcdo/vim-fubitive'
+  let g:fubitive_domain_pattern = 'stash\.draeger\.com'
+
   " Azure DevOps support for vim-fugitive
   Plug 'cedarbaum/fugitive-azure-devops.vim'
 
