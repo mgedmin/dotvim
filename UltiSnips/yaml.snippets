@@ -115,6 +115,7 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           file: coverage.xml
+        continue-on-error: true  # coveralls is unreliable
 endsnippet
 
 snippet "build:?" "build job header for GHA" br
@@ -146,6 +147,7 @@ snippet coveralls "coveralls action for GHA" b
         uses: coverallsapp/github-action@v2
         with:
           file: coverage.xml
+        continue-on-error: true  # coveralls is unreliable
 endsnippet
 
 context "re.match('(.*/)?[.]github/workflows/.*[.]yml]$', snip.buffer.name)"
