@@ -40,6 +40,8 @@ setlocal comments+=b:##
 setlocal includeexpr=substitute(v:fname,'^/','','')
 
 " Use gq to format with black-macchiato
+" (the natural question arises: why not use equalprg for this?  and I don't
+" have a good answer!)
 setlocal formatexpr=mg#python#formatexpr()
 
 
