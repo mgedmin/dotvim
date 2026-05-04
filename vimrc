@@ -327,6 +327,7 @@ abbrev wiht with
 abbrev reosurce resource
 abbrev MAke Make
 abbrev assing assign
+abbrev jsut just
 
 "
 " Plugins                                                       {{{1
