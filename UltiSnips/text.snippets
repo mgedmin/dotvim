@@ -2,3 +2,8 @@ snippet amazon "Bought from Amazon text" b
 Bought from amazon.com on `date +%Y-%m-%d`${2} for $${1:x.xx}.
 
 endsnippet
+
+context "snip.line"
+snippet "([-=~*])+" "underline" bre
+`!p snip.rv = match.group(1) * len(snip.buffer[context - 1])`
+endsnippet
