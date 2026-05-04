@@ -1112,7 +1112,7 @@ command! -nargs=* -complete=file E exec "e" (<q-args> != "" ? <q-args> : mg#curd
 command! -range=% CountMatches          <line1>,<line2>s///n
 
 " die, trailing whitespace! die!                                {{{2
-command! -range=% NukeTrailingWhitespace <line1>,<line2>s/\s\+$//
+command! -range=% NukeTrailingWhitespace <line1>,<line2>s/\s\+\r\=$\|\r$//
 
 " where's that non-ascii character?                             {{{2
 command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
