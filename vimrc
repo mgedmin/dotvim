@@ -696,6 +696,9 @@ if has("eval")
   Plug 'vim-scripts/nginx.vim'
   " huh this has no ftdetect plugin??  and stock vim doesn't either?
 
+  " Caddyfile syntax
+  Plug 'isobit/vim-caddyfile'
+
   " xchat log syntax highlighting (set ft=xchatlog)
   Plug 'vim-scripts/xchat-log-syntax'
   " there's also 'XChat-IRC-Log' (set ft=irclog), but it fails to highlight
