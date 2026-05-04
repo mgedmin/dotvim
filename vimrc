@@ -1927,6 +1927,7 @@ function! FT_RootsChangelog()
   setlocal expandtab
   setlocal formatoptions=crql
   setlocal comments=b:#,fb:-
+  setlocal sw=2
   if v:version >= 704
     setlocal fo+=j " remove comment leader when joining lines
   endif
@@ -1934,7 +1935,8 @@ endf
 
 augroup RootsChangelog
   autocmd!
-  autocmd BufRead,BufNewFile /root/Changelog*   call FT_RootsChangelog()
+  autocmd BufRead,BufNewFile /root/Changelog*     call FT_RootsChangelog()
+  autocmd BufRead,BufNewFile /**/Notes/NOTES.txt  call FT_RootsChangelog()
 augroup END
 
 " blog posts                                                    {{{2
