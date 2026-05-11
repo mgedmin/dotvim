@@ -7,7 +7,7 @@ fun! mg#changelog#quote(prefix)
     endif
     let line = getline('.')
     let new_line = indent . a:prefix . mg#changelog#expandtabs(line)
-    call setline('.', substitute(new_line, '\s\+$', '', ''))
+    call setline('.', substitute(new_line, '\s*\r*$', '', ''))
     call setpos('.', saved)
 endfun
 
