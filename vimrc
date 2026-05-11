@@ -716,6 +716,8 @@ if has("eval")
   Plug 'lifepillar/pgsql.vim'
   let g:sql_type_default = 'pgsql'
 
+  " Puppet .epp templates
+  Plug 'farkasmate/epp-syntax-vim'
 
   "                                                             }}}3
 
