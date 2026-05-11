@@ -1,9 +1,6 @@
-" for /root/Changelog
+" for ~/notes/NOTES.txt, which is pseudo-Markdown
 
 setlocal sw=2 et
-
-" ,t - add a timed comment
-map <buffer> ,t :put ='    # ['.strftime('%H:%M').'] '<cr>A
 
 " ,q - quote program output
 map <buffer> ,q :Quote<cr>
@@ -11,9 +8,5 @@ map <buffer> ,q :Quote<cr>
 " ,c - comment a block
 map <buffer> ,c :Comment<cr>
 
-" ,p - remove shell prompt
-map <buffer> ,p :s/^\S\+@\S\+ \S\+ $\( sudo\)\= /  /<cr>
-
 com! -range Quote <line1>,<line2> call mg#changelog#quote("| ")
 com! -range Comment <line1>,<line2> call mg#changelog#quote("# ")
-com! NewChangelogEntry call mg#changelog#new_changelog_entry()

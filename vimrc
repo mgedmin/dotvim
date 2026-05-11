@@ -1938,7 +1938,7 @@ endf
 augroup RootsChangelog
   autocmd!
   autocmd BufRead,BufNewFile /root/Changelog*     call FT_RootsChangelog()
-  autocmd BufRead,BufNewFile /**/Notes/NOTES.txt  call FT_RootsChangelog()
+  autocmd BufRead,BufNewFile /**/Notes/NOTES.txt  call FT_RootsChangelog() | set ft=notes
 augroup END
 
 " blog posts                                                    {{{2
