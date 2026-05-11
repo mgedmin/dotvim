@@ -328,6 +328,8 @@ abbrev reosurce resource
 abbrev MAke Make
 abbrev assing assign
 abbrev jsut just
+abbrev naything anything
+abbrev kidn kind
 
 "
 " Plugins                                                       {{{1
