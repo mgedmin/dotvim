@@ -1121,6 +1121,9 @@ command! -range=% NukeTrailingWhitespace <line1>,<line2>s/\s\+\r\=$\|\r$//
 " where's that non-ascii character?                             {{{2
 command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 command! FindControlChars               normal /[\x00-\x08\x0a-\x1f\x7f]<cr>
+ 
+" where's the next incomplete checkbox                          {{{2
+command! FindCheckbox                   normal /^- \[ \]/e-1<cr>
 
 " where's the next untranslated message in a .po file?          {{{2
 command! FindUntranslated               normal /msgstr\(\[\d\+\]\)\= ""\ze\n\n/e<cr>
