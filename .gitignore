@@ -4,3 +4,4 @@ bundle
 *.sug
 autoload/plug.vim.old
 .coverage
+__pycache__/
