@@ -554,6 +554,10 @@ if has("eval")
   " Bound to <C-P>
   Plug 'vim-scripts/ctrlp.vim'
 
+  " Extend the builtin gx
+  Plug 'stsewd/gx-extended.vim'
+  nmap gx <Plug>(gxext-normal)
+
   " List open buffers with various sorting modes on \be
   Plug 'jlanzarotta/bufexplorer'
 
