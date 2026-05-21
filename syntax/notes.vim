@@ -1,5 +1,12 @@
 " for ~/notes/NOTES.txt, which is pseudo-Markdown
 
+if exists("b:current_syntax")
+  finish
+endif
+
+let s:cpo_save = &cpo
+set cpo&vim
+
 syn match Heading "^.\+\n=\+$"
 syn match Heading "^.\+\n-\+$"
 syn match Heading "^.\+\n\~\+$"
@@ -24,3 +31,10 @@ fun! NoteFolds(lnum)
   return '='
 endf
 setlocal foldmethod=expr foldexpr=NoteFolds(v:lnum)
+
+
+let b:current_syntax = 'notes'
+
+let &cpo = s:cpo_save
+unlet s:cpo_save
+
