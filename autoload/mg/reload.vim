@@ -10,7 +10,11 @@ fun mg#reload#plugin(name = "")
   if a:name == ""
     let name = mg#reload#plugin_name_from_path(expand("%"))
     if name == ""
-      call mg#reload#info(expand("%") . " is not inside " . g:mg#reload#root)
+      if expand("%:p") =~ '/python[23x]/[^/]\+[.]py$'
+        call mg#reload#file(expand("%"))
+      else
+        call mg#reload#info(expand("%") . " is not inside " . g:mg#reload#root)
+      endif
       return
     endif
   else
