@@ -13,6 +13,7 @@ endsnippet
 
 snippet "(# )?dep(s|endencies)?" "script dependencies" !br
 # /// script
+# requires-python = ">=3.12"
 # dependencies = [
 #   "$1",$2
 # ]
@@ -86,11 +87,11 @@ parser.add_argument("--version", action="version",
 endsnippet
 
 snippet classifiers "PyPI classifiers" !b
-"Programming Language :: Python :: 2.7",
-"Programming Language :: Python :: 3.5",
-"Programming Language :: Python :: 3.6",
-"Programming Language :: Python :: 3.7",
-"Programming Language :: Python :: 3.8",
+"Programming Language :: Python :: 3.10",
+"Programming Language :: Python :: 3.11",
+"Programming Language :: Python :: 3.12",
+"Programming Language :: Python :: 3.13",
+"Programming Language :: Python :: 3.14",
 ${1:"Programming Language :: Python :: Implementation :: CPython",
 "Programming Language :: Python :: Implementation :: PyPy",}
 endsnippet
@@ -178,22 +179,19 @@ setup(
 ##      "Environment :: X11 Applications :: Gnome",
 ##      "Environment :: X11 Applications :: GTK",
 ##      "Intended Audience :: Developers",
-##      "License :: OSI Approved :: GNU General Public License (GPL)",
-##      "License :: OSI Approved :: MIT License",
 ##      "Operating System :: POSIX",
 ##      "Operating System :: OS Independent",
 ##      "Programming Language :: Python",
-##      "Programming Language :: Python :: 3.7",
-##      "Programming Language :: Python :: 3.8",
-##      "Programming Language :: Python :: 3.9",
 ##      "Programming Language :: Python :: 3.10",
 ##      "Programming Language :: Python :: 3.11",
 ##      "Programming Language :: Python :: 3.12",
+##      "Programming Language :: Python :: 3.13",
+##      "Programming Language :: Python :: 3.14",
 ##      "Programming Language :: Python :: Implementation :: CPython",
 ##      "Programming Language :: Python :: Implementation :: PyPy",
     ],
     license="${7:GPL-3.0-or-later OR MIT}",
-    python_requires=">=3.7",
+    python_requires=">=3.10",
 
     py_modules=["${8:mymodule}"],
 ##  packages=find_packages("src"),
@@ -210,8 +208,8 @@ setup(
 )
 endsnippet
 
-snippet requires "python_requires"
-python_requires=">=3.7",
+snippet requires "python_requires in setup.py"
+python_requires=">=3.10",
 endsnippet
 
 snippet "ldct|long_description_content_type=?" "long_description_content_type= in setup.py" br
