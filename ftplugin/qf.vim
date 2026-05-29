@@ -11,7 +11,7 @@ map <buffer> <expr> gf expand("<cfile>") != "" ? ":wincmd p <bar> e ".expand("<c
 " Make gF open the file in the previous window rather than directly in the
 " tiny quickfix window, using my source-locator plugin to parse the line
 " number and/or function name etc.
-map <buffer> gF :pyx source_locator.locate(vim.current.line, command_prefix='wincmd p<bar>')<cr>
+map <buffer> gF <Cmd>call source_locator#go_quickfix()<CR>
 
 " Make <Enter> open the entry as usual, but fall back to gF if it wasn't
 " recognized as an error line
