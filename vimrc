@@ -1356,22 +1356,22 @@ endif " has("user_commands")
 
 " Ctrl-L loads changed files, updates diff, recomputes folds    {{{2
 function! s:RedrawCommand()
-    let s = ':checktime'
-    if &diff
-        let s .= '|diffupdate'
-    endif
-    if exists(':GitGutter')
-        let s .= '|GitGutter'
-    endif
-    if exists(':ALELint')
-        let s .= '|ALELint'
-    endif
-    if exists('*mg#statusline_update')
-        let s .= '|call mg#statusline_update()'
-    endif
-    let s .= "\<CR>"
-    let s .= 'zx'
-    return s . "\<C-L>"
+  let s = ':checktime'
+  if &diff
+    let s .= '|diffupdate'
+  endif
+  if exists(':GitGutter')
+    let s .= '|GitGutter'
+  endif
+  if exists(':ALELint')
+    let s .= '|ALELint'
+  endif
+  if exists('*mg#statusline_update')
+    let s .= '|call mg#statusline_update()'
+  endif
+  let s .= "\<CR>"
+  let s .= 'zx'
+  return s . "\<C-L>"
 endf
 noremap <silent> <expr> <C-L>   <SID>RedrawCommand()
 
