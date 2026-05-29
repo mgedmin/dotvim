@@ -2,7 +2,7 @@ import re
 
 
 TAGHELPER_PLUGIN_API_VERSION = 1
-TAGHELPER_SYNTAX = 'bash'
+TAGHELPER_SYNTAX = ('sh', 'bash')
 
 
 FUNCTION_RX = re.compile(r'^(?:function\s+)?(\w+)\s*[(][)]\s*[{]')
