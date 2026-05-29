@@ -1,3 +1,5 @@
+" Implementation of :Term that tries to reuse existing terminal buffers
+" and decided whether to open a new terminal in a vertical or horizontal split
 fun! mg#term#find()
   for bufnr in term_list()
     " return the first one found

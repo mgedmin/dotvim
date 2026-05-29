@@ -1,3 +1,5 @@
+" :ShowMerge - find the merge commit while looking at a commit in fugitive,
+" to see when this commit landed on the main branch
 fun! mg#fugitive#ShowMerge()
   let bufname = expand("%")
   let commit = matchstr(bufname, '^fugitive://.*/.git//\zs[0-9a-f]\{7,\}\ze')
@@ -6,6 +8,7 @@ fun! mg#fugitive#ShowMerge()
     return
   endif
   " This relies on git find-merge alias from https://stackoverflow.com/a/30998048/110151
+  " find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
   silent let merge_commit = system("git find-merge " . commit)
   if merge_commit == ""
     echo "Could not find the merge commit for" commit

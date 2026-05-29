@@ -1,3 +1,9 @@
+" Helpers for editing Python files:
+" - make 'gq' filter code through black-macchiato (unless it's a docstring)
+" - autodetect when a project uses mypy (decided by [testenv:mypy] existing in
+"   tox.ini)
+" - helpers to adjust various ALE settings to switch Python linters between
+"   ruff and flake8, or to enable/disable mypy
 pyx << END
 import re
 import subprocess

@@ -1,3 +1,5 @@
+# Implement ,q/,c (:Quote/:Comment) and :NewChangelogEntry for /root/Changelog
+
 fun! mg#changelog#quote(prefix)
     let saved = exists('*getcurpos') ? getcurpos() : getpos('.')
     let previous = getline(prevnonblank(line('.') - 1))

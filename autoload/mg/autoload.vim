@@ -1,3 +1,5 @@
+" Tab-completion for :EditAutoload
+
 let g:mg#autoload#root = "~/.vim/autoload/mg"
 
 fun mg#autoload#path_of(name)

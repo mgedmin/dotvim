@@ -1,3 +1,4 @@
+" Implementation for :ReloadPlugin
 let g:mg#reload#root = "~/.vim/bundle"
 
 fun mg#reload#info(msg)

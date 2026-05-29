@@ -1,3 +1,5 @@
+" BufWritePost autocommand that makes shell scripts executable
+
 fun! mg#chmodx#doit()
     if getline(1) =~ "^#!"
         if expand("<afile>:t") =~ "test.*py"
