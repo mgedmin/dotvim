@@ -1,4 +1,4 @@
-# Implement ,q/,c (:Quote/:Comment) and :NewChangelogEntry for /root/Changelog
+" Implement ,q/,c (:Quote/:Comment) and :NewChangelogEntry for /root/Changelog
 
 fun! mg#changelog#quote(prefix)
   let saved = exists('*getcurpos') ? getcurpos() : getpos('.')
