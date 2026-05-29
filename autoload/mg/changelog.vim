@@ -30,3 +30,17 @@ fun! mg#changelog#new_changelog_entry()
   put ='  '
   call feedkeys('a')
 endfun
+
+" Implement Alt-. to insert the last argument of the previous command
+fun! mg#changelog#lastarg()
+  let curline = line(".")
+  let curindent = indent(curline)
+  let prevline = curline - 1
+  while prevline >= 1 && (indent(prevline) != curindent || getline(prevline) == "")
+    let prevline -= 1
+  endwhile
+  if prevline == 0
+    let prevline = curline - 1
+  endif
+  return split(getline(prevline))[-1]
+endfun

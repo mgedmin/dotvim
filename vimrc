@@ -1377,7 +1377,7 @@ noremap <silent> <expr> <C-L>   <SID>RedrawCommand()
 
 " Alt-. inserts last word from previous line                    {{{2
 
-inoremap        <Esc>.          <C-R>=split(getline(line(".")-1))[-1]<CR>
+inoremap        <Esc>.          <C-R>=mg#changelog#lastarg()<CR>
 
 " Alt-BS deletes word backwards                                 {{{2
 
