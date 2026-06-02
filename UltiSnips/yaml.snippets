@@ -197,3 +197,15 @@ snippet install "Install OS-level deps step in GHA" b
   if: runner.os == 'Windows'
   run: choco install --no-progress ${2:bzr hg svn}
 endsnippet
+
+snippet "(docker-)?compose" "docker-compose.yml" br
+services:
+  ${1:container_name}:
+    image: ${2:python:3.14}
+    environment:
+      - $3
+    volumes:
+      - $4
+    ports:
+      - $5
+endsnippet
