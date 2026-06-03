@@ -1,3 +1,9 @@
+global !p
+# see ~/.vim/pythonx/mg_snip.py
+from mg_snip import git_url
+endglobal
+
+
 # https://docs.docker.com/build/building/best-practices/#apt-get
 snippet apt "apt-get install in a Dockerfile" b
 # also consider DEBIAN_FRONTEND=noninteractive
@@ -17,4 +23,18 @@ RUN --mount=type=bind,source=requirements.txt,target=/tmp/requirements.txt \
   pip install --no-cache-dir -r /tmp/requirements.txt
 RUN --mount=type=bind,target=/tmp/src \
   pip install --no-cache-dir /tmp/src
+endsnippet
+
+# https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
+snippet "labels?" "OCI LABELS" br
+LABEL org.opencontainers.image.authors="${1:Marius Gedminas}"
+LABEL org.opencontainers.image.url="${2:`!p snip.rv = git_url(path, "https://example.org")`}"
+LABEL org.opencontainers.image.documentation="${3:`!p snip.rv = git_url(path, "https://example.org")`}"
+LABEL org.opencontainers.image.source="${4:`!p snip.rv = git_url(path, "https://example.org")`}"
+LABEL org.opencontainers.image.version="${5:0.0.0}"
+LABEL org.opencontainers.image.revision="${6:0000000}"
+LABEL org.opencontainers.image.licenses="${7:GPL-3.0-or-later OR MIT}"
+LABEL org.opencontainers.image.title="${8:software}"
+LABEL org.opencontainers.image.description="${9:computo ergo sum}"
+LABEL org.opencontainers.image.base.name="${10:ubuntu/24.04}"
 endsnippet

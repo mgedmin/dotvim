@@ -1,3 +1,9 @@
+global !p
+# see ~/.vim/pythonx/mg_snip.py
+from mg_snip import git_url, name_of_parent_directory
+endglobal
+
+
 snippet coding "# -*- coding: utf-8 -*-" !b
 # -*- coding: utf-8 -*-
 endsnippet
@@ -109,31 +115,6 @@ extras_require={
 },
 endsnippet
 
-global !p
-import os
-import subprocess
-def dirname(path=''):
-    return os.path.basename(os.path.dirname(os.path.abspath(path)))
-
-def git_url(path='', default=''):
-    wd = os.path.dirname(os.path.abspath(path))
-    if not os.path.isdir(wd):
-        return default
-    with open(os.devnull, 'w') as devnull:
-        pipe = subprocess.Popen(["git", "ls-remote", "--get-url"],
-                                stdout=subprocess.PIPE,
-                                stderr=devnull,
-                                cwd=wd)
-    remote = pipe.communicate()[0].strip()
-    if not isinstance(remote, str):
-        remote = remote.decode('UTF-8', 'replace')
-    if remote.startswith('git@github.com:'):
-        remote = 'https://github.com/' + remote[len('git@github.com:'):]
-        if remote.endswith('.git'):
-            remote = remote[:-len('.git')]
-    return remote or default
-endglobal
-
 snippet setup "setup.py" !b
 #!/usr/bin/env python3
 import ast
@@ -157,7 +138,7 @@ with open(os.path.join(here, "${8:mymodule}.py")) as f:
 version = metadata["__version__"]
 
 setup(
-    name="${1:`!p snip.rv = dirname(path)`}",
+    name="${1:`!p snip.rv = name_of_parent_directory(path)`}",
     version=${2:version},
     author="Marius Gedminas",
     author_email="marius@gedmin.as",
