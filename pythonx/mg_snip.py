@@ -3,7 +3,9 @@ Helpers for UltiSnips snippets
 """
 
 import os
+import pathlib
 import subprocess
+from types import SimpleNamespace
 
 
 def name_of_parent_directory(path=''):
@@ -26,14 +28,70 @@ def git_url(path='', default=''):
     wd = os.path.dirname(os.path.abspath(path))
     if not os.path.isdir(wd):
         return default
-    result = subprocess.run(
-        ["git", "ls-remote", "--get-url"], capture_output=True, text=True
-    )
-    remote = result.stdout.strip()
+    remote = subprocess.run(
+        ["git", "ls-remote", "--get-url"],
+        cwd=wd,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
     if remote.startswith('git@github.com:'):
         rest = remote.removeprefix('git@github.com:').removesuffix('.git')
         remote = 'https://github.com/' + rest
     return remote or default
+
+
+def github_owner_repo(path='', default=''):
+    """Figure out the "owner/repo" part of the GitHub URL."""
+    wd = os.path.dirname(os.path.abspath(path))
+    if not os.path.isdir(wd):
+        return default
+    remote = subprocess.run(
+        ["git", "ls-remote", "--get-url"],
+        cwd=wd,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    if 'github.com' not in remote:
+        return default
+    path = remote.partition('github.com')[-1].lstrip('/:').removesuffix('.git')
+    return path
+
+
+def github_workflow_context(path=''):
+    """Figure out if GitHub Actions are being used."""
+    wd = os.path.dirname(os.path.abspath(path))
+    if not os.path.isdir(wd):
+        return None
+    owner_repo = github_owner_repo(path)
+    if not owner_repo:
+        return None
+    root = subprocess.run(
+        ['git', 'rev-parse', '--show-toplevel'],
+        cwd=wd,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    if not root:
+        return None
+    # git main-branch is my git alias from ~/.gitconfig
+    branch = subprocess.run(
+        ['git', 'main-branch'],
+        cwd=wd,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    base_url = f"https://github.com/{owner_repo}/actions/workflows"
+    workflow_files = pathlib.Path('.github', 'workflows').glob('*.yml')
+    for wf in workflow_files:
+        badge_url = f"{base_url}/{wf.name}/badge.svg?branch={branch}"
+        badge_link = f"{base_url}/{wf.name}"
+        return SimpleNamespace(
+            workflow_filename=wf.name,
+            owner_repo=owner_repo,
+            badge_url=badge_url,
+            badge_link=badge_link,
+        )
+    return None
 
 
 def adjust_indent(snip, indent=0):

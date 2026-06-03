@@ -1,65 +1,6 @@
 global !p
-import os
-import pathlib
-import subprocess
-import urllib.parse
-from types import SimpleNamespace
-
-from mg_snip import name_of_parent_directory, adjust_indent
-
-
-def github_owner_repo(path='', default=''):
-    """Figure out the "owner/repo" part of the GitHub URL."""
-    wd = os.path.dirname(os.path.abspath(path))
-    if not os.path.isdir(wd):
-        return default
-    with open(os.devnull, 'w') as devnull:
-        pipe = subprocess.Popen(["git", "ls-remote", "--get-url"],
-                                stdout=subprocess.PIPE,
-                                stderr=devnull,
-                                cwd=wd)
-    remote = pipe.communicate()[0].strip()
-    if not isinstance(remote, str):
-        remote = remote.decode('UTF-8', 'replace')
-    if 'github.com' not in remote:
-        return default
-    path = remote.split('github.com', 1)[-1].lstrip('/:')
-    if path.endswith('.git'):
-        path = path[:-4]
-    return path
-
-
-def github_workflow_context(path=''):
-    """Figure out if GitHub Actions are being used."""
-    wd = os.path.dirname(os.path.abspath(path))
-    if not os.path.isdir(wd):
-        return None
-    owner_repo = github_owner_repo(path)
-    if not owner_repo:
-        return None
-    root = subprocess.run(['git', 'rev-parse', '--show-toplevel'], cwd=wd,
-                          stderr=subprocess.DEVNULL,
-                          stdout=subprocess.PIPE, text=True).stdout.strip()
-    if not root:
-        return None
-    branch = subprocess.run(
-        ['git', 'main-branch'],
-        cwd=wd,
-        stderr=subprocess.DEVNULL,
-        stdout=subprocess.PIPE,
-        text=True,
-    ).stdout.strip()
-    workflow_files = pathlib.Path('.github', 'workflows').glob('*.yml')
-    for wf in workflow_files:
-        badge_url = f"https://github.com/{owner_repo}/actions/workflows/{wf.name}/badge.svg?branch={branch}"
-        badge_link = f"https://github.com/{owner_repo}/actions/workflows/{wf.name}"
-        return SimpleNamespace(
-            workflow_filename=wf.name,
-            owner_repo=owner_repo,
-            badge_url=badge_url,
-            badge_link=badge_link,
-        )
-    return None
+# see ~/.vim/pythonx/mg_snip.py
+from mg_snip import name_of_parent_directory, github_owner_repo, adjust_indent
 endglobal
 
 snippet pdb "import pdb; pdb.set_trace()" w
