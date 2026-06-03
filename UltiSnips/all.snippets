@@ -1,4 +1,3 @@
-# NB: this file intentionally has trailing whitespace!
 global !p
 def handle_replace_mode(trigger_length):
     if vim.eval('v:insertmode') == 'i':
@@ -25,13 +24,16 @@ snippet date "YYYY-MM-DD" w
 `!v strftime('%Y-%m-%d')`
 endsnippet
 
-post_expand "handle_replace_mode(8)"
 snippet yyyymmdd "YYYYMMDD" w
 `!v strftime('%Y%m%d')`
 endsnippet
 
-snippet "[\[]time]?" "[HH:MM] " r
-[`!v strftime('%H:%M')`] 
+snippet time "HH:MM" w
+`!v strftime('%H:%M')`
+endsnippet
+
+snippet "\[time]?" "[HH:MM] " r
+[`!v strftime('%H:%M')`]`!v ' '`
 endsnippet
 
 snippet datetime "YYYY-MM-DDTHH:MM:SS.ssssss" w
