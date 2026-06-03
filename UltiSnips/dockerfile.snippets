@@ -1,0 +1,20 @@
+# https://docs.docker.com/build/building/best-practices/#apt-get
+snippet apt "apt-get install in a Dockerfile" b
+# also consider DEBIAN_FRONTEND=noninteractive
+RUN apt-get -y update && apt-get -y install --no-install-recommends \
+  ${1:packages} \
+  && rm -rf /var/lib/apt/lists/*
+endsnippet
+
+# https://github.com/docker-library/docs/tree/master/python#how-to-use-this-image
+# https://docs.docker.com/build/building/best-practices/#add-or-copy
+snippet pip "pip install in a Dockerfile" b
+# pick one:
+RUN pip install --no-cache ${1:package==version}
+RUN pip install --no-cache -U pip && \
+  pip install --no-cache-dir ${1:package==version}
+RUN --mount=type=bind,source=requirements.txt,target=/tmp/requirements.txt \
+  pip install --no-cache-dir -r /tmp/requirements.txt
+RUN --mount=type=bind,target=/tmp/src \
+  pip install --no-cache-dir /tmp/src
+endsnippet
