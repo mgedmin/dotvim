@@ -7,9 +7,9 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-syn match Heading "^.\+\n=\+$"
-syn match Heading "^.\+\n-\+$"
-syn match Heading "^.\+\n\~\+$"
+syn match Heading "^.\+\n=\{3,}$"
+syn match Heading "^.\+\n-\{3,}$"
+syn match Heading "^.\+\n\~\{3,}$"
 syn match Subheading "^#\{1,6}\s.\+$"
 
 syn match Checkbox /^- \[ \]/hs=s+2
