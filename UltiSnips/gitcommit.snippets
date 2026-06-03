@@ -1,3 +1,8 @@
+global !p
+# see ~/.vim/pythonx/mg_snip.py
+from mg_snip import git_last_commit_message
+endglobal
+
 snippet prevmsg "Insert previous commit message" b
-`git log -1 --format=%B`
+`!p snip.rv = git_last_commit_message(path)`
 endsnippet

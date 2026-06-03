@@ -58,7 +58,16 @@ def github_owner_repo(path='', default=''):
 
 
 def github_workflow_context(path=''):
-    """Figure out if GitHub Actions are being used."""
+    """Figure out if GitHub Actions are being used.
+
+    Returns None or an object with these attributes:
+
+    - ``workflow_filename``: name of the .github/workflows/*.yml file
+    - ``owner_repo``: "owner/repo" part of the github URL
+    - ``badge_url``: URL of the build badge .svg
+    - ``badge_link``: URL of the workflow page that should be used as the link
+      target to go see why this build is failing (or not)
+    """
     wd = os.path.dirname(os.path.abspath(path))
     if not os.path.isdir(wd):
         return None
@@ -92,6 +101,19 @@ def github_workflow_context(path=''):
             badge_link=badge_link,
         )
     return None
+
+
+def git_last_commit_message(path='', default=''):
+    """Return the commit message of the HEAD commit."""
+    wd = os.path.dirname(os.path.abspath(path))
+    if not os.path.isdir(wd):
+        return default
+    return subprocess.run(
+        ['git', 'log', '-1', '--format=%B'],
+        cwd=wd,
+        capture_output=True,
+        text=True,
+    ).stdout.strip() or default
 
 
 def adjust_indent(snip, indent=0):
