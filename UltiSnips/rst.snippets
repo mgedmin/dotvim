@@ -5,16 +5,7 @@ import subprocess
 import urllib.parse
 from types import SimpleNamespace
 
-
-def dirname(path=''):
-    """dirname('/home/mg/projects/foo/tox.ini') -> 'foo'."""
-    return os.path.basename(os.path.dirname(os.path.abspath(path)))
-
-
-def adjust_indent(snip, indent=0):
-    """Adjust the indentation of the current line in a pre_expand."""
-    snip.buffer[snip.line] = '' * indent
-    snip.cursor.set(snip.line, indent)
+from mg_snip import name_of_parent_directory, adjust_indent
 
 
 def github_owner_repo(path='', default=''):
@@ -151,7 +142,7 @@ endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
 snippet pypi "pypi.org badge" b
-.. image:: https://img.shields.io/pypi/v/${1:`!p snip.rv = dirname(path)`}.svg
+.. image:: https://img.shields.io/pypi/v/${1:`!p snip.rv = name_of_parent_directory(path)`}.svg
     :target: https://pypi.org/project/$1/
     :alt: Latest release
 
@@ -159,7 +150,7 @@ endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
 snippet pyversions "python versions badge" b
-.. image:: https://img.shields.io/pypi/pyversions/${1:`!p snip.rv = dirname(path)`}.svg
+.. image:: https://img.shields.io/pypi/pyversions/${1:`!p snip.rv = name_of_parent_directory(path)`}.svg
     :target: https://pypi.org/project/$1/
     :alt: Supported Python versions
 

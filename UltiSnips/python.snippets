@@ -1,6 +1,25 @@
 global !p
 # see ~/.vim/pythonx/mg_snip.py
-from mg_snip import git_url, name_of_parent_directory
+from mg_snip import git_url, name_of_parent_directory, adjust_indent, blank_lines_above, blank_lines_below, blank_lines_around
+
+
+# XXX: this doesn't actually work and I haven't debugged why
+def add_import(snip, module, name):
+    in_docstring = False
+    n_blanks = 0
+    for lineno, line in enumerate(snip.buffer):
+        if line == '"""':
+            in_docstring = not in_docstring
+        if not in_docstring and not line.startswith('#'):
+            if name in line.split() and 'import' in line.split():
+                return
+        if line == "" and not in_docstring:
+            n_blanks += 1
+            if n_blanks == 2:
+                snip.buffer[lineno:lineno] = [f'from {module} import {name}']
+                # TODO: ALEFix isort
+            return
+
 endglobal
 
 
@@ -217,76 +236,6 @@ ${1}
 def test_suite():
     return doctest.DocTestSuite()
 endsnippet
-
-global !p
-def add_import(snip, module, name):
-    in_docstring = False
-    n_blanks = 0
-    for lineno, line in enumerate(snip.buffer):
-        if line == '"""':
-            in_docstring = not in_docstring
-        if not in_docstring and not line.startswith('#'):
-            if name in line.split() and 'import' in line.split():
-                return
-        if line == "" and not in_docstring:
-            n_blanks += 1
-            if n_blanks == 2:
-                snip.buffer[lineno:lineno] = [f'from {module} import {name}']
-                # TODO: ALEFix isort
-            return
-
-
-def adjust_indent(snip, indent=0):
-    snip.buffer[snip.line] = '' * indent
-    snip.cursor.set(snip.line, indent)
-
-def blank_lines_above(snip, count=2, except_at_start_of_file=0):
-    how_many = 0
-    line = snip.snippet_start[0] - 1
-    while line > 0 and snip.buffer[line] == "":
-        how_many += 1
-        line -= 1
-    line = snip.snippet_start[0]
-    if line == how_many:
-        count = except_at_start_of_file
-    if isinstance(count, tuple):
-        mincount, maxcount = count
-    else:
-        mincount = maxcount = count
-    while how_many < mincount:
-        snip.buffer[line:line] = ['']
-        how_many += 1
-    while how_many > maxcount:
-        line -= 1
-        del snip.buffer[line]
-        how_many -= 1
-
-def blank_lines_below(snip, count=2, except_at_end_of_file=0):
-    how_many = 0
-    line = snip.snippet_end[0] + 1
-    while line > snip.snippet_start[0] and snip.buffer[line - 1] == "":
-        line -= 1
-    while line < len(snip.buffer) and snip.buffer[line] == "":
-        how_many += 1
-        line += 1
-    if line == len(snip.buffer):
-        count = except_at_end_of_file
-    if isinstance(count, tuple):
-        mincount, maxcount = count
-    else:
-        mincount = maxcount = count
-    while how_many < mincount:
-        snip.buffer[line:line] = ['']
-        how_many += 1
-    while how_many > maxcount:
-        line -= 1
-        del snip.buffer[line]
-        how_many -= 1
-
-def blank_lines_around(snip, count=2):
-    blank_lines_above(snip, count)
-    blank_lines_below(snip, count)
-endglobal
 
 pre_expand "adjust_indent(snip, 0)"
 post_expand "blank_lines_around(snip, 2)"
