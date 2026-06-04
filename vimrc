@@ -1402,6 +1402,9 @@ endif
 " Remember columns when jumping to marks                        {{{2
 map             '               `
 
+" Make Y act like D                                             {{{2
+map             Y               y$
+
 " Undo in insert mode                                           {{{2
 " make it so that if I accidentally press ^W or ^U in insert mode,
 " then <ESC>u will undo just the ^W/^U, and not the whole insert
@@ -1453,10 +1456,16 @@ vnoremap <expr> p  mg#vp#mapping()
 set wildcharm=<C-Z>
 map             ,e              :e $HOME/.vim/vimrc<CR>
 map             ,s              :source $HOME/.vim/vimrc<CR>
+
+" ha ha I never use these, I don't remember about them!
 map             ,PE             :e $HOME/.vim/plugin/<C-Z><C-Z>
 map             ,IE             :e $HOME/.vim/indent/<C-Z><C-Z>
 map             ,FE             :e $HOME/.vim/ftplugin/<C-Z><C-Z>
 map             ,XE             :e $HOME/.vim/syntax/<C-Z><C-Z>
+
+" :NukeTrailingWhitespace                                       {{{2
+
+map             ,n              :NukeTrailingWhitespace<cr>
 
 " double comma for limited virtual keyboards                    {{{2
 map             ,,              :update<CR>
@@ -1465,6 +1474,8 @@ map             ,4              <F4>
 map             ,5              <F5>
 map             ,6              <F6>
 if exists("$TERMUX_VERSION")
+  " the ,, mapping is annoying when you edit CSV data, so only do that when we
+  " know we don't have a proper keyboard (e.g. on Android).
   imap            ,,              <ESC>
 endif
 
