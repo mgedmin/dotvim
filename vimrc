@@ -1128,6 +1128,7 @@ command! FindControlChars               normal /[\x00-\x08\x0a-\x1f\x7f]<cr>
 
 " where's the next incomplete checkbox                          {{{2
 command! FindCheckbox                   normal /^- \[ \]/e-1<cr>
+command! FindPrevCheckbox               normal ?^- \[ \]?e-1<cr>
 
 " where's the next untranslated message in a .po file?          {{{2
 command! FindUntranslated               normal /msgstr\(\[\d\+\]\)\= ""\ze\n\n/e<cr>

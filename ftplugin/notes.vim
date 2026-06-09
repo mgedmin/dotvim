@@ -2,6 +2,9 @@
 
 setlocal sw=2 et
 
+map <buffer> <F4> :FindCheckbox<cr>
+map <buffer> <S-F4> :FindPrevCheckbox<cr>
+
 " ,q - quote program output
 map <buffer> ,q :Quote<cr>
 
