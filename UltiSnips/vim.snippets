@@ -1,3 +1,14 @@
-snippet "ftdetect" "~/.vim/ftdetect/*.vim" r
+global !p
+# see ~/.vim/pythonx/mg_snip.py
+from mg_snip import autoload_name_prefix
+endglobal
+
+snippet "ftdetect" "~/.vim/ftdetect/*.vim" b
 au BufRead,BufNewFile ${1:*.ext} set filetype=$2
+endsnippet
+
+snippet "fun(ction)?" "functions in autoload/*/*.vim" r
+function `!p snip.rv = autoload_name_prefix(path)`${1:name}
+  $0
+endf
 endsnippet

@@ -20,6 +20,18 @@ def name_of_parent_directory(path=''):
     return os.path.basename(os.path.dirname(os.path.abspath(path)))
 
 
+def autoload_name_prefix(path):
+    """Return the prefix for autoloaded function names
+
+    E.g. in a file named ~/.vim/autoload/mg/thingy.vim, all functions
+    must start with 'mg#thingy#'.
+    """
+    head, _, tail = path.rpartition('/autoload/')
+    if not tail:
+        return ''
+    return tail.removesuffix('.vim').replace('/', '#') + '#'
+
+
 def git_url(path='', default=''):
     """Return the URL of the git repository containing path.
 
