@@ -32,15 +32,36 @@ fun! mg#changelog#new_changelog_entry()
 endfun
 
 " Implement Alt-. to insert the last argument of the previous command
+" :imap <esc>. <c-r>=mg#changelog#lastarg()<cr>
 fun! mg#changelog#lastarg()
+  let prev_pos = mg#changelog#prev_pos()
   let curline = line(".")
-  let curindent = indent(curline)
-  let prevline = curline - 1
+  let erase = 0
+  let default = curline - 1
+  if prev_pos != [] && line(".") == prev_pos[0] && col(".") == prev_pos[1] + prev_pos[2]
+    let curline = prev_pos[3]
+    " intentionally not setting default
+    let erase = prev_pos[2]
+  endif
+  let prevline = mg#changelog#prev_line_with_same_indent(curline, default)
+  let word = split(getline(prevline))[-1]
+  call mg#changelog#set_prev_pos(line("."), col(".") - erase, len(word), prevline)
+  return repeat("\<BS>", erase) .. word
+endfun
+
+fun! mg#changelog#prev_line_with_same_indent(curline, default)
+  let curindent = indent(a:curline)
+  let prevline = a:curline - 1
   while prevline >= 1 && (indent(prevline) != curindent || getline(prevline) == "")
     let prevline -= 1
   endwhile
-  if prevline == 0
-    let prevline = curline - 1
-  endif
-  return split(getline(prevline))[-1]
+  return prevline == 0 ? a:default : prevline
+endfun
+
+fun! mg#changelog#prev_pos()
+  return get(b:, 'lastarg_prev_pos', [])
+endfun
+
+fun! mg#changelog#set_prev_pos(line, col, len, prevline)
+  let b:lastarg_prev_pos = [a:line, a:col, a:len, a:prevline]
 endfun
