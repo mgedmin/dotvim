@@ -2007,6 +2007,22 @@ augroup Ansible
               \ let &l:path = expand("%:p:h:h")."/**,".&g:path
 augroup END
 
+" Puppet manifests                                              {{{2
+
+augroup Puppet
+  " special tricks are needed to make gf work for puppet:/// paths
+  " because vim hardcodes the logic that scheme://... are valid existing files
+  " and never even calls &includeexpr on those when you do a gf!
+  " see also
+  " - https://vi.stackexchange.com/questions/38455/how-to-make-gf-replace-res-prefix-with-project-root
+  " - https://github.com/vim/vim/issues/11060
+  " - https://github.com/habamax/vim-godot/pull/60/changes
+  autocmd!
+  autocmd BufReadCmd puppet:///* ++nested
+              \ exe 'keepalt e' mg#puppet#includeexpr(expand('<amatch>')) |
+              \ exe 'silent! keepalt bdelete' expand('<amatch>')
+augroup END
+
 " .vimrc                                                        {{{2
 
 augroup VimRc

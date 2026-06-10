@@ -1,1 +1,2 @@
-setlocal includeexpr=substitute(v:fname,'^[^/]*/','','')
+" make gf work
+setlocal includeexpr=mg#puppet#includeexpr(v:fname)
