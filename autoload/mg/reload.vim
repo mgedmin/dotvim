@@ -5,6 +5,12 @@ fun mg#reload#info(msg)
   echo a:msg
 endf
 
+fun mg#reload#error(msg)
+  echohl ErrorMsg
+  echomsg a:msg
+  echohl None
+endf
+
 fun mg#reload#plugin(name = "")
   " This works on my machine!  It's not indented to be a very generic
   " solution!  I write plugins to be reloadable: use fun!, don't use guards, etc.
@@ -13,8 +19,10 @@ fun mg#reload#plugin(name = "")
     if name == ""
       if expand("%:p") =~ '/python[23x]/[^/]\+[.]py$'
         call mg#reload#file(expand("%"))
+      elseif expand("%:p") =~ '/\(autoload\|plugin\)/.\+[.]vim$'
+        call mg#reload#file(expand("%"))
       else
-        call mg#reload#info(expand("%") . " is not inside " . g:mg#reload#root)
+        call mg#reload#error(expand("%") . " is not inside " . g:mg#reload#root)
       endif
       return
     endif
@@ -49,7 +57,11 @@ fun mg#reload#if_exists(filespec)
 endf
 
 fun mg#reload#file(filename)
-  if a:filename =~ "[.]vim$"
+  if a:filename =~ "/autoload/mg/reload[.]vim$"
+    " it's a limitation in vim: cannot redefine function that is being
+    " executed
+    call mg#reload#error(a:filename . " cannot reload itself, do :so % instead")
+  elseif a:filename =~ "[.]vim$"
     exec "source" a:filename
     call mg#reload#info(a:filename . " reloaded")
   elseif a:filename =~ "[.]py$"
