@@ -380,6 +380,7 @@ if has("eval")
     " see https://github.com/w0rp/ale/issues/1827#issuecomment-433920827
     let g:ale_python_flake8_change_directory = 0
     let g:ale_rust_cargo_use_clippy = 1
+    let g:ale_python_isort_options = "--lines-after-imports=2"
   else
     " Show syntax errors and style warnings in files I edit.  Updates on save.
     Plug 'scrooloose/syntastic'
