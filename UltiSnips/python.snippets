@@ -427,3 +427,18 @@ snippet "(def )?parse" "aoc parse() helper" br
     def parse(cls, s: str) -> ${1:Self}:
         return cls($2)$0
 endsnippet
+
+pre_expand "adjust_indent(snip, 4)"
+post_expand "blank_lines_above(snip, 1); blank_lines_below(snip, (1, 2))"
+snippet "(def )?(__)?enter(__)?" "context manager __enter__" br
+def __enter__(self) -> ${1:Self}:
+    return self
+$0
+endsnippet
+
+pre_expand "adjust_indent(snip, 4)"
+post_expand "blank_lines_above(snip, 1); blank_lines_below(snip, (1, 2))"
+snippet "(def )?(__)?exit(__)?" "context manager __exit__" br
+def __exit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> None:
+    ${1:pass}
+endsnippet

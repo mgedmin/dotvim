@@ -166,7 +166,7 @@ def adjust_indent(snip, indent=0):
             assert ...
 
     """
-    snip.buffer[snip.line] = '' * indent
+    snip.buffer[snip.line] = ' ' * indent
     snip.cursor.set(snip.line, indent)
 
 
