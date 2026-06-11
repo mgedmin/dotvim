@@ -14,5 +14,9 @@ map <buffer> ,c :Comment<cr>
 " ,n - delete ("nuke") all trailing whitespace
 map <buffer> ,n :NukeTrailingWhitespace<cr>
 
+" ,$ - strip the prompt off
+map <buffer> ,$ :StripPrompt<cr>
+
 com! -range Quote <line1>,<line2> call mg#changelog#quote("| ")
 com! -range Comment <line1>,<line2> call mg#changelog#quote("# ")
+com! -range StripPrompt <line1>,<line2> call mg#changelog#strip_prompt()

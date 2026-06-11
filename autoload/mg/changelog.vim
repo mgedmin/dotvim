@@ -13,6 +13,20 @@ fun! mg#changelog#quote(prefix)
   call setpos('.', saved)
 endfun
 
+fun! mg#changelog#strip_prompt()
+  let saved = exists('*getcurpos') ? getcurpos() : getpos('.')
+  let previous = getline(prevnonblank(line('.') - 1))
+  let indent = matchstr(previous, '^\s*')
+  if previous =~ '^\s*\([#|]\|\.\{3}\)'
+    " there's probably a better way to remove the last two characters
+    let indent = substitute(indent, '  $', '', '')
+  endif
+  let line = getline('.')
+  let new_line = indent . substitute(line, '^[^$#]*[$#]\s*', '', '')
+  call setline('.', substitute(new_line, '\s*\r*$', '', ''))
+  call setpos('.', saved)
+endfun
+
 fun! mg#changelog#expandtabs(s)
   let o = [a:s]
   pyx vim.bindeval('o')[0] = vim.eval('a:s').expandtabs()
