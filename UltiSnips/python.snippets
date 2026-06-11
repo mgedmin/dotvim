@@ -328,6 +328,20 @@ if __name__ == "__main__":
 endsnippet
 
 pre_expand "adjust_indent(snip, 0)"
+post_expand "blank_lines_above(snip, 2)"
+snippet ifmainpdb "if __name__ == '__main__':" !b
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception:
+        import pdb
+        import readline  # noqa
+        import traceback
+        traceback.print_exc()
+        pdb.post_mortem()
+endsnippet
+
+pre_expand "adjust_indent(snip, 0)"
 post_expand "blank_lines_around(snip, 2)"
 snippet factory "SQLAlchemyModel Factory subclass" !b
 class ${1:Something}Factory(SQLAlchemyModelFactory):
