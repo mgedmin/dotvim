@@ -2028,7 +2028,7 @@ augroup END
 augroup VimRc
   autocmd!
   autocmd BufReadPre,BufNewFile ~/.vimrc,~/.vim/*
-              \ setlocal path=~/.vim/** includeexpr=substitute(v:fname,'^.*/','','')
+              \ setlocal path=~/.vim/** includeexpr=mg#vim#includeexpr(v:fname)
 augroup END
 
 " autosave on focus loss                                        {{{2
