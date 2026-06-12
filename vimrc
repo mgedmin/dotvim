@@ -67,22 +67,13 @@ if $USER == "root"
 endif
 
 " create the backup directory if it doesn't already exist
-function! s:Mkdir(dir)
-  if !isdirectory(a:dir)
-    if exists("*mkdir")
-      call mkdir(a:dir, "p")
-    else
-      exec "silent !mkdir -p " . a:dir
-    endif
-  endif
-endf
-call s:Mkdir(&backupdir)
+call mg#mkdir#if_missing(&backupdir)
 
 " Persistent undo (vim 7.3+)                                    {{{2
 if has("persistent_undo")
   set undofile                  " enable persistent undo
   let &undodir=&backupdir . "/.vimundo" " but don't clutter $PWD
-  call s:Mkdir(&undodir)
+  call mg#mkdir#if_missing(&undodir)
 endif
 
 " No swap files for unmodified buffers                          {{{2

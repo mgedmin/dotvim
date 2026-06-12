@@ -6,3 +6,13 @@ fun! mg#mkdir#ondemand()
     call mkdir(pardir, "p")
   endif
 endf
+
+fun! mg#mkdir#if_missing(dir)
+  if !isdirectory(a:dir)
+    if exists("*mkdir")
+      call mkdir(a:dir, "p")
+    else
+      exec "silent !mkdir -p " . a:dir
+    endif
+  endif
+endf
