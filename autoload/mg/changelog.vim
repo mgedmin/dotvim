@@ -22,7 +22,8 @@ fun! mg#changelog#strip_prompt()
     let indent = substitute(indent, '  $', '', '')
   endif
   let line = getline('.')
-  let new_line = indent . substitute(line, '^[^$#]*[$#]\s*', '', '')
+  let promptless = substitute(line, '^\(\[git:[^\]]*\]\|[^$#]\)*[$#]\s*', '', '')
+  let new_line = indent . promptless
   call setline('.', substitute(new_line, '\s*\r*$', '', ''))
   call setpos('.', saved)
 endfun
