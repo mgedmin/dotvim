@@ -10,7 +10,9 @@ set cpo&vim
 syn match Heading "^.\+\n=\{3,}$"
 syn match Heading "^.\+\n-\{3,}$"
 syn match Heading "^.\+\n\~\{3,}$"
-syn match Subheading "^#\{1,6}\s.\+$"
+syn match Subheading "^#\{1,6}\s.\+$" contains=Link
+
+syn match Link "\<TOOL-\d\{1,5}\>"
 
 syn match Checkbox /^- \[ \]/hs=s+2
 syn match CheckedCheckbox /^- \[[Xx-]\]/hs=s+2
@@ -19,6 +21,7 @@ hi def link Heading Title
 hi def link Subheading Title
 hi def link Checkbox Question
 hi def link CheckedCheckbox Comment
+hi def link Link Type
 
 
 fun! NoteFolds(lnum)
