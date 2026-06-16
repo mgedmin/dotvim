@@ -12,6 +12,9 @@ syn match Heading "^.\+\n-\{3,}$"
 syn match Heading "^.\+\n\~\{3,}$"
 syn match Subheading "^#\{1,6}\s.\+$" contains=Link
 
+syn match Comment "^  *#\( .*\)\=$"
+syn match Quote "^  *|\( .*\)\=$"
+
 syn match Link "\<TOOL-\d\{1,5}\>"
 syn match Link "\<https://\S\+\>/\="
 
@@ -23,6 +26,7 @@ hi def link Subheading Title
 hi def link Checkbox Question
 hi def link CheckedCheckbox Comment
 hi def link Link Type
+hi def link Quote PreProc
 
 
 fun! NoteFolds(lnum)
