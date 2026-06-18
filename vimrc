@@ -321,6 +321,7 @@ abbrev assing assign
 abbrev jsut just
 abbrev naything anything
 abbrev kidn kind
+abbrev everythign everything
 
 "
 " Plugins                                                       {{{1
