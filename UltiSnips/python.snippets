@@ -59,6 +59,10 @@ snippet here "here = ...dirname(__file__)" !b
 here = os.path.abspath(os.path.dirname(__file__))
 endsnippet
 
+snippet "re[.]sub[(]?[)]?" "re.sub() reminder of argument order" wr
+re.sub(r"${1:pattern}", "${2:replacement}", ${3:string})$0
+endsnippet
+
 snippet super2 "Magic super() for Python 2" !w
 `!p
 # Set a fallback completion first
