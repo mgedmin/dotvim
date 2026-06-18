@@ -1,12 +1,12 @@
 snippet tox "tox.ini" !b
 [tox]
-envlist = ${1:py27,py36,py37,py38,py39,pypy,pypy3}
+envlist = ${1:py3{10-14},pypy3}
 
 [testenv]
 deps =
-    ${2:zope.testrunner}
+    ${2:pytest}
 commands =
-    ${3:zope-testrunner --test-path=src {posargs:-pvc}}
+    ${3:pytest {posargs}}
 endsnippet
 
 snippet coverage "tox -e coverage" !b
