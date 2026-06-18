@@ -19,6 +19,6 @@ map <buffer> ,n :NukeTrailingWhitespace<cr>
 map <buffer> ,p :StripPrompt<cr>
 map <buffer> ,$ :StripPrompt<cr>
 
-com! -range Quote <line1>,<line2> call mg#changelog#quote("| ")
-com! -range Comment <line1>,<line2> call mg#changelog#quote("# ")
-com! -range StripPrompt <line1>,<line2> call mg#changelog#strip_prompt()
+com! -range Quote  call mg#changelog#quote('| ', <line1>, <line2>)
+com! -range Comment  call mg#changelog#quote('# ', <line1>, <line2>)
+com! -range StripPrompt  call mg#changelog#strip_prompt(<line1>, <line2>)

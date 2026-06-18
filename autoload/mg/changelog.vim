@@ -1,31 +1,37 @@
-" Implement ,q/,c (:Quote/:Comment) and :NewChangelogEntry for /root/Changelog
+" Implement ,q/,c/,p (:Quote/:Comment/:StripPrompt) and :NewChangelogEntry
+" for /root/Changelog
 
-fun! mg#changelog#quote(prefix)
+fun! mg#changelog#quote(prefix, line1, line2)
   let saved = exists('*getcurpos') ? getcurpos() : getpos('.')
-  let previous = getline(prevnonblank(line('.') - 1))
+  let previous = getline(prevnonblank(a:line1 - 1))
   let indent = matchstr(previous, '^\s*')
   if previous !~ '^\s*\([#|]\|\.\{3}\)'
     let indent .= "  "
   endif
-  let line = getline('.')
-  let new_line = indent . a:prefix . mg#changelog#expandtabs(line)
-  call setline('.', substitute(new_line, '\s*\r*$', '', ''))
+  for i in range(a:line1, a:line2)
+    let line = getline(i)
+    let new_line = indent . a:prefix . mg#changelog#expandtabs(line)
+    call setline(i, substitute(new_line, '\s*\r*$', '', ''))
+  endfor
   call setpos('.', saved)
 endfun
 
-fun! mg#changelog#strip_prompt()
+fun! mg#changelog#strip_prompt(line1, line2)
   let saved = exists('*getcurpos') ? getcurpos() : getpos('.')
-  let previous = getline(prevnonblank(line('.') - 1))
+  let previous = getline(prevnonblank(a:line1 - 1))
   let indent = matchstr(previous, '^\s*')
   if previous =~ '^\s*\([#|]\|\.\{3}\)'
     " there's probably a better way to remove the last two characters
     let indent = substitute(indent, '  $', '', '')
   endif
-  let line = getline('.')
+  let line = getline(a:line1)
   let promptless = substitute(line, '^\(\[git:[^\]]*\]\|[^$#]\)*[$#]\s*', '', '')
   let new_line = indent . promptless
-  call setline('.', substitute(new_line, '\s*\r*$', '', ''))
+  call setline(a:line1, substitute(new_line, '\s*\r*$', '', ''))
   call setpos('.', saved)
+  if a:line1 < a:line2
+    call mg#changelog#quote("| ", a:line1 + 1, a:line2)
+  endif
 endfun
 
 fun! mg#changelog#expandtabs(s)
@@ -35,9 +41,9 @@ fun! mg#changelog#expandtabs(s)
 endfun
 
 fun! mg#changelog#new_changelog_entry()
-  let l:user=$SUDO_USER
+  let l:user = $SUDO_USER
   if l:user == ''
-    let l:user=$USER
+    let l:user = $USER
   endif
   $
   put =''
