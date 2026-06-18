@@ -845,6 +845,7 @@ if has("eval")
   let g:bufExplorerShowRelativePath = 1
   let g:bufExplorerSplitOutPathName = 0
   let g:bufExplorerShowNoName = 1
+  let g:bufExplorerSortBy = 'fullpath'
 endif
 
 " YouCompleteMe (which I no longer use)                         {{{2
