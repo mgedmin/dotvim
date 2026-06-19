@@ -16,7 +16,11 @@ fun! mg#changelog#quote(prefix, line1, line2)
   call setpos('.', saved)
 endfun
 
-fun! mg#changelog#strip_prompt(line1, line2)
+fun! mg#changelog#is_prompt(line)
+  return a:line =~ '^\(\[git:[^\]]*\]\|[^$#]\)*[$#]\s*'
+endfun
+
+fun! mg#changelog#strip_prompt_from_line(line1)
   let saved = exists('*getcurpos') ? getcurpos() : getpos('.')
   let previous = getline(prevnonblank(a:line1 - 1))
   let indent = matchstr(previous, '^\s*')
@@ -29,8 +33,22 @@ fun! mg#changelog#strip_prompt(line1, line2)
   let new_line = indent . promptless
   call setline(a:line1, substitute(new_line, '\s*\r*$', '', ''))
   call setpos('.', saved)
-  if a:line1 < a:line2
-    call mg#changelog#quote("| ", a:line1 + 1, a:line2)
+endfun
+
+fun! mg#changelog#strip_prompt(line1, line2)
+  call mg#changelog#strip_prompt_from_line(a:line1)
+  let start = a:line1
+  for i in range(a:line1 + 1, a:line2)
+    if mg#changelog#is_prompt(getline(i))
+      if start < i - 1
+        call mg#changelog#quote("| ", start + 1, i - 1)
+      endif
+      call mg#changelog#strip_prompt_from_line(i)
+      let start = i
+    endif
+  endfor
+  if start < a:line2
+    call mg#changelog#quote("| ", start + 1, a:line2)
   endif
 endfun
 
