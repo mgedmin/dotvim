@@ -348,7 +348,7 @@ if has("eval")
   " asynchonously (requires Vim 8).
   if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
     let g:ale_set_balloons = 1   " must be set before loading ale
-    Plug 'w0rp/ale'
+    Plug 'dense-analysis/ale'
     let g:ale_linters = {}
     let g:ale_linters.python = ['flake8']
     let g:ale_linters.rust = ['cargo']
