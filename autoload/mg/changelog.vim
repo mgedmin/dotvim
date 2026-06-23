@@ -17,7 +17,7 @@ fun! mg#changelog#quote(prefix, line1, line2)
 endfun
 
 fun! mg#changelog#is_prompt(line)
-  return a:line =~ '^\(\[git:[^\]]*\]\|[^$#]\)*[$#]\s*'
+  return a:line =~ '^\(\[git:[^\]]*\]\|[^$#]\)\+[$#]\s*'
 endfun
 
 fun! mg#changelog#strip_prompt_from_line(line1)
