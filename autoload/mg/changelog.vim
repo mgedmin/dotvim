@@ -16,8 +16,10 @@ fun! mg#changelog#quote(prefix, line1, line2)
   call setpos('.', saved)
 endfun
 
+let s:prompt_rx = '^\(\[git:[^\]]*\]\|[^$#]\)\+[$#]\s*'
+
 fun! mg#changelog#is_prompt(line)
-  return a:line =~ '^\(\[git:[^\]]*\]\|[^$#]\)\+[$#]\s*'
+  return a:line =~ s:prompt_rx
 endfun
 
 fun! mg#changelog#strip_prompt_from_line(line1)
@@ -32,7 +34,7 @@ fun! mg#changelog#strip_prompt_from_line(line1)
     let indent = '  '
   endif
   let line = getline(a:line1)
-  let promptless = substitute(line, '^\(\[git:[^\]]*\]\|[^$#]\)\+[$#]\s*', '', '')
+  let promptless = substitute(line, s:prompt_rx, '', '')
   let new_line = indent . promptless
   call setline(a:line1, substitute(new_line, '\s*\r*$', '', ''))
   call setpos('.', saved)
