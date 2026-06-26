@@ -322,6 +322,7 @@ abbrev jsut just
 abbrev naything anything
 abbrev kidn kind
 abbrev everythign everything
+abbrev chagne change
 
 "
 " Plugins                                                       {{{1
