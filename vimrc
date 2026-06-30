@@ -323,6 +323,7 @@ abbrev naything anything
 abbrev kidn kind
 abbrev everythign everything
 abbrev chagne change
+abbrev teh the
 
 "
 " Plugins                                                       {{{1
