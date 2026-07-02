@@ -324,6 +324,7 @@ abbrev kidn kind
 abbrev everythign everything
 abbrev chagne change
 abbrev teh the
+abbrev isntall install
 
 "
 " Plugins                                                       {{{1
