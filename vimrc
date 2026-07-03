@@ -2016,8 +2016,7 @@ augroup Puppet
   " - https://github.com/habamax/vim-godot/pull/60/changes
   autocmd!
   autocmd BufReadCmd puppet:///* ++nested
-              \ exe 'keepalt e' mg#puppet#includeexpr(expand('<amatch>')) |
-              \ exe 'silent! keepalt bdelete' expand('<amatch>')
+              \ call mg#puppet#bufreadcmd(expand('<amatch>'))
 augroup END
 
 " .vimrc                                                        {{{2
