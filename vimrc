@@ -684,6 +684,16 @@ if has("eval")
   " Folding for Markdown files
   Plug 'masukomi/vim-markdown-folding'
 
+  " Live preview for Markdown
+  Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
+  " (uv tool install smdv && sudo apt install pandoc)
+  " only smdv is broken so use mgedmin/smdv, the fix-websocket-server branch
+  " and vim-instant-markdown is also broken so use
+  " mgedmin/vim-instant-markdown, fix-python-mode branch.
+  let g:instant_markdown_autostart = 0  " use :InstantMarkdownPreview
+  let g:instant_markdown_python = 1
+  let g:instant_markdown_logfile = '/tmp/instant_markdown.log'
+
   " Puppet syntax (newer than apt install vim-puppet gives me)
   Plug 'rodjek/vim-puppet'
 
