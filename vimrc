@@ -294,7 +294,7 @@ if has("eval")
 endif
 
 " Markdown                                                      {{{2
-let g:markdown_fenced_languages=['ini', 'console', 'python']
+let g:markdown_fenced_languages = ['ini', 'console', 'python']
 
 " Netrw explorer                                                {{{2
 if has("eval")
@@ -683,6 +683,9 @@ if has("eval")
 
   " Folding for Markdown files
   Plug 'masukomi/vim-markdown-folding'
+
+  " Puppet syntax (newer than apt install vim-puppet gives me)
+  Plug 'rodjek/vim-puppet'
 
   " Improved YAML syntax for Ansible
   Plug 'chase/vim-ansible-yaml'
