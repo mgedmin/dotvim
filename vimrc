@@ -492,6 +492,7 @@ if has("eval")
   Plug 'shumphrey/fugitive-gitlab.vim'
   let g:fugitive_gitlab_domains = {
         \ 'https://gitlab.gnome.org': 'https://gitlab.gnome.org',
+        \ 'https://salsa.debian.org': 'https://salsa.debian.org',
         \ }
 
   " Bitbucket support for vim-fugitive
