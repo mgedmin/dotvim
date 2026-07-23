@@ -11,7 +11,10 @@ endf
 " intended for a mapping like cnoremap <M-BS> <C-\>emg#edit_cmdline#delete_word()<CR>
 function! mg#edit_cmdline#delete_word_backwards()
   let old_len = len(getcmdline())
+  let old_isk = &l:isk
+  setlocal isk-=/
   let new_line = substitute(getcmdline(), '\k*[^[:keyword:]]*\%'.getcmdpos().'c', '', '')
+  let &l:isk = old_isk
   let n_deleted = old_len - len(new_line)
   call setcmdpos(getcmdpos() - n_deleted)
   return new_line
