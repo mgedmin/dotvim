@@ -445,7 +445,7 @@ if has("eval")
   Plug 'mgedmin/py-test-runner.vim'
 
   " Locate the source code line from clipboard contents, bound to <F7>
-  Plug 'mgedmin/source-locator.vim', {'on': ['ClipboardTest', 'LocateTest']}
+  Plug 'mgedmin/source-locator.vim'
 
   " :EnableTestOnSave and have fun doing code katas
   Plug 'mgedmin/test-on-save.vim', {'on': ['EnableTestOnSave', 'RunTests']}
@@ -478,6 +478,7 @@ if has("eval")
   " install black-machiatto
   Plug 'smbl64/vim-black-macchiato'
   let g:black_macchiato_args = "-S -l79"
+
 
   " Version control integration                                 {{{3
 
