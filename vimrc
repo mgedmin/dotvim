@@ -282,6 +282,11 @@ set errorformat+=E\ %#File\ \"%f\"\\,\ line\ %l%.%#
 set errorformat+=
       \File\ \"%f\"\\,\ line\ %l\\,%#%m
 
+" Ruff warnings                                                 {{{2
+
+set errorformat^=
+      \\ \ -->\ %f:%l:%c
+
 " Shell scripts                                                 {{{2
 if has("eval")
   let g:is_posix = 1            " /bin/sh is POSIX, not ancient Bourne shell
