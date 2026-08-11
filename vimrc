@@ -1278,6 +1278,7 @@ command! EditTestRunner :e ~/.vim/py-test-runner.cfg
 
 " :EditPythonImports                                            {{{2
 command! EditPythonImports :e ~/.vim/python-imports.cfg
+command! EditImports :EditPythonImports
 
 " :ReloadFtdetectScripts after editing a ~/.vim/ftdetect/*.vim  {{{2
 command! -bang ReloadFtdetectScripts :unlet did_load_filetypes | runtime filetype.vim
