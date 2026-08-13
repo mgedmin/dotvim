@@ -100,7 +100,7 @@ function mg#python#mypy_on(mypy_executable = '')
   call add(g:ale_linters.python, "mypy")
   if a:mypy_executable != ''
     let g:ale_python_mypy_executable = substitute(a:mypy_executable, ' .*', '', '')
-    let g:ale_python_mypy_options = substitute(a:mypy_executable, '^[^ ]*', '', '')
+    let g:ale_python_mypy_options = substitute(a:mypy_executable, '^[^ ]* *', '', '')
   elseif filereadable('.tox/mypy/bin/mypy')
     let g:ale_python_mypy_executable = '.tox/mypy/bin/mypy'
     let g:ale_python_mypy_options = ''
@@ -108,6 +108,7 @@ function mg#python#mypy_on(mypy_executable = '')
     let g:ale_python_mypy_executable = 'mypy'
     let g:ale_python_mypy_options = ''
   endif
+  echo 'Using' g:ale_python_mypy_executable g:ale_python_mypy_options
   if exists(':ALELint')
     ALELint
   endif
