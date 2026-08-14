@@ -114,8 +114,34 @@ function mg#python#mypy_on(mypy_executable = '')
   endif
 endf
 
+function mg#python#ty_on(ty_executable = '')
+  call filter(g:ale_linters.python, 'v:val != "ty"')
+  call add(g:ale_linters.python, "ty")
+  if a:ty_executable != ''
+    let g:ale_python_ty_executable = substitute(a:ty_executable, ' .*', '', '')
+    let g:ale_python_ty_options = substitute(a:ty_executable, '^[^ ]* *', '', '')
+  elseif filereadable('.tox/ty/bin/ty')
+    let g:ale_python_ty_executable = '.tox/ty/bin/ty'
+    let g:ale_python_ty_options = ''
+  else
+    let g:ale_python_ty_executable = 'ty'
+    let g:ale_python_ty_options = ''
+  endif
+  echo 'Using' g:ale_python_ty_executable g:ale_python_ty_options
+  if exists(':ALELint')
+    ALELint
+  endif
+endf
+
 function mg#python#mypy_off()
   call filter(g:ale_linters.python, 'v:val != "mypy"')
+  if exists(':ALELint')
+    ALELint
+  endif
+endf
+
+function mg#python#ty_off()
+  call filter(g:ale_linters.python, 'v:val != "ty"')
   if exists(':ALELint')
     ALELint
   endif

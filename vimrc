@@ -1327,6 +1327,8 @@ command! -bar Python3 call Python3(1)
 
 command! -bar -nargs=?  MyPy      call mg#python#mypy_on(<q-args>)
 command! -bar           MyPyOff   call mg#python#mypy_off()
+command! -bar -nargs=?  Ty        call mg#python#ty_on(<q-args>)
+command! -bar           TyOff     call mg#python#ty_off()
 
 " :Ruff switches from flake8 to ruff                            {{{2
 command! -bar           Ruff      call mg#python#ruff()
