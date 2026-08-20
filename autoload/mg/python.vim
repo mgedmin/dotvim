@@ -95,6 +95,16 @@ function mg#python#project_uses_mypy()
 endf
 
 
+function mg#python#uvx_with_deps(command)
+  pyx import mg_python
+  let deps = pyxeval('mg_python.extract_current_script_dependencies()')
+  if deps == []
+    return a:command
+  endif
+  return "uvx --with '" .. deps->join(",") .. "' " .. a:command
+endf
+
+
 function mg#python#mypy_on(mypy_executable = '')
   call filter(g:ale_linters.python, 'v:val != "mypy"')
   call add(g:ale_linters.python, "mypy")
@@ -105,7 +115,7 @@ function mg#python#mypy_on(mypy_executable = '')
     let g:ale_python_mypy_executable = '.tox/mypy/bin/mypy'
     let g:ale_python_mypy_options = ''
   else
-    let g:ale_python_mypy_executable = 'mypy'
+    let g:ale_python_mypy_executable = mg#python#uvx_with_deps('mypy')
     let g:ale_python_mypy_options = ''
   endif
   echo 'Using' g:ale_python_mypy_executable g:ale_python_mypy_options
@@ -124,7 +134,7 @@ function mg#python#ty_on(ty_executable = '')
     let g:ale_python_ty_executable = '.tox/ty/bin/ty'
     let g:ale_python_ty_options = ''
   else
-    let g:ale_python_ty_executable = 'ty'
+    let g:ale_python_ty_executable = mg#python#uvx_with_deps('ty')
     let g:ale_python_ty_options = ''
   endif
   echo 'Using' g:ale_python_ty_executable g:ale_python_ty_options
