@@ -1435,6 +1435,10 @@ inoremap <C-U> <C-G>u<C-U>
 " mode: you don't want u to undo the text you typed before you mispasted
 inoremap <MiddleMouse> <C-G>u<MiddleMouse>
 
+" Also my work situation trained me to use right-click to paste :/
+imap <RightMouse> <MiddleMouse>
+map <RightMouse> <MiddleMouse>
+
 " */# search in visual mode (from www.vim.org)                  {{{2
 
 " Atom \V sets following pattern to "very nomagic", i.e. only the backslash
