@@ -363,7 +363,7 @@ if has("eval")
     " ansible-lint is cluttering empty .ansible/{collections,modules,roles}/
     " subdirectories everywhere, shame on you
     let g:ale_linters.ansible = []
-    let g:ale_linters.yaml = ['yamllint']
+    let g:ale_linters.yaml = ['yamllint', 'actionlint']
     " eslint complains about not having a config file, the gall!
     let g:ale_linters.html = []
     " xmllint gets confused about tal: prefixes in Zope page templates
