@@ -7,7 +7,7 @@ command_t_clean := bundle/command-t/ruby/command-t/ext/command-t/*.o
 ycm_ext := bundle/YouCompleteMe/python/ycm_core.so bundle/YouCompleteMe/python/ycm_client_support.so
 
 # user config file symlinks to set up with 'make install'
-install := ~/.vimrc ~/.config/nvim
+install := ~/.vimrc
 
 .PHONY: all
 all: $(install) vim-plug $(extensions)
@@ -59,6 +59,3 @@ $(ycm_ext): | bundle/YouCompleteMe
 
 ~/.vimrc:
 	ln -sr vimrc ~/.vimrc
-
-~/.config/nvim:
-	ln -sr . ~/.config/nvim

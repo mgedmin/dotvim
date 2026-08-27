@@ -87,9 +87,7 @@ augroup END
 set wildmenu                    " nice tab-completion on the command line
 set wildmode=longest,full       " nicer tab-completion on the command line
 set hidden                      " side effect: undo list is not lost on C-^
-if !has('nvim')
-  set browsedir=buffer          " :browse e starts in %:h, not in $PWD
-endif
+set browsedir=buffer            " :browse e starts in %:h, not in $PWD
 set autoread                    " automatically reload files changed on disk
 set history=1000                " remember more lines of cmdline history
 set switchbuf=useopen           " quickfix reuses open windows
@@ -354,7 +352,7 @@ if has("eval")
 
   " Show syntax errors and style warning in files I edit.  Updates
   " asynchonously (requires Vim 8).
-  if has('nvim') || has('timers') && exists('*job_start') && exists('*ch_close_in')
+  if has('timers') && exists('*job_start') && exists('*ch_close_in')
     let g:ale_set_balloons = 1   " must be set before loading ale
     Plug 'dense-analysis/ale'
     let g:ale_linters = {}
@@ -539,13 +537,7 @@ if has("eval")
   " Navigation                                                  {{{3
 
   " Open files by typing a subsequence of the pathname, bound to <Leader>t
-  if has('nvim')
-    Plug 'wincent/command-t', {
-      \ 'branch': '7-x-release',
-      \ 'do': 'make' }
-    let g:CommandTPreferredImplementation = 'lua'
-    nmap <silent> <Leader>t <Plug>(CommandT)
-  elseif has('ruby')
+  if has('ruby')
     Plug 'wincent/command-t', {
       \ 'branch': '7-x-release',
       \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make' }
@@ -605,9 +597,7 @@ if has("eval")
 
   " Emacs-like Alt-t transpose words
   Plug 'vim-scripts/transpose-words'
-  if !has('nvim')
-    exec "set <M-t>=\<Esc>t"
-  endif
+  exec "set <M-t>=\<Esc>t"
 
   " Snippets!  Type some text, press <tab> to expand, with get expansion with
   " multiple placeholders you can keep or replace and tab over.
@@ -1794,9 +1784,7 @@ map             <S-F10>         :NERDTreeToggle<CR>
 imap            <S-F10>         <C-O><S-F10>
 
 " <F11> = toggle 'paste'
-if !has('nvim')
-  set pastetoggle=<F11>
-endif
+set pastetoggle=<F11>
 
 " <F12> = show the Unicode name of the character under cursor
 " I used to have my own :UnicodeName for this, but tpope/vim-characterize is
