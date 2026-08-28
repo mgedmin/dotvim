@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.service,*.socket  set filetype=dosini
+au BufRead,BufNewFile *.service,*.socket,*.timer  set filetype=dosini
