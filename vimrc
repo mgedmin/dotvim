@@ -886,6 +886,8 @@ if has("eval")
   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
   " <c-tab> doesn't work in gnome-terminal
   let g:UltiSnipsListSnippets="<C-R><tab>"
+  " avoid multi-second pause on Windows
+  let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips']
 endif
 
 " Manual pages (:Man foo)                                       {{{2
