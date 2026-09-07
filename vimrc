@@ -550,6 +550,7 @@ if has("eval")
   Plug 'vim-scripts/ctrlp.vim'
 
   " Extend the builtin gx
+  " see autoload/gxext/*
   Plug 'stsewd/gx-extended.vim'
   nmap gx <Plug>(gxext-normal)
 
@@ -982,6 +983,7 @@ if has("eval")
 endif
 
 " netrw.vim open plugin repo with gx in .vimrc                  {{{2
+" (might not be needed now that I have Plug 'stsewd/gx-extended.vim'!)
 fun! Netrw_get_URL_vim()
   let plugin_url = ''
   try
