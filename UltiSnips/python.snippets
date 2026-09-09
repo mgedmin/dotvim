@@ -1,25 +1,7 @@
 global !p
 # see ~/.vim/pythonx/mg_snip.py
 from mg_snip import git_url, name_of_parent_directory, adjust_indent, blank_lines_above, blank_lines_below, blank_lines_around
-
-
-# XXX: this doesn't actually work and I haven't debugged why
-def add_import(snip, module, name):
-    in_docstring = False
-    n_blanks = 0
-    for lineno, line in enumerate(snip.buffer):
-        if line == '"""':
-            in_docstring = not in_docstring
-        if not in_docstring and not line.startswith('#'):
-            if name in line.split() and 'import' in line.split():
-                return
-        if line == "" and not in_docstring:
-            n_blanks += 1
-            if n_blanks == 2:
-                snip.buffer[lineno:lineno] = [f'from {module} import {name}']
-                # TODO: ALEFix isort
-            return
-
+from mg_snip_python import add_import
 endglobal
 
 
@@ -102,6 +84,7 @@ if tag:
 `$1)
 endsnippet
 
+pre_expand "add_import(snip.buffer, 'argparse')"
 snippet argparse "Argparse-based command-line parsing" !b
 parser = argparse.ArgumentParser(description="${1}")
 parser.add_argument("--version", action="version",
@@ -419,7 +402,7 @@ input_file = pathlib.Path(args.filename)
 input_lines = input_file.read_text().splitlines()
 endsnippet
 
-pre_expand "add_import(snip, 'dataclasses', 'field')"
+pre_expand "add_import(snip.buffer, 'dataclasses', 'field')"
 snippet field "dataclasses.field()"
 field(default_factory=$1)$0
 endsnippet

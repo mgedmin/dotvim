@@ -888,6 +888,7 @@ if has("eval")
   " <c-tab> doesn't work in gnome-terminal
   let g:UltiSnipsListSnippets="<C-R><tab>"
   " avoid multi-second pause on Windows
+  " (fixed since, see https://github.com/SirVer/ultisnips/issues/1694)
   let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips']
 endif
 
