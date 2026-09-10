@@ -32,12 +32,12 @@ update: vim-plug
 .PHONY: rebuild
 rebuild:
 	rm -f $(command_t_ext) $(command_t_clean) $(ycm_ext)
-	@make -s all
+	@$(MAKE) -s all
 
 .PHONY: vim-plug
 vim-plug: autoload/plug.vim
 autoload/plug.vim:
-	@make -s update-vim-plug
+	@$(MAKE) -s update-vim-plug
 
 .PHONY: update-vim-plug
 update-vim-plug:
@@ -46,7 +46,7 @@ update-vim-plug:
 .PHONY: command-t
 command-t: $(command_t_ext)
 $(command_t_ext): | bundle/command-t
-	# You may need to apt-get install ruby ruby-dev if this fails:
+	# You may need to apt-get install gcc ruby ruby-dev if this fails:
 	cd bundle/command-t/ruby/command-t/ext/command-t \
 	    && ruby extconf.rb \
 	    && make

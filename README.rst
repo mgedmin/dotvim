@@ -4,6 +4,10 @@ Marius's .vim
 Instructions to self
 --------------------
 
+Install dependencies ::
+
+    sudo apt install vim-nox make git gcc ruby-dev universal-ctags
+
 Clone it ::
 
     git clone https://gedmin.as/dotvim ~/.vim
