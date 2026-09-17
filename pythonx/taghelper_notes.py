@@ -6,6 +6,6 @@ def parse(buffer, tags):
     for n, line in enumerate(buffer, 1):
         if not line or n == 1:
             continue
-        if line[0] in '-=~' and line == line[0] * len(line):
+        if line[0] in '-=~' and line == line[0] * len(line) and len(line) >= 3:
             name = buffer[n - 2]
             tags.add(name, n-1, autoclose=True)
