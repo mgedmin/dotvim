@@ -1848,7 +1848,7 @@ augroup END
 " Make fugitive's fake buffers visually distinguishable         {{{2
 augroup MakeFugitiveVisible
   au!
-  au BufNew,BufReadPost fugitive://* let &l:colorcolumn=s:ComputeMargin(0)
+  au BufNew,BufReadPost fugitive://* let &l:colorcolumn=s:ComputeMargin(0) | let b:debug_colorcolumn = expand('triggered by <afile>')
   au BufLeave           fugitive://* Margin 80
   au FileType floggraph              MarginOff
 augroup END
