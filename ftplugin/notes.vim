@@ -24,5 +24,5 @@ map <buffer> ,$ :StripPrompt<cr>
 
 com! -range Quote  call mg#changelog#quote('| ', <line1>, <line2>)
 com! -range Comment  call mg#changelog#quote('# ', <line1>, <line2>)
-com! -range Indent  call mg#changelog#quote('  ', <line1>, <line2>)
+com! -range Indent  call mg#changelog#quote('', <line1>, <line2>)
 com! -range StripPrompt  call mg#changelog#strip_prompt(<line1>, <line2>)
