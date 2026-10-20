@@ -106,6 +106,37 @@ set clipboard&
 set clipboard-=autoselect       " unnamed + autoselect = can't use Vp to replace
 set clipboard^=unnamed          " interoperate with the X clipboard
 
+if has("clipboard_provider")
+  let v:clipproviders['xsel'] = {
+        \ 'available': function('mg#clipboard#has_xsel'),
+        \ 'copy': {
+        \   '+': function('mg#clipboard#xsel_copy'),
+        \   '*': function('mg#clipboard#xsel_copy')
+        \  },
+        \ 'paste': {
+        \   '+': function('mg#clipboard#xsel_paste'),
+        \   '*': function('mg#clipboard#xsel_paste')
+        \  }
+        \ }
+  let v:clipproviders['wl'] = {
+        \ 'available': function('mg#clipboard#has_wl_copy_paste'),
+        \ 'copy': {
+        \   '+': function('mg#clipboard#wl_copy'),
+        \   '*': function('mg#clipboard#wl_copy')
+        \  },
+        \ 'paste': {
+        \   '+': function('mg#clipboard#wl_paste'),
+        \   '*': function('mg#clipboard#wl_paste')
+        \  }
+        \ }
+  " NB: 'wl' needs to do focus stealing, which is super annoying (causes
+  " terminal title flickering and the occasional system notification about
+  " wl-copy/wl-paste requiring attention).  Prefer xsel
+  set clipmethod&
+  set clipmethod+=xsel
+  set clipmethod+=wl
+endif
+
 if v:version >= 700
   set diffopt+=vertical         " split diffs vertically
   set spelllang=en,lt           " spell-check two languages at once
