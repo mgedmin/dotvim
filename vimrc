@@ -359,6 +359,7 @@ abbrev everythign everything
 abbrev chagne change
 abbrev teh the
 abbrev isntall install
+abbrev NEtwork Network
 
 "
 " Plugins                                                       {{{1
