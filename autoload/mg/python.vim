@@ -115,8 +115,9 @@ function mg#python#mypy_on(mypy_executable = '')
     let g:ale_python_mypy_executable = '.tox/mypy/bin/mypy'
     let g:ale_python_mypy_options = ''
   else
-    let g:ale_python_mypy_executable = mg#python#uvx_with_deps('mypy')
-    let g:ale_python_mypy_options = ''
+    let l:mypy_executable = mg#python#uvx_with_deps('mypy')
+    let g:ale_python_mypy_executable = substitute(l:mypy_executable, ' .*', '', '')
+    let g:ale_python_mypy_options = substitute(l:mypy_executable, '^[^ ]* *', '', '')
   endif
   echo 'Using' g:ale_python_mypy_executable g:ale_python_mypy_options
   if exists(':ALELint')
