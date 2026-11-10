@@ -134,9 +134,11 @@ function mg#python#ty_on(ty_executable = '')
     let g:ale_python_ty_executable = '.tox/ty/bin/ty'
     let g:ale_python_ty_options = ''
   else
-    let g:ale_python_ty_executable = mg#python#uvx_with_deps('ty')
-    let g:ale_python_ty_options = ''
+    let ty_executable = mg#python#uvx_with_deps('ty check')
+    let g:ale_python_ty_executable = substitute(l:ty_executable, ' .*', '', '')
+    let g:ale_python_ty_options = substitute(l:ty_executable, '^[^ ]* *', '', '')
   endif
+  " XXX: ty_options is ignored!  https://github.com/dense-analysis/ale/issues/5180
   echo 'Using' g:ale_python_ty_executable g:ale_python_ty_options
   if exists(':ALELint')
     ALELint
