@@ -107,6 +107,7 @@ endf
 
 function mg#python#mypy_on(mypy_executable = '')
   call filter(g:ale_linters.python, 'v:val != "mypy"')
+  call filter(g:ale_linters.python, 'v:val != "ty"')
   call add(g:ale_linters.python, "mypy")
   if a:mypy_executable != ''
     let g:ale_python_mypy_executable = substitute(a:mypy_executable, ' .*', '', '')
@@ -126,6 +127,7 @@ function mg#python#mypy_on(mypy_executable = '')
 endf
 
 function mg#python#ty_on(ty_executable = '')
+  call filter(g:ale_linters.python, 'v:val != "mypy"')
   call filter(g:ale_linters.python, 'v:val != "ty"')
   call add(g:ale_linters.python, "ty")
   if a:ty_executable != ''
