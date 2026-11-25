@@ -760,6 +760,9 @@ if has("eval")
   " Puppet .epp templates
   Plug 'farkasmate/epp-syntax-vim'
 
+  " GTK Blueprints
+  Plug 'https://gitlab.com/gabmus/vim-blueprint'
+
   "                                                             }}}3
 
   call plug#end()
